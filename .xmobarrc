@@ -1,0 +1,26 @@
+Config {font = "xft:DejaVu Sans Mono:pixelsize=12:foundry=unknown:weight=normal:slant=0:width=normal:spacing=100:scalable=true"
+       ,fgColor = "#c5c8c6"
+       ,bgColor = "#373b41"
+--     ,position = Static { xpos = 0, ypos = 0, width = 1366, height = 13 }
+       ,position = TopW C 100
+       ,lowerOnStart = True
+       ,commands = [
+         Run MultiCpu ["-t","Cpu: <total0> <total1> <total2> <total3>","-L","30","-H","60","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC","-w","3"] 10
+        ,Run Memory ["-t","Mem: <usedratio>%","-H","2048","-L","1024","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC"] 10
+--      ,Run Swap ["-t","Swap: <usedratio>%","-H","1024","-L","512","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC"] 60
+        ,Run StdinReader
+        ,Run TopMem [] 60
+        ,Run TopProc [] 30
+        ,Run CpuFreq ["-t","Freq: <cpu0>/<cpu1>/<cpu2>/<cpu3>","-L","0","-H","2","-l","#b5bd68","-n","#b5bd68","-h","#cc6666"] 60
+--      ,Run CoreTemp ["-t","Temp:<core0> / <core1> / <core2> / <core3>C","-L","40","-H","60","-l","#b5bd68","-n","gray90","-h","#cc6666"] 60
+        ,Run Date "%a %b %_d %Y <fc=#ee9a00>%H:%M:%S</fc>" "date" 10
+        ,Run Network "wlp2s0" ["-t <rx>/<tx>Kb/s","-S true","-L","0","-H","32","--low","#b5bd68","--normal","#ffffcc","--high","#cc6666"] 10
+       ]
+       ,sepChar = "%"
+       ,alignSep = "}{"
+       ,template = "%StdinReader% }{ %multicpu% (%top%) | %cpufreq% | %wlp2s0% | %memory% (%topmem%) | %date%       "
+       }
+
+--  (green . "#b5bd68")
+--  (red   . "#cc6666")
+--  (aqua  . "#8abeb7")
