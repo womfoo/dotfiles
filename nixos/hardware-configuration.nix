@@ -8,28 +8,26 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_hcd" "ehci_pci" "ahci" "usb_storage" ];
+  boot.initrd.availableKernelModules = [ "fbcon" "i915" "xhci_hcd" "ehci_hcd" "ehci_pci" "ohci_pci" "ahci" "usb_storage" "ata_piix"];
+  boot.initrd.luks.devices = [{ name = "luksroot"; device = "/dev/disk/by-uuid/da7a4b5a-a6a5-4b55-8bf0-115615ce30a9"; }];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
     { device = "/dev/mapper/luksroot";
       fsType = "ext4";
+      options = "relatime,data=ordered,commit=600";
     };
 
   fileSystems."/tmp" =
     { device = "tmpfs";
       fsType = "tmpfs";
+      neededForBoot = true;
     };
 
   fileSystems."/var/log" =
     { device = "tmpfs";
       fsType = "tmpfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "systemd-1";
-      fsType = "autofs";
     };
 
   fileSystems."/home/kranium/.cache" =
@@ -43,8 +41,13 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/sdb1";
+    { device = "/dev/disk/by-uuid/8D19-BB5C";
       fsType = "vfat";
+    };
+
+  fileSystems."/Windows" =
+    { device = "/dev/disk/by-uuid/E8FA2C4FFA2C1C76";
+      options = "defaults,umask=022,uid=2000";
     };
 
   swapDevices =[ ];
