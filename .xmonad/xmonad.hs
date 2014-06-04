@@ -7,7 +7,7 @@ import XMonad.Hooks.SetWMName     (setWMName)
 import XMonad.Layout.NoBorders    (smartBorders)
 import XMonad.Util.EZConfig       (additionalKeys)
 import XMonad.Hooks.EwmhDesktops  (fullscreenEventHook)
-import XMonad.Util.Run            (spawnPipe)
+import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 
 main = do
   xmproc <- spawnPipe "/nix/var/nix/profiles/default/bin/xmobar"
@@ -28,4 +28,5 @@ main = do
         , ppTitle        = xmobarColor "#b5bd68" "" . shorten 80
         }
     }
-    `additionalKeys` [((mod4Mask, xK_b), sendMessage ToggleStruts)]
+    `additionalKeys` [((mod4Mask, xK_b), sendMessage ToggleStruts)
+                     ,((mod4Mask, xK_l), unsafeSpawn "slimlock")]
