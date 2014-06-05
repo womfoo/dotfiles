@@ -29,7 +29,9 @@
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    arandr
     audacity
+    baobab
     bind                        # nslookup
     bitcoin
     chromium
@@ -40,18 +42,25 @@
     emacs24Packages.haskellMode
     file
     firefox
+    gimp
+    gimp
     git
     gnucash
+    gparted
     haskellPackages.xmobar
     htop
     iotop
     kde4.ktorrent
     keepassx
     libreoffice
+    logstash
     mc
     meld
     networkmanagerapplet
     pavucontrol
+    pgadmin
+    pidgin
+    pmtools                     # acpidump
     postgresql
     psmisc
     pulseaudio
@@ -61,8 +70,8 @@
     trayer
     unzip
     vlc
-    wireshark
     wget
+    wireshark
   ];
 
   # List services that you want to enable:
