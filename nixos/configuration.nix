@@ -12,6 +12,7 @@
 
   # Use the gummiboot efi boot loader.
   boot.loader.gummiboot.enable = true;
+  boot.loader.gummiboot.timeout = 4;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "silverpen";
