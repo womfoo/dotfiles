@@ -90,7 +90,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" ];
+     extraGroups = [ "wheel" "networkmanager" "audio"];
      group = "users";
      uid = 2000;
      createHome = true;
@@ -98,6 +98,8 @@
      shell = "/run/current-system/sw/bin/bash";
   };
   users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; } ;
+
+  hardware.pulseaudio.enable = true;
 
   time.hardwareClockInLocalTime = true;
   time.timeZone = "Asia/Kuala_Lumpur";
