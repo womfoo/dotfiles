@@ -27,6 +27,7 @@
     ];
   boot.initrd.luks.devices = [{ name = "luksroot"; device = "/dev/disk/by-uuid/da7a4b5a-a6a5-4b55-8bf0-115615ce30a9"; }];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.blacklistedKernelModules = ["pcspkr" "snd_pcsp"];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
