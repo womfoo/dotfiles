@@ -8,7 +8,23 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "fbcon" "i915" "xhci_hcd" "ehci_hcd" "ehci_pci" "ohci_pci" "ahci" "usb_storage" "ata_piix"];
+  boot.initrd.availableKernelModules = 
+    [
+     "ahci"
+     "ata_piix"
+     "ehci_hcd"
+     "ehci_pci"
+     "fbcon"
+     "hid"
+     "hid_apple"
+     "hid_generic"
+     "i915"
+     "ohci_pci"
+     "uhci_hcd"
+     "usb_storage"
+     "usbhid"
+     "xhci_hcd"
+    ];
   boot.initrd.luks.devices = [{ name = "luksroot"; device = "/dev/disk/by-uuid/da7a4b5a-a6a5-4b55-8bf0-115615ce30a9"; }];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
