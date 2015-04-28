@@ -10,7 +10,7 @@ import XMonad.Hooks.EwmhDesktops  (fullscreenEventHook)
 import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 
 main = do
-  xmproc <- spawnPipe "/nix/var/nix/profiles/default/bin/xmobar"
+  xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ defaultConfig
     { modMask            = mod4Mask
     , terminal           = "uxterm"
@@ -28,5 +28,7 @@ main = do
         , ppTitle        = xmobarColor "#b5bd68" "" . shorten 80
         }
     }
-    `additionalKeys` [((mod4Mask, xK_b), sendMessage ToggleStruts)
-                     ,((mod4Mask, xK_l), unsafeSpawn "slimlock")]
+    `additionalKeys` [
+                      ((mod4Mask, xK_b), sendMessage ToggleStruts)
+                     ,((mod4Mask, xK_l), unsafeSpawn "slimlock")
+                     ]
