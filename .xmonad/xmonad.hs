@@ -11,6 +11,9 @@ import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
 main = do
+  spawn "emacs"
+  spawn "xset -b" -- kill the system bell
+  spawn "nm-applet"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ defaultConfig
     { modMask            = mod4Mask
