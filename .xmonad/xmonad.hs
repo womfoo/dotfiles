@@ -34,6 +34,7 @@ main = do
     }
     `additionalKeys` [
                       ((mod4Mask, xK_b), sendMessage ToggleStruts)
+                     ,((mod4Mask, xK_p), spawn "dmenu_run -fn \"DejaVu Sans Mono:pixelsize=20:style=Book\"")
                      ,((mod4Mask, xK_l), unsafeSpawn "slimlock")
                      ,((0,xF86XK_MonBrightnessUp), spawn "light -A 10")
                      ,((0,xF86XK_MonBrightnessDown), spawn "light -U 10")
