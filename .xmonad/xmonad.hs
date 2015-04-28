@@ -8,6 +8,7 @@ import XMonad.Layout.NoBorders    (smartBorders)
 import XMonad.Util.EZConfig       (additionalKeys)
 import XMonad.Hooks.EwmhDesktops  (fullscreenEventHook)
 import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
+import Graphics.X11.ExtraTypes.XF86
 
 main = do
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
@@ -31,4 +32,7 @@ main = do
     `additionalKeys` [
                       ((mod4Mask, xK_b), sendMessage ToggleStruts)
                      ,((mod4Mask, xK_l), unsafeSpawn "slimlock")
+                     ,((0,xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume 0 +1.5%")
+                     ,((0,xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume 0 -- -1.5%")
+                     ,((0,xF86XK_AudioMute), spawn "pactl set-sink-mute 0 toggle")
                      ]
