@@ -18,7 +18,7 @@ main = do
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ defaultConfig
     { modMask            = mod4Mask
-    , terminal           = "uxterm"
+    , terminal           = "urxvt"
     , focusedBorderColor = "#cc6666"
     , normalBorderColor  = "#373b41"
     , borderWidth        = 3
