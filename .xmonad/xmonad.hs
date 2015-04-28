@@ -11,6 +11,7 @@ import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
 main = do
+  spawn "trayer --height 28 --widthtype request --edge top --align right --transparent true --tint 0 --alpha 64"
   spawn "emacs"
   spawn "xset -b" -- kill the system bell
   spawn "nm-applet"
