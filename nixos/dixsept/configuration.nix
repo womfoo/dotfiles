@@ -46,6 +46,9 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  services.fail2ban.enable = true;
+  services.fail2ban.jails.ssh-iptables = "enabled = true";
+
   security.sudo.wheelNeedsPassword = false;
 
   # Enable CUPS to print documents.
