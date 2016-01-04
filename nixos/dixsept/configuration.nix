@@ -22,7 +22,8 @@
   networking.nameservers     = [ "62.210.16.6" "62.210.16.7" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  networking.firewall.allowedTCPPorts = [22];
+  networking.firewall.allowedTCPPorts = [22 22000];
+  networking.firewall.allowedUDPPorts = [21027];
   networking.firewall.allowPing = true;
 
   # Select internationalisation properties.
@@ -82,5 +83,9 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
+
+  services.syncthing.enable = true;
+  services.syncthing.user = "kranium";
+  services.syncthing.dataDir = "/data/syncthing";
 
 }
