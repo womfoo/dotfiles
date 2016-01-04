@@ -14,9 +14,12 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   # Define on which hard drive you want to install Grub.
-  # boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.device = "/dev/sda";
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "dixsept"; # Define your hostname.
+  networking.interfaces.eth0 = { ipAddress = "195.154.164.244"; prefixLength = 24; };
+  networking.defaultGateway  = "195.154.164.0";
+  networking.nameservers     = [ "62.210.16.6" "62.210.16.7" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Select internationalisation properties.
@@ -38,7 +41,9 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+
+  security.sudo.wheelNeedsPassword = false;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -51,6 +56,17 @@
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
   # services.xserver.desktopManager.kde4.enable = true;
+
+  users.extraUsers.kranium =
+    { createHome      = true;
+      home            = "/home/kranium";
+      description     = "your name";
+      extraGroups     = [ "wheel" ];
+      useDefaultShell = true;
+      openssh.authorizedKeys.keys = [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCv8Rdf8gqewljlONxIU/NoI+aQhA0UNQbAsif0gKqGLPG2QrZgPktgG3r0Fn6cKtuhy7iExfWmUafJU73Od/hj8DK6uxicHEXh5pv6DZc2DEwyC5orJHQOZLblo96u2xsBkVx/++Nq/2vW1aMN0Wg8/Vgal1fBcfJAT9XAFmiKXLZxIvxWWw0PZYil4QJtlVGwebXm1trPr7H9hV8l+Lse8Z/Xt38DzQJI7yV5m6ENxPL/xCFsMMgb27c+Xf6gJPq2DIcUOJiP7fOcHXWN2W4/+ApUH5adMhJ8Y8mT4CGcLqNhcHKSFzPaUQpfQ0vi3QJez1LYoHANu6Iy6q7HoIab kranium@silverspark"
+      ];
+    };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
