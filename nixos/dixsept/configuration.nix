@@ -22,6 +22,9 @@
   networking.nameservers     = [ "62.210.16.6" "62.210.16.7" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
+  networking.firewall.allowedTCPPorts = [22];
+  networking.firewall.allowPing = true;
+
   # Select internationalisation properties.
   # i18n = {
   #   consoleFont = "Lat2-Terminus16";
