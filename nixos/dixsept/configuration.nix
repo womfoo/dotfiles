@@ -29,6 +29,9 @@
   networking.firewall.allowedUDPPorts = [
     21027
   ];
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 60000; to = 61000; }
+  ];
   networking.firewall.allowPing = true;
 
   # Select internationalisation properties.
@@ -48,6 +51,7 @@
   # ];
 
   environment.systemPackages = with pkgs; [
+    mosh
   ];
 
   # List services that you want to enable:
