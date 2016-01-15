@@ -22,8 +22,13 @@
   networking.nameservers     = [ "62.210.16.6" "62.210.16.7" ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  networking.firewall.allowedTCPPorts = [22 22000];
-  networking.firewall.allowedUDPPorts = [21027];
+  networking.firewall.allowedTCPPorts = [
+    22
+    22000
+  ];
+  networking.firewall.allowedUDPPorts = [
+    21027
+  ];
   networking.firewall.allowPing = true;
 
   # Select internationalisation properties.
@@ -41,6 +46,9 @@
   # environment.systemPackages = with pkgs; [
   #   wget
   # ];
+
+  environment.systemPackages = with pkgs; [
+  ];
 
   # List services that you want to enable:
 
