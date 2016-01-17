@@ -4,6 +4,12 @@
 
 { config, pkgs, ... }:
 
+let
+
+  eremit-legacy = pkgs.callPackage /home/kranium/darcs/nix-eremit-legacy/default.nix { };
+
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -51,6 +57,7 @@
   # ];
 
   environment.systemPackages = with pkgs; [
+    eremit-legacy
     mosh
   ];
 
@@ -99,6 +106,15 @@
   services.syncthing.enable = true;
   services.syncthing.user = "kranium";
   services.syncthing.dataDir = "/data/syncthing";
+
+  systemd.services.eremit-legacy = {
+    description   = "eremit-legacy every 10 minutes";
+    serviceConfig = {
+      ExecStart = "${eremit-legacy}/bin/eremit /home/kranium/eremit-add03.txt";
+    };
+    startAt = "*:0/10";
+    wantedBy = [ "default.target" ];
+  };
 
   virtualisation.virtualbox.host.enable = true;
 
