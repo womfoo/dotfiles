@@ -8,6 +8,51 @@ let
 
   eremit-legacy = pkgs.callPackage /home/kranium/darcs/nix-eremit-legacy/default.nix { };
 
+  gikosnet = pkgs.stdenv.mkDerivation {
+    name = "gikosnet";
+    src = ./.;
+    installPhase = ''
+      mkdir $out
+      ln -s ${gikosnet-landing} $out/index.html
+    '';
+  };
+
+  gikosnet-landing = pkgs.writeText "index.html" ''
+    <html>
+      <body>Move along citizen, nothing to see here!</body>
+    </html>
+    '';
+
+  ralletacom = pkgs.stdenv.mkDerivation {
+    name = "ralletacom";
+    src = /home/kranium/home/k.ralleta.com;
+    installPhase = ''
+      mkdir $out
+      ln -s * $out/
+    '';
+  };
+
+  #namecheap domains with ssl
+  gikosnet-aliases = [
+    "confluence.gikos.net"
+    "darcsden.gikos.net"
+    "darcsit.gikos.net"
+    "gitit.gikos.net"
+    "hydra.gikos.net"
+    "jira.gikos.net"
+    "keycloak.gikos.net"
+    "silverspark.gikos.net"
+    "syncserver.gikos.net"
+  ];
+
+  nonssl-domains = [
+    "muinark.com" #godaddy
+    "kranium.net" #namecheap
+    #"ralleta.com" "k.ralleta.com" "kaye.ralleta.com" #namecheap - commented as they are defined below
+    "zweldo.com"  #google apps (via enom)
+    #"kranium.gikos.net" #namecheap
+  ];
+
 in
 
 {
@@ -30,6 +75,8 @@ in
 
   networking.firewall.allowedTCPPorts = [
     22
+    80
+    443
     22000
   ];
   networking.firewall.allowedUDPPorts = [
@@ -114,6 +161,46 @@ in
     };
     startAt = "*:0/10";
     wantedBy = [ "default.target" ];
+  };
+
+  services.httpd = {
+    adminAddr = "admin@gikos.net";
+
+    sslServerCert = "/var/keys/gikos_net.cert";
+    sslServerChain = "/var/keys/gikos_net.chain";
+    sslServerKey = "/var/keys/gikos_net.key";
+
+    enable = true;
+    virtualHosts = [
+      { hostName = "gikos.net";
+        serverAliases = gikosnet-aliases ++ ["www.gikos.net"];
+        globalRedirect = "https://gikos.net";
+      }
+      { hostName = "ralleta.com";
+        documentRoot = "${pkgs.apacheHttpd}/htdocs";
+      }
+      { hostName = "kaye.ralleta.com";
+        serverAliases = ["k.ralleta.com" "www.ralleta.com"];
+        globalRedirect = "http://ralleta.com";
+      }
+      #catchall for all other domains without any sites
+      { hostName = "kranium.gikos.net";
+        serverAliases = nonssl-domains;
+        documentRoot = "${pkgs.apacheHttpd}/htdocs";
+      }
+      { hostName = "gikos.net";
+        serverAliases = gikosnet-aliases;
+        enableSSL = true;
+        port = 443;
+        documentRoot = "${gikosnet}";
+      }
+    ];
+    extraConfig = ''
+      SSLProtocol all -SSLv3 -SSLv2
+      SSLHonorCipherOrder On
+      SSLCipherSuite ECDH@STRENGTH:DH@STRENGTH:HIGH:!RC4:!MD5:!3DES:!DES:!aNULL:!eNULL
+      Header set Strict-Transport-Security "max-age=15768000"
+    '';
   };
 
   virtualisation.virtualbox.host.enable = true;
