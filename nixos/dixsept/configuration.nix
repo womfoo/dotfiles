@@ -106,6 +106,9 @@ in
   environment.systemPackages = with pkgs; [
     eremit-legacy
     mosh
+    iotop
+    htop
+    nethogs
   ];
 
   # List services that you want to enable:
