@@ -77,7 +77,13 @@ in
     22
     80
     443
+    3000
+    4443
+    8081
+    8140
+    8142
     22000
+    61613
   ];
   networking.firewall.allowedUDPPorts = [
     21027
