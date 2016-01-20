@@ -53,6 +53,28 @@ let
     #"kranium.gikos.net" #namecheap
   ];
 
+  acd_cli = with pkgs.python33Packages; buildPythonPackage rec {
+
+    name = pname + "-" + version;
+    pname = "acd_cli";
+    version = "0.3.1";
+
+    disabled = !isPy33;
+    doCheck = !isPy33;
+
+    src = pkgs.fetchFromGitHub {
+      owner = "yadayada";
+      repo = pname;
+      rev = version;
+      sha256 = "1ywimbisgb5g7xl9nrfwcm7dv3j8fsrjfp7bxb3l58zbsrzj6z2s";
+    };
+
+    propagatedBuildInputs =  [ appdirs colorama dateutil requests2 requests_toolbelt sqlalchemy9 ];
+
+    makeWrapperArgs = [ "--prefix LIBFUSE_PATH : ${pkgs.fuse}/lib/libfuse.so" ];
+
+  };
+
 in
 
 {
@@ -115,6 +137,7 @@ in
     iotop
     htop
     nethogs
+    acd_cli
   ];
 
   # List services that you want to enable:
