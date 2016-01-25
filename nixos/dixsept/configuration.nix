@@ -137,6 +137,7 @@ in
     iotop
     htop
     nethogs
+    (vsftpd.override { sslEnable = true; })
     acd_cli
   ];
 
@@ -173,6 +174,16 @@ in
       ];
     };
 
+  users.extraUsers.kayeralleta =
+    { createHome      = true;
+      home            = "/home/kayeralleta";
+      useDefaultShell = true;
+      openssh.authorizedKeys.keys = [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCv8Rdf8gqewljlONxIU/NoI+aQhA0UNQbAsif0gKqGLPG2QrZgPktgG3r0Fn6cKtuhy7iExfWmUafJU73Od/hj8DK6uxicHEXh5pv6DZc2DEwyC5orJHQOZLblo96u2xsBkVx/++Nq/2vW1aMN0Wg8/Vgal1fBcfJAT9XAFmiKXLZxIvxWWw0PZYil4QJtlVGwebXm1trPr7H9hV8l+Lse8Z/Xt38DzQJI7yV5m6ENxPL/xCFsMMgb27c+Xf6gJPq2DIcUOJiP7fOcHXWN2W4/+ApUH5adMhJ8Y8mT4CGcLqNhcHKSFzPaUQpfQ0vi3QJez1LYoHANu6Iy6q7HoIab kranium@silverspark"
+	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDS3glS9aKmAy76UoiMGUNL3C5FUnO8hZkmc/JPcaxET2kCQRzzjasK0YLJo0SQFC/+KRbe3RaSRbsOSUDynd/xslxJITReUwGp/EQdi0hpaBR/gwPQFiqvhn6OMGUHqVmATrvwWANgj6oEeGKmlzIInfxrBhVdENRpAdkiwSmWDJnSc8asV4Wt84XC0a53ePuzrCDi0NYhv2X2syHMYwm1xeCPNaUyNk8ztSlu3+uShxh1mlyYKR+vNDwPqImCwpHyFGUrTW4UpTDvD1Hw3vzenk8Ij32aPDHZrsXq1+79BLFPBvNtZhdmxuyv1WSqj/nZqRvyhvFVTrgqc1hNFfph armoire@Kayes-MacBook.local"
+      ];
+    };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
   #   isNormalUser = true;
@@ -203,13 +214,41 @@ in
     sslServerKey = "/var/keys/gikos_net.key";
 
     enable = true;
+
+    enablePHP = true;
+    phpOptions = ''
+      upload_max_filesize = 64M
+      post_max_size = 64M
+    '';
+
     virtualHosts = [
       { hostName = "gikos.net";
         serverAliases = gikosnet-aliases ++ ["www.gikos.net"];
         globalRedirect = "https://gikos.net";
       }
       { hostName = "ralleta.com";
-        documentRoot = "${pkgs.apacheHttpd}/htdocs";
+        documentRoot = "/home/kayeralleta/wordpress";
+        extraConfig = ''
+          <Directory />
+             DirectoryIndex index.php
+             Allow from *
+             Options FollowSymLinks
+             AllowOverride All
+             <IfModule mod_rewrite.c>
+               RewriteEngine On
+               RewriteBase /
+               RewriteRule ^index\.php$ - [L]
+               # add a trailing slash to /wp-admin
+               RewriteRule ^wp-admin$ wp-admin/ [R=301,L]
+               RewriteCond %{REQUEST_FILENAME} -f [OR]
+               RewriteCond %{REQUEST_FILENAME} -d
+               RewriteRule ^ - [L]
+               RewriteRule ^(wp-(content|admin|includes).*) $1 [L]
+               RewriteRule ^(.*\.php)$ $1 [L]
+               RewriteRule . index.php [L]
+             </IfModule>
+          </Directory>
+        '';
       }
       { hostName = "kaye.ralleta.com";
         serverAliases = ["k.ralleta.com" "www.ralleta.com"];
@@ -233,6 +272,20 @@ in
       SSLCipherSuite ECDH@STRENGTH:DH@STRENGTH:HIGH:!RC4:!MD5:!3DES:!DES:!aNULL:!eNULL
       Header set Strict-Transport-Security "max-age=15768000"
     '';
+  };
+
+  services.mysql = {
+    enable = true;
+    pidDir = "/var/run/mysql";
+    package = pkgs.mysql;
+  };
+
+  services.vsftpd = {
+    enable = true;
+    userlistDeny = false;
+    localUsers = true;
+    userlist = ["kayeralleta" ];
+    writeEnable = true;
   };
 
   virtualisation.virtualbox.host.enable = true;
