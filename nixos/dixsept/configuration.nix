@@ -227,7 +227,16 @@ in
         globalRedirect = "https://gikos.net";
       }
       { hostName = "ralleta.com";
+        globalRedirect = "https://ralleta.com";
+        serverAliases = [ "k.ralleta.com" "kaye.ralleta.com" "www.ralleta.com" ];
+      }
+      { hostName = "ralleta.com";
         documentRoot = "/home/kayeralleta/wordpress";
+	port = 443;
+        enableSSL = true;
+        sslServerCert = "/var/keys/ralleta.com/2_ralleta.com.crt";
+        sslServerChain = "/var/keys/ralleta.com/1_root_bundle.crt";
+        sslServerKey = "/var/keys/ralleta.com/ralleta_com.key";
         extraConfig = ''
           <Directory />
              DirectoryIndex index.php
