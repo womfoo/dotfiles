@@ -88,6 +88,7 @@ in
   boot.loader.grub.version = 2;
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda";
+  boot.kernelPackages = pkgs.linuxPackages_4_3;
 
   networking.hostName = "dixsept"; # Define your hostname.
   networking.interfaces.eth0 = { ipAddress = "195.154.164.244"; prefixLength = 24; };
