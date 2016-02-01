@@ -109,12 +109,17 @@ in
     61613
   ];
   networking.firewall.allowedUDPPorts = [
+    1194
     21027
   ];
   networking.firewall.allowedUDPPortRanges = [
     { from = 60000; to = 61000; }
   ];
   networking.firewall.allowPing = true;
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "eno1";
+  networking.nat.internalInterfaces = [ "tun0" ];
+  networking.nat.internalIPs = [ "10.0.0.0/8" ];
 
   # Select internationalisation properties.
   # i18n = {
@@ -296,6 +301,28 @@ in
     localUsers = true;
     userlist = ["kayeralleta" ];
     writeEnable = true;
+  };
+
+  services.openvpn = {
+    enable = true;
+    servers = {
+      gikosvpn = {
+        config = ''
+          tls-server
+          dev tun0
+	  server 10.8.0.0 255.255.255.0
+          ca /var/keys/openvpn/ca.crt
+          cert /var/keys/openvpn/openvpn.gikos.net.crt
+          key /var/keys/openvpn/openvpn.gikos.net.key
+          dh /var/keys/openvpn/dh2048.pem
+          user nobody
+          group nogroup
+          push "dhcp-option DNS 8.8.8.8"
+          push "dhcp-option DNS 8.8.4.4"
+          port 1194
+        '';
+      };
+    };
   };
 
   virtualisation.virtualbox.host.enable = true;
