@@ -225,6 +225,7 @@ in
     phpOptions = ''
       upload_max_filesize = 64M
       post_max_size = 64M
+      memory_limit = 256M
     '';
 
     virtualHosts = [
