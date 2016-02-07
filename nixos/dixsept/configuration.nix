@@ -108,6 +108,11 @@ in
     22000
     61613
   ];
+
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 2200; to = 2250; } # for vagrant tests
+  ];
+
   networking.firewall.allowedUDPPorts = [
     1194
     21027
