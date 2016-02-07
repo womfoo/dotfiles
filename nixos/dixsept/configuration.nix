@@ -318,6 +318,7 @@ in
           dh /var/keys/openvpn/dh2048.pem
           user nobody
           group nogroup
+          push "redirect-gateway def1"
           push "dhcp-option DNS 8.8.8.8"
           push "dhcp-option DNS 8.8.4.4"
           port 1194
