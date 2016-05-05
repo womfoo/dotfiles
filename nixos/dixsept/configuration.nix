@@ -8,12 +8,15 @@ let
 
   eremit-legacy = pkgs.callPackage /home/kranium/darcs/nix-eremit-legacy/default.nix { };
 
+  mycv = pkgs.callPackage /home/kranium/git/bitbucket.com/womfoo/awesome-cv/default.nix { };
+
   gikosnet = pkgs.stdenv.mkDerivation {
     name = "gikosnet";
     src = ./.;
     installPhase = ''
       mkdir $out
       ln -s ${gikosnet-landing} $out/index.html
+      ln -s ${mycv} $out/assets
     '';
   };
 
@@ -143,6 +146,7 @@ in
   # ];
 
   environment.systemPackages = with pkgs; [
+    mycv
     eremit-legacy
     mosh
     iotop
