@@ -17,7 +17,7 @@
   # Define on which hard drive you want to install Grub.
   # boot.loader.grub.device = "/dev/sda";
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "zehn"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Select internationalisation properties.
