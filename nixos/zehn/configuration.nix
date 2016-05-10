@@ -41,6 +41,8 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  security.sudo.wheelNeedsPassword = false;
+
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
@@ -58,6 +60,16 @@
   #   isNormalUser = true;
   #   uid = 1000;
   # };
+  users.extraUsers.kranium = {
+    createHome      = true;
+    home            = "/home/kranium";
+    description     = "your name";
+    extraGroups     = [ "wheel" ];
+    useDefaultShell = true;
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCv8Rdf8gqewljlONxIU/NoI+aQhA0UNQbAsif0gKqGLPG2QrZgPktgG3r0Fn6cKtuhy7iExfWmUafJU73Od/hj8DK6uxicHEXh5pv6DZc2DEwyC5orJHQOZLblo96u2xsBkVx/++Nq/2vW1aMN0Wg8/Vgal1fBcfJAT9XAFmiKXLZxIvxWWw0PZYil4QJtlVGwebXm1trPr7H9hV8l+Lse8Z/Xt38DzQJI7yV5m6ENxPL/xCFsMMgb27c+Xf6gJPq2DIcUOJiP7fOcHXWN2W4/+ApUH5adMhJ8Y8mT4CGcLqNhcHKSFzPaUQpfQ0vi3QJez1LYoHANu6Iy6q7HoIab kranium@silverspark"
+    ];
+  };
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "16.03";
