@@ -242,7 +242,6 @@ in
   hardware.facetimehd.enable = true;
   hardware.pulseaudio.enable = true;
 
-  time.hardwareClockInLocalTime = true;
   time.timeZone = "Asia/Kuala_Lumpur";
 
 }
