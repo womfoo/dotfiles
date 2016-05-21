@@ -238,7 +238,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio" "video"];
+     extraGroups = [ "wheel" "networkmanager" "audio" "vboxusers" "video"];
      group = "users";
      uid = 2000;
      createHome = true;
@@ -251,5 +251,7 @@ in
   hardware.pulseaudio.enable = true;
 
   time.timeZone = "Asia/Kuala_Lumpur";
+
+  virtualisation.virtualbox.host.enable = true;
 
 }
