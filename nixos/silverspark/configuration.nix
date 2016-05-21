@@ -255,4 +255,13 @@ in
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    firefox = {
+      enableAdobeFlash = true;
+      enableGoogleTalkPlugin = true; #nonfree
+      icedtea = true;
+    };
+  };
+
 }
