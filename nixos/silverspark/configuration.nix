@@ -215,11 +215,14 @@ in
   # services.xserver.xkbOptions = "eurosign:e";
   services.xserver.synaptics.enable = true;
   services.xserver.synaptics.palmDetect = true;
+  services.xserver.synaptics.fingersMap = [1 3 2];
   services.xserver.synaptics.twoFingerScroll = true;
 
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
   # services.xserver.desktopManager.kde4.enable = true;
+  services.xserver.desktopManager.xterm.enable = false;
+  services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
   services.xserver.windowManager.default = "xmonad";
