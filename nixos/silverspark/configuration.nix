@@ -15,9 +15,14 @@
   boot.loader.gummiboot.timeout = 4;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "silverpen";
-  # networking.wireless.enable = true;  # Enables wireless.
-  networking.networkmanager.enable = true;
+  networking = {
+    hostName = "silverspark";
+    networkmanager.enable = true;
+    networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
+    firewall.allowedTCPPorts = [
+      22
+    ];
+  };
 
   # Select internationalisation properties.
   # i18n = {
