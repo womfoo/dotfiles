@@ -230,7 +230,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio"];
+     extraGroups = [ "wheel" "networkmanager" "audio" "video"];
      group = "users";
      uid = 2000;
      createHome = true;
@@ -239,6 +239,7 @@ in
   };
   users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; } ;
 
+  hardware.facetimehd.enable = true;
   hardware.pulseaudio.enable = true;
 
   time.hardwareClockInLocalTime = true;
