@@ -4,6 +4,10 @@
 
 { config, pkgs, ... }:
 
+let
+  ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
+  ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix { };
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -34,49 +38,167 @@
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    # work
+    bluejeans
+    hipchat
+    skype
+    # local
+    ikvm-launch
+    ldapseed
+    # mine
+    abcde
+    acpi
+    ant
     arandr
+    aria2
     audacity
+    augeas
     baobab
     bind                        # nslookup
+    binutils                    # ld, ar
     bitcoin
+    btrfs-progs
+    bundix
+    bundler
     chromium
+    cifs_utils
+    compton
+    cool-retro-term
+    cpuminer-multi
+    cryptsetup
     darcs
+    deadbeef
+    debootstrap
+    dejavu_fonts
+    dillo
     dmenu
     dropbox
-    emacs
-    emacs24Packages.haskellMode
+    (with emacsPackagesNg; emacsWithPackages [
+      ace-jump-mode
+      color-theme
+      haskell-mode
+      magit
+    ])
+    encfs
+    exfat
+    exfat-utils
+    facter
+    fbreader
     file
     firefox
+    flac
+    fuse_exfat
+    geoip
+    ghostscript
     gimp
-    gimp
-    git
+    gitFull
+    glxinfo
+    gnome3.cheese
+    gnome3.eog
+    gnome3.evince
+    gnome3.nautilus
     gnucash
-    gparted
-    haskellPackages.xmobar
+    gnupg1compat
+    go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
+    gpa
+    (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
+      ShellCheck
+      alex
+      cabal-install
+      cabal2nix
+      ghc-mod
+      hledger
+      wreq
+      xmobar
+    ]))
     htop
+    ifuse
+    imagemagick
+    inetutils
+    inkscape
+    inotify-tools
     iotop
+    jq
+    kazam
+    kde4.digikam
+    kde4.gwenview
+    kde4.kdenlive
+    kde4.kdiff3
     kde4.ktorrent
     keepassx
+    keybase
+    kpcli
     libreoffice
+    libxslt
     logstash
+    lsof
+    lxc
     mc
     meld
+    mercurialFull
+    mosh
+    mplayer
+    (mtr.override { withGtk = true; })
+    ncdu
+    nethogs
     networkmanagerapplet
+    ntfs3g
+    oathToolkit
+    openjdk
+    openssl
+    pandoc
+    patchelf
     pavucontrol
+    pciutils                    # setpci
+    pdftk
     pgadmin
     pidgin
+    pkgconfig
     pmtools                     # acpidump
-    postgresql
+    poppler_utils
     psmisc
-    pulseaudio
+    pv
+    qpdf
+    remmina                     # rdp
     rsync
+    ruby
     rxvt_unicode
+    simplescreenrecorder
+    smartmontools
+    speedtest-cli
+    sqlite
+    squashfsTools
+    sshfsFuse
     subversion
+    tcpdump
+    tesseract
+    thunderbird
+    torbrowser
     trayer
+    tree
     unzip
+    upower
+    usbutils                    # lsusb
+    vagrant
     vlc
+    vnstat
     wget
+    which
     wireshark
+    xawtv
+    xcalib                      # calibrate colors
+    xfontsel
+    xlibs.xkill
+    xlibs.xwd
+    xlockmore
+    xmlsec
+    xorg.xdpyinfo
+    xorg.xlsfonts               # font for xosd
+    xorg.xwininfo
+    xosd
+    xsane
+    xzgv
+    youtubeDL
   ];
 
   # List services that you want to enable:
