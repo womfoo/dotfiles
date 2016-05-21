@@ -223,6 +223,7 @@ in
   # services.xserver.desktopManager.kde4.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ]; #non-free
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
   services.xserver.windowManager.default = "xmonad";
