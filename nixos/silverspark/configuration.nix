@@ -177,7 +177,6 @@ in
     trayer
     tree
     unzip
-    upower
     usbutils                    # lsusb
     vagrant
     vlc
@@ -202,6 +201,14 @@ in
   ];
 
   # List services that you want to enable:
+  services.acpid.enable = true;
+  services.upower.enable = true;
+
+  services.mbpfan.enable = true;
+  services.mbpfan.lowTemp = 55;   # try ranges 55-63, default is 63
+  services.mbpfan.highTemp = 58;  # try ranges 58-66, default is 66
+  services.mbpfan.maxTemp = 78;   # do not set it > 90, default is 86
+  #services.mbpfan.verbose = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
