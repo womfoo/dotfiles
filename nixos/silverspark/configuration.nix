@@ -7,6 +7,25 @@
 let
   ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
   ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix { };
+  idpmetadata = pkgs.fetchurl {
+    url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
+    sha256 = "1b9xi5p6nv2mb00wl1961cm909vablxxl41fndpfh6agj6r7xmrg";
+  };
+  spfiles = pkgs.stdenv.mkDerivation {
+    name = "localhost-spfiles";
+    src = ./.;
+    buildInputs = [ pkgs.openssl ];
+    buildPhase = ''
+      ${pkgs.apacheHttpdPackages.mod_auth_mellon}/bin/mellon_create_metadata.sh localhost http://localhost/mellon
+    '';
+    installPhase = ''
+      mkdir -p $out/private
+      mkdir -p $out/public
+      cp localhost.key $out/private
+      cp localhost.cert $out/public
+      cp localhost.xml $out/public
+    '';
+  };
 in
 {
   imports =
@@ -265,5 +284,29 @@ in
   };
 
   security.sudo.wheelNeedsPassword = false;
+
+  services.httpd = {
+    enable = true;
+    adminAddr = "admin@localhost";
+    enableMellon = true;
+    virtualHosts = [
+      { hostName = "localhost";
+        documentRoot = "${spfiles}";
+        extraConfig = ''
+        <Location />
+            MellonEnable "info"
+            MellonSPPrivateKeyFile ${spfiles}/private/localhost.key
+            MellonSPCertFile ${spfiles}/public/localhost.cert
+            MellonSpMetadataFile ${spfiles}/public/localhost.xml
+            MellonIdPMetadataFile ${idpmetadata}
+            MellonEndpointPath "/mellon"
+        </Location>
+        <Location /private>
+            MellonEnable "auth"
+        </Location>
+        '';
+       }
+    ];
+  };
 
 }
