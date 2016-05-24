@@ -12,13 +12,13 @@ Config {font = "xft:DejaVu Sans Mono:pixelsize=20:foundry=unknown:weight=normal:
         ,Run TopMem [] 60
         ,Run TopProc [] 30
         ,Run CpuFreq ["-t","Freq: <cpu0>/<cpu1>/<cpu2>/<cpu3>","-L","0","-H","2","-l","#b5bd68","-n","#b5bd68","-h","#cc6666"] 60
---      ,Run CoreTemp ["-t","Temp:<core0> / <core1> / <core2> / <core3>C","-L","40","-H","60","-l","#b5bd68","-n","gray90","-h","#cc6666"] 60
+        ,Run CoreTemp ["-t","Temp:<core0>/<core1>/<core2>/<core3>C","-L","40","-H","60","-l","#b5bd68","-n","gray90","-h","#cc6666"] 60
         ,Run Date "%a %b %_d %Y <fc=#ee9a00>%H:%M:%S</fc>" "date" 10
         ,Run Network "wlp2s0" ["-t <rx>/<tx>Kb/s","-S true","-L","0","-H","32","--low","#b5bd68","--normal","#ffffcc","--high","#cc6666"] 10
        ]
        ,sepChar = "%"
        ,alignSep = "}{"
-       ,template = "%StdinReader% }{ %multicpu% (%top%) | %cpufreq% | %wlp2s0% | %memory% (%topmem%) | %date%       "
+       ,template = "%StdinReader% }{ %multicpu% (%top%) | %cpufreq% | %coretemp% | %wlp3s0% | %memory% (%topmem%) | %battery% | %date%       "
        }
 
 --  (green . "#b5bd68")
