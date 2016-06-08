@@ -104,10 +104,10 @@ in
     80
     443
     3000
-    4443
-    8081
-    8140
-    8142
+    4443 #pe-console moved from 443
+    8081 #pe-puppetdb
+    8140 #pe-puppet
+    8142 #pe-orchestration
     22000
     61613
   ];
