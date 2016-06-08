@@ -105,6 +105,9 @@ in
     443
     3000
     4443 #pe-console moved from 443
+    4433 #pe-code-manager
+    5432 #pe-postgres
+    8080 #pe-puppetdb insecure dashboard
     8081 #pe-puppetdb
     8140 #pe-puppet
     8142 #pe-orchestration
