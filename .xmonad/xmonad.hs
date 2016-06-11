@@ -11,6 +11,7 @@ import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
 main = do
+  spawn "xscreensaver -nosplash"
   spawn "trayer --height 28 --widthtype request --edge top --align right --transparent true --tint 0 --alpha 64 --monitor primary"
   spawn "emacs"
   spawn "xset -b" -- kill the system bell
@@ -36,7 +37,7 @@ main = do
     `additionalKeys` [
                       ((mod4Mask, xK_b), sendMessage ToggleStruts)
                      ,((mod4Mask, xK_p), spawn "dmenu_run -fn \"DejaVu Sans Mono:pixelsize=20:style=Book\"")
-                     ,((mod4Mask, xK_l), unsafeSpawn "slimlock")
+                     ,((mod4Mask .|. shiftMask , xK_l), unsafeSpawn "xscreensaver-command -lock")
                      ,((0,xF86XK_MonBrightnessUp), spawn "light -A 10")
                      ,((0,xF86XK_MonBrightnessDown), spawn "light -U 10")
                      ,((0,xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +1.5%")

@@ -209,7 +209,7 @@ in
     xfontsel
     xlibs.xkill
     xlibs.xwd
-    xlockmore
+    xscreensaver
     xmlsec
     xorg.xdpyinfo
     xorg.xlsfonts               # font for xosd
