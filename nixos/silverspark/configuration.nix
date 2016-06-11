@@ -66,6 +66,7 @@ in
     ldapseed
     # mine
     abcde
+    python33Packages.acd_cli
     acpi
     ant
     arandr
@@ -83,7 +84,6 @@ in
     cifs_utils
     compton
     cool-retro-term
-    cpuminer-multi
     cryptsetup
     darcs
     deadbeef
@@ -92,6 +92,7 @@ in
     dillo
     dmenu
     dropbox
+    duc
     (with emacsPackagesNg; emacsWithPackages [
       ace-jump-mode
       color-theme
@@ -120,6 +121,7 @@ in
     gnupg1compat
     go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
     gpa
+    gparted
     #(haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
     (haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
       ShellCheck
@@ -166,22 +168,24 @@ in
     oathToolkit
     openjdk
     openssl
-    pandoc
+    parted
     patchelf
     pavucontrol
     pciutils                    # setpci
     pdftk
     pgadmin
     pidgin
+    pipes                       # screensaver
     pkgconfig
     pmtools                     # acpidump
     poppler_utils
+    postgresql #just for the psql command
     psmisc
     pv
     qpdf
     remmina                     # rdp
     rsync
-    ruby
+    ruby_2_1
     rxvt_unicode
     simplescreenrecorder
     smartmontools
