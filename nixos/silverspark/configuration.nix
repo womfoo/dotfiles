@@ -9,7 +9,7 @@ let
   ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix { };
   idpmetadata = pkgs.fetchurl {
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
-    sha256 = "1b9xi5p6nv2mb00wl1961cm909vablxxl41fndpfh6agj6r7xmrg";
+    sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
   };
   spfiles = pkgs.stdenv.mkDerivation {
     name = "localhost-spfiles";
