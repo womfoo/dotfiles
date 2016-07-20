@@ -122,8 +122,8 @@ in
     go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
     gpa
     gparted
-    #(haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
-    (haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
+    (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
+    #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
       ShellCheck
       alex
       cabal-install
