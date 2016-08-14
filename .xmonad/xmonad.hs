@@ -40,6 +40,8 @@ main = do
                      ,((mod4Mask .|. shiftMask , xK_l), unsafeSpawn "xscreensaver-command -lock")
                      ,((0,xF86XK_MonBrightnessUp), spawn "light -A 10")
                      ,((0,xF86XK_MonBrightnessDown), spawn "light -U 10")
+                     ,((0,xF86XK_KbdBrightnessUp), spawn "kbdlight up")
+                     ,((0,xF86XK_KbdBrightnessDown), spawn "kbdlight down")
                      ,((0,xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +1.5%")
                      ,((0,xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -1.5%")
                      ,((0,xF86XK_AudioMute), spawn "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle")

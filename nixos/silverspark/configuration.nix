@@ -314,4 +314,6 @@ in
     ];
   };
 
+  programs.kbdlight.enable = true;
+
 }
