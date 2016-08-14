@@ -67,6 +67,7 @@ in
     # mine
     abcde
     python33Packages.acd_cli
+    abiword
     acpi
     ant
     arandr
@@ -98,8 +99,12 @@ in
       color-theme
       haskell-mode
       magit
+      graphviz-dot-mode
     ])
+    elfutils
     encfs
+    ec2_api_tools
+    ec2_ami_tools
     exfat
     exfat-utils
     facter
@@ -118,10 +123,14 @@ in
     gnome3.evince
     gnome3.nautilus
     gnucash
+    gnumeric
     gnupg1compat
     go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
+    gnutls
     gpa
     gparted
+    gpxsee
+    graphviz
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
     #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
       ShellCheck
@@ -132,6 +141,7 @@ in
       hledger
       wreq
       xmobar
+      hnix
     ]))
     htop
     ifuse
@@ -158,12 +168,15 @@ in
     mc
     meld
     mercurialFull
+    monero
     mosh
     mplayer
     (mtr.override { withGtk = true; })
     ncdu
     nethogs
     networkmanagerapplet
+    nox
+    npm2nix
     ntfs3g
     oathToolkit
     openjdk
@@ -173,6 +186,7 @@ in
     pavucontrol
     pciutils                    # setpci
     pdftk
+    pdfmod
     pgadmin
     pidgin
     pipes                       # screensaver
@@ -180,14 +194,17 @@ in
     pmtools                     # acpidump
     poppler_utils
     postgresql #just for the psql command
-    psmisc
+    psmisc                      #killall
     pv
+    python3
+    python3Packages.xdot
     qpdf
     remmina                     # rdp
     rsync
     ruby_2_1
     rxvt_unicode
     simplescreenrecorder
+    smartgithg
     smartmontools
     speedtest-cli
     sqlite
@@ -209,10 +226,12 @@ in
     which
     wireshark
     xawtv
+    xca
     xcalib                      # calibrate colors
     xfontsel
     xlibs.xkill
     xlibs.xwd
+    xpdf
     xscreensaver
     xmlsec
     xorg.xdpyinfo
