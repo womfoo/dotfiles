@@ -5,17 +5,17 @@ Config {font = "xft:DejaVu Sans Mono:pixelsize=20:foundry=unknown:weight=normal:
        ,position = TopW C 100
        ,lowerOnStart = True
        ,commands = [
-         Run MultiCpu ["-t","Cpu: <total0> <total1> <total2> <total3>","-L","30","-H","60","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC","-w","3"] 10
-        ,Run Memory ["-t","Mem: <usedratio>%","-H","2048","-L","1024","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC"] 10
+         Run MultiCpu ["-t","<total0> <total1> <total2> <total3>","-L","30","-H","60","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC","-w","3"] 10
+        ,Run Memory ["-t","<usedratio>%","-H","2048","-L","1024","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC"] 10
 --      ,Run Swap ["-t","Swap: <usedratio>%","-H","1024","-L","512","-h","#cc6666","-l","#b5bd68","-n","#FFFFCC"] 60
         ,Run StdinReader
         ,Run TopMem [] 60
         ,Run TopProc [] 30
-        ,Run CpuFreq ["-t","Freq: <cpu0>/<cpu1>/<cpu2>/<cpu3>","-L","0","-H","2","-l","#b5bd68","-n","#b5bd68","-h","#cc6666"] 60
-        ,Run CoreTemp ["-t","Temp:<core0>/<core1>/<core2>/<core3>C","-L","40","-H","60","-l","#b5bd68","-n","gray90","-h","#cc6666"] 60
+        ,Run CpuFreq ["-t","<cpu0> <cpu1> <cpu2> <cpu3>MHz","-L","0","-H","2","-l","#b5bd68","-n","#b5bd68","-h","#cc6666"] 60
+        ,Run CoreTemp ["-t","<core0> <core1> <core2> <core3>c","-L","40","-H","60","-l","#b5bd68","-n","gray90","-h","#cc6666"] 60
         ,Run Date "%a %b %_d %Y <fc=#ee9a00>%H:%M:%S</fc>" "date" 10
-        ,Run Network "wlp3s0" ["-t <rx>/<tx>Kb/s","-S true","-L","0","-H","32","--low","#b5bd68","--normal","#ffffcc","--high","#cc6666"] 10
-        ,Run Battery ["-t","<left>% / <timeleft>","-L","50","-H","75","-h","#b5bd68","-n","#ffffcc","-l","#cc6666"] 10
+        ,Run Network "wlp3s0" ["-t <rx>/<tx>Kbs","-S true","-L","0","-H","32","--low","#b5bd68","--normal","#ffffcc","--high","#cc6666"] 10
+        ,Run Battery ["-t","<left>% <timeleft>","-L","50","-H","75","-h","#b5bd68","-n","#ffffcc","-l","#cc6666"] 10
        ]
        ,sepChar = "%"
        ,alignSep = "}{"
