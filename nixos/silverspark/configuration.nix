@@ -8,6 +8,7 @@ let
   mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
   ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
   ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix { };
+  #hnix_loc = pkgs.callPackage /home/kranium/git/github.com/jwiegley/hnix/default.nix { };
   idpmetadata = pkgs.fetchurl {
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
     sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
@@ -35,6 +36,8 @@ in
       ./hardware-configuration.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_4_8;
+
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 4;
@@ -59,10 +62,19 @@ in
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    # maintainted
+    facter
+    fnotifystat
+    forkstat
+    gpxsee
+    powerstat
+    smemstat
+    xzgv
     # work
-    bluejeans
+    #bluejeans
     hipchat
     skype
+    slack
     # local
     ikvm-launch
     ldapseed
@@ -71,25 +83,30 @@ in
     python33Packages.acd_cli
     abiword
     acpi
-    ant
+    #ant
     arandr
     aria2
     audacity
     augeas
-    baobab
+    awscli
+    #baobab
     bind                        # nslookup
     binutils                    # ld, ar
     bitcoin
+    bmon
     btrfs-progs
-    bundix
-    bundler
+    #bundix
+    #bundler
+    calibre
     chromium
     cifs_utils
     compton
+    conkeror
     cool-retro-term
+    cpuminer-multi
     cryptsetup
     darcs
-    deadbeef
+    #deadbeef
     debootstrap
     dejavu_fonts
     dillo
@@ -112,77 +129,98 @@ in
     facter
     fbreader
     file
-    firefox
+    #firefox
+    #firefox-beta-bin
     flac
     fuse_exfat
     geoip
     ghostscript
-    gimp
+    #gimp
     gitFull
     glxinfo
     gnome3.cheese
-    gnome3.eog
-    gnome3.evince
-    gnome3.nautilus
-    gnucash
-    gnumeric
+    #gnome3.eog
+    #gnome3.evince              # not built in unstable-small <2016-11-05>
+    #gnome3.nautilusn
+    #gnucash                    # not built in unstable-small <2016-11-04>
+    #gnumeric
     gnupg1compat
     go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
     gnutls
     gpa
     gparted
-    gpxsee
+    gptfdisk
+    #gtkgnutella
     graphviz
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
     #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
-      ShellCheck
-      alex
+      #hsass
+      #ShellCheck
+      #alex
       cabal-install
       cabal2nix
       ghc-mod
       hledger
-      wreq
+      #wreq
       xmobar
-      hnix
+      #hnix
+      #hnix_loc
+      hGelf
+      #gender
+      #hakyll
+      #hakyll-sass
+      #aeson-pretty
+      #stack
+      #hails
     ]))
     htop
     ifuse
     imagemagick
     inetutils
+    innoextract
     inkscape
     inotify-tools
     iotop
+    iw                          # iw list
     jq
     kazam
-    kde4.digikam
-    kde4.gwenview
-    kde4.kdenlive
+    #kde4.digikam
+    #kde4.gwenview
+    #kde4.kdenlive
     kde4.kdiff3
     kde4.ktorrent
     keepassx
     keybase
     kpcli
-    libreoffice
+    #libreoffice
+    libva-full                  # vaapiVdpau should installt this but I need vainfo
+    #libvdpau-va-gl              # vdpauinfo
+    vdpauinfo                   # lol
+    libxml2                     #xmllint
     libxslt
     logstash
     lsof
-    lxc
-    mc
+    #lxc
+    mc                          # not built in unstable-small <2016-11-04>
     meld
     mercurialFull
     monero
     mosh
-    mplayer
+    #mplayer
     (mtr.override { withGtk = true; })
     ncdu
     nethogs
     networkmanagerapplet
+    nix-prefetch-git
+    nix-repl
     nox
     npm2nix
     ntfs3g
     oathToolkit
     openjdk
     openssl
+    openttd
+    pandoc
     parted
     patchelf
     pavucontrol
@@ -190,23 +228,26 @@ in
     pdftk
     pdfmod
     pgadmin
-    pidgin
+    p7zip
+    #pidgin
     pipes                       # screensaver
     pkgconfig
     pmtools                     # acpidump
-    poppler_utils
-    postgresql #just for the psql command
+    poppler_utils               # pdf2txt
+    postgresql                  #just for the psql command
     psmisc                      #killall
     pv
     python3
     python3Packages.xdot
     qpdf
-    remmina                     # rdp
+    #remmina                     # rdp
+    rpm
     rsync
     ruby_2_1
     rxvt_unicode
+    shutter
     simplescreenrecorder
-    smartgithg
+    #smartgithg
     smartmontools
     speedtest-cli
     sqlite
@@ -226,6 +267,7 @@ in
     vnstat
     wget
     which
+    wirelesstools               # iwconfig
     wireshark
     xawtv
     xca
@@ -241,18 +283,20 @@ in
     xorg.xwininfo
     xosd
     xsane
-    xzgv
     youtubeDL
+    zbar                        # parse qr codes
   ];
 
   # List services that you want to enable:
   services.acpid.enable = true;
   services.upower.enable = true;
 
-  services.mbpfan.enable = true;
+  #services.mbpfan.enable = true;
+  #services.mbpfan.minFanSpeed = 4000;
   #services.mbpfan.lowTemp = 55;   # try ranges 55-63, default is 63
   #services.mbpfan.highTemp = 58;  # try ranges 58-66, default is 66
   #services.mbpfan.maxTemp = 78;   # do not set it > 90, default is 86
+  #services.mbpfan.pollingInterval = 1;
   #services.mbpfan.verbose = true;
 
   # Enable the OpenSSH daemon.
@@ -273,12 +317,17 @@ in
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
   # services.xserver.desktopManager.kde4.enable = true;
+  # services.xserver.desktopManager.kde5.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ]; #non-free
-  services.xserver.windowManager.xmonad.enable = true;
-  services.xserver.windowManager.xmonad.enableContribAndExtras = true;
-  services.xserver.windowManager.default = "xmonad";
+  services.xserver.videoDrivers = [ "nouveau" ];
+  #services.xserver.videoDrivers = [ "nvidia" ]; #non-free
+  #services.xserver.videoDrivers = [ "xf86videointel" ];
+  services.xserver.windowManager.xmonad.enable = true;                 # do not remove
+  services.xserver.windowManager.xmonad.enableContribAndExtras = true; # do not remove
+  services.xserver.windowManager.default = "xmonad";                   # do not remove
+
+  services.locate.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
@@ -292,21 +341,31 @@ in
   };
   users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; } ;
 
+  hardware.cpu.intel.updateMicrocode = true;
   hardware.facetimehd.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.bluetooth.enable = true;
+
+  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
 
   time.timeZone = "Asia/Kuala_Lumpur";
 
-  virtualisation.docker.enable = true;
-  virtualisation.virtualbox.host.enable = true;
+  #virtualisation.docker.enable = true;
+  #virtualisation.virtualbox.host.enable = true;
 
   nixpkgs.config = {
+    #allowBroken = true;
     allowUnfree = true;
     firefox = {
-      enableAdobeFlash = true;
+      enableBluejeans = true; #nonfree
+      #enableAdobeFlash = true;
       enableGoogleTalkPlugin = true; #nonfree
-      icedtea = true;
+      #icedtea = true;
     };
+    #chromium = {
+    # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
+    # enablePepperPDF = true;
+    #};
   };
 
   security.sudo.wheelNeedsPassword = false;
@@ -335,6 +394,10 @@ in
     ];
   };
 
+  programs.light.enable = true;
   programs.kbdlight.enable = true;
+
+  nix.useSandbox = true;
+  nix.buildCores = 4;
 
 }
