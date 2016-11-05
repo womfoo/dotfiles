@@ -5,6 +5,7 @@
 { config, pkgs, ... }:
 
 let
+  mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
   ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
   ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix { };
   idpmetadata = pkgs.fetchurl {
@@ -24,6 +25,7 @@ let
       cp localhost.key $out/private
       cp localhost.cert $out/public
       cp localhost.xml $out/public
+      cp ${mycv}/resume.pdf $out/private
     '';
   };
 in
