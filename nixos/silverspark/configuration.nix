@@ -348,7 +348,7 @@ in
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
 
-  time.timeZone = "Asia/Kuala_Lumpur";
+  time.timeZone = "Australia/Sydney";
 
   #virtualisation.docker.enable = true;
   #virtualisation.virtualbox.host.enable = true;
