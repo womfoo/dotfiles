@@ -1,7 +1,7 @@
 import System.IO
 import XMonad
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks   (ToggleStruts(..),avoidStruts,manageDocks)
+import XMonad.Hooks.ManageDocks   (ToggleStruts(..),avoidStruts,docks,manageDocks)
 import XMonad.Hooks.ManageHelpers (doFullFloat,isFullscreen)
 import XMonad.Hooks.SetWMName     (setWMName)
 import XMonad.Layout.NoBorders    (smartBorders)
@@ -17,7 +17,7 @@ main = do
   spawn "xset -b" -- kill the system bell
   spawn "nm-applet"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
-  xmonad $ defaultConfig
+  xmonad $ docks defaultConfig
     { modMask            = mod4Mask
     , terminal           = "urxvt"
     , focusedBorderColor = "#cc6666"
