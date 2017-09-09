@@ -5,9 +5,10 @@
 { config, pkgs, ... }:
 
 let
-  mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
-  ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
-  ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix { };
+  AMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
+  #mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
+  #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
+  #ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix{ };
   #hnix_loc = pkgs.callPackage /home/kranium/git/github.com/jwiegley/hnix/default.nix { };
   idpmetadata = pkgs.fetchurl {
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
@@ -26,8 +27,9 @@ let
       cp localhost.key $out/private
       cp localhost.cert $out/public
       cp localhost.xml $out/public
-      cp ${mycv}/resume.pdf $out/private
     '';
+    #temporarily disabled move to section above to activate
+    #cp ${mycv}/resume.pdf $out/private
   };
 in
 {
@@ -73,42 +75,58 @@ in
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     # maintainted
+    cloudmonkey
     facter
     fnotifystat
     forkstat
     gpxsee
+    pick
     powerstat
     smemstat
     xzgv
     # work
-    #bluejeans
     hipchat
     skype
     slack
     # local
-    ikvm-launch
-    ldapseed
+    #ikvm-launch
+    #ldapseed
     # mine
     abcde
-    python33Packages.acd_cli
     abiword
+    acd-cli
     acpi
+    adapta-gtk-theme
+    ag
+    aircrack-ng
+    androidsdk
     #ant
+    ansible
+    arc-theme
     arandr
     aria2
+    asciinema
     audacity
     augeas
+    avidemux
     awscli
+    baresip
     #baobab
     bind                        # nslookup
     binutils                    # ld, ar
     bitcoin
+    blueman
     bmon
     btrfs-progs
     #bundix
     #bundler
+    sox
+    ffmpeg
     calibre
     chromium
+    google-chrome
+    #google-chrome-beta
+    #google-chrome-dev
     cifs_utils
     compton
     conkeror
@@ -118,12 +136,21 @@ in
     darcs
     #deadbeef
     debootstrap
-    dejavu_fonts
     dillo
     dmenu
+    docker_compose
     dropbox
     duc
+    dpkg # so we can view files inside debs
     (with emacsPackagesNg; emacsWithPackages [
+      vagrant-tramp
+      powerline
+      ivy-hydra
+      #smart-mode-line
+      #helm
+      ivy
+      swiper
+      counsel
       ace-jump-mode
       color-theme
       haskell-mode
@@ -134,111 +161,175 @@ in
     encfs
     ec2_api_tools
     ec2_ami_tools
+    ekiga
+    electrum
     exfat
     exfat-utils
-    facter
-    fbreader
+    #facter
+    #fbreader
     file
-    #firefox
+    firefox-esr # NPAPI support until 2018 for hangouts.
+    #firefox-bin # no hangouts?
+    #firefox-esr
     #firefox-beta-bin
     flac
     fuse_exfat
     geoip
-    ghostscript
-    #gimp
+    ghostscript                 # needed by emacs doc-view
+    gimp
     gitFull
     glxinfo
     gnome3.cheese
     #gnome3.eog
-    #gnome3.evince              # not built in unstable-small <2016-11-05>
-    #gnome3.nautilusn
+    gnome3.evince              # not built in unstable-small <2016-11-05>
+    gnome3.nautilus
     #gnucash                    # not built in unstable-small <2016-11-04>
     #gnumeric
     gnupg1compat
     go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
-    gnutls
+    #gnutls
     gpa
     gparted
+    gpodder
     gptfdisk
-    #gtkgnutella
+    gtkgnutella
+    #gtkpod
     graphviz
-    (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
+    gsmartcontrol
+    #stack
+    hledger
+    hledger-web
     #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
-      #hsass
-      #ShellCheck
-      #alex
+    (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
+      propellor
+      yaml-light
+      AMI
+      #tinfoil
+      ble
+      xmobar
       cabal-install
       cabal2nix
+      sproxy2
+      mywatch
+      weeder
+      #mywatch zalora mysql
+    #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
+      #update-nix-fetchgit
+      #github
+      #mygithub
+      stylish-haskell
+      hlint
+      #(self.callPackage /home/kranium/git/github.com/womfoo/github/default.nix { })
+      text-conversions
+      #servant-github
+      servant
+      mysql-haskell
+      mysql-simple
+      git
+      hGelf
+      brick
+      markdown-unlit
+      hail
+      #hsass
+      #webdriver
+      ShellCheck
+      #alex
+      #cabal-install
+      #cabal2nix
       ghc-mod
       hledger
       #wreq
       xmobar
       #hnix
       #hnix_loc
-      hGelf
+      #hGelf
       #gender
       #hakyll
       #hakyll-sass
       #aeson-pretty
       #stack
       #hails
+      timeplot
+      splot
+      language-puppet
     ]))
+    hfsprogs
+    hiera-eyaml
     htop
-    ifuse
+    #ifuse
     imagemagick
     inetutils
-    innoextract
-    inkscape
-    inotify-tools
+    iptraf-ng
+    #innoextract
+    #inkscape
+    #inotify-tools
     iotop
     iw                          # iw list
+    jitsi
     jq
-    kazam
+    #kazam
     #kde4.digikam
     #kde4.gwenview
     #kde4.kdenlive
-    kde4.kdiff3
-    kde4.ktorrent
+    #kde4.kdiff3
+    #kde4.ktorrent
+    #kde4.okular
+    #kde5.okular
+    #kdiff3-qt5  #broken 2017-06-25
+    #ktorrent    #broken 2017-06-25
     keepassx
     keybase
+    kops
     kpcli
-    #libreoffice
+    kubernetes
+    #libreoffice # broken 20170802
     libva-full                  # vaapiVdpau should installt this but I need vainfo
     #libvdpau-va-gl              # vdpauinfo
+    linphone
     vdpauinfo                   # lol
     libxml2                     #xmllint
     libxslt
-    logstash
+    #logstash
     lsof
     #lxc
     mc                          # not built in unstable-small <2016-11-04>
     meld
-    mercurialFull
+    #mercurialFull
+    minikube
     monero
     mosh
     #mplayer
     (mtr.override { withGtk = true; })
+    mysql-workbench
     ncdu
+    netdata
     nethogs
+    #netsurf
+    networkmanager_openconnect
+    networkmanager_pptp
     networkmanagerapplet
     nix-prefetch-git
     nix-repl
-    nox
+    nodePackages.node2nix #creates hugeass file
+    #nox # broken Jun 10 2017
     npm2nix
     ntfs3g
     oathToolkit
-    openjdk
+    #openjdk
+    openconnect_openssl
+    openldap                    # ldapsearch
     openssl
-    openttd
+    #openttd
     pandoc
-    parted
+    #parted
     patchelf
     pavucontrol
     pciutils                    # setpci
-    pdftk
+    #pdftk
     pdfmod
-    pgadmin
+    #pgadmin
     p7zip
+    pianobar
     #pidgin
     pipes                       # screensaver
     pkgconfig
@@ -247,40 +338,55 @@ in
     postgresql                  #just for the psql command
     psmisc                      #killall
     pv
+    #python3
+    #python3Packages.xdot
     python3
-    python3Packages.xdot
+    python3Packages.pip
+    python3Packages.selenium
+    python3Packages.binwalk
     qpdf
-    #remmina                     # rdp
+    remmina                     # rdp
     rpm
     rsync
     ruby_2_1
     rxvt_unicode
+    screen
+    scrot                        # screenshot tool
+    shared_mime_info
     shutter
     simplescreenrecorder
+    sipcmd
     #smartgithg
     smartmontools
+    spaceFM
     speedtest-cli
-    sqlite
-    squashfsTools
-    sshfsFuse
-    subversion
+    #sqlite
+    #squashfsTools
+    #sshfsFuse
+    #subversion
     tcpdump
-    tesseract
+    terminator
+    terraform
+    #tesseract
     thunderbird
+    tora
     torbrowser
     trayer
     tree
+    unrar
     unzip
     usbutils                    # lsusb
     vagrant
+    veracrypt
+    virtualbox
     vlc
     vnstat
     wget
     which
     wirelesstools               # iwconfig
-    wireshark
-    xawtv
-    xca
+    #wireshark
+    #xawtv
+    #xca                         # certificate authority gui
     xcalib                      # calibrate colors
     xfontsel
     xlibs.xkill
@@ -288,6 +394,8 @@ in
     xpdf
     xscreensaver
     xmlsec
+    xdotool
+    xorg.xauth
     xorg.xdpyinfo
     xorg.xlsfonts               # font for xosd
     xorg.xwininfo
@@ -295,6 +403,7 @@ in
     xsane
     youtubeDL
     zbar                        # parse qr codes
+    zip
   ];
 
   # List services that you want to enable:
