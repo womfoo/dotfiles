@@ -49,6 +49,16 @@ in
     networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
     firewall.allowedTCPPorts = [
       22
+      2049 # nfs
+      4000 # nfs/statd
+      4001 # nfs/lockd
+      4002 # nfs/mountd
+    ];
+    firewall.allowedUDPPorts = [
+      2049 # nfs
+      4000 # nfs/statd
+      4001 # nfs/lockd
+      4002 # nfs/mountd
     ];
   };
 
@@ -399,5 +409,15 @@ in
 
   nix.useSandbox = true;
   nix.buildCores = 4;
+
+  services.nfs.server = {
+    enable     = true;
+    exports    = ''
+      /home/kranium/possplay/puppet-controlrepo *
+    '';
+    statdPort  = 4000;
+    lockdPort  = 4001;
+    mountdPort = 4002;
+  };
 
 }
