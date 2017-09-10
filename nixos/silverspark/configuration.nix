@@ -321,6 +321,7 @@ in
     openssl
     #openttd
     pandoc
+    parcellite
     #parted
     patchelf
     pavucontrol

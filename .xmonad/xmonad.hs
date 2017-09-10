@@ -16,6 +16,7 @@ main = do
   spawn "emacs"
   spawn "xset -b" -- kill the system bell
   spawn "nm-applet"
+  spawn "parcellite -n"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ docks defaultConfig
     { modMask            = mod4Mask
