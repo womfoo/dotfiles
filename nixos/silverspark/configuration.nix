@@ -38,7 +38,9 @@ in
       ./hardware-configuration.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_8;
+  boot.kernelPackages = pkgs.linuxPackages_latest;   # 4.12 as of 2017-Sep-10
+  #boot.kernelPackages = pkgs.linuxPackages_4_12;    # works so far
+  #boot.kernelPackages = pkgs.linuxPackages_testing; # 4.13-rc7 as of 2017-Sep-10
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -468,6 +470,8 @@ in
   users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; } ;
 
   hardware.cpu.intel.updateMicrocode = true;
+  powerManagement.cpuFreqGovernor = "performance";
+
   hardware.facetimehd.enable = true;
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull; # we need to use the full package for bluetooth support
