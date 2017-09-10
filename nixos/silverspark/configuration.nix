@@ -407,6 +407,12 @@ in
     zip
   ];
 
+  environment.etc = {
+    "libao.conf".text = ''
+      default_driver=pulse
+    '';
+  };
+
   # List services that you want to enable:
   services.acpid.enable = true;
   services.upower.enable = true;
@@ -464,6 +470,12 @@ in
   hardware.cpu.intel.updateMicrocode = true;
   hardware.facetimehd.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.package = pkgs.pulseaudioFull; # we need to use the full package for bluetooth support
+  #for wireless headset
+  hardware.pulseaudio.extraConfig = ''
+    load-module module-switch-on-connect
+  '';
+
   hardware.bluetooth.enable = true;
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
