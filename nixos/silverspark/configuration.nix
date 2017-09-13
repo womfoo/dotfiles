@@ -536,6 +536,13 @@ in
   nix.useSandbox = true;
   nix.buildCores = 4;
 
+  services.dnsmasq = {
+    enable = true;
+    extraConfig = ''
+      addn-hosts=/etc/hosts.vagrant-hosts
+    '';
+  };
+
   services.nfs.server = {
     enable     = true;
     exports    = ''
