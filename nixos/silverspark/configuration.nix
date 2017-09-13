@@ -50,7 +50,8 @@ in
   networking = {
     hostName = "silverspark";
     networkmanager.enable = true;
-    networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
+    #disabling for now, reenable when in a country that censors free speech
+    #networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
     firewall.allowedTCPPorts = [
       22
       2049 # nfs
