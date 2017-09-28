@@ -36,6 +36,7 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./telegraf.nix
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;   # 4.12 as of 2017-Sep-10
