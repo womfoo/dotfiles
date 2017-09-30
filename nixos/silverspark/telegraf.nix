@@ -1,6 +1,12 @@
 { pkgs, ... }:
 let
   secrets = import ./secrets.nix;
+  asteriskCheckScript = pkgs.writeScript "telegraf-check-asterisk" ''
+    #!${pkgs.bash}/bin/bash
+    /run/wrappers/bin/sudo ${pkgs.asterisk}/bin/asterisk -rx 'core show channels' | \
+    ${pkgs.gnugrep}/bin/grep 'active calls' | \
+    ${pkgs.coreutils}/bin/echo asterisk_active_calls,host=$HOSTNAME value=$(${pkgs.coreutils}/bin/cut -f 1 -d ' ')
+  '';
 in
 {
 
@@ -50,6 +56,10 @@ in
       procstat = {
         exe = ".*"; # limit this in the future, this sends everything
       };
+      exec = {
+        commands = [ "${asteriskCheckScript}" ];
+        data_format = "influx";
+      };
     };
     outputs = { influxdb = { database = "metrics";
                              urls = [ "https://influxdb.gikos.net:8086" ];
@@ -58,5 +68,10 @@ in
               };
     };
   };
+
+ # telegraf cant query asterisk without root
+ security.sudo.extraConfig = ''
+   telegraf ALL=(root) NOPASSWD: ${pkgs.asterisk}/bin/asterisk
+ '';
 
 }
