@@ -328,6 +328,7 @@ in
     parcellite
     #parted
     patchelf
+    pasystray
     pavucontrol
     pciutils                    # setpci
     #pdftk
