@@ -182,6 +182,10 @@ in
     ghostscript                 # needed by emacs doc-view
     gimp
     gitFull
+    go
+    go2nix
+    gx
+    gx-go
     glxinfo
     gnome3.cheese
     #gnome3.eog
