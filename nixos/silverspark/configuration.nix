@@ -5,6 +5,8 @@
 { config, pkgs, ... }:
 
 let
+  #xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc822.xmobar;
+  xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc861.xmobar;
   AMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
   #mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
   #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
@@ -78,6 +80,8 @@ in
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    # local-override
+    xmobar # currently segfaults
     # maintainted
     cloudmonkey
     facter
@@ -88,22 +92,25 @@ in
     powerstat
     smemstat
     xzgv
+    yq
     # work
-    hipchat
-    skype
-    slack
+    #hipchat
+    #skype
+    skypeforlinux
+    #slack                     # too much of a resource hog
     # local
     #ikvm-launch
     #ldapseed
     # mine
     abcde
-    abiword
+    abiword                    # no binary on master 2017-11-04
     acd-cli
     acpi
-    adapta-gtk-theme
+    #adapta-gtk-theme
+    #afl                       # cant remember why i installed this commenting
     ag
     aircrack-ng
-    androidsdk
+    #androidsdk                # no binary on master 2017-11-04
     #ant
     ansible
     arc-theme
@@ -114,83 +121,86 @@ in
     augeas
     avidemux
     awscli
-    baresip
-    #baobab
-    bind                        # nslookup
+    baresip                    # unstable broken 20171114
+    baobab
+    bind
     binutils                    # ld, ar
-    bitcoin
+    bitcoin #failing jan 5 2018
+    #bonfire                     #not in 17.09
     blueman
     bmon
     btrfs-progs
-    #bundix
+    bundix
     #bundler
     sox
     ffmpeg
     calibre
+    cfssl
+    chromedriver
     chromium
+    cli53
+    docker_compose
     google-chrome
     #google-chrome-beta
-    #google-chrome-dev
+    google-chrome-dev          # facetimehd works here https://github.com/patjak/bcwc_pcie/issues/123
     cifs_utils
-    compton
-    conkeror
+    compton-git
+    #conkeror                  # apr 16 2018 firefox esr dead
+    conntrack_tools
     cool-retro-term
     cpuminer-multi
     cryptsetup
     darcs
     #deadbeef
+    dbeaver
     debootstrap
     dillo
     dmenu
-    docker_compose
+    #docker_compose
     dropbox
     duc
+    dnsutils                    # nslookup
     dpkg # so we can view files inside debs
-    (with emacsPackagesNg; emacsWithPackages [
-      vagrant-tramp
-      powerline
-      ivy-hydra
-      #smart-mode-line
-      #helm
-      ivy
-      swiper
-      counsel
-      ace-jump-mode
-      color-theme
-      haskell-mode
-      magit
-      graphviz-dot-mode
-    ])
+    emacs
     elfutils
     encfs
     ec2_api_tools
     ec2_ami_tools
+    ecdsautils
     ekiga
-    electrum
+    #electrum
+    #/nix/store/gahaavibp60fy15yd60wl8w5fx07437y-electrum-3.1.3/bin/electrum
     exfat
     exfat-utils
-    #facter
+    facter
     #fbreader
     file
-    firefox-esr # NPAPI support until 2018 for hangouts.
-    #firefox-bin # no hangouts?
+    #firefox
+    #firefox-esr # NPAPI support until 2018 for hangouts, takes a long time to build 20160
+    firefox-bin # no hangouts?
     #firefox-esr
-    #firefox-beta-bin
+    #firefox-beta-bin # 57 is out!
     flac
+    flameshot
+    fpm
     fuse_exfat
     geoip
+    #ghcid #does not work here
     ghostscript                 # needed by emacs doc-view
     gimp
     gitFull
+    gnome3.librsvg
     go
     go2nix
     gx
     gx-go
     glxinfo
+    gnome3.adwaita-icon-theme
     gnome3.cheese
     #gnome3.eog
     gnome3.evince              # not built in unstable-small <2016-11-05>
-    gnome3.nautilus
+    #gnome3.file-roller
+    #gnome3.nautilus
     #gnucash                    # not built in unstable-small <2016-11-04>
     #gnumeric
     gnupg1compat
@@ -200,54 +210,89 @@ in
     gparted
     gpodder
     gptfdisk
-    gtkgnutella
+    #gtkgnutella
     #gtkpod
     graphviz
     gsmartcontrol
+    #(with gst_all_1; [ gst-plugins-base gst-plugins-good gst-plugins-ugly ])
+    #gst_all_1.gst-plugins-base
+    #gstreamer
+    #gst-plugins-base
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
     #stack
     hledger
     hledger-web
     #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
+    #(haskell.packages.ghc802.ghcWithPackages (self : with haskell.packages.ghc802; with pkgs.haskell.lib; [
+    #(haskell.packages.ghcjs.ghcWithPackages (self : with haskell.packages.ghcjs; with pkgs.haskell.lib; [
+    # (haskell.packages.ghcjs.ghcWithPackages (self : with haskell.packages.ghcjs; [
+    #    ghcjs-dom
+    # ]))
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
-      propellor
-      yaml-light
-      AMI
-      #tinfoil
-      ble
-      xmobar
+      #questioner # ansi-terminal
+      #teleport does not build with 8.4
+      HsOpenSSL
+      hGelf
+      #http-client
+      #http-client-tls
+      #scotty
+      # slack-api
+      # optparse-applicative
+      # cryptonite
+      http-conduit
+      hamlet
+      # #intero
+      # #snap
+      # #snap-templates
+      # #update-nix-fetchgit
+      # #jsons-to-schema
+      # wuss
+      # websockets
+      # #conduit-audio # probably failing due to mpd
+      # #pulse-simple # probably failing due to mpd
+      # #mediabus-rtp
+      # propellor
+      # yaml-light
+      # AMI
+      # #tinfoil
+      # #ble # needs patch dbus
+      #xmobar
       cabal-install
       cabal2nix
-      sproxy2
-      mywatch
-      weeder
-      #mywatch zalora mysql
-    #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
-      #update-nix-fetchgit
-      #github
-      #mygithub
+      # sproxy2
+      # mywatch
+      # weeder
+      # #mywatch zalora mysql
+      # #update-nix-fetchgit
+      # #github
+      # #mygithub
       stylish-haskell
       hlint
-      #(self.callPackage /home/kranium/git/github.com/womfoo/github/default.nix { })
-      text-conversions
-      #servant-github
-      servant
-      mysql-haskell
-      mysql-simple
-      git
-      hGelf
-      brick
-      markdown-unlit
-      hail
-      #hsass
-      #webdriver
-      ShellCheck
-      #alex
-      #cabal-install
-      #cabal2nix
-      ghc-mod
-      hledger
-      #wreq
-      xmobar
+      # #(self.callPackage /home/kranium/git/github.com/womfoo/github/default.nix { })
+      # text-conversions
+      # #servant-github
+      # servant
+      # #mysql-haskell # binary-parsers fails
+      # #mysql-simple # binary-parsers fails
+      # git
+      # hGelf
+      # brick
+      # markdown-unlit
+      # #hail #tasty-quickcheck ==0.8.*
+      # #hsass
+      # #webdriver
+      # ShellCheck
+      # #alex
+      # #cabal-install
+      # #cabal2nix
+      #ghc-mod # cabal-helpernotworking
+      # hledger
+      # #wreq
+      # xmobar
       #hnix
       #hnix_loc
       #hGelf
@@ -257,23 +302,32 @@ in
       #aeson-pretty
       #stack
       #hails
-      timeplot
-      splot
-      language-puppet
+      # timeplot
+      #splot  # broken by latest ghc
+      #language-puppet   # broken 20180325
+      #xdot
     ]))
     hfsprogs
     hiera-eyaml
+    hicolor-icon-theme
     htop
+    httpie
     #ifuse
     imagemagick
     inetutils
+    influxdb
+    iperf
     iptraf-ng
     #innoextract
     #inkscape
-    #inotify-tools
+    inotifyTools
     iotop
+    ispell
     iw                          # iw list
+    jetbrains.idea-community
     jitsi
+    jmeter
+    jwhois
     jq
     #kazam
     #kde4.digikam
@@ -283,20 +337,26 @@ in
     #kde4.ktorrent
     #kde4.okular
     #kde5.okular
-    #kdiff3-qt5  #broken 2017-06-25
+    kdiff3-qt5
     #ktorrent    #broken 2017-06-25
     keepassx
     keybase
+    keybase-gui
+    kitty                            # gpu terminal FTWb # not in 17.09
     kops
     kpcli
-    kubernetes
-    #libreoffice # broken 20170802
+    kubernetes  # tests failing 2018-01-03
+    kubectl
+    languagetool
+    libreoffice                # 16 apr 2018
+    librarian-puppet-go
     libva-full                  # vaapiVdpau should installt this but I need vainfo
     #libvdpau-va-gl              # vdpauinfo
     linphone
     vdpauinfo                   # lol
     libxml2                     #xmllint
     libxslt
+    lmdb                        # mdb_copy for backing up monero
     #logstash
     lsof
     #lxc
@@ -306,19 +366,29 @@ in
     minikube
     monero
     mosh
-    #mplayer
+    mplayer
+    mpv
     (mtr.override { withGtk = true; })
-    mysql-workbench
+    mumble
+    mysql
+    #mysql-workbench   # broken on master 2018-01-21
     ncdu
+    neovim
     netdata
     nethogs
     #netsurf
     networkmanager_openconnect
-    networkmanager_pptp
+    #networkmanager_pptp  #gone 18.03
+    networkmanager_l2tp
     networkmanagerapplet
+    ngrep
     nix-prefetch-git
-    nix-repl
+    #nix-repl
+    nmap
+    nodePackages.bower
     nodePackages.node2nix #creates hugeass file
+    nodePackages.pulp # not in 17.09
+    nodejs
     #nox # broken Jun 10 2017
     npm2nix
     ntfs3g
@@ -326,75 +396,115 @@ in
     #openjdk
     openconnect_openssl
     openldap                    # ldapsearch
+    #openra
     openssl
     #openttd
+    packer
     pandoc
     parcellite
+    pass
     #parted
     patchelf
     pasystray
     pavucontrol
     pciutils                    # setpci
     #pdftk
-    pdfmod
-    #pgadmin
+    #pdfmod
+    pgadmin
     p7zip
     pianobar
     #pidgin
+    picocom
     pipes                       # screensaver
     pkgconfig
     pmtools                     # acpidump
     poppler_utils               # pdf2txt
     postgresql                  #just for the psql command
+    ppp
+    pptp
     psmisc                      #killall
+    #purescript
     pv
     #python3
     #python3Packages.xdot
     python3
     python3Packages.pip
-    python3Packages.selenium
+    #python3Packages.selenium   # fail 2018022
     python3Packages.binwalk
+    #python36Packages.azure-cli
+    python36Packages.gunicorn
+    #python2Packages.xdot
+    qemu
     qpdf
+    ranger
+    redshift
     remmina                     # rdp
+    rhash
     rpm
     rsync
-    ruby_2_1
-    rxvt_unicode
+    r10k
+    #ruby_2_1                    # deprecated in 17.09
+    ruby_2_4
+    runc
+    rxvt_unicode-with-plugins
     screen
     scrot                        # screenshot tool
     shared_mime_info
     shutter
     simplescreenrecorder
-    sipcmd
+    signal-desktop               # not in 17.09
+    #sipcmd                        # wont build 25mar2018 xb xb
+    sipp
+    sipsak
+    softether
+    sshpass
+    steam
+    subversionClient
     #smartgithg
     smartmontools
     spaceFM
     speedtest-cli
+    #stack2nix                 # wont build 4jul2018
+    #strongswan
     #sqlite
+    sysstat                    # iotop etceel
+    wxsqlite3
+    wxsqliteplus
     #squashfsTools
     #sshfsFuse
     #subversion
+    texlive.combined.scheme-full
+    tilix
+    #tetex                      # pandoc md to pdf needs this
     tcpdump
     terminator
     terraform
     #tesseract
     thunderbird
-    tora
+    #tora
     torbrowser
+    tmux
+    tmux-cssh
     trayer
     tree
-    unrar
+    ####unstable brave
+    ####tsung
+    #unrar                      # no unstable binary 20171114
     unzip
     usbutils                    # lsusb
     vagrant
     veracrypt
+    vim
     virtualbox
     vlc
+    #vscode
     vnstat
     wget
     which
+    wire-desktop
     wirelesstools               # iwconfig
-    #wireshark
+    wireshark
+    wkhtmltopdf
     #xawtv
     #xca                         # certificate authority gui
     xcalib                      # calibrate colors
@@ -410,9 +520,11 @@ in
     xorg.xlsfonts               # font for xosd
     xorg.xwininfo
     xosd
+    xclip
     xsane
     youtubeDL
     zbar                        # parse qr codes
+    zsync
     zip
   ];
 
