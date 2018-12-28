@@ -85,6 +85,7 @@ in
     # maintainted
     cloudmonkey
     facter
+    find-cursor
     fnotifystat
     forkstat
     gpxsee
