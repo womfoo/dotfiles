@@ -8,7 +8,7 @@ let
   #xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc822.xmobar;
   xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc861.xmobar;
   AMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
-  #mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
+  mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
   #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
   #ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix{ };
   #hnix_loc = pkgs.callPackage /home/kranium/git/github.com/jwiegley/hnix/default.nix { };
@@ -29,6 +29,7 @@ let
       cp localhost.key $out/private
       cp localhost.cert $out/public
       cp localhost.xml $out/public
+      cp ${mycv}/resume.pdf $out/private
     '';
     #temporarily disabled move to section above to activate
     #cp ${mycv}/resume.pdf $out/private
