@@ -619,7 +619,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video"];
+     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" ];
      group = "users";
      uid = 2000;
      createHome = true;
