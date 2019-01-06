@@ -698,6 +698,13 @@ in
       { hostName = "localhost";
         documentRoot = "${spfiles}";
         extraConfig = ''
+        <Location /server-status>
+            SetHandler server-status
+            Require host localhost
+            Order deny,allow
+            Deny from all
+            Allow from 127.0.0.0/255.0.0.0
+        </Location>
         <Location />
             MellonEnable "info"
             MellonSPPrivateKeyFile ${spfiles}/private/localhost.key
