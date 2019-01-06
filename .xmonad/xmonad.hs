@@ -11,6 +11,8 @@ import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
 main = do
+  spawn "xsetroot -cursor_name left_ptr"
+  spawn "xsettingsd"
   spawn "xscreensaver -nosplash"
   spawn "trayer --height 28 --widthtype request --edge top --align right --transparent true --tint 0 --alpha 64 --monitor primary"
   spawn "emacs"
@@ -18,6 +20,7 @@ main = do
   spawn "nm-applet"
   spawn "pasystray"
   spawn "parcellite -n"
+  spawn "firefox"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ docks defaultConfig
     { modMask            = mod4Mask
@@ -30,6 +33,7 @@ main = do
     , manageHook         = manageDocks
                            <+> ( isFullscreen --> doFullFloat )
                            <+> manageHook defaultConfig
+                           <+> ( title =? "ediff" --> doFloat)
     , layoutHook         = smartBorders $ avoidStruts $ layoutHook defaultConfig
     , logHook            = dynamicLogWithPP $ xmobarPP
         { ppOutput       = hPutStrLn xmproc
@@ -48,5 +52,7 @@ main = do
                      ,((0,xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -1.5%")
                      ,((0,xF86XK_AudioMute), spawn "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle")
                      ,((mod4Mask, xK_c), spawn "find-cursor -c red")
+                     ,((mod4Mask, xK_o), spawn "workpass.sh")
+                     ,((mod4Mask, xK_i), spawn "totp.sh")
                      ]
 -- instead of 0 use alsa_output.pci-0000_00_1b.0.analog-stereo
