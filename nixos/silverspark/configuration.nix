@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, options, pkgs, ... }:
 
 let
   #xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc822.xmobar;
@@ -42,9 +42,9 @@ in
       ./telegraf.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;   # 4.12 as of 2017-Sep-10
-  #boot.kernelPackages = pkgs.linuxPackages_4_12;    # works so far
-  #boot.kernelPackages = pkgs.linuxPackages_testing; # 4.13-rc7 as of 2017-Sep-10
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_4_18;
+  #boot.kernelPackages = pkgs.linuxPackages_testing;
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -54,6 +54,9 @@ in
   networking = {
     hostName = "silverspark";
     networkmanager.enable = true;
+    # networkmanager.useDnsmasq = true; # compat generation <= 1898
+    networkmanager.dns = "dnsmasq";
+    # wicd.enable = true;
     #disabling for now, reenable when in a country that censors free speech
     #networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
     firewall.allowedTCPPorts = [
@@ -81,6 +84,7 @@ in
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    libva-utils
     # local-override
     xmobar # currently segfaults
     # maintainted
@@ -172,6 +176,7 @@ in
     ekiga
     #electrum
     #/nix/store/gahaavibp60fy15yd60wl8w5fx07437y-electrum-3.1.3/bin/electrum
+    #etherape
     exfat
     exfat-utils
     facter
@@ -237,6 +242,7 @@ in
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
       #questioner # ansi-terminal
       #teleport does not build with 8.4
+      #hog
       HsOpenSSL
       hGelf
       #http-client
@@ -274,6 +280,7 @@ in
       # #mygithub
       stylish-haskell
       hlint
+      yeganesh
       # #(self.callPackage /home/kranium/git/github.com/womfoo/github/default.nix { })
       # text-conversions
       # #servant-github
@@ -519,6 +526,7 @@ in
     xdotool
     xorg.xauth
     xorg.xdpyinfo
+    xorg.xhost
     xorg.xlsfonts               # font for xosd
     xorg.xwininfo
     xosd
@@ -530,12 +538,18 @@ in
     zip
   ];
 
-  environment.etc = {
-    "libao.conf".text = ''
-      default_driver=pulse
-    '';
+  #environment.etc = {
+  #  "libao.conf".text = ''
+  #    default_driver=pulse
+  #  '';
+  #};
   };
 
+  services.dovecot2.enable = true;
+
+  environment.variables = {
+      GTK_DATA_PREFIX = "/run/current-system/sw";
+    };
   # List services that you want to enable:
   services.acpid.enable = true;
   services.upower.enable = true;
@@ -552,7 +566,7 @@ in
   services.openssh.enable = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  services.printing.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -568,9 +582,24 @@ in
   # services.xserver.desktopManager.kde4.enable = true;
   # services.xserver.desktopManager.kde5.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.videoDrivers = [ "nouveau" ];
-  #services.xserver.videoDrivers = [ "nvidia" ]; #non-free
+  #services.xserver.displayManager.lightdm.enable = true;   #the real deal
+  services.xserver.displayManager.sddm.enable = true;   #the real deal
+  #services.xserver.videoDrivers = [ "nouveau" ];
+  services.xserver.deviceSection = ''
+     # only for nouveau
+     ###Option "GLXVBlank" "on"
+     ###Option "DRI" "3"
+     #Option "SwapLimit" "2" #makes it worse
+  '';
+
+  services.xserver.screenSection = ''
+    Option "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
+    Option         "AllowIndirectGLXProtocol" "off"
+    Option         "TripleBuffer" "on"
+  '';
+
+  #services.xserver.videoDrivers = [ "nvidia-beta" ];  #non-free
+  services.xserver.videoDrivers = [ "nvidia" ];       #non-free <-- faster but breaks ttys and brightness keys
   #services.xserver.videoDrivers = [ "xf86videointel" ];
   services.xserver.windowManager.xmonad.enable = true;                 # do not remove
   services.xserver.windowManager.xmonad.enableContribAndExtras = true; # do not remove
@@ -591,6 +620,8 @@ in
   users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; } ;
 
   hardware.cpu.intel.updateMicrocode = true;
+
+  #this tends to overheat
   powerManagement.cpuFreqGovernor = "performance";
 
   hardware.facetimehd.enable = true;
@@ -602,30 +633,53 @@ in
   '';
 
   hardware.bluetooth.enable = true;
-
-  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
+  hardware.bluetooth.extraConfig  = ''
+    [General]
+    AutoConnect=true
+    Name = %h-%d
+  '';
+  # for steam to work
+  hardware.opengl = {
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  #hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
+  #hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ]; # vaapiIntel
 
   time.timeZone = "Australia/Sydney";
 
-  #virtualisation.docker.enable = true;
-  #virtualisation.virtualbox.host.enable = true;
+  #virtualisation.rkt.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.virtualbox.host.enable = true;
 
   nixpkgs.config = {
-    #allowBroken = true;
+    allowBroken = true;
     allowUnfree = true;
-    firefox = {
-      enableBluejeans = true; #nonfree
-      #enableAdobeFlash = true;
-      enableGoogleTalkPlugin = true; #nonfree
-      #icedtea = true;
-    };
-    #chromium = {
-    # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
-    # enablePepperPDF = true;
+    #firefox = {
+    #  #enableAdobeFlash = true;
+    #  enableGoogleTalkPlugin = true; #nonfree
+    #  #icedtea = true;
     #};
+    chromium = {
+    # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
+    enableAdobeFlash = true;
+    enablePepperPDF = true;
+    #overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix/" ];
+    };
+
+    #permittedInsecurePackages = [
+    #     "linux-4.13.16"
+    #];
+
   };
 
   security.sudo.wheelNeedsPassword = false;
+
+  # services.kbfs = {
+  #   enable = true;
+  #   mountPoint = "/keybase";
+  # };
+  # services.keybase.enable = true;
 
   services.httpd = {
     enable = true;
@@ -651,11 +705,30 @@ in
     ];
   };
 
+  users.extraUsers.wwwrun.extraGroups = ["transmission"];
+
+  programs.java.enable = true;
+
   programs.light.enable = true;
   programs.kbdlight.enable = true;
 
   nix.useSandbox = true;
   nix.buildCores = 4;
+
+  nix.binaryCaches = [
+    "https://cache.nixos.org/"
+    "https://nixcache.reflex-frp.org"
+    "https://static-haskell-nix.cachix.org"
+  ];
+  nix.binaryCachePublicKeys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
+  ];
+  # https://nixos.wiki/wiki/Overlays
+  nix.nixPath = options.nix.nixPath.default ++
+  [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ]
+  ;
 
   services.dnsmasq = {
     enable = true;
@@ -663,6 +736,8 @@ in
       addn-hosts=/etc/hosts.vagrant-hosts
     '';
   };
+
+  #services.dockerRegistry.enable = true;
 
   services.nfs.server = {
     enable     = true;
