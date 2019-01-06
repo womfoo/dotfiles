@@ -13,6 +13,9 @@ in
   systemd.services.telegraf.path = [ pkgs.procps ]; # telegraf procstat will fail without this
   services.telegraf.enable = true;
   services.telegraf.extraConfig = {
+    global_tags = {
+      user = "root";
+    };
     agent = {
       interval = "30s";
       round_interval = true;
@@ -33,6 +36,7 @@ in
         delete_timings = true;
         service_address = ":8125";
       };
+      conntrack = {};
       cpu = {
         percpu = true;
         totalcpu = true;
@@ -40,6 +44,7 @@ in
       };
       disk = { };
       diskio = { };
+      interrupts = {};
       kernel = { };
       mem = { };
       net = { };
@@ -55,6 +60,8 @@ in
       processes = { };
       procstat = {
         exe = ".*"; # limit this in the future, this sends everything
+        #pid_finder = "native";
+        pid_finder = "pgrep";
       };
       exec = {
         commands = [ "${asteriskCheckScript}" ];
