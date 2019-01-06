@@ -37,17 +37,20 @@ let
       cp localhost.key $out/private
       cp localhost.cert $out/public
       cp localhost.xml $out/public
+      ln -s ${pkgs.linuxPackages.virtualboxGuestAdditions.src} $out/public/vbox.iso
+      ln -s /home/kranium/Downloads $out/private/Downloads
       cp ${mycv}/resume.pdf $out/private
     '';
-    #temporarily disabled move to section above to activate
-    #cp ${mycv}/resume.pdf $out/private
   };
+  secrets = import ./secrets.nix;
 in
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./telegraf.nix
+      ./work.nix
+      # ./asterisk-test.nix
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -73,6 +76,7 @@ in
       4000 # nfs/statd
       4001 # nfs/lockd
       4002 # nfs/mountd
+      # 5432 # postgres
     ];
     firewall.allowedUDPPorts = [
       2049 # nfs
@@ -80,6 +84,9 @@ in
       4001 # nfs/lockd
       4002 # nfs/mountd
     ];
+    extraHosts = ''
+      127.0.0.1 silverpark.gikos.net
+    '';
   };
 
   # Select internationalisation properties.
@@ -551,7 +558,6 @@ in
   #    default_driver=pulse
   #  '';
   #};
-  };
 
   services.dovecot2.enable = true;
 
@@ -660,6 +666,7 @@ in
   #virtualisation.rkt.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.virtualbox.host.enable = true;
+  # services.dockerRegistry.enable = true;
 
   nixpkgs.config = {
     allowBroken = true;
@@ -714,6 +721,7 @@ in
             MellonEndpointPath "/mellon"
         </Location>
         <Location /private>
+            Options Indexes FollowSymLinks
             MellonEnable "auth"
         </Location>
 
@@ -765,11 +773,118 @@ in
   services.nfs.server = {
     enable     = true;
     exports    = ''
-      /home/kranium/possplay/puppet-controlrepo *
+      /home/kranium/possplay/puppet-controlrepo *(rw,no_root_squash)
+      /home/kranium/Downloads *
     '';
     statdPort  = 4000;
     lockdPort  = 4001;
     mountdPort = 4002;
+  };
+
+  # https://github.com/NixOS/nixpkgs/issues/14390 2/2
+  environment.pathsToLink = [ "/share" ];
+
+  environment.interactiveShellInit = ''
+    export TERM=xterm
+    # append history instead of overwrite
+    shopt -s histappend
+    # big history, record everything
+    export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+    export HISTSIZE=-1
+    export HISTFILESIZE=-1
+ '';
+
+  services.xserver.displayManager.sessionCommands = ''
+     # This allows GTK to load SVG icons.
+    export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)
+  '';
+
+  programs.ssh.startAgent = true;
+
+  fonts = {
+    enableDefaultFonts = false;
+    enableFontDir = true;
+    fonts = with pkgs; [
+      dejavu_fonts
+      emojione
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-emoji
+      noto-fonts-emoji
+      roboto
+      roboto-mono
+      roboto-slab
+      source-code-pro
+      source-sans-pro
+      source-serif-pro
+      inconsolata
+    ];
+    fontconfig = {
+      #ultimate = {
+      #  enable = false;
+      #};
+      defaultFonts = {
+        monospace = [ "Source Code Pro" ];
+        sansSerif = [ "Source Sans Pro" ];
+        serif     = [ "Source Serif Pro" ];
+      };
+    };
+  };
+
+  services.influxdb.enable = true;
+
+  services.openldap.enable = true;
+  services.openldap.urlList = [ "ldapi:///" "ldap:///" ];
+
+  services.softether.enable = true;
+  services.softether.vpnclient.enable = true;
+
+  services.mysql.enable = true;
+  services.mysql.package = pkgs.mysql57;
+  services.mysql.extraOptions = ''
+    innodb_strict_mode = off
+  '';
+  #services.mysql.package = pkgs.mariadb;
+
+  #services.ntp.enable = true;
+
+  #iphone mounting needs
+  services.usbmuxd.enable = true;
+
+  # services.minio.enable = true;
+  # services.minio.listenAddress = ":12000";
+  # services.minio.region = "ap-southeast-2";
+
+  services.gnome3.gnome-keyring.enable = true;
+
+  # services.etcd.enable = true;
+  # services.flannel.enable = true;
+  # services.flannel.network = "172.16.0.0/12"; #"10.10.0.0/24";
+
+  boot.supportedFilesystems = [ "btrfs" "jfs" "reiserfs" "xfs" ];
+  # system.nixos.stateVersion = "18.03"; # compat generation <= 1898
+  system.stateVersion = "18.03";
+
+  # services.postgresql.enable = true;
+  # services.postgresql.enableTCPIP = true;
+  # services.postgresql.authentication = ''
+  #   host all all 172.20.10.0/24 trust
+  #   host all all 172.17.0.0/24 trust
+  #   host all all 172.28.0.0/24 trust
+  # '';
+  # services.hydra.enable = true;
+  # services.hydra.dbi = "dbi:Pg:dbname=hydra;host=127.0.0.1;user=hydra;password=hydrapassword;";
+  # services.hydra.hydraURL = "http://localhost:9999";
+  # services.hydra.notificationSender = "kranium@gikos.net";
+
+  services.ddclient = {
+    enable = true;
+    use = "if, if=vboxnet0";
+    server = "dynamicdns.park-your-domain.com" ;
+    username = secrets.ddclient.username;
+    protocol = "namecheap";
+    password = secrets.ddclient.password;
+    extraConfig = secrets.ddclient.subdomain;
   };
 
 }
