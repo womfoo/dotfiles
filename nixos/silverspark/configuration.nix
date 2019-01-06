@@ -580,11 +580,12 @@ in
   services.xserver.enable = true;
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
-  services.xserver.synaptics.enable = true;
-  services.xserver.synaptics.palmDetect = true;
-  services.xserver.synaptics.fingersMap = [1 3 2];
-  services.xserver.synaptics.twoFingerScroll = true;
-
+  services.xserver.libinput.enable = true;
+  services.xserver.synaptics.enable = false;
+  # services.xserver.synaptics.enable = true;
+  # services.xserver.synaptics.palmDetect = true;
+  # services.xserver.synaptics.fingersMap = [1 3 2];
+  # services.xserver.synaptics.twoFingerScroll = true;
   # Enable the KDE Desktop Environment.
   # services.xserver.displayManager.kdm.enable = true;
   # services.xserver.desktopManager.kde4.enable = true;
