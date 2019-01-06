@@ -16,6 +16,12 @@ let
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
     sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
   };
+  # basic auth testing
+  # user: user
+  # password: swordfish
+  basicPasswordFile = pkgs.writeText "htpasswd" ''
+  user:$apr1$/ZZCxKOB$C7SdA24Qn6D9w9N0CAgiC/
+  '';
   spfiles = pkgs.stdenv.mkDerivation {
     name = "localhost-spfiles";
     src = ./.;
@@ -26,6 +32,8 @@ let
     installPhase = ''
       mkdir -p $out/private
       mkdir -p $out/public
+      mkdir -p $out/basic_auth
+      echo 'hello basic auth' > $out/basic_auth/hello.txt
       cp localhost.key $out/private
       cp localhost.cert $out/public
       cp localhost.xml $out/public
@@ -699,6 +707,13 @@ in
         </Location>
         <Location /private>
             MellonEnable "auth"
+        </Location>
+
+        <Location /basic_auth>
+            AuthName "Please Log In"
+            AuthType Basic
+            require valid-user
+            AuthUserFile ${basicPasswordFile}
         </Location>
         '';
        }
