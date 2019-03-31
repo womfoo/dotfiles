@@ -105,7 +105,7 @@ in
     # maintainted
     cloudmonkey
     facter
-    find-cursor
+    #find-cursor
     fnotifystat
     forkstat
     gpxsee
@@ -142,6 +142,7 @@ in
     augeas
     avidemux
     awscli
+    azure-storage-azcopy
     baresip                    # unstable broken 20171114
     baobab
     bind
@@ -181,6 +182,7 @@ in
     dropbox
     duc
     dnsutils                    # nslookup
+    dos2unix
     dpkg # so we can view files inside debs
     emacs
     elfutils
@@ -212,6 +214,8 @@ in
     gimp
     gitFull
     gnome3.librsvg
+    gns3-gui
+    gns3-server
     go
     go2nix
     gx
@@ -340,6 +344,7 @@ in
     imagemagick
     inetutils
     influxdb
+    ipcalc
     iperf
     iptraf-ng
     #innoextract
@@ -350,6 +355,7 @@ in
     iw                          # iw list
     jetbrains.idea-community
     jitsi
+    jira-cli
     jmeter
     jwhois
     jq
@@ -362,7 +368,7 @@ in
     #kde4.okular
     #kde5.okular
     kdiff3-qt5
-    #ktorrent    #broken 2017-06-25
+    ktorrent
     keepassx
     keybase
     keybase-gui
@@ -373,6 +379,7 @@ in
     kubectl
     languagetool
     libreoffice                # 16 apr 2018
+    libnotify                   # notify-send pp
     librarian-puppet-go
     libva-full                  # vaapiVdpau should installt this but I need vainfo
     #libvdpau-va-gl              # vdpauinfo
@@ -410,9 +417,11 @@ in
     nix-prefetch-git
     #nix-repl
     nmap
+    nmap-graphical
     nodePackages.bower
     nodePackages.node2nix #creates hugeass file
     nodePackages.pulp # not in 17.09
+    nodePackages.tern
     nodejs
     #nox # broken Jun 10 2017
     npm2nix
@@ -433,6 +442,7 @@ in
     pasystray
     pavucontrol
     pciutils                    # setpci
+    pdfcrack
     #pdftk
     #pdfmod
     pgadmin
@@ -448,7 +458,9 @@ in
     ppp
     pptp
     psmisc                      #killall
+    pssh
     #purescript
+    pulsemixer
     pv
     #python3
     #python3Packages.xdot
@@ -475,6 +487,7 @@ in
     screen
     scrot                        # screenshot tool
     shared_mime_info
+    gnome3.seahorse                     # edit items in gnome-keyring 
     shutter
     simplescreenrecorder
     signal-desktop               # not in 17.09
@@ -512,8 +525,8 @@ in
     tmux-cssh
     trayer
     tree
-    ####unstable brave
-    ####tsung
+    brave
+    tsung
     #unrar                      # no unstable binary 20171114
     unzip
     usbutils                    # lsusb
