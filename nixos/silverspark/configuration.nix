@@ -387,6 +387,7 @@ in
     mc                          # not built in unstable-small <2016-11-04>
     meld
     #mercurialFull
+    minicom
     minikube
     monero
     mosh
@@ -625,7 +626,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" ];
+     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" ];
      group = "users";
      uid = 2000;
      createHome = true;
