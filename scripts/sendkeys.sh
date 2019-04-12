@@ -3,6 +3,14 @@
 KEY_DIR=/home/kranium/encfs/darcs.private/gikos-it/keys
 YAML_FILE=~/sendkeys.yaml
 
+if [ ! -f "$KEY_DIR/private_key.pkcs7.pem" ] || \
+   [ ! -f "$KEY_DIR/public_key.pkcs7.pem" ]  || \
+   [ ! -f "$YAML_FILE" ]
+then
+    echo "missing keys or configuration"
+    exit 1
+fi
+
 case $1 in
   password)
       ENTRY=$(yq -r '.passwords | keys[]' $YAML_FILE | dmenu)
