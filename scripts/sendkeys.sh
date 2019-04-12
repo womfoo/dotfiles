@@ -3,11 +3,6 @@
 KEY_DIR=/home/kranium/encfs/darcs.private/gikos-it/keys
 YAML_FILE=~/sendkeys.yaml
 
-if [ ! -f "$KEY_DIR/private_key.pkcs7.pem" ]; then
-    echo "private key"
-    exit 1
-fi
-
 case $1 in
   password)
       ENTRY=$(yq -r '.passwords | keys[]' $YAML_FILE | dmenu)
@@ -18,8 +13,8 @@ case $1 in
       TOKEN=$(eyaml decrypt --pkcs7-private-key=$KEY_DIR/private_key.pkcs7.pem --pkcs7-public-key=$KEY_DIR/public_key.pkcs7.pem -e $YAML_FILE | yq -r .totps.$ENTRY | sed -e 's/^DEC::PKCS7\[//' -e 's/]!$//')
       SECRET=$(oathtool --totp -b $TOKEN)
   ;;
-  alias)
-      SECRET=$(yq -r .aliases[] | sed -e 's/^DEC::PKCS7\[//' -e 's/]!$//')
+  alias_)
+      SECRET=$(yq -r .aliases[] $YAML_FILE | dmenu)
   ;;
   *)
   echo "invalid usage"
