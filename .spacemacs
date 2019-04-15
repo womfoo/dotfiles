@@ -341,3 +341,10 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(with-eval-after-load 'org
+  (setq org-agenda-files
+        (list "~/encfs/darcs.private/foostash/life.org"
+              "~/encfs/darcs.private/foostash/nixos.org"
+              "~/work/worknotes/work.org"
+              ))
+  )
