@@ -7,6 +7,15 @@
 let
   #xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc822.xmobar;
   xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc861.xmobar;
+  install1903Apps = false;
+
+  newApps = with pkgs; [
+    azure-storage-azcopy
+    brave
+    kdeApplications.konqueror
+    tsung
+  ];
+
   AMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
   mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
   #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
@@ -565,7 +574,7 @@ in
     zbar                        # parse qr codes
     zsync
     zip
-  ];
+  ] ++ lib.optional install1903Apps newApps;
 
   #environment.etc = {
   #  "libao.conf".text = ''
