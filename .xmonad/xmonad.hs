@@ -6,7 +6,7 @@ import XMonad.Hooks.ManageHelpers (doFullFloat,isFullscreen)
 import XMonad.Hooks.SetWMName     (setWMName)
 import XMonad.Layout.NoBorders    (smartBorders)
 import XMonad.Util.EZConfig       (additionalKeys)
-import XMonad.Hooks.EwmhDesktops  (fullscreenEventHook)
+import XMonad.Hooks.EwmhDesktops  (ewmh,fullscreenEventHook)
 import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
@@ -22,7 +22,7 @@ main = do
   spawn "parcellite -n"
   spawn "firefox"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
-  xmonad $ docks defaultConfig
+  xmonad $ docks $ ewmh def
     { modMask            = mod4Mask
     , terminal           = "urxvt"
     , focusedBorderColor = "#cc6666"

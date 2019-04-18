@@ -910,4 +910,5 @@ in
     extraConfig = secrets.ddclient.subdomain;
   };
 
+  services.arbtt.enable = true;
 }
