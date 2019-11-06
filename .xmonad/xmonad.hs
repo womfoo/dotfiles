@@ -20,6 +20,7 @@ main = do
   spawn "nm-applet"
   spawn "pasystray"
   spawn "parcellite -n"
+  spawn "redshift -l -33.84:151.21 -t 6500:3500"
   spawn "firefox"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ docks $ ewmh def
