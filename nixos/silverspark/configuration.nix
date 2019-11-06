@@ -733,17 +733,32 @@ in
     #};
     chromium = {
     # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
-    enableAdobeFlash = true;
-    enablePepperPDF = true;
-    #overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix/" ];
+    # enableAdobeFlash = true;
+    # enablePepperPDF = true;
     };
-
-    #permittedInsecurePackages = [
-    #     "linux-4.13.16"
-    #];
-
+    overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix/" ];
+    #packageOverrides = super: let self = super.pkgs;
+    /*
+    packageOverrides = super:
+      let osxBlob = pkgs.requireFile {
+        message = ''
+          nix-prefetch-url file:///MacOSX/System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS/AppleCameraInterface
+        '';
+        sha256 = "0zb52vsv04if2kla5k2azwfi04mn8mmpl5ahkgpch0157byygb4x";
+        name = "AppleCameraInterface";
+      };
+      in {
+      facetimehd-firmware = super.facetimehd-firmware.overrideDerivation (old: {
+        name = "facetimehd-firmware";
+        src = null; # disables download from apple
+        buildPhase = ''
+          mkdir -p $out/lib/firmware/facetimehd
+          dd bs=1 skip=81920 if=${osxBlob} | gunzip -c > $out/lib/firmware/facetimehd/firmware.bin || true
+        '';
+      });
+    };
+    */
   };
-
   security.sudo.wheelNeedsPassword = false;
 
   # services.kbfs = {
@@ -756,16 +771,31 @@ in
     enable = true;
     adminAddr = "admin@localhost";
     enableMellon = true;
+    enableSSL = false;
+    #listen = [ { ip = "*"; port = 8080;} ];
+    #listen = [ { ip = "  127.0.0.1"; port = 8080;} ];
+        #sslServerCert = "/tmp/gikos_net.cert";
+        #sslServerKey = "/tmp/gikos_net.key";
+
     virtualHosts = [
       { hostName = "localhost";
+        #listen = [ { ip = "  127.0.0.1"; port = 8080;} ];
+        #listen = [ { ip = "  127.0.0.1"; port = 80;} ];
         documentRoot = "${spfiles}";
         extraConfig = ''
+        
+        <ifModule mod_headers.c>
+          #Header set Access-Control-Allow-Origin 'origin-list'
+          Header set Access-Control-Allow-Origin "http://localhost"
+          Header always set Access-Control-Allow-Methods "POST, PUT, GET, DELETE, OPTIONS"
+          Header always set Access-Control-Allow-Headers "Content-Type"           
+        </ifModule>
         <Location /server-status>
             SetHandler server-status
             Require host localhost
             Order deny,allow
             Deny from all
-            Allow from 127.0.0.0/255.0.0.0
+            Allow from   127.0.0.0/255.0.0.0
         </Location>
         <Location />
             MellonEnable "info"
@@ -778,6 +808,25 @@ in
         <Location /private>
             Options Indexes FollowSymLinks
             MellonEnable "auth"
+            
+        <IfModule mod_autoindex.c>
+            Options Indexes FollowSymLinks
+            IndexOptions FancyIndexing
+            IndexOptions VersionSort
+            IndexOptions HTMLTable
+            IndexOptions FoldersFirst
+            IndexOptions IconsAreLinks
+            IndexOptions IgnoreCase
+            IndexOptions SuppressDescription
+            IndexOptions SuppressHTMLPreamble
+            IndexOptions XHTML
+            IndexOptions IconWidth=16
+            IndexOptions IconHeight=16
+            IndexOptions NameWidth=*
+            IndexOrderDefault Descending Name
+            HeaderName /index-style/header.html
+            ReadmeName /index-style/footer.html
+        </ifModule>
         </Location>
 
         <Location /basic_auth>
@@ -786,12 +835,50 @@ in
             require valid-user
             AuthUserFile ${basicPasswordFile}
         </Location>
+        <Location /podview>
+        </Location>
+        <Location /hnix-frontend>
+        </Location>
+
         '';
-       }
+      }
+      { hostName = "silverspark.gikos.net";
+        documentRoot = "/var/lib/hydra/cache";
+
+        extraConfig = ''
+        
+        <Location /private>
+        <IfModule mod_autoindex.c>
+            Options Indexes FollowSymLinks
+            IndexOptions FancyIndexing
+            IndexOptions VersionSort
+            IndexOptions HTMLTable
+            IndexOptions FoldersFirst
+            IndexOptions IconsAreLinks
+            IndexOptions IgnoreCase
+            IndexOptions SuppressDescription
+            IndexOptions SuppressHTMLPreamble
+            IndexOptions XHTML
+            IndexOptions IconWidth=16
+            IndexOptions IconHeight=16
+            IndexOptions NameWidth=*
+            IndexOrderDefault Descending Name
+            HeaderName /index-style/header.html
+            ReadmeName /index-style/footer.html
+        </ifModule>
+        </Location>
+        '';
+      }
+
+
+      { hostName = "localhost2";
+        documentRoot = "/home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe";
+      }
+
     ];
   };
 
-  users.extraUsers.wwwrun.extraGroups = ["transmission"];
+  users.extraUsers.wwwrun.extraGroups = ["transmission" "hydra" ];
 
   programs.java.enable = true;
 
@@ -836,7 +923,9 @@ in
   environment.pathsToLink = [ "/share" ];
 
   environment.interactiveShellInit = ''
-    export TERM=xterm
+    # TERM=rxvt-unicode-256color seen in remote which makes backspace broken
+    # use remove the 'unicode' part for now
+    TERM=rxvt-256color
     # append history instead of overwrite
     shopt -s histappend
     # big history, record everything
@@ -850,7 +939,21 @@ in
     export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)
   '';
 
-  programs.ssh.startAgent = true;
+
+    programs.ssh.startAgent = true;
+
+/*
+    programs.ssh = {
+      startAgent = true;
+      knownHosts = [
+        { hostNames = [ "10.20.60.129" ]; publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMpytQPiAi3AKnag8c78G/3XAmXkg+RltCYAnJnDQ2WY"; }     
+        { hostNames = [ "10.20.60.2" ];   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJaVuglSmptKElruSOG16xCFvCdT2WPp/mXGw2ReQVg/"; }
+        { hostNames = [ "10.20.60.3" ];   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILnYJyvxxVA6BsQYhZym+UgGPvtOWGmaHnwcFZiIvHLG"; }
+        { hostNames = [ "10.20.60.4" ];   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUwrTVToDCcCqOPc3nAnagQQTq+B9BRNksPJmjiyvIG"; }
+        { hostNames = [ "10.101.1.19" ];  publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUwrTVToDCcCqOPc3nAnagQQTq+B9BRNksPJmjiyvIG"; }
+      ];
+    };
+*/
 
   fonts = {
     enableDefaultFonts = false;
@@ -869,6 +972,7 @@ in
       source-sans-pro
       source-serif-pro
       inconsolata
+      # nerdfonts # this is so big
     ];
     fontconfig = {
       #ultimate = {
@@ -884,8 +988,8 @@ in
 
   services.influxdb.enable = true;
 
-  services.openldap.enable = true;
-  services.openldap.urlList = [ "ldapi:///" "ldap:///" ];
+  #services.openldap.enable = true;
+  #services.openldap.urlList = [ "ldapi:///" "ldap:///" ];
 
   services.softether.enable = true;
   services.softether.vpnclient.enable = true;
@@ -893,6 +997,7 @@ in
   services.mysql.enable = true;
   services.mysql.package = pkgs.mysql57;
   services.mysql.extraOptions = ''
+    performance_schema = on
     innodb_strict_mode = off
   '';
   #services.mysql.package = pkgs.mariadb;
@@ -916,21 +1021,50 @@ in
   # system.nixos.stateVersion = "18.03"; # compat generation <= 1898
   system.stateVersion = "18.03";
 
-  # services.postgresql.enable = true;
-  # services.postgresql.enableTCPIP = true;
-  # services.postgresql.authentication = ''
-  #   host all all 172.20.10.0/24 trust
-  #   host all all 172.17.0.0/24 trust
-  #   host all all 172.28.0.0/24 trust
-  # '';
-  # services.hydra.enable = true;
-  # services.hydra.dbi = "dbi:Pg:dbname=hydra;host=127.0.0.1;user=hydra;password=hydrapassword;";
-  # services.hydra.hydraURL = "http://localhost:9999";
-  # services.hydra.notificationSender = "kranium@gikos.net";
+  services.postgresql.enable = true;
+  services.postgresql.enableTCPIP = true;
+  services.postgresql.authentication = ''
+    host all all 172.20.10.0/24 trust
+    host all all 172.28.0.0/24 trust
+    host all all 172.16.0.0/16 trust
+    host all all 172.17.0.0/16 trust
+  '';
+
+  /*
+  services.hydra.enable = true;
+  services.hydra.hydraURL = "http://localhost:3000";
+  services.hydra.notificationSender = "kranium@gikos.net";
+  services.hydra.useSubstitutes = true;
+  services.hydra.extraConfig = ''
+    store_uri = file:///var/lib/hydra/cache?secret-key=/etc/nix/silverspark.gikos.net/secret
+    binary_cache_secret_key_file = /etc/nix/silverspark.gikos.net/secret
+    binary_cache_dir = /var/lib/hydra/cache
+  '';
+
+  */
+  nix.trustedUsers = ["hydra" "hydra-evaluator" "hydra-queue-runner" "kranium" ];
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+      /*
+      {
+        hostName = "localhost";
+        systems = [ "x86_64-linux" "i686-linux" ];
+        maxJobs = 6;
+        # for building VirtualBox VMs as build artifacts, you might need other 
+        # features depending on what you are doing
+        supportedFeatures = [ ];
+      }
+      */
+      # { hostName = "10.20.60.2"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedFeatures = [ ]; }
+      # { hostName = "10.20.60.3"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedeatures = [ ]; }
+      { hostName = "10.20.60.4"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedeatures = [ ]; }
+      # { hostName = "10.20.60.129"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedFeatures = [ ]; }
+      # { hostName = "10.101.1.19"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedeatures = [ ]; }
+    ];
 
   services.ddclient = {
     enable = true;
-    use = "if, if=vboxnet0";
+    use = "if, if=ens9";
     server = "dynamicdns.park-your-domain.com" ;
     username = secrets.ddclient.username;
     protocol = "namecheap";

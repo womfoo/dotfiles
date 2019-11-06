@@ -19,7 +19,12 @@ case $1 in
   totp)
       ENTRY=$(yq -r '.totps | keys[]' $YAML_FILE | dmenu)
       TOKEN=$(eyaml decrypt --pkcs7-private-key=$KEY_DIR/private_key.pkcs7.pem --pkcs7-public-key=$KEY_DIR/public_key.pkcs7.pem -e $YAML_FILE | yq -r .totps.$ENTRY | sed -e 's/^DEC::PKCS7\[//' -e 's/]!$//')
-      SECRET=$(oathtool --totp -b $TOKEN)
+      TOKEN_LINE_COUNT=$(echo "$TOKEN" | wc -l)
+      if [ $TOKEN_LINE_COUNT = "1" ]; then
+        SECRET=$(oathtool --totp -b $TOKEN)
+      else
+        exit 1
+      fi
   ;;
   alias_)
       SECRET=$(yq -r .aliases[] $YAML_FILE | dmenu)

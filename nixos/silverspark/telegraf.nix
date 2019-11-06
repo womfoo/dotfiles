@@ -2,11 +2,17 @@
 let
   secrets = import ./secrets.nix;
   asteriskCheckScript = pkgs.writeScript "telegraf-check-asterisk" ''
-    #!${pkgs.bash}/bin/bash
-    /run/wrappers/bin/sudo ${pkgs.asterisk}/bin/asterisk -rx 'core show channels' | \
-    ${pkgs.gnugrep}/bin/grep 'active calls' | \
-    ${pkgs.coreutils}/bin/echo asterisk_active_calls,host=$HOSTNAME value=$(${pkgs.coreutils}/bin/cut -f 1 -d ' ')
+     #!${pkgs.bash}/bin/bash
+     echo
+     #${pkgs.sipsak}/bin/sipsak
+      
   '';
+  # asteriskCheckScript = pkgs.writeScript "telegraf-check-asterisk" ''
+  #   #!${pkgs.bash}/bin/bash
+  #   /run/wrappers/bin/sudo ${pkgs.asterisk}/bin/asterisk -rx 'core show channels' | \
+  #   ${pkgs.gnugrep}/bin/grep 'active calls' | \
+  #   ${pkgs.coreutils}/bin/echo asterisk_active_calls,host=$HOSTNAME value=$(${pkgs.coreutils}/bin/cut -f 1 -d ' ')
+  # '';
 in
 {
 
@@ -69,16 +75,19 @@ in
       };
     };
     outputs = { influxdb = { database = "metrics";
-                             urls = [ "https://influxdb.gikos.net:8086" ];
-                             username = secrets.remote_influxd.username;
-                             password = secrets.remote_influxd.pass;
+                             urls = [ "http://localhost:8086" ];
               };
+    # outputs = { influxdb = { database = "metrics";
+    #                          urls = [ "https://influxdb.gikos.net:8086" ];
+    #                          username = secrets.remote_influxd.username;
+    #                          password = secrets.remote_influxd.pass;
+    #           };
     };
   };
 
  # telegraf cant query asterisk without root
- security.sudo.extraConfig = ''
-   telegraf ALL=(root) NOPASSWD: ${pkgs.asterisk}/bin/asterisk
- '';
+ # security.sudo.extraConfig = ''
+ #   telegraf ALL=(root) NOPASSWD: ${pkgs.asterisk}/bin/asterisk
+ # '';
 
 }
