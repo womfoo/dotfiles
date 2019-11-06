@@ -538,6 +538,7 @@ in
     smartmontools
     spaceFM
     speedtest-cli
+    st
     #stack2nix                 # wont build 4jul2018
     #strongswan
     sqlite

@@ -24,7 +24,7 @@ main = do
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
   xmonad $ docks $ ewmh def
     { modMask            = mod4Mask
-    , terminal           = "urxvt"
+    , terminal           = "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\""
     , focusedBorderColor = "#cc6666"
     , normalBorderColor  = "#373b41"
     , borderWidth        = 3
