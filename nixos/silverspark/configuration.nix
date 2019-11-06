@@ -113,7 +113,12 @@ in
     firewall.allowedUDPPortRanges = [ { from = 10000; to = 15000; } ];
 
     extraHosts = ''
-      127.0.0.1 silverpark.gikos.net
+      127.0.0.1 voipmonitor.org
+      127.0.0.1 www.voipmonitor.org
+      127.0.0.1 download.voipmonitor.org
+      127.0.0.1 cloud.voipmonitor.org
+      127.0.0.1 cloud2.voipmonitor.org
+      127.0.0.1 cloud3.voipmonitor.org
     '';
   };
 
