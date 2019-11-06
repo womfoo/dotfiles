@@ -70,9 +70,10 @@ in
       # ./asterisk-test.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxPackages_4_18;
-  #boot.kernelPackages = pkgs.linuxPackages_testing;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_5_0;
+  boot.kernelPackages = pkgs.linuxPackages_4_19;
+  # boot.kernelPackages = pkgs.linuxPackages_testing;
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -80,27 +81,37 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
+    # nameservers = [ "8.8.8.8" "8.8.4.4" ];
     hostName = "silverspark";
     networkmanager.enable = true;
     # networkmanager.useDnsmasq = true; # compat generation <= 1898
-    networkmanager.dns = "dnsmasq";
+    # networkmanager.dns = "dnsmasq"; # kranium
     # wicd.enable = true;
     #disabling for now, reenable when in a country that censors free speech
-    #networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
+    # networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
+    # networkmanager.unmanaged = [ "ens9" ];
     firewall.allowedTCPPorts = [
       22
+      # 80                     # http
       2049 # nfs
       4000 # nfs/statd
       4001 # nfs/lockd
       4002 # nfs/mountd
-      # 5432 # postgres
+      # 5060                   # sip
+      # 5432                   # postgres
     ];
     firewall.allowedUDPPorts = [
+      53                       # dns
+      67                       # udp client -> server
+      # 68                     # udp server ->
       2049 # nfs
       4000 # nfs/statd
       4001 # nfs/lockd
       4002 # nfs/mountd
+      # 5060                   # sip
     ];
+    firewall.allowedUDPPortRanges = [ { from = 10000; to = 15000; } ];
+
     extraHosts = ''
       127.0.0.1 silverpark.gikos.net
     '';
@@ -454,7 +465,7 @@ in
     nodePackages.tern
     nodejs
     #nox # broken Jun 10 2017
-    npm2nix
+    # npm2nix                  # deprecated, node2nix or yarn2nix
     ntfs3g
     oathToolkit
     #openjdk
@@ -623,13 +634,13 @@ in
   services.acpid.enable = true;
   services.upower.enable = true;
 
-  #services.mbpfan.enable = true;
-  #services.mbpfan.minFanSpeed = 4000;
-  #services.mbpfan.lowTemp = 55;   # try ranges 55-63, default is 63
-  #services.mbpfan.highTemp = 58;  # try ranges 58-66, default is 66
-  #services.mbpfan.maxTemp = 78;   # do not set it > 90, default is 86
-  #services.mbpfan.pollingInterval = 1;
-  #services.mbpfan.verbose = true;
+  services.mbpfan.enable = true;
+  services.mbpfan.minFanSpeed = 4000; # noisy
+  # services.mbpfan.lowTemp = 55;   # try ranges 55-63, default is 63
+  # services.mbpfan.highTemp = 58;  # try ranges 58-66, default is 66
+  # services.mbpfan.maxTemp = 78;   # do not set it > 90, default is 86
+  # services.mbpfan.pollingInterval = 1;
+  # services.mbpfan.verbose = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -720,6 +731,8 @@ in
 
   #virtualisation.rkt.enable = true;
   virtualisation.docker.enable = true;
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
   virtualisation.virtualbox.host.enable = true;
   # services.dockerRegistry.enable = true;
 
