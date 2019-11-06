@@ -5,8 +5,16 @@
 { config, options, pkgs, ... }:
 
 let
-  #xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc822.xmobar;
-  xmobar = pkgs.haskell.lib.justStaticExecutables pkgs.haskell.packages.ghc861.xmobar;
+
+  myphone-numbers = pkgs.haskell.lib.overrideCabal pkgs.haskellPackages.phone-numbers (drv: {
+
+    configureFlags = (drv.configureFlags or []) ++ [
+      "--extra-lib-dirs=${pkgs.libphonenumber}/lib"
+      "--extra-include-dirs=${pkgs.libphonenumber}/include"
+      ];
+    #preConfigure = "sed -i -e 's/extra-libraries: phonenumber/extra-libraries: libphonenumber/g' phone-numbers.cabal";
+  });
+
   install1903Apps = false;
 
   newApps = with pkgs; [
@@ -110,7 +118,6 @@ in
   environment.systemPackages = with pkgs; [
     libva-utils
     # local-override
-    xmobar # currently segfaults
     # maintainted
     cloudmonkey
     facter
@@ -126,7 +133,7 @@ in
     # work
     #hipchat
     #skype
-    skypeforlinux
+    #skypeforlinux             # 2019-11-06 error: cannot download skypeforlinux_8.51.0.72_amd64.deb from any mirror
     #slack                     # too much of a resource hog
     # local
     #ikvm-launch
@@ -145,20 +152,21 @@ in
     ansible
     arc-theme
     arandr
+    arora
     aria2
     asciinema
     audacity
     augeas
     avidemux
     awscli
-    azure-storage-azcopy
     baresip                    # unstable broken 20171114
     baobab
     bind
     binutils                    # ld, ar
     bitcoin #failing jan 5 2018
     #bonfire                     #not in 17.09
-    blueman
+    #blueman
+    bluez-tools                # bt-device --list
     bmon
     btrfs-progs
     bundix
@@ -168,12 +176,13 @@ in
     calibre
     cfssl
     chromedriver
-    chromium
+    chromium                  # broke 30 jul 2019 last gen /nix/store/2hiqxhqrjfgzw93fvr0dcrlq44vszj2d-chromium-75.0.3770.90/bin/chromium
     cli53
     docker_compose
     google-chrome
     #google-chrome-beta
     google-chrome-dev          # facetimehd works here https://github.com/patjak/bcwc_pcie/issues/123
+    # gqrx                       # sdr
     cifs_utils
     compton-git
     #conkeror                  # apr 16 2018 firefox esr dead
@@ -183,7 +192,7 @@ in
     cryptsetup
     darcs
     #deadbeef
-    dbeaver
+    # dbeaver
     debootstrap
     dillo
     dmenu
@@ -205,12 +214,13 @@ in
     #etherape
     exfat
     exfat-utils
+    f2fs-tools
     facter
     #fbreader
     file
-    #firefox
+    firefox
     #firefox-esr # NPAPI support until 2018 for hangouts, takes a long time to build 20160
-    firefox-bin # no hangouts?
+    #firefox-bin               # no hangouts?
     #firefox-esr
     #firefox-beta-bin # 57 is out!
     flac
@@ -222,19 +232,21 @@ in
     ghostscript                 # needed by emacs doc-view
     gimp
     gitFull
+    gitAndTools.hub
     gnome3.librsvg
-    gns3-gui
-    gns3-server
+    # gns3-gui                 # broken in unstable
+    # gns3-server              # broken in unstable
     go
     go2nix
+    go-jira
     gx
     gx-go
     glxinfo
     gnome3.adwaita-icon-theme
-    gnome3.cheese
+    #gnome3.cheese
     #gnome3.eog
     gnome3.evince              # not built in unstable-small <2016-11-05>
-    #gnome3.file-roller
+    gnome3.file-roller
     #gnome3.nautilus
     #gnucash                    # not built in unstable-small <2016-11-04>
     #gnumeric
@@ -268,6 +280,9 @@ in
     #    ghcjs-dom
     # ]))
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
+      myphone-numbers
+      # espial                 # haddock fail
+      arbtt
       #questioner # ansi-terminal
       #teleport does not build with 8.4
       #hog
@@ -280,7 +295,7 @@ in
       # optparse-applicative
       # cryptonite
       http-conduit
-      hamlet
+      # hamlet
       # #intero
       # #snap
       # #snap-templates
@@ -296,7 +311,7 @@ in
       # AMI
       # #tinfoil
       # #ble # needs patch dbus
-      #xmobar
+      xmobar
       cabal-install
       cabal2nix
       # sproxy2
@@ -313,7 +328,7 @@ in
       # text-conversions
       # #servant-github
       # servant
-      # #mysql-haskell # binary-parsers fails
+      mysql-haskell
       # #mysql-simple # binary-parsers fails
       # git
       # hGelf
@@ -349,6 +364,7 @@ in
     hicolor-icon-theme
     htop
     httpie
+    hwloc
     #ifuse
     imagemagick
     inetutils
@@ -364,7 +380,7 @@ in
     iw                          # iw list
     jetbrains.idea-community
     jitsi
-    jira-cli
+    # jira-cli
     jmeter
     jwhois
     jq
@@ -375,7 +391,7 @@ in
     #kde4.kdiff3
     #kde4.ktorrent
     #kde4.okular
-    #kde5.okular
+    okular
     kdiff3-qt5
     ktorrent
     keepassx
@@ -389,10 +405,11 @@ in
     languagetool
     libreoffice                # 16 apr 2018
     libnotify                   # notify-send pp
+    libphonenumber
     librarian-puppet-go
     libva-full                  # vaapiVdpau should installt this but I need vainfo
     #libvdpau-va-gl              # vdpauinfo
-    linphone
+    # linphone
     vdpauinfo                   # lol
     libxml2                     #xmllint
     libxslt
@@ -408,22 +425,26 @@ in
     monero
     mosh
     mplayer
+    msf
     mpv
     (mtr.override { withGtk = true; })
-    mumble
+    # mumble
     mysql
     #mysql-workbench   # broken on master 2018-01-21
     ncdu
     neovim
     netdata
     nethogs
-    #netsurf
+    netsurf.browser
     networkmanager_openconnect
     #networkmanager_pptp  #gone 18.03
     networkmanager_l2tp
     networkmanagerapplet
     ngrep
+    nix-index
     nix-prefetch-git
+    nixops
+    nixfmt
     #nix-repl
     nmap
     nmap-graphical
@@ -441,6 +462,7 @@ in
     openldap                    # ldapsearch
     #openra
     openssl
+    otter-browser
     #openttd
     packer
     pandoc
@@ -452,7 +474,7 @@ in
     pavucontrol
     pciutils                    # setpci
     pdfcrack
-    #pdftk
+    pdftk
     #pdfmod
     pgadmin
     p7zip
@@ -477,9 +499,11 @@ in
     python3Packages.pip
     #python3Packages.selenium   # fail 2018022
     python3Packages.binwalk
+    python3Packages.sqlparse
     #python36Packages.azure-cli
     python36Packages.gunicorn
     #python2Packages.xdot
+    pypi2nix
     qemu
     qpdf
     ranger
@@ -491,13 +515,16 @@ in
     r10k
     #ruby_2_1                    # deprecated in 17.09
     ruby_2_4
+    rrdtool
+    # rtl-sdr
     runc
     rxvt_unicode-with-plugins
     screen
     scrot                        # screenshot tool
     shared_mime_info
+    shellcheck
     gnome3.seahorse                     # edit items in gnome-keyring 
-    shutter
+    # shutter                  # gtk2 perl not building in unstable 28 oct 2019
     simplescreenrecorder
     signal-desktop               # not in 17.09
     #sipcmd                        # wont build 25mar2018 xb xb
@@ -505,7 +532,7 @@ in
     sipsak
     softether
     sshpass
-    steam
+    #steam
     subversionClient
     #smartgithg
     smartmontools
@@ -513,7 +540,8 @@ in
     speedtest-cli
     #stack2nix                 # wont build 4jul2018
     #strongswan
-    #sqlite
+    sqlite
+    sqlitebrowser
     sysstat                    # iotop etceel
     wxsqlite3
     wxsqliteplus
@@ -521,30 +549,31 @@ in
     #sshfsFuse
     #subversion
     texlive.combined.scheme-full
-    tilix
+    # tilix
     #tetex                      # pandoc md to pdf needs this
     tcpdump
+    # teamviewer               # fails in 19.09?
     terminator
     terraform
     #tesseract
     thunderbird
     #tora
     torbrowser
-    tmux
+    # tmux
     tmux-cssh
     trayer
     tree
-    brave
-    tsung
     #unrar                      # no unstable binary 20171114
     unzip
     usbutils                    # lsusb
     vagrant
     veracrypt
     vim
+    vivaldi
     virtualbox
     vlc
-    #vscode
+    vulnix
+    vscode
     vnstat
     wget
     which
@@ -570,8 +599,10 @@ in
     xosd
     xclip
     xsane
+    yate
     youtubeDL
     zbar                        # parse qr codes
+    zoom-us
     zsync
     zip
   ] ++ lib.optional install1903Apps newApps;
@@ -911,4 +942,12 @@ in
   };
 
   services.arbtt.enable = true;
+
+  programs.tmux = {
+    enable = true;
+    historyLimit = 50000;
+    extraTmuxConf = ''
+      run-shell ${pkgs.tmuxPlugins.logging}/share/tmux-plugins/logging/logging.tmux
+    '';
+  };
 }
