@@ -816,14 +816,10 @@ in
   [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ]
   ;
 
-  services.dnsmasq = {
-    enable = true;
-    extraConfig = ''
-      addn-hosts=/etc/hosts.vagrant-hosts
-    '';
-  };
+
 
   #services.dockerRegistry.enable = true;
+  environment.etc.hosts.mode = "0644";
 
   services.nfs.server = {
     enable     = true;
