@@ -10,6 +10,7 @@ import XMonad.Hooks.EwmhDesktops  (ewmh,fullscreenEventHook)
 import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
+main :: IO ()
 main = do
   spawn "xsetroot -cursor_name left_ptr"
   spawn "xsettingsd"
