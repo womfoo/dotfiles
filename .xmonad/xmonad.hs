@@ -33,9 +33,9 @@ main = do
     , handleEventHook    = fullscreenEventHook -- fix chrome fullscreen
     , manageHook         = manageDocks
                            <+> ( isFullscreen --> doFullFloat )
-                           <+> manageHook defaultConfig
+                           <+> manageHook def
                            <+> ( title =? "ediff" --> doFloat)
-    , layoutHook         = smartBorders $ avoidStruts $ layoutHook defaultConfig
+    , layoutHook         = smartBorders $ avoidStruts $ layoutHook def
     , logHook            = dynamicLogWithPP $ xmobarPP
         { ppOutput       = hPutStrLn xmproc
         , ppTitle        = xmobarColor "#b5bd68" "" . shorten 80
