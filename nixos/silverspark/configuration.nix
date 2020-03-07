@@ -587,7 +587,7 @@ in
     veracrypt
     vim
     vivaldi
-    virtualbox
+    #virtualbox                 # do not enable virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
     vlc
     vulnix
     vscode
@@ -696,7 +696,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" ];
+     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" ];
      group = "users";
      uid = 2000;
      createHome = true;
@@ -739,6 +739,7 @@ in
   services.flatpak.enable = true;
   xdg.portal.enable = true;
   virtualisation.virtualbox.host.enable = true;
+  virtualisation.libvirtd.enable = true;
   # services.dockerRegistry.enable = true;
 
   nixpkgs.config = {
