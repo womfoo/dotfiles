@@ -789,14 +789,13 @@ in
     enable = true;
     adminAddr = "admin@localhost";
     enableMellon = true;
-    enableSSL = false;
     #listen = [ { ip = "*"; port = 8080;} ];
     #listen = [ { ip = "  127.0.0.1"; port = 8080;} ];
         #sslServerCert = "/tmp/gikos_net.cert";
         #sslServerKey = "/tmp/gikos_net.key";
 
-    virtualHosts = [
-      { hostName = "localhost";
+    virtualHosts = {
+      "silverspark.gikos.net" = {
         #listen = [ { ip = "  127.0.0.1"; port = 8080;} ];
         #listen = [ { ip = "  127.0.0.1"; port = 80;} ];
         documentRoot = "${spfiles}";
@@ -859,8 +858,8 @@ in
         </Location>
 
         '';
-      }
-      { hostName = "silverspark.gikos.net";
+      };
+      "hydra.gikos.net" = {
         documentRoot = "/var/lib/hydra/cache";
 
         extraConfig = ''
@@ -886,15 +885,13 @@ in
         </ifModule>
         </Location>
         '';
-      }
-
-
-      { hostName = "localhost2";
+      };
+      "localhost2" = {
         documentRoot = "/home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe";
-      }
-
-    ];
+      };
+    };
   };
+
 
   users.extraUsers.wwwrun.extraGroups = ["transmission" "hydra" ];
 
