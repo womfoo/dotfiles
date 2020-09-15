@@ -180,7 +180,7 @@ in
     ansible
     arc-theme
     arandr
-    arora
+       # arora
     aria2
     asciinema
        # audacity # broken b50ef9a aug 14 2020
@@ -314,14 +314,25 @@ in
     # ]))
        # haskell.packages.ghc865.darcs
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
-      myphone-numbers
+      # Combinatorrent # https://github.com/scsibug/hbeanstalk/pull/25/files # network-bytestring might just be a drop in replacement?
+      # sproxy2
+      torrent
+      myAMI
+      mysql-simple
+      postgresql-simple
+      xmonad
+      xmonad-contrib
+      semver-range
+      fast-logger
+      turtle
+      # myphone-numbers
       # espial                 # haddock fail
-      arbtt
+      # arbtt
       #questioner # ansi-terminal
       #teleport does not build with 8.4
       #hog
       HsOpenSSL
-      hGelf
+      # hGelf     # 2020-03-20 does not build
       #http-client
       #http-client-tls
       #scotty
@@ -355,14 +366,15 @@ in
       # #update-nix-fetchgit
       # #github
       # #mygithub
-      stylish-haskell
+      # stylish-haskell   # hsyaml bork
       hlint
       yeganesh
       # #(self.callPackage /home/kranium/git/github.com/womfoo/github/default.nix { })
       # text-conversions
       # #servant-github
       # servant
-      mysql-haskell
+      # mysql-haskell
+      esqueleto
       # #mysql-simple # binary-parsers fails
       # git
       # hGelf
@@ -379,7 +391,7 @@ in
       # hledger
       # #wreq
       # xmobar
-      #hnix
+      # hnix # pretty-show >=1.9.5 && <1.10
       #hnix_loc
       #hGelf
       #gender
@@ -392,6 +404,14 @@ in
       #splot  # broken by latest ghc
       #language-puppet   # broken 20180325
       #xdot
+      # ##dhall-nix
+      # ##hocker
+      # jenkinsPlugins2nix
+      # nix-tools # pulls hackagedb failing 26 mar 2020
+      # nixfromnpm # base 4.8
+      # servant-nix
+      # update-nix-fetchgit
+      # yarn2nix  # not yet packaged wtf
     ]))
     hfsprogs
     hiera-eyaml
@@ -556,7 +576,7 @@ in
     r10k
        ruby_2_6
     rrdtool
-    # rtl-sdr
+       rtl-sdr
     runc
     rxvt_unicode-with-plugins
     screen
@@ -567,7 +587,7 @@ in
     # shutter                  # gtk2 perl not building in unstable 28 oct 2019
     simplescreenrecorder
     signal-desktop               # not in 17.09
-    #sipcmd                        # wont build 25mar2018 xb xb
+       # sipcmd # wont build 25mar2018 xb xb
     sipp
     sipsak
     softether
@@ -594,7 +614,7 @@ in
     # tilix
     #tetex                      # pandoc md to pdf needs this
     tcpdump
-    # teamviewer               # fails in 19.09?
+       teamviewer
     terminator
     terraform
     #tesseract
@@ -614,7 +634,7 @@ in
        # vivaldi
     #virtualbox                 # do not enable virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
     vlc
-    vulnix
+       # vulnix
     vscode
     vnstat
     wget
@@ -1125,6 +1145,101 @@ in
     '';
   };
 
+
+  # docker-containers.netbox = {
+  #   image = "netboxcommunity/netbox";
+  # };
+  # networking.networkmanager.dns = "none";
+
+  # deprecated
+  # docker-containers.pihole = {
+  virtualisation.oci-containers.containers.pihole = {
+    # autoStart = false; # display-manager delay?
+    image = "pihole/pihole:latest";
+    ports = [
+      "${serverIP}:53:53/tcp"
+      "${serverIP}:53:53/udp"
+      "3080:80"
+      "30443:443"
+    ];
+    volumes = [
+      "/var/lib/pihole/:/etc/pihole/"
+      "/var/lib/dnsmasq/.d:/etc/dnsmasq.d/"
+    ];
+    environment = {
+      ServerIP = serverIP;
+    };
+    #extraDockerOptions = [
+    extraOptions = [
+      "--cap-add=NET_ADMIN"
+      "--dns=127.0.0.1"
+      "--dns=1.1.1.1"
+    ];
+    workdir = "/var/lib/pihole/";
+  };
+  networking.networkmanager.dns = "none";
+
+  services.grafana = {
+    enable = true;
+  };
+/*
+  services.dnsmasq = {
+    enable = true;
+    servers = [ "8.8.8.8" "8.8.4.4" ];
+    extraConfig = ''
+     domain=kraniumlan
+      interface=eth0
+      bind-interfaces
+      dhcp-option=6,8.8.8.8,8.8.4.4
+      dhcp-range=10.20.60.2,10.20.60.200,24h
+    '';
+  };
+  networking.firewall.allowPing = true;
+  networking.interfaces = { enp0s20u1u2 = { ipv4 = { addresses = [ { address = "10.20.60.1"; prefixLength = 24; } ] ; } ; } ; };
+*/
+
+  systemd.user.services.ff-backup = {
+    description = "backup firefox profile when logging in";
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    path = [ pkgs.bzip2 pkgs.gnutar pkgs.coreutils];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'tar cjvf ~/backup/mozilla-backup-''$(date +%%Y%%m%%d_%%H%%M%%S\).tar.bz2 ~/.mozilla --ignore-failed-read'";
+      # ExecStart = "${pkgs.firefox}/bin/firefox";
+    };
+  };
+/*
+  services.paperless.enable = true;
+  services.paperless.address = "0.0.0.0";
+  services.paperless.extraConfig = {
+    PAPERLESS_TIME_ZONE = "Australia/Sydney";
+    PAPERLESS_DISABLE_LOGIN = "false";
+    PAPERLESS_LIST_PER_PAGE = 1000;
+    PAPERLESS_ALLOWED_HOSTS = "paperless.kranium.net,127.0.0.1";
+    #PAPERLESS_INLINE_DOC=  "false";
+  };
+*/
+  /* hack to make shell less greener for stupid themes */
+  /*
+  programs.bash.promptInit = ''
+    # Provide a nice prompt if the terminal supports it.
+    if [ "$TERM" != "dumb" -o -n "$INSIDE_EMACS" ]; then
+      PROMPT_COLOR="1;31m"
+      let $UID && PROMPT_COLOR="0;32m"
+      if [ -n "$INSIDE_EMACS" -o "$TERM" == "eterm" -o "$TERM" == "eterm-color" ]; then
+        # Emacs term mode doesn't support xterm title escape sequence (\e]0;)
+        PS1="\n\[\033[$PROMPT_COLOR\][\u@\h:\w]\\$\[\033[0m\] "
+      else
+        PS1="\n\[\033[$PROMPT_COLOR\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\\$\[\033[0m\] "
+      fi
+      if test "$TERM" = "xterm"; then
+        PS1="\[\033]2;\h:\u:\w\007\]$PS1"
+      fi
+    fi
+  '';
+  */
   services.haproxy.enable = true;
   services.haproxy.config = ''
     defaults
