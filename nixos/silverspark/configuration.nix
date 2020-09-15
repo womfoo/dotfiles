@@ -132,6 +132,17 @@ in
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+       discord
+       teams
+       #jre8Plugin
+       #adobe-reader
+       certbot
+       azure-cli
+       azure-storage-azcopy
+       arduino
+       #ffmpegthumbnailer
+       darktable
+       fcitx
     libva-utils
     # local-override
     # maintainted
@@ -171,12 +182,13 @@ in
     arora
     aria2
     asciinema
-    audacity
+       # audacity # broken b50ef9a aug 14 2020
     augeas
     avidemux
     awscli
-    baresip                    # unstable broken 20171114
+       # baresip # unstable broken 20171114
     baobab
+       bettercap
     bind
     binutils                    # ld, ar
     bitcoin #failing jan 5 2018
@@ -189,11 +201,13 @@ in
     #bundler
     sox
     ffmpeg
-    calibre
+       # ffmpegthubnailer
+       # calibre # error: dnspython-2.0.0 not supported for interpreter python2.7
     cfssl
     chromedriver
     chromium                  # broke 30 jul 2019 last gen /nix/store/2hiqxhqrjfgzw93fvr0dcrlq44vszj2d-chromium-75.0.3770.90/bin/chromium
     cli53
+       spotify
     docker_compose
     google-chrome
     #google-chrome-beta
@@ -206,11 +220,12 @@ in
     cool-retro-term
     cpuminer-multi
     cryptsetup
-    darcs
+       # darcs
     #deadbeef
     # dbeaver
     debootstrap
     dillo
+       # (dillo.override { openssl = openssl_1_0_2; })
     dmenu
     #docker_compose
     dropbox
@@ -224,8 +239,8 @@ in
     ec2_api_tools
     ec2_ami_tools
     ecdsautils
-    ekiga
-    #electrum
+       # ekiga # ftbs, need boost?
+       # electrum                    # fail
     #/nix/store/gahaavibp60fy15yd60wl8w5fx07437y-electrum-3.1.3/bin/electrum
     #etherape
     exfat
@@ -235,8 +250,9 @@ in
     #fbreader
     file
     firefox
+    # /nix/store/mppf21vfr0sc7gy6fbcv5gfpgj43ib24-firefox-74.0/bin/firefox
     #firefox-esr # NPAPI support until 2018 for hangouts, takes a long time to build 20160
-    #firefox-bin               # no hangouts?
+       # firefox-bin # no hangouts?
     #firefox-esr
     #firefox-beta-bin # 57 is out!
     flac
@@ -259,14 +275,14 @@ in
     gx-go
     glxinfo
     gnome3.adwaita-icon-theme
-    #gnome3.cheese
+       gnome3.cheese
     #gnome3.eog
     gnome3.evince              # not built in unstable-small <2016-11-05>
     gnome3.file-roller
     #gnome3.nautilus
     #gnucash                    # not built in unstable-small <2016-11-04>
     #gnumeric
-    gnupg1compat
+       # gnupg1compat
     go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
     #gnutls
     gpa
@@ -295,6 +311,7 @@ in
     # (haskell.packages.ghcjs.ghcWithPackages (self : with haskell.packages.ghcjs; [
     #    ghcjs-dom
     # ]))
+       # haskell.packages.ghc865.darcs
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
       myphone-numbers
       # espial                 # haddock fail
@@ -389,13 +406,13 @@ in
     iperf
     iptraf-ng
     #innoextract
-    #inkscape
+       inkscape
     inotifyTools
     iotop
     ispell
     iw                          # iw list
     jetbrains.idea-community
-    jitsi
+       # jitsi # broken 16-apr-2020, crap gui anyways
     # jira-cli
     jmeter
     jwhois
@@ -430,25 +447,28 @@ in
     libxml2                     #xmllint
     libxslt
     lmdb                        # mdb_copy for backing up monero
+       lm_sensors
     #logstash
     lsof
     #lxc
     mc                          # not built in unstable-small <2016-11-04>
+       masterpdfeditor # perl broken 2020-06-13
     meld
     #mercurialFull
     minicom
-    minikube
+       # minikube # too big
     monero
     mosh
-    mplayer
+       # mplayer
     msf
     mpv
     (mtr.override { withGtk = true; })
     # mumble
     mysql
-    #mysql-workbench   # broken on master 2018-01-21
+       # mysql-workbench # broken on master 2018-01-21 # paramiko error: bcrypt-3.2.0 not supported for interpreter python2.7
     ncdu
     neovim
+       net_snmp
     netdata
     nethogs
     netsurf.browser
@@ -459,16 +479,17 @@ in
     ngrep
     nix-index
     nix-prefetch-git
+       nix-top
     nixops
     nixfmt
     #nix-repl
     nmap
     nmap-graphical
-    nodePackages.bower
-    nodePackages.node2nix #creates hugeass file
-    nodePackages.pulp # not in 17.09
-    nodePackages.tern
-    nodejs
+       # nodePackages.bower
+       # nodePackages.node2nix #creates hugeass file
+       # nodePackages.pulp # not in 17.09
+       # nodePackages.tern
+       # nodejs
     #nox # broken Jun 10 2017
     # npm2nix                  # deprecated, node2nix or yarn2nix
     ntfs3g
@@ -478,12 +499,13 @@ in
     openldap                    # ldapsearch
     #openra
     openssl
-    otter-browser
+       # otter-browser # removed 20.03?
     #openttd
     packer
     pandoc
     parcellite
     pass
+       parallel
     #parted
     patchelf
     pasystray
@@ -492,8 +514,8 @@ in
     pdfcrack
     pdftk
     #pdfmod
-    pgadmin
-    p7zip
+       # pgadmin
+       # p7zip # marked as insecure 
     pianobar
     #pidgin
     picocom
@@ -502,8 +524,10 @@ in
     pmtools                     # acpidump
     poppler_utils               # pdf2txt
     postgresql                  #just for the psql command
+       postman
     ppp
     pptp
+       procmail # lockfile 
     psmisc                      #killall
     pssh
     #purescript
@@ -529,8 +553,7 @@ in
     rpm
     rsync
     r10k
-    #ruby_2_1                    # deprecated in 17.09
-    ruby_2_4
+       ruby_2_6
     rrdtool
     # rtl-sdr
     runc
@@ -555,6 +578,7 @@ in
     spaceFM
     speedtest-cli
     st
+       # (st.override { conf = builtins.readFile ./config.def.h; })
     #stack2nix                 # wont build 4jul2018
     #strongswan
     sqlite
@@ -586,7 +610,7 @@ in
     vagrant
     veracrypt
     vim
-    vivaldi
+       # vivaldi
     #virtualbox                 # do not enable virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
     vlc
     vulnix
@@ -604,7 +628,7 @@ in
     xfontsel
     xlibs.xkill
     xlibs.xwd
-    xpdf
+       # xpdf # CVE
     xscreensaver
     xmlsec
     xdotool
@@ -619,7 +643,8 @@ in
     yate
     youtubeDL
     zbar                        # parse qr codes
-    zoom-us
+       zfs
+       zoom-us # compiling feb 2020
     zsync
     zip
   ] ++ lib.optional install1903Apps newApps;
