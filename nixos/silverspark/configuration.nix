@@ -99,6 +99,7 @@ in
       4002 # nfs/mountd
       # 5060                   # sip
       # 5432                   # postgres
+      8140 # puppet lol
     ];
     firewall.allowedUDPPorts = [
       53                       # dns
@@ -1123,4 +1124,36 @@ in
       run-shell ${pkgs.tmuxPlugins.logging}/share/tmux-plugins/logging/logging.tmux
     '';
   };
+
+  services.haproxy.enable = true;
+  services.haproxy.config = ''
+    defaults
+      log  global
+      maxconn  6000
+      mode  http
+      option  redispatch
+      option  dontlognull
+      option  http-server-close
+      option  abortonclose
+      option  splice-auto
+      timeout  connect 10s
+      timeout  client 10m
+      timeout  server 10m
+      timeout  queue 10s
+      timeout  http-keep-alive 3s
+
+    listen puppet
+      bind 0.0.0.0:8140
+      mode tcp
+      server vag1-pm-0001 172.20.10.4:8140 check
+      server vag1-pm-0002 192.168.1.146:8140 check
+    listen stats_external
+      bind *:1600
+      mode http
+      bind-process 1
+      stats enable
+      stats uri /haproxy
+      stats auth haproxy:P@ssw0rd
+      stats admin if TRUE
+  '';
 }
