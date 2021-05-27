@@ -5,7 +5,10 @@
 { config, options, pkgs, ... }:
 
 let
-
+  myfacter = pkgs.facter.override { libwhereami = null; };
+  serverIP = "0.0.0.0";
+  # serverIP = "10.101.11.82";
+  # serverIP = "10.101.11.82";
   myphone-numbers = pkgs.haskell.lib.overrideCabal pkgs.haskellPackages.phone-numbers (drv: {
 
     configureFlags = (drv.configureFlags or []) ++ [
@@ -24,8 +27,8 @@ let
     tsung
   ];
 
-  AMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
-  mycv = pkgs.callPackage /home/kranium/git/bitbucket.org/womfoo/awesome-cv { };
+  wire-server = pkgs.haskellPackages.callPackage /home/kranium/git/github.com/wireapp/wire-server { };
+  myAMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
   #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
   #ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix{ };
   #hnix_loc = pkgs.callPackage /home/kranium/git/github.com/jwiegley/hnix/default.nix { };
@@ -70,10 +73,7 @@ in
       # ./asterisk-test.nix
     ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_5_0;
-  boot.kernelPackages = pkgs.linuxPackages_4_19;
-  # boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -100,6 +100,7 @@ in
       # 5060                   # sip
       # 5432                   # postgres
       8140 # puppet lol
+      9200 # elastic
     ];
     firewall.allowedUDPPorts = [
       53                       # dns
@@ -133,8 +134,16 @@ in
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+      # wire-server.wire-server
+      freecad
+      config.boot.kernelPackages.bcc
+      config.boot.kernelPackages.bpftrace
+      wavemon
+      nomacs
+      cura
+      ifuse
        discord
-       teams
+      # teams
        #jre8Plugin
        #adobe-reader
        certbot
@@ -147,8 +156,9 @@ in
     libva-utils
     # local-override
     # maintainted
-    cloudmonkey
-    facter
+      # cloudmonkey #shit why is this working
+      # facter
+      myfacter
     #find-cursor
     fnotifystat
     forkstat
@@ -169,7 +179,7 @@ in
     # mine
     abcde
     abiword                    # no binary on master 2017-11-04
-    acd-cli
+      # acd-cli
     acpi
     #adapta-gtk-theme
     #afl                       # cant remember why i installed this commenting
@@ -178,6 +188,7 @@ in
     #androidsdk                # no binary on master 2017-11-04
     #ant
     ansible
+      antimony
     arc-theme
     arandr
        # arora
@@ -206,7 +217,7 @@ in
        # calibre # error: dnspython-2.0.0 not supported for interpreter python2.7
     cfssl
     chromedriver
-    chromium                  # broke 30 jul 2019 last gen /nix/store/2hiqxhqrjfgzw93fvr0dcrlq44vszj2d-chromium-75.0.3770.90/bin/chromium
+      chromium
     cli53
        spotify
     docker_compose
@@ -218,10 +229,10 @@ in
     compton-git
     #conkeror                  # apr 16 2018 firefox esr dead
     conntrack_tools
-    cool-retro-term
+      # cool-retro-term
     cpuminer-multi
     cryptsetup
-       # darcs
+      darcs
     #deadbeef
     # dbeaver
     debootstrap
@@ -247,7 +258,6 @@ in
     exfat
     exfat-utils
     f2fs-tools
-    facter
     #fbreader
     file
     firefox
@@ -316,6 +326,7 @@ in
     (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
       # Combinatorrent # https://github.com/scsibug/hbeanstalk/pull/25/files # network-bytestring might just be a drop in replacement?
       # sproxy2
+          nix-derivation # pretty
       torrent
       myAMI
       mysql-simple
@@ -412,6 +423,8 @@ in
       # servant-nix
       # update-nix-fetchgit
       # yarn2nix  # not yet packaged wtf
+          # hsI2C
+          brick
     ]))
     hfsprogs
     hiera-eyaml
@@ -432,7 +445,7 @@ in
     iotop
     ispell
     iw                          # iw list
-    jetbrains.idea-community
+          # jetbrains.idea-community # disabled too big
        # jitsi # broken 16-apr-2020, crap gui anyways
     # jira-cli
     jmeter
@@ -449,15 +462,15 @@ in
     kdiff3-qt5
     ktorrent
     keepassx
-    keybase
-    keybase-gui
+          # keybase
+          # keybase-gui
     kitty                            # gpu terminal FTWb # not in 17.09
     kops
     kpcli
-    kubernetes  # tests failing 2018-01-03
+          # kubernetes # too big
     kubectl
     languagetool
-    libreoffice                # 16 apr 2018
+          libreoffice
     libnotify                   # notify-send pp
     libphonenumber
     librarian-puppet-go
@@ -486,13 +499,13 @@ in
     (mtr.override { withGtk = true; })
     # mumble
     mysql
-       # mysql-workbench # broken on master 2018-01-21 # paramiko error: bcrypt-3.2.0 not supported for interpreter python2.7
+          # mysql-workbench
     ncdu
     neovim
        net_snmp
     netdata
     nethogs
-    netsurf.browser
+          # netsurf.browser # does not like nvidia?
     networkmanager_openconnect
     #networkmanager_pptp  #gone 18.03
     networkmanager_l2tp
@@ -501,7 +514,7 @@ in
     nix-index
     nix-prefetch-git
        nix-top
-    nixops
+          # nixops # builder for '/nix/store/7591wry4fp0m6da1jxxr1993rxkpxisp-python2.7-cffi-1.14.4.drv' failed with exit code 1
     nixfmt
     #nix-repl
     nmap
@@ -534,7 +547,7 @@ in
     pciutils                    # setpci
     pdfcrack
     pdftk
-    #pdfmod
+          pdfmod
        # pgadmin
        # p7zip # marked as insecure 
     pianobar
@@ -628,14 +641,15 @@ in
     #unrar                      # no unstable binary 20171114
     unzip
     usbutils                    # lsusb
-    vagrant
+          vagrant
+          # (vagrant.override { withLibvirt = false; })
     veracrypt
     vim
        # vivaldi
     #virtualbox                 # do not enable virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
     vlc
        # vulnix
-    vscode
+          # vscode
     vnstat
     wget
     which
@@ -676,11 +690,9 @@ in
   #  '';
   #};
 
+  services.tftpd.enable = true;
   services.dovecot2.enable = true;
 
-  environment.variables = {
-      GTK_DATA_PREFIX = "/run/current-system/sw";
-    };
   # List services that you want to enable:
   services.acpid.enable = true;
   services.upower.enable = true;
@@ -736,22 +748,26 @@ in
   #services.xserver.videoDrivers = [ "xf86videointel" ];
   services.xserver.windowManager.xmonad.enable = true;                 # do not remove
   services.xserver.windowManager.xmonad.enableContribAndExtras = true; # do not remove
-  services.xserver.windowManager.default = "xmonad";                   # do not remove
+  services.xserver.displayManager.defaultSession = "none+xmonad";
 
   services.locate.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
      name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" ];
+     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" "kranium"];
      group = "users";
      uid = 2000;
      createHome = true;
      home = "/home/kranium";
      shell = "/run/current-system/sw/bin/bash";
+     isNormalUser = true;
   };
-  users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; } ;
+  users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; telegraf = { }; } ;
 
+  users.extraUsers.telegraf = {
+    extraGroups = [ "telegraf" ];
+  };
   hardware.cpu.intel.updateMicrocode = true;
 
   #this tends to overheat
@@ -766,11 +782,7 @@ in
   '';
 
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.extraConfig  = ''
-    [General]
-    AutoConnect=true
-    Name = %h-%d
-  '';
+
   # for steam to work
   hardware.opengl = {
     driSupport = true;
@@ -826,12 +838,6 @@ in
     */
   };
   security.sudo.wheelNeedsPassword = false;
-
-  # services.kbfs = {
-  #   enable = true;
-  #   mountPoint = "/keybase";
-  # };
-  # services.keybase.enable = true;
 
   services.httpd = {
     enable = true;
@@ -934,8 +940,20 @@ in
         </Location>
         '';
       };
+      "arawaraw" = {
+        documentRoot = "/home/kranium/arawaraw";
+      };
       "localhost2" = {
         documentRoot = "/home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe";
+      };
+      "geolite.maxmind.com" = {
+        documentRoot = "/home/kranium/geoip";
+      };
+      "mkdocs" = {
+        documentRoot = "/home/kranium/work/gits/ops/site";
+      };
+      "beamdocs" = {
+        documentRoot = "/home/kranium/git/github.com/haskell-beam/beam/site";
       };
     };
   };
@@ -943,7 +961,7 @@ in
 
   users.extraUsers.wwwrun.extraGroups = ["transmission" "hydra" ];
 
-  programs.java.enable = true;
+  # programs.java.enable = true;
 
   programs.light.enable = true;
   programs.kbdlight.enable = true;
@@ -955,11 +973,13 @@ in
     "https://cache.nixos.org/"
     "https://nixcache.reflex-frp.org"
     "https://static-haskell-nix.cachix.org"
+    "https://hydra.iohk.io"
   ];
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
+    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
   ];
   # https://nixos.wiki/wiki/Overlays
   nix.nixPath = options.nix.nixPath.default ++
@@ -973,6 +993,7 @@ in
 
   services.nfs.server = {
     enable     = true;
+    createMountPoints = true;
     exports    = ''
       /home/kranium/possplay/puppet-controlrepo *(rw,no_root_squash)
       /home/kranium/Downloads *
@@ -1035,6 +1056,7 @@ in
       source-sans-pro
       source-serif-pro
       inconsolata
+      font-awesome
       # nerdfonts # this is so big
     ];
     fontconfig = {
@@ -1059,11 +1081,12 @@ in
 
   services.mysql.enable = true;
   services.mysql.package = pkgs.mysql57;
-  services.mysql.extraOptions = ''
-    performance_schema = on
-    innodb_strict_mode = off
-  '';
-  #services.mysql.package = pkgs.mariadb;
+  services.mysql.settings = {
+    mysqld = {
+      performance_schema = "on";
+      innodb_strict_mode = false;
+    };
+  };
 
   #services.ntp.enable = true;
 
@@ -1271,4 +1294,21 @@ in
       stats auth haproxy:P@ssw0rd
       stats admin if TRUE
   '';
+  services.vector = {
+    enable = true;
+    journaldAccess = true;
+    settings = {
+      sources.xin  = {
+        type = "journald";
+      };
+      sinks.outs = {
+        inputs  = ["in"];
+        type    = "elasticsearch";
+        host    = "http://127.0.0.1:9200";
+      };
+    };
+  };
+  services.elasticsearch.enable = true;
+  services.kibana.enable = true;
+
 }
