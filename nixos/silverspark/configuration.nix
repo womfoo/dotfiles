@@ -133,556 +133,345 @@ in
 
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-      # wire-server.wire-server
-      freecad
+  environment.systemPackages = with pkgs;
+    [
+      abcde
+      abiword
+      acpi
+      ag
+      aircrack-ng
+      ansible
+      antimony
+      arandr
+      arc-theme
+      arduino
+      aria2
+      asciinema
+      augeas
+      avidemux
+      awscli
+      azure-cli
+      azure-storage-azcopy
+      baobab
+      bettercap
+      bind
+      binutils # ld, ar
+      # bitcoin
+      bluez-tools # bt-device --list
+      bmon
+      btrfs-progs
+      bundix
+      certbot
+      cfssl
+      chromedriver
+      chromium
+      cifs_utils
+      cli53
+      compton-git
       config.boot.kernelPackages.bcc
       config.boot.kernelPackages.bpftrace
-      wavemon
-      nomacs
+      conntrack_tools
+      cpuminer-multi
+      cryptsetup
       cura
-      ifuse
-       discord
-      # teams
-       #jre8Plugin
-       #adobe-reader
-       certbot
-       azure-cli
-       azure-storage-azcopy
-       arduino
-       #ffmpegthumbnailer
-       darktable
-       fcitx
-    libva-utils
-    # local-override
-    # maintainted
-      # cloudmonkey #shit why is this working
+      darcs
+      darktable
+      debootstrap
+      dillo
+      discord
+      dmenu
+      dnsutils # nslookup
+      docker_compose
+      dos2unix
+      dpkg # view files inside debs
+      dropbox
+      duc
+      ec2_ami_tools
+      ec2_api_tools
+      ecdsautils
+      elfutils
+      emacs
+      encfs
+      exfat
+      exfat-utils
       # facter
       myfacter
-    #find-cursor
-    fnotifystat
-    forkstat
-    gpxsee
-    pick
-    powerstat
-    smemstat
-    xzgv
-    yq
-    # work
-    #hipchat
-    #skype
-    #skypeforlinux             # 2019-11-06 error: cannot download skypeforlinux_8.51.0.72_amd64.deb from any mirror
-    #slack                     # too much of a resource hog
-    # local
-    #ikvm-launch
-    #ldapseed
-    # mine
-    abcde
-    abiword                    # no binary on master 2017-11-04
-      # acd-cli
-    acpi
-    #adapta-gtk-theme
-    #afl                       # cant remember why i installed this commenting
-    ag
-    aircrack-ng
-    #androidsdk                # no binary on master 2017-11-04
-    #ant
-    ansible
-      antimony
-    arc-theme
-    arandr
-       # arora
-    aria2
-    asciinema
-       # audacity # broken b50ef9a aug 14 2020
-    augeas
-    avidemux
-    awscli
-       # baresip # unstable broken 20171114
-    baobab
-       bettercap
-    bind
-    binutils                    # ld, ar
-    bitcoin #failing jan 5 2018
-    #bonfire                     #not in 17.09
-    #blueman
-    bluez-tools                # bt-device --list
-    bmon
-    btrfs-progs
-    bundix
-    #bundler
-    sox
-    ffmpeg
-       # ffmpegthubnailer
-       # calibre # error: dnspython-2.0.0 not supported for interpreter python2.7
-    cfssl
-    chromedriver
-      chromium
-    cli53
-       spotify
-    docker_compose
-    google-chrome
-    #google-chrome-beta
-    google-chrome-dev          # facetimehd works here https://github.com/patjak/bcwc_pcie/issues/123
-    # gqrx                       # sdr
-    cifs_utils
-    compton-git
-    #conkeror                  # apr 16 2018 firefox esr dead
-    conntrack_tools
-      # cool-retro-term
-    cpuminer-multi
-    cryptsetup
-      darcs
-    #deadbeef
-    # dbeaver
-    debootstrap
-    dillo
-       # (dillo.override { openssl = openssl_1_0_2; })
-    dmenu
-    #docker_compose
-    dropbox
-    duc
-    dnsutils                    # nslookup
-    dos2unix
-    dpkg # so we can view files inside debs
-    emacs
-    elfutils
-    encfs
-    ec2_api_tools
-    ec2_ami_tools
-    ecdsautils
-       # ekiga # ftbs, need boost?
-       # electrum                    # fail
-    #/nix/store/gahaavibp60fy15yd60wl8w5fx07437y-electrum-3.1.3/bin/electrum
-    #etherape
-    exfat
-    exfat-utils
-    f2fs-tools
-    #fbreader
-    file
-    firefox
-    # /nix/store/mppf21vfr0sc7gy6fbcv5gfpgj43ib24-firefox-74.0/bin/firefox
-    #firefox-esr # NPAPI support until 2018 for hangouts, takes a long time to build 20160
-       # firefox-bin # no hangouts?
-    #firefox-esr
-    #firefox-beta-bin # 57 is out!
-    flac
-    flameshot
-    fpm
-    fuse_exfat
-    geoip
-    #ghcid #does not work here
-    ghostscript                 # needed by emacs doc-view
-    gimp
-    gitFull
-    gitAndTools.hub
-    gnome3.librsvg
-    # gns3-gui                 # broken in unstable
-    # gns3-server              # broken in unstable
-    go
-    go2nix
-    go-jira
-    gx
-    gx-go
-    glxinfo
-    gnome3.adwaita-icon-theme
-       gnome3.cheese
-    #gnome3.eog
-    gnome3.evince              # not built in unstable-small <2016-11-05>
-    gnome3.file-roller
-    #gnome3.nautilus
-    #gnucash                    # not built in unstable-small <2016-11-04>
-    #gnumeric
-       # gnupg1compat
-    go-mtpfs                    # jmtpfs and mtpfs fails on my xiaomi
-    #gnutls
-    gpa
-    gparted
-    gpodder
-    gptfdisk
-    #gtkgnutella
-    #gtkpod
-    graphviz
-    gsmartcontrol
-    #(with gst_all_1; [ gst-plugins-base gst-plugins-good gst-plugins-ugly ])
-    #gst_all_1.gst-plugins-base
-    #gstreamer
-    #gst-plugins-base
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-plugins-ugly
-    #stack
-    hledger
-    hledger-web
-    #(haskell.packages.ghc7103.ghcWithPackages (self : with haskell.packages.ghc7103; with pkgs.haskell.lib; [
-    #(haskell.packages.ghc802.ghcWithPackages (self : with haskell.packages.ghc802; with pkgs.haskell.lib; [
-    #(haskell.packages.ghcjs.ghcWithPackages (self : with haskell.packages.ghcjs; with pkgs.haskell.lib; [
-    # (haskell.packages.ghcjs.ghcWithPackages (self : with haskell.packages.ghcjs; [
-    #    ghcjs-dom
-    # ]))
-       # haskell.packages.ghc865.darcs
-    (haskellPackages.ghcWithPackages (self : with haskellPackages; with pkgs.haskell.lib; [
-      # Combinatorrent # https://github.com/scsibug/hbeanstalk/pull/25/files # network-bytestring might just be a drop in replacement?
-      # sproxy2
+      f2fs-tools
+      fcitx
+      ffmpeg
+      file
+      firefox
+      flac
+      flameshot
+      fnotifystat
+      forkstat
+      fpm
+      freecad
+      fuse_exfat
+      geoip
+      ghostscript # needed by emacs doc-view
+      gimp
+      gitAndTools.hub
+      gitFull
+      glxinfo
+      gnome3.adwaita-icon-theme
+      gnome3.cheese
+      gnome3.evince
+      gnome3.file-roller
+      gnome3.librsvg
+      gnome3.seahorse # edit items in gnome-keyring
+      # gnucash
+      # gnumeric
+      # gnupg1compat
+      # gnutls
+      go
+      go-jira
+      go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
+      go2nix
+      google-chrome
+      # google-chrome-beta
+      google-chrome-dev
+      gpa
+      gparted
+      gpodder
+      gptfdisk
+      gpxsee
+      graphviz
+      gsmartcontrol
+      gst_all_1.gst-plugins-bad
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-ugly
+      gst_all_1.gstreamer
+      gx
+      gx-go
+      (haskellPackages.ghcWithPackages (self:
+        with haskellPackages;
+        with pkgs.haskell.lib; [
+          HsOpenSSL
+          cabal-install
+          cabal2nix
+          esqueleto
+          fast-logger
+          hlint
+          http-conduit
+          myAMI
+          mysql-simple
           nix-derivation # pretty
-      torrent
-      myAMI
-      mysql-simple
-      postgresql-simple
-      xmonad
-      xmonad-contrib
-      semver-range
-      fast-logger
-      turtle
-      # myphone-numbers
-      # espial                 # haddock fail
-      # arbtt
-      #questioner # ansi-terminal
-      #teleport does not build with 8.4
-      #hog
-      HsOpenSSL
-      # hGelf     # 2020-03-20 does not build
-      #http-client
-      #http-client-tls
-      #scotty
-      # slack-api
-      # optparse-applicative
-      # cryptonite
-      http-conduit
-      # hamlet
-      # #intero
-      # #snap
-      # #snap-templates
-      # #update-nix-fetchgit
-      # #jsons-to-schema
-      # wuss
-      # websockets
-      # #conduit-audio # probably failing due to mpd
-      # #pulse-simple # probably failing due to mpd
-      # #mediabus-rtp
-      # propellor
-      # yaml-light
-      # AMI
-      # #tinfoil
-      # #ble # needs patch dbus
-      xmobar
-      cabal-install
-      cabal2nix
-      # sproxy2
-      # mywatch
-      # weeder
-      # #mywatch zalora mysql
-      # #update-nix-fetchgit
-      # #github
-      # #mygithub
-      # stylish-haskell   # hsyaml bork
-      hlint
-      yeganesh
-      # #(self.callPackage /home/kranium/git/github.com/womfoo/github/default.nix { })
-      # text-conversions
-      # #servant-github
-      # servant
-      # mysql-haskell
-      esqueleto
-      # #mysql-simple # binary-parsers fails
-      # git
-      # hGelf
-      # brick
-      # markdown-unlit
-      # #hail #tasty-quickcheck ==0.8.*
-      # #hsass
-      # #webdriver
-      # ShellCheck
-      # #alex
-      # #cabal-install
-      # #cabal2nix
-      #ghc-mod # cabal-helpernotworking
-      # hledger
-      # #wreq
-      # xmobar
-      # hnix # pretty-show >=1.9.5 && <1.10
-      #hnix_loc
-      #hGelf
-      #gender
-      #hakyll
-      #hakyll-sass
-      #aeson-pretty
-      #stack
-      #hails
-      # timeplot
-      #splot  # broken by latest ghc
-      #language-puppet   # broken 20180325
-      #xdot
-      # ##dhall-nix
-      # ##hocker
-      # jenkinsPlugins2nix
-      # nix-tools # pulls hackagedb failing 26 mar 2020
-      # nixfromnpm # base 4.8
-      # servant-nix
-      # update-nix-fetchgit
-      # yarn2nix  # not yet packaged wtf
-          # hsI2C
+          postgresql-simple
+          semver-range
+          torrent
+          turtle
+          xmobar
+          xmonad
+          xmonad-contrib
+          yeganesh
           brick
-    ]))
-    hfsprogs
-    hiera-eyaml
-    hicolor-icon-theme
-    htop
-    httpie
-    hwloc
-    #ifuse
-    imagemagick
-    inetutils
-    influxdb
-    ipcalc
-    iperf
-    iptraf-ng
-    #innoextract
-       inkscape
-    inotifyTools
-    iotop
-    ispell
-    iw                          # iw list
-          # jetbrains.idea-community # disabled too big
-       # jitsi # broken 16-apr-2020, crap gui anyways
-    # jira-cli
-    jmeter
-    jwhois
-    jq
-    #kazam
-    #kde4.digikam
-    #kde4.gwenview
-    #kde4.kdenlive
-    #kde4.kdiff3
-    #kde4.ktorrent
-    #kde4.okular
-    okular
-    kdiff3-qt5
-    ktorrent
-    keepassx
-          # keybase
-          # keybase-gui
-    kitty                            # gpu terminal FTWb # not in 17.09
-    kops
-    kpcli
-          # kubernetes # too big
-    kubectl
-    languagetool
-          libreoffice
-    libnotify                   # notify-send pp
-    libphonenumber
-    librarian-puppet-go
-    libva-full                  # vaapiVdpau should installt this but I need vainfo
-    #libvdpau-va-gl              # vdpauinfo
-    # linphone
-    vdpauinfo                   # lol
-    libxml2                     #xmllint
-    libxslt
-    lmdb                        # mdb_copy for backing up monero
-       lm_sensors
-    #logstash
-    lsof
-    #lxc
-    mc                          # not built in unstable-small <2016-11-04>
-       masterpdfeditor # perl broken 2020-06-13
-    meld
-    #mercurialFull
-    minicom
-       # minikube # too big
-    monero
-    mosh
-       # mplayer
-    msf
-    mpv
-    (mtr.override { withGtk = true; })
-    # mumble
-    mysql
-          # mysql-workbench
-    ncdu
-    neovim
-       net_snmp
-    netdata
-    nethogs
-          # netsurf.browser # does not like nvidia?
-    networkmanager_openconnect
-    #networkmanager_pptp  #gone 18.03
-    networkmanager_l2tp
-    networkmanagerapplet
-    ngrep
-    nix-index
-    nix-prefetch-git
-       nix-top
-          # nixops # builder for '/nix/store/7591wry4fp0m6da1jxxr1993rxkpxisp-python2.7-cffi-1.14.4.drv' failed with exit code 1
-    nixfmt
-    #nix-repl
-    nmap
-    nmap-graphical
-       # nodePackages.bower
-       # nodePackages.node2nix #creates hugeass file
-       # nodePackages.pulp # not in 17.09
-       # nodePackages.tern
-       # nodejs
-    #nox # broken Jun 10 2017
-    # npm2nix                  # deprecated, node2nix or yarn2nix
-    ntfs3g
-    oathToolkit
-    #openjdk
-    openconnect_openssl
-    openldap                    # ldapsearch
-    #openra
-    openssl
-       # otter-browser # removed 20.03?
-    #openttd
-    packer
-    pandoc
-    parcellite
-    pass
-       parallel
-    #parted
-    patchelf
-    pasystray
-    pavucontrol
-    pciutils                    # setpci
-    pdfcrack
-    pdftk
-          pdfmod
-       # pgadmin
-       # p7zip # marked as insecure 
-    pianobar
-    #pidgin
-    picocom
-    pipes                       # screensaver
-    pkgconfig
-    pmtools                     # acpidump
-    poppler_utils               # pdf2txt
-    postgresql                  #just for the psql command
-       postman
-    ppp
-    pptp
-       procmail # lockfile 
-    psmisc                      #killall
-    pssh
-    #purescript
-    pulsemixer
-    pv
-    #python3
-    #python3Packages.xdot
-    python3
-    python3Packages.pip
-    #python3Packages.selenium   # fail 2018022
-    python3Packages.binwalk
-    python3Packages.sqlparse
-    #python36Packages.azure-cli
-    python36Packages.gunicorn
-    #python2Packages.xdot
-    pypi2nix
-    qemu
-    qpdf
-    ranger
-    redshift
-    remmina                     # rdp
-    rhash
-    rpm
-    rsync
-    r10k
-       ruby_2_6
-    rrdtool
-       rtl-sdr
-    runc
-    rxvt_unicode-with-plugins
-    screen
-    scrot                        # screenshot tool
-    shared_mime_info
-    shellcheck
-    gnome3.seahorse                     # edit items in gnome-keyring 
-    # shutter                  # gtk2 perl not building in unstable 28 oct 2019
-    simplescreenrecorder
-    signal-desktop               # not in 17.09
-       # sipcmd # wont build 25mar2018 xb xb
-    sipp
-    sipsak
-    softether
-    sshpass
-    #steam
-    subversionClient
-    #smartgithg
-    smartmontools
-    spaceFM
-    speedtest-cli
-    st
-       # (st.override { conf = builtins.readFile ./config.def.h; })
-    #stack2nix                 # wont build 4jul2018
-    #strongswan
-    sqlite
-    sqlitebrowser
-    sysstat                    # iotop etceel
-    wxsqlite3
-    wxsqliteplus
-    #squashfsTools
-    #sshfsFuse
-    #subversion
-    texlive.combined.scheme-full
-    # tilix
-    #tetex                      # pandoc md to pdf needs this
-    tcpdump
-       teamviewer
-    terminator
-    terraform
-    #tesseract
-    thunderbird
-    #tora
-    torbrowser
-    # tmux
-    tmux-cssh
-    trayer
-    tree
-    #unrar                      # no unstable binary 20171114
-    unzip
-    usbutils                    # lsusb
-          vagrant
-          # (vagrant.override { withLibvirt = false; })
-    veracrypt
-    vim
-       # vivaldi
-    #virtualbox                 # do not enable virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
-    vlc
-       # vulnix
-          # vscode
-    vnstat
-    wget
-    which
-    wire-desktop
-    wirelesstools               # iwconfig
-    wireshark
-    wkhtmltopdf
-    #xawtv
-    #xca                         # certificate authority gui
-    xcalib                      # calibrate colors
-    xfontsel
-    xlibs.xkill
-    xlibs.xwd
-       # xpdf # CVE
-    xscreensaver
-    xmlsec
-    xdotool
-    xorg.xauth
-    xorg.xdpyinfo
-    xorg.xhost
-    xorg.xlsfonts               # font for xosd
-    xorg.xwininfo
-    xosd
-    xclip
-    xsane
-    yate
-    youtubeDL
-    zbar                        # parse qr codes
-       zfs
-       zoom-us # compiling feb 2020
-    zsync
-    zip
-  ] ++ lib.optional install1903Apps newApps;
+        ]))
+      hfsprogs
+      hicolor-icon-theme
+      hiera-eyaml
+      hledger
+      hledger-web
+      htop
+      httpie
+      hwloc
+      ifuse
+      imagemagick
+      inetutils
+      influxdb
+      inkscape
+      inotifyTools
+      iotop
+      ipcalc
+      iperf
+      iptraf-ng
+      ispell
+      iw
+      jmeter
+      jq
+      jwhois
+      kdiff3-qt5
+      keepassx
+      kitty
+      kops
+      kpcli
+      ktorrent
+      kubectl
+      languagetool
+      libnotify # notify-send pp
+      libphonenumber
+      librarian-puppet-go
+      libreoffice
+      libva-full # vaapiVdpau should install this but I need vainfo
+      libva-utils
+      libxml2 # xmllint
+      libxslt
+      lm_sensors
+      lmdb # mdb_copy for backing up monero
+      lsof
+      masterpdfeditor
+      mc
+      meld
+      minicom
+      monero
+      mosh
+      mpv
+      msf
+      (mtr.override { withGtk = true; })
+      mysql
+      ncdu
+      neovim
+      net_snmp
+      netdata
+      nethogs
+      networkmanager_l2tp
+      networkmanager_openconnect
+      networkmanagerapplet
+      ngrep
+      nix-index
+      nix-prefetch-git
+      nix-top
+      nixfmt
+      nmap
+      nmap-graphical
+      nomacs
+      ntfs3g
+      oathToolkit
+      okular
+      openconnect_openssl
+      openldap # ldapsearch
+      openssl
+      packer
+      pandoc
+      parallel
+      parcellite
+      pass
+      pasystray
+      patchelf
+      pavucontrol
+      pciutils # setpci
+      pdfcrack
+      pdfmod
+      pdftk
+      pianobar
+      pick
+      picocom
+      pipes # screensaver
+      pkgconfig
+      pmtools # acpidump
+      poppler_utils # pdf2txt
+      postgresql #just for the psql command
+      postman
+      powerstat
+      ppp
+      pptp
+      procmail # lockfile
+      psmisc # killall
+      pssh
+      pulsemixer
+      pv
+      pypi2nix
+      python3
+      python36Packages.gunicorn
+      python3Packages.binwalk
+      python3Packages.pip
+      python3Packages.sqlparse
+      qemu
+      qpdf
+      r10k
+      ranger
+      redshift
+      remmina # rdp
+      rhash
+      rpm
+      rrdtool
+      rsync
+      rtl-sdr
+      ruby_2_6
+      runc
+      rxvt_unicode-with-plugins
+      screen
+      scrot
+      shared_mime_info
+      shellcheck
+      # slack # resource hog
+      signal-desktop
+      simplescreenrecorder
+      sipp
+      sipsak
+      smartmontools
+      smemstat
+      softether
+      sox
+      spaceFM
+      speedtest-cli
+      spotify
+      sqlite
+      sqlitebrowser
+      sshfs
+      sshpass
+      st
+      # steam
+      subversionClient
+      sysstat # iotop, etc...
+      tcpdump
+      # teams
+      teamviewer
+      terminator
+      terraform
+      # tesseract
+      texlive.combined.scheme-full
+      thunderbird
+      tmux-cssh
+      torbrowser
+      trayer
+      tree
+      unzip
+      usbutils # lsusb
+      vagrant
+      vdpauinfo
+      veracrypt
+      vim
+      # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
+      vlc
+      # vulnix
+      # vscode
+      vnstat
+      wavemon
+      wget
+      which
+      wire-desktop
+      wirelesstools # iwconfig
+      wireshark
+      wkhtmltopdf
+      wxsqlite3
+      wxsqliteplus
+      xcalib # calibrate colors
+      xclip
+      xdotool
+      xfontsel
+      xlibs.xkill
+      xlibs.xwd
+      xmlsec
+      xorg.xauth
+      xorg.xdpyinfo
+      xorg.xhost
+      xorg.xlsfonts # font for xosd
+      xorg.xwininfo
+      xosd
+      xsane
+      xscreensaver
+      xzgv
+      yate
+      youtubeDL
+      yq
+      zbar # parse qr codes
+      zfs
+      zip
+      zoom-us
+      zsync
+    ] ++ lib.optional install1903Apps newApps;
 
   #environment.etc = {
   #  "libao.conf".text = ''
