@@ -1,0 +1,16 @@
+/*
+ temp notes should we want to use intel OSS video OSS
+*/
+
+  # services.xserver.videoDrivers = [ "intel" "nouveau" ];
+  # hardware.bumblebee.enable = true;
+  # hardware.bumblebee.driver = "nouveau";
+  # hardware.bumblebee.pmMethod = "switcheroo";
+  /*
+  services.xserver.deviceSection = ''
+     # only for nouveau
+     ###Option "GLXVBlank" "on"
+     ###Option "DRI" "3"
+     #Option "SwapLimit" "2" #makes it worse
+  '';
+  */

@@ -1,38 +1,15 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, options, lib, pkgs, ... }:
 
 let
   noplay = true; # no distractions
   # noplay = false;
   myfacter = pkgs.facter.override { libwhereami = null; };
-  serverIP = "0.0.0.0";
-  # serverIP = "10.101.11.82";
-  # serverIP = "10.101.11.82";
-  myphone-numbers = pkgs.haskell.lib.overrideCabal pkgs.haskellPackages.phone-numbers (drv: {
-
-    configureFlags = (drv.configureFlags or []) ++ [
-      "--extra-lib-dirs=${pkgs.libphonenumber}/lib"
-      "--extra-include-dirs=${pkgs.libphonenumber}/include"
-      ];
-    #preConfigure = "sed -i -e 's/extra-libraries: phonenumber/extra-libraries: libphonenumber/g' phone-numbers.cabal";
-  });
-
   install1903Apps = false;
-
   newApps = with pkgs; [
-    azure-storage-azcopy
     brave
     kdeApplications.konqueror
     tsung
   ];
-
-  wire-server = pkgs.haskellPackages.callPackage /home/kranium/git/github.com/wireapp/wire-server { };
-  #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
-  #ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix{ };
-  #hnix_loc = pkgs.callPackage /home/kranium/git/github.com/jwiegley/hnix/default.nix { };
   idpmetadata = pkgs.fetchurl {
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
     sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
@@ -60,7 +37,6 @@ let
       cp localhost.xml $out/public
       ln -s ${pkgs.linuxPackages.virtualboxGuestAdditions.src} $out/public/vbox.iso
       ln -s /home/kranium/Downloads $out/private/Downloads
-      ln -s /home/kranium/work/gits/ipscape-tools/result/ghcjs/podview/bin/frontend.jsexe $out/podview
       mkdir $out/test
       ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/index.html $out/test/
       ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/rts.js $out/test/
@@ -81,12 +57,11 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./telegraf.nix
-      ./work.nix
+      # ./old-work.nix
       ./fix-unstable-no-audio.nix
       #./asterisk-test.nix
     ];
 
-  #boot.kernelPackages = pkgs.linuxPackages_5_4; # 5.12.7
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_5_12; # nvidia fails on 5.13
 
@@ -98,44 +73,67 @@ in
   networking = {
     # nameservers = [ "8.8.8.8" "8.8.4.4" ];
     hostName = "silverspark";
-    networkmanager.enable = true;
-    # networkmanager.useDnsmasq = true; # compat generation <= 1898
-    # networkmanager.dns = "dnsmasq"; # kranium
-    # wicd.enable = true;
-    #disabling for now, reenable when in a country that censors free speech
-    # networkmanager.insertNameservers = [ "8.8.8.8" "8.8.4.4" ];
-    # networkmanager.unmanaged = [ "ens9" ];
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
+    firewall.logRefusedPackets = true;
     firewall.allowedTCPPorts = [
       22
-      # 80                     # http
+      80                     # http
+      111 # nfs? more
       2049 # nfs
       4000 # nfs/statd
       4001 # nfs/lockd
-      4002 # nfs/mountd
+      4002 # nfs/mount
       # 5060                   # sip
       # 5432                   # postgres
-      8140 # puppet lol
+      8086 # telegraf
+      # 8140 # puppet
       9200 # elastic
     ];
     firewall.allowedUDPPorts = [
       53                       # dns
-      67                       # udp client -> server
+      67                       # udp client -> server (dhcp?)
       # 68                     # udp server ->
+      111 # nfs? more
       2049 # nfs
       4000 # nfs/statd
       4001 # nfs/lockd
       4002 # nfs/mountd
       # 5060                   # sip
     ];
-    firewall.allowedUDPPortRanges = [ { from = 10000; to = 15000; } ];
+    firewall.allowedUDPPortRanges = [
+      # https://blog.g3rt.nl/allow-google-chromecast-host-firewall-iptables.html
+      { from = 32768; to = 61000; }
+      # is this for asterisk?
+      { from = 10000; to = 15000; }
+    ];
 
     extraHosts = ''
-      127.0.0.1 voipmonitor.org
-      127.0.0.1 www.voipmonitor.org
-      127.0.0.1 download.voipmonitor.org
-      127.0.0.1 cloud.voipmonitor.org
-      127.0.0.1 cloud2.voipmonitor.org
-      127.0.0.1 cloud3.voipmonitor.org
+      127.0.0.1 arawaraw
+      127.0.0.1 silverspark.gikos.net
+      127.0.0.1 geolite.maxmind.com
+      10.61.164.26 ip.ipscape.local
+      10.61.164.50 mulan.ipscape.local
+      10.61.164.111 freeipa.ipscape.local
+      10.61.164.155 pm.ipscape.local
+      # 127.0.0.1 voipmonitor.org
+      # 127.0.0.1 www.voipmonitor.org
+      # 127.0.0.1 download.voipmonitor.org
+      # 127.0.0.1 cloud.voipmonitor.org
+      # 127.0.0.1 cloud2.voipmonitor.org
+      # 127.0.0.1 cloud3.voipmonitor.org
+      127.0.0.1 manager.gikos.net
+      127.0.0.1 beamdocs
+      127.0.0.1 miso
+    '' +lib.optionalString noplay ''
+      127.0.0.1 laarc.io
+      127.0.0.1 lobste.rs
+      127.0.0.1 news.ycombinator.com
+      127.0.0.1 slashdot.org
+      127.0.0.1 twitter.com
+      127.0.0.1 www.youtube.com
     '';
   };
 
@@ -165,8 +163,6 @@ in
       augeas
       avidemux
       awscli
-      # azure-cli
-      # azure-storage-azcopy
       baobab
       bettercap
       bind
@@ -318,7 +314,6 @@ in
       # languagetool # very-basic grammarly
       libnotify # notify-send pp
       libphonenumber
-      librarian-puppet-go
       libreoffice
       libva-full # vaapiVdpau should install this but I need vainfo
       libva-utils
@@ -336,14 +331,11 @@ in
       mpv
       msf
       (mtr.override { withGtk = true; })
-      mysql
       ncdu
       neovim
       net_snmp
       # netdata
       nethogs
-      networkmanager_l2tp
-      networkmanager_openconnect
       networkmanagerapplet
       ngrep
       nix-index
@@ -359,7 +351,6 @@ in
       nur.repos.mic92.rhasspy
       oathToolkit
       okular
-      openconnect_openssl
       openldap # ldapsearch
       openssl
       packer
@@ -423,7 +414,6 @@ in
       sipsak
       smartmontools
       smemstat
-      softether
       sox
       spaceFM
       speedtest-cli
@@ -495,12 +485,6 @@ in
       zsync
     ] ++ lib.optional install1903Apps newApps;
 
-  #environment.etc = {
-  #  "libao.conf".text = ''
-  #    default_driver=pulse
-  #  '';
-  #};
-
   services.tftpd.enable = true;
   services.dovecot2.enable = true;
 
@@ -540,13 +524,6 @@ in
   services.xserver.desktopManager.xterm.enable = false;
   #services.xserver.displayManager.lightdm.enable = true;   #the real deal
   services.xserver.displayManager.sddm.enable = true;   #the real deal
-  #services.xserver.videoDrivers = [ "nouveau" ];
-  services.xserver.deviceSection = ''
-     # only for nouveau
-     ###Option "GLXVBlank" "on"
-     ###Option "DRI" "3"
-     #Option "SwapLimit" "2" #makes it worse
-  '';
 
   services.xserver.screenSection = ''
     Option "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
@@ -554,14 +531,78 @@ in
     Option         "TripleBuffer" "on"
   '';
 
-  #services.xserver.videoDrivers = [ "nvidia-beta" ];  #non-free
   services.xserver.videoDrivers = [ "nvidia" ];       #non-free <-- faster but breaks ttys and brightness keys
-  #services.xserver.videoDrivers = [ "xf86videointel" ];
   services.xserver.windowManager.xmonad.enable = true;                 # do not remove
   services.xserver.windowManager.xmonad.enableContribAndExtras = true; # do not remove
   services.xserver.displayManager.defaultSession = "none+xmonad";
 
   services.locate.enable = true;
+  services.locate.pruneFS = [
+    "afs"
+    "anon_inodefs"
+    "auto"
+    "autofs"
+    "bdev"
+    "binfmt"
+    "binfmt_misc"
+    "cgroup"
+    "cifs"
+    "coda"
+    "configfs"
+    "cramfs"
+    "cpuset"
+    "debugfs"
+    "devfs"
+    "devpts"
+    "devtmpfs"
+    "ecryptfs"
+    "eventpollfs"
+    "exofs"
+    "futexfs"
+    "ftpfs"
+    "fuse"
+    "fusectl"
+    "fuse.sshfs"
+    "gfs"
+    "gfs2"
+    "hostfs"
+    "hugetlbfs"
+    "inotifyfs"
+    "iso9660"
+    "jffs2"
+    "lustre"
+    "misc"
+    "mqueue"
+    "ncpfs"
+    "nnpfs"
+    "ocfs"
+    "ocfs2"
+    "pipefs"
+    "proc"
+    "ramfs"
+    "rpc_pipefs"
+    "securityfs"
+    "selinuxfs"
+    "sfs"
+    "shfs"
+    "smbfs"
+    "sockfs"
+    "spufs"
+    # "nfs"
+    # "NFS"
+    # "nfs4"
+    # "nfsd"
+    "sshfs"
+    "subfs"
+    "supermount"
+    "sysfs"
+    "tmpfs"
+    "ubifs"
+    "udf"
+    "usbfs"
+    "vboxsf"
+    "vperfctrfs"
+  ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.extraUsers.kranium = {
@@ -600,18 +641,15 @@ in
     driSupport32Bit = true;
   };
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
-  #hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
-  #hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ]; # vaapiIntel
 
   time.timeZone = "Australia/Sydney";
 
-  #virtualisation.rkt.enable = true;
   virtualisation.docker.enable = true;
+
   services.flatpak.enable = true;
   xdg.portal.enable = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
-  # services.dockerRegistry.enable = true;
 
   nixpkgs.config = {
     allowBroken = true;
@@ -632,6 +670,7 @@ in
     #   "openssl-1.0.2u"
     # ];
   };
+
   security.sudo.wheelNeedsPassword = false;
 
   services.httpd = {
@@ -744,15 +783,14 @@ in
       "geolite.maxmind.com" = {
         documentRoot = "/home/kranium/geoip";
       };
-      "mkdocs" = {
-        documentRoot = "/home/kranium/work/gits/ops/site";
-      };
       "beamdocs" = {
         documentRoot = "/home/kranium/git/github.com/haskell-beam/beam/site";
       };
+      "miso.gikos.net" = {
+        documentRoot = "/home/kranium/git/github.com/dmjio/miso";
+      };
     };
   };
-
 
   users.extraUsers.wwwrun.extraGroups = ["transmission" "hydra" ];
 
@@ -783,8 +821,6 @@ in
   [ "nixpkgs-overlays=/etc/nixos/overlays-compat/" ]
   ;
 
-
-
   #services.dockerRegistry.enable = true;
   environment.etc.hosts.mode = "0644";
 
@@ -792,7 +828,6 @@ in
     enable     = true;
     createMountPoints = true;
     exports    = ''
-      /home/kranium/possplay/puppet-controlrepo *(rw,insecure,no_root_squash,no_subtree_check,fsid=0)
       /home/kranium/Downloads *(ro,no_root_squash,no_subtree_check,fsid=1)
     '';
     statdPort  = 4000;
@@ -820,85 +855,12 @@ in
     export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)
   '';
 
-
-    programs.ssh.startAgent = true;
-
-/*
-    programs.ssh = {
-      startAgent = true;
-      knownHosts = [
-        { hostNames = [ "10.20.60.129" ]; publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMpytQPiAi3AKnag8c78G/3XAmXkg+RltCYAnJnDQ2WY"; }     
-        { hostNames = [ "10.20.60.2" ];   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJaVuglSmptKElruSOG16xCFvCdT2WPp/mXGw2ReQVg/"; }
-        { hostNames = [ "10.20.60.3" ];   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILnYJyvxxVA6BsQYhZym+UgGPvtOWGmaHnwcFZiIvHLG"; }
-        { hostNames = [ "10.20.60.4" ];   publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUwrTVToDCcCqOPc3nAnagQQTq+B9BRNksPJmjiyvIG"; }
-        { hostNames = [ "10.101.1.19" ];  publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINUwrTVToDCcCqOPc3nAnagQQTq+B9BRNksPJmjiyvIG"; }
-      ];
-    };
-*/
-
-  fonts = {
-    enableDefaultFonts = false;
-    enableFontDir = true;
-    fonts = with pkgs; [
-      dejavu_fonts
-      emojione
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-emoji
-      noto-fonts-emoji
-      roboto
-      roboto-mono
-      roboto-slab
-      source-code-pro
-      source-sans-pro
-      source-serif-pro
-      inconsolata
-      font-awesome
-      # nerdfonts # this is so big
-    ];
-    fontconfig = {
-      #ultimate = {
-      #  enable = false;
-      #};
-      defaultFonts = {
-        monospace = [ "Source Code Pro" ];
-        sansSerif = [ "Source Sans Pro" ];
-        serif     = [ "Source Serif Pro" ];
-      };
-    };
-  };
+  programs.ssh.startAgent = true;
 
   services.influxdb.enable = true;
 
-  #services.openldap.enable = true;
-  #services.openldap.urlList = [ "ldapi:///" "ldap:///" ];
-
-  services.softether.enable = true;
-  services.softether.vpnclient.enable = true;
-
-  services.mysql.enable = true;
-  services.mysql.package = pkgs.mysql57;
-  services.mysql.settings = {
-    mysqld = {
-      performance_schema = "on";
-      innodb_strict_mode = false;
-    };
-  };
-
-  #services.ntp.enable = true;
-
   #iphone mounting needs
   services.usbmuxd.enable = true;
-
-  # services.minio.enable = true;
-  # services.minio.listenAddress = ":12000";
-  # services.minio.region = "ap-southeast-2";
-
-  services.gnome3.gnome-keyring.enable = true;
-
-  # services.etcd.enable = true;
-  # services.flannel.enable = true;
-  # services.flannel.network = "172.16.0.0/12"; #"10.10.0.0/24";
 
   boot.supportedFilesystems = [ "btrfs" "jfs" "reiserfs" "xfs" ];
   # system.nixos.stateVersion = "18.03"; # compat generation <= 1898
@@ -913,50 +875,14 @@ in
     host all all 172.17.0.0/16 trust
   '';
 
-  /*
-  services.hydra.enable = true;
-  services.hydra.hydraURL = "http://localhost:3000";
-  services.hydra.notificationSender = "kranium@gikos.net";
-  services.hydra.useSubstitutes = true;
-  services.hydra.extraConfig = ''
-    store_uri = file:///var/lib/hydra/cache?secret-key=/etc/nix/silverspark.gikos.net/secret
-    binary_cache_secret_key_file = /etc/nix/silverspark.gikos.net/secret
-    binary_cache_dir = /var/lib/hydra/cache
+  nix.trustedUsers = ["hydra" "hydra-evaluator" "hydra-queue-runner" "kranium" ];
+
+  nix.extraOptions = ''
+    keep-outputs = true
+    extra-platforms = aarch64-linux
   '';
 
-  */
-  nix.trustedUsers = ["hydra" "hydra-evaluator" "hydra-queue-runner" "kranium" ];
-  nix.distributedBuilds = true;
-  nix.buildMachines = [
-      /*
-      {
-        hostName = "localhost";
-        systems = [ "x86_64-linux" "i686-linux" ];
-        maxJobs = 6;
-        # for building VirtualBox VMs as build artifacts, you might need other 
-        # features depending on what you are doing
-        supportedFeatures = [ ];
-      }
-      */
-      # { hostName = "10.20.60.2"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedFeatures = [ ]; }
-      # { hostName = "10.20.60.3"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedeatures = [ ]; }
-      { hostName = "10.20.60.4"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedeatures = [ ]; }
-      # { hostName = "10.20.60.129"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedFeatures = [ ]; }
-      # { hostName = "10.101.1.19"; systems = [ "armv7l-linux" ]; sshUser = "root"; sshKey = "/etc/nix/buildfarm"; maxJobs = 4; supportedeatures = [ ]; }
-    ];
-
-  services.ddclient = {
-    enable = true;
-    use = "if, if=ens9";
-    server = "dynamicdns.park-your-domain.com" ;
-    username = secrets.ddclient.username;
-    protocol = "namecheap";
-    password = secrets.ddclient.password;
-    extraConfig = secrets.ddclient.subdomain;
-  };
-
   services.arbtt.enable = true;
-  #services.arbtt.package = pkgs.haskell.packages.ghc865.arbtt;
   # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;
 
   environment.variables = {
@@ -968,77 +894,15 @@ in
   programs.tmux = {
     enable = true;
     historyLimit = 50000;
-    extraTmuxConf = ''
+    extraConfig = ''
       run-shell ${pkgs.tmuxPlugins.logging}/share/tmux-plugins/logging/logging.tmux
     '';
   };
 
-
-  # docker-containers.netbox = {
-  #   image = "netboxcommunity/netbox";
-  # };
-  # networking.networkmanager.dns = "none";
-
-  # deprecated
-  # docker-containers.pihole = {
-  virtualisation.oci-containers.containers.pihole = {
-    # autoStart = false; # display-manager delay?
-    image = "pihole/pihole:latest";
-    ports = [
-      "${serverIP}:53:53/tcp"
-      "${serverIP}:53:53/udp"
-      "3080:80"
-      "30443:443"
-    ];
-    volumes = [
-      "/var/lib/pihole/:/etc/pihole/"
-      "/var/lib/dnsmasq/.d:/etc/dnsmasq.d/"
-    ];
-    environment = {
-      ServerIP = serverIP;
-    };
-    #extraDockerOptions = [
-    extraOptions = [
-      "--cap-add=NET_ADMIN"
-      "--dns=127.0.0.1"
-      "--dns=1.1.1.1"
-    ];
-    workdir = "/var/lib/pihole/";
-  };
-  networking.networkmanager.dns = "none";
-
   services.grafana = {
     enable = true;
   };
-/*
-  services.dnsmasq = {
-    enable = true;
-    servers = [ "8.8.8.8" "8.8.4.4" ];
-    extraConfig = ''
-     domain=kraniumlan
-      interface=eth0
-      bind-interfaces
-      dhcp-option=6,8.8.8.8,8.8.4.4
-      dhcp-range=10.20.60.2,10.20.60.200,24h
-    '';
-  };
-  networking.firewall.allowPing = true;
-  networking.interfaces = { enp0s20u1u2 = { ipv4 = { addresses = [ { address = "10.20.60.1"; prefixLength = 24; } ] ; } ; } ; };
-*/
 
-  systemd.user.services.ff-backup = {
-    description = "backup firefox profile when logging in";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    path = [ pkgs.bzip2 pkgs.gnutar pkgs.coreutils];
-
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'tar cjvf ~/backup/mozilla-backup-''$(date +%%Y%%m%%d_%%H%%M%%S\).tar.bz2 ~/.mozilla --ignore-failed-read'";
-      # ExecStart = "${pkgs.firefox}/bin/firefox";
-    };
-  };
-/*
   services.paperless.enable = true;
   services.paperless.address = "0.0.0.0";
   services.paperless.extraConfig = {
@@ -1048,72 +912,5 @@ in
     PAPERLESS_ALLOWED_HOSTS = "paperless.kranium.net,127.0.0.1";
     #PAPERLESS_INLINE_DOC=  "false";
   };
-*/
-  /* hack to make shell less greener for stupid themes */
-  /*
-  programs.bash.promptInit = ''
-    # Provide a nice prompt if the terminal supports it.
-    if [ "$TERM" != "dumb" -o -n "$INSIDE_EMACS" ]; then
-      PROMPT_COLOR="1;31m"
-      let $UID && PROMPT_COLOR="0;32m"
-      if [ -n "$INSIDE_EMACS" -o "$TERM" == "eterm" -o "$TERM" == "eterm-color" ]; then
-        # Emacs term mode doesn't support xterm title escape sequence (\e]0;)
-        PS1="\n\[\033[$PROMPT_COLOR\][\u@\h:\w]\\$\[\033[0m\] "
-      else
-        PS1="\n\[\033[$PROMPT_COLOR\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\\$\[\033[0m\] "
-      fi
-      if test "$TERM" = "xterm"; then
-        PS1="\[\033]2;\h:\u:\w\007\]$PS1"
-      fi
-    fi
-  '';
-  */
-  services.haproxy.enable = true;
-  services.haproxy.config = ''
-    defaults
-      log  global
-      maxconn  6000
-      mode  http
-      option  redispatch
-      option  dontlognull
-      option  http-server-close
-      option  abortonclose
-      option  splice-auto
-      timeout  connect 10s
-      timeout  client 10m
-      timeout  server 10m
-      timeout  queue 10s
-      timeout  http-keep-alive 3s
-
-    listen puppet
-      bind 0.0.0.0:8140
-      mode tcp
-      server vag1-pm-0001 172.20.10.4:8140 check
-      server vag1-pm-0002 192.168.1.146:8140 check
-    listen stats_external
-      bind *:1600
-      mode http
-      bind-process 1
-      stats enable
-      stats uri /haproxy
-      stats auth haproxy:P@ssw0rd
-      stats admin if TRUE
-  '';
-  services.vector = {
-    enable = true;
-    journaldAccess = true;
-    settings = {
-      sources.xin  = {
-        type = "journald";
-      };
-      sinks.outs = {
-        inputs  = ["in"];
-        type    = "elasticsearch";
-        host    = "http://127.0.0.1:9200";
-      };
-    };
-  };
-  services.elasticsearch.enable = true;
-  services.kibana.enable = true;
 
 }

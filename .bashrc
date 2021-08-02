@@ -8,4 +8,3 @@ export GOPATH=$HOME/go
 #export TERM=xterm-256color
 
 #export PATH=$PATH:$HOME/.cabal/bin/
-#export PATH=$PATH:$HOME/ipscape-tools/result/bin
