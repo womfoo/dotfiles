@@ -1,6 +1,7 @@
 export GOPATH=$HOME/go
 
 #export PATH=$PATH:~/.gem/ruby/2.4.0/bin
+#export PATH=$PATH:~/bin
 
 # tmux hacks
 #export TERM="rxvt-unicode-256color"

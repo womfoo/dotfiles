@@ -54,8 +54,8 @@ main = do
                      ,((0,xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -1.5%")
                      ,((0,xF86XK_AudioMute), spawn "pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle")
                      ,((mod4Mask, xK_c), spawn "find-cursor -c red")
-                     ,((mod4Mask, xK_u), spawn "sendkeys.sh alias_")
-                     ,((mod4Mask, xK_o), spawn "sendkeys.sh password")
-                     ,((mod4Mask, xK_i), spawn "sendkeys.sh totp")
+                     ,((mod4Mask, xK_u), spawn "~/bin/sendkeys.sh alias_")
+                     ,((mod4Mask, xK_o), spawn "~/bin/sendkeys.sh password")
+                     ,((mod4Mask, xK_i), spawn "~/bin/sendkeys.sh totp")
                      ]
 -- instead of 0 use alsa_output.pci-0000_00_1b.0.analog-stereo
