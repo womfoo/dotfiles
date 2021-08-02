@@ -2,9 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, options, pkgs, ... }:
+{ config, options, lib, pkgs, ... }:
 
 let
+  noplay = true; # no distractions
+  # noplay = false;
   myfacter = pkgs.facter.override { libwhereami = null; };
   serverIP = "0.0.0.0";
   # serverIP = "10.101.11.82";
@@ -28,7 +30,6 @@ let
   ];
 
   wire-server = pkgs.haskellPackages.callPackage /home/kranium/git/github.com/wireapp/wire-server { };
-  myAMI = pkgs.haskellPackages.callPackage /home/kranium/AMI-0.1/default.nix { };
   #ikvm-launch = pkgs.callPackage /home/kranium/git/github.com/womfoo/nix-launch-ikvm { };
   #ldapseed = pkgs.callPackage /home/kranium/darcs/nix-ldapseed/default.nix{ };
   #hnix_loc = pkgs.callPackage /home/kranium/git/github.com/jwiegley/hnix/default.nix { };
@@ -59,7 +60,18 @@ let
       cp localhost.xml $out/public
       ln -s ${pkgs.linuxPackages.virtualboxGuestAdditions.src} $out/public/vbox.iso
       ln -s /home/kranium/Downloads $out/private/Downloads
-      cp ${mycv}/resume.pdf $out/private
+      ln -s /home/kranium/work/gits/ipscape-tools/result/ghcjs/podview/bin/frontend.jsexe $out/podview
+      mkdir $out/test
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/index.html $out/test/
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/rts.js $out/test/
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/out.js $out/test/
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/lib.js $out/test/
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/runmain.js $out/test/
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/app/css $out/test/
+      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/app/js $out/test/
+      mkdir $out/phonenumbers
+      ln -s /home/kranium/git/github.com/google/libphonenumber/javascript/i18n/phonenumbers $out/phonenumbers
+      mkdir $out/bullshit
     '';
   };
   secrets = import ./secrets.nix;
@@ -70,10 +82,13 @@ in
       ./hardware-configuration.nix
       ./telegraf.nix
       ./work.nix
-      # ./asterisk-test.nix
+      ./fix-unstable-no-audio.nix
+      #./asterisk-test.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_5_4; # 5.12.7
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_12; # nvidia fails on 5.13
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -135,8 +150,8 @@ in
   # -env -qaP | grep wget
   environment.systemPackages = with pkgs;
     [
-      abcde
-      abiword
+      abcde # rip cds
+      # abiword
       acpi
       ag
       aircrack-ng
@@ -144,14 +159,14 @@ in
       antimony
       arandr
       arc-theme
-      arduino
+      # arduino
       aria2
       asciinema
       augeas
       avidemux
       awscli
-      azure-cli
-      azure-storage-azcopy
+      # azure-cli
+      # azure-storage-azcopy
       baobab
       bettercap
       bind
@@ -161,10 +176,11 @@ in
       bmon
       btrfs-progs
       bundix
+      calibre
       certbot
       cfssl
-      chromedriver
-      chromium
+      # chromedriver
+      # chromium
       cifs_utils
       cli53
       compton-git
@@ -225,7 +241,7 @@ in
       # gnupg1compat
       # gnutls
       go
-      go-jira
+      # go-jira
       go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
       go2nix
       google-chrome
@@ -243,8 +259,9 @@ in
       gst_all_1.gst-plugins-good
       gst_all_1.gst-plugins-ugly
       gst_all_1.gstreamer
-      gx
-      gx-go
+      gst_all_1.gst-devtools
+      # gx
+      # gx-go
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
@@ -255,9 +272,9 @@ in
           fast-logger
           hlint
           http-conduit
-          myAMI
           mysql-simple
           nix-derivation # pretty
+          password
           postgresql-simple
           semver-range
           torrent
@@ -296,9 +313,9 @@ in
       kitty
       kops
       kpcli
-      ktorrent
+      # ktorrent
       kubectl
-      languagetool
+      # languagetool # very-basic grammarly
       libnotify # notify-send pp
       libphonenumber
       librarian-puppet-go
@@ -323,20 +340,23 @@ in
       ncdu
       neovim
       net_snmp
-      netdata
+      # netdata
       nethogs
       networkmanager_l2tp
       networkmanager_openconnect
       networkmanagerapplet
       ngrep
       nix-index
+      nix-output-monitor
       nix-prefetch-git
       nix-top
       nixfmt
+      # nixops
       nmap
       nmap-graphical
       nomacs
       ntfs3g
+      nur.repos.mic92.rhasspy
       oathToolkit
       okular
       openconnect_openssl
@@ -346,6 +366,7 @@ in
       pandoc
       parallel
       parcellite
+      parted
       pass
       pasystray
       patchelf
@@ -354,11 +375,11 @@ in
       pdfcrack
       pdfmod
       pdftk
-      pianobar
+      # pianobar
       pick
       picocom
       pipes # screensaver
-      pkgconfig
+      # pkgconfig
       pmtools # acpidump
       poppler_utils # pdf2txt
       postgresql #just for the psql command
@@ -373,7 +394,7 @@ in
       pv
       pypi2nix
       python3
-      python36Packages.gunicorn
+      # python36Packages.gunicorn
       python3Packages.binwalk
       python3Packages.pip
       python3Packages.sqlparse
@@ -388,7 +409,7 @@ in
       rrdtool
       rsync
       rtl-sdr
-      ruby_2_6
+      # ruby_2_6
       runc
       rxvt_unicode-with-plugins
       screen
@@ -406,7 +427,7 @@ in
       sox
       spaceFM
       speedtest-cli
-      spotify
+      # spotify
       sqlite
       sqlitebrowser
       sshfs
@@ -417,27 +438,28 @@ in
       sysstat # iotop, etc...
       tcpdump
       # teams
-      teamviewer
+      # teamviewer
       terminator
       terraform
       # tesseract
       texlive.combined.scheme-full
       thunderbird
       tmux-cssh
-      torbrowser
+      (tor-browser-bundle-bin.override { pulseaudioSupport = true;})
       trayer
       tree
       unzip
       usbutils # lsusb
       vagrant
       vdpauinfo
-      veracrypt
+      # veracrypt
       vim
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
       vlc
       # vulnix
       # vscode
       vnstat
+      vscode
       wavemon
       wget
       which
@@ -577,6 +599,7 @@ in
     driSupport = true;
     driSupport32Bit = true;
   };
+  hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
   #hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ]; # vaapiIntel
   #hardware.opengl.extraPackages = with pkgs; [ vaapiVdpau ]; # vaapiIntel
 
@@ -593,38 +616,21 @@ in
   nixpkgs.config = {
     allowBroken = true;
     allowUnfree = true;
-    #firefox = {
-    #  #enableAdobeFlash = true;
-    #  enableGoogleTalkPlugin = true; #nonfree
-    #  #icedtea = true;
-    #};
-    chromium = {
-    # enablePepperFlash = true; # Chromium's non-NSAPI alternative to Adobe Flash
-    # enableAdobeFlash = true;
-    # enablePepperPDF = true;
-    };
-    overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix/" ];
-    #packageOverrides = super: let self = super.pkgs;
-    /*
-    packageOverrides = super:
-      let osxBlob = pkgs.requireFile {
-        message = ''
-          nix-prefetch-url file:///MacOSX/System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS/AppleCameraInterface
-        '';
-        sha256 = "0zb52vsv04if2kla5k2azwfi04mn8mmpl5ahkgpch0157byygb4x";
-        name = "AppleCameraInterface";
+    overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix" ];
+    packageOverrides = pkgs: {
+      nur = import /home/kranium/git/github.com/nix-community/nur-combined {
+        inherit pkgs;
       };
-      in {
-      facetimehd-firmware = super.facetimehd-firmware.overrideDerivation (old: {
-        name = "facetimehd-firmware";
-        src = null; # disables download from apple
-        buildPhase = ''
-          mkdir -p $out/lib/firmware/facetimehd
-          dd bs=1 skip=81920 if=${osxBlob} | gunzip -c > $out/lib/firmware/facetimehd/firmware.bin || true
-        '';
-      });
+      haskellPackages = pkgs.haskellPackages.override {
+            overrides = hsSelf: hsSuper: {
+              sproxy2 = hsSelf.callPackage /home/kranium/git/github.com/ip1981/sproxy2/default.nix { } ;
+              docopt = hsSelf.callPackage /home/kranium/git/github.com/jefdaj/docopt.hs/default.nix { };
+            };
+      };
     };
-    */
+    # permittedInsecurePackages = [
+    #   "openssl-1.0.2u"
+    # ];
   };
   security.sudo.wheelNeedsPassword = false;
 
@@ -763,12 +769,14 @@ in
     "https://nixcache.reflex-frp.org"
     "https://static-haskell-nix.cachix.org"
     "https://hydra.iohk.io"
+    "https://miso-haskell.cachix.org"
   ];
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
   ];
   # https://nixos.wiki/wiki/Overlays
   nix.nixPath = options.nix.nixPath.default ++
@@ -784,8 +792,8 @@ in
     enable     = true;
     createMountPoints = true;
     exports    = ''
-      /home/kranium/possplay/puppet-controlrepo *(rw,no_root_squash)
-      /home/kranium/Downloads *
+      /home/kranium/possplay/puppet-controlrepo *(rw,insecure,no_root_squash,no_subtree_check,fsid=0)
+      /home/kranium/Downloads *(ro,no_root_squash,no_subtree_check,fsid=1)
     '';
     statdPort  = 4000;
     lockdPort  = 4001;
@@ -948,6 +956,14 @@ in
   };
 
   services.arbtt.enable = true;
+  #services.arbtt.package = pkgs.haskell.packages.ghc865.arbtt;
+  # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;
+
+  environment.variables = {
+      PATH = "$PATH:/home/kranium/bin";
+  };
+
+  programs.gnupg.agent.enable = true;
 
   programs.tmux = {
     enable = true;

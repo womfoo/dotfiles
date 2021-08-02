@@ -8,9 +8,14 @@
     [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.kernelModules = [ "kvm-intel" "wl" "nf_conntrack_pptp" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" "wl" ];
+  #boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta config.boot.kernelPackages.rtl8814au ];
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.broadcom_sta
+    config.boot.kernelPackages.rtl8814au
+ ];
 
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/212b3cca-cf95-4adb-8045-3e6391ef8177";
@@ -27,7 +32,18 @@
       fsType = "vfat";
     };
 
+  fileSystems."/armorydata" =
+    { device = "habilog.gikos.net:/armorydata";
+      fsType = "nfs";
+      options = ["auto" "nofail" "soft"];
+    };
+
   swapDevices = [ ];
 
-  nix.maxJobs = 8;
+  nix.maxJobs = lib.mkDefault 8;
+  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # High-DPI console
+  # nixos 19.09
+  # i18n.consoleFont = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
+  #console.font = lib.mkDefault "${pkgs.terminus_font}/share/consolefonts/ter-u28n.psf.gz";
 }
