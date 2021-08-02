@@ -1,4 +1,4 @@
-Config {font = "xft:DejaVu Sans Mono:pixelsize=20:foundry=unknown:weight=normal:slant=0:width=normal:spacing=100:scalable=true"
+Config {font = "xft:DejaVu Sans Mono:pixelsize=20:foundry=unknown:slant=0:width=normal:spacing=100:scalable=true"
        ,fgColor = "#c5c8c6"
        ,bgColor = "#373b41"
 --     ,position = Static { xpos = 0, ypos = 0, width = 1366, height = 13 }
