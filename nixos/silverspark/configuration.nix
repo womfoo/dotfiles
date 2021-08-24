@@ -58,6 +58,7 @@ in
       ./hardware-configuration.nix
       ./telegraf.nix
       ../shared/hydra.nix
+      ../shared/gikos-kranium.nix
       # ./old-work.nix
       ../shared/fix-unstable-no-audio.nix
       #./asterisk-test.nix
@@ -607,19 +608,6 @@ in
     "vperfctrfs"
   ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.extraUsers.kranium = {
-     name = "kranium";
-     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" "kranium"];
-     group = "users";
-     uid = 2000;
-     createHome = true;
-     home = "/home/kranium";
-     shell = "/run/current-system/sw/bin/bash";
-     isNormalUser = true;
-  };
-  users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; telegraf = { }; } ;
-
   users.extraUsers.telegraf = {
     extraGroups = [ "telegraf" ];
   };
@@ -673,8 +661,6 @@ in
     #   "openssl-1.0.2u"
     # ];
   };
-
-  security.sudo.wheelNeedsPassword = false;
 
   services.httpd = {
     enable = true;
