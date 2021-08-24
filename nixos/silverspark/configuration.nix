@@ -807,17 +807,19 @@ in
 
   nix.binaryCaches = [
     "https://cache.nixos.org/"
-    "https://nixcache.reflex-frp.org"
-    "https://static-haskell-nix.cachix.org"
-    "https://hydra.iohk.io"
-    "https://miso-haskell.cachix.org"
+    # "https://thefloweringash-armv7.cachix.org"
+    # "https://nixcache.reflex-frp.org"
+    # "https://static-haskell-nix.cachix.org"
+    # "https://hydra.iohk.io"
+    # "https://miso-haskell.cachix.org"
   ];
   nix.binaryCachePublicKeys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
-    "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
-    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
+    # "thefloweringash-armv7.cachix.org-1:v+5yzBD2odFKeXbmC+OPWVqx4WVoIVO6UXgnSAWFtso="
+    # "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    # "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
+    # "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    # "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
   ];
   # https://nixos.wiki/wiki/Overlays
   nix.nixPath = options.nix.nixPath.default ++
