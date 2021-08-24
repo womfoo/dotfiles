@@ -541,6 +541,7 @@ in
   services.xserver.displayManager.defaultSession = "none+xmonad";
 
   services.locate.enable = true;
+  services.locate.localuser = "root";
   services.locate.pruneFS = [
     "afs"
     "anon_inodefs"
