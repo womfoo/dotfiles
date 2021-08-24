@@ -57,6 +57,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./telegraf.nix
+      ../shared/hydra.nix
       # ./old-work.nix
       ./fix-unstable-no-audio.nix
       #./asterisk-test.nix
@@ -86,11 +87,13 @@ in
       4000 # nfs/statd
       4001 # nfs/lockd
       4002 # nfs/mount
+      5000 # FIXME: nix-serve temp move behind apache
       # 5060                   # sip
       # 5432                   # postgres
       8086 # telegraf
       # 8140 # puppet
       9200 # elastic
+      7000 # FIXME: hydra temp move behind apache
     ];
     firewall.allowedUDPPorts = [
       53                       # dns
