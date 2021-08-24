@@ -170,7 +170,7 @@ in
       bmon
       brave
       btrfs-progs
-      bundix
+      # bundix # mini_portile2
       calibre
       certbot
       cfssl
@@ -329,7 +329,7 @@ in
       monero
       mosh
       mpv
-      msf
+      # msf
       (mtr.override { withGtk = true; })
       ncdu
       neovim
@@ -374,7 +374,7 @@ in
       pmtools # acpidump
       poppler_utils # pdf2txt
       postgresql #just for the psql command
-      postman
+      # postman
       powerstat
       ppp
       pptp
@@ -424,7 +424,7 @@ in
       sshpass
       st
       # steam
-      subversionClient
+      # subversionClient
       sysstat # iotop, etc...
       tcpdump
       # teams
@@ -441,7 +441,7 @@ in
       tsung
       unzip
       usbutils # lsusb
-      vagrant
+      # vagrant
       vdpauinfo
       # veracrypt
       vim
@@ -865,6 +865,7 @@ in
   '';
 
   nix.trustedUsers = ["hydra" "hydra-evaluator" "hydra-queue-runner" "kranium" ];
+  nix.package = pkgs.nixUnstable;
 
   nix.extraOptions = ''
     keep-outputs = true
