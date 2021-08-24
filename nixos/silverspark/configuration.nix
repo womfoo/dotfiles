@@ -4,12 +4,6 @@ let
   noplay = true; # no distractions
   # noplay = false;
   myfacter = pkgs.facter.override { libwhereami = null; };
-  install1903Apps = false;
-  newApps = with pkgs; [
-    brave
-    kdeApplications.konqueror
-    tsung
-  ];
   idpmetadata = pkgs.fetchurl {
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
     sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
@@ -174,6 +168,7 @@ in
       # bitcoin
       bluez-tools # bt-device --list
       bmon
+      brave
       btrfs-progs
       bundix
       calibre
@@ -308,6 +303,7 @@ in
       jmeter
       jq
       jwhois
+      kdeApplications.konqueror
       kdiff3-qt5
       keepassx
       kitty
@@ -442,6 +438,7 @@ in
       (tor-browser-bundle-bin.override { pulseaudioSupport = true;})
       trayer
       tree
+      tsung
       unzip
       usbutils # lsusb
       vagrant
@@ -487,7 +484,7 @@ in
       zip
       zoom-us
       zsync
-    ] ++ lib.optional install1903Apps newApps;
+    ];
 
   services.tftpd.enable = true;
   services.dovecot2.enable = true;
