@@ -59,7 +59,7 @@ in
       ./telegraf.nix
       ../shared/hydra.nix
       # ./old-work.nix
-      ./fix-unstable-no-audio.nix
+      ../shared/fix-unstable-no-audio.nix
       #./asterisk-test.nix
     ];
 
