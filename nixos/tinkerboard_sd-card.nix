@@ -89,6 +89,7 @@ in
        overrides = pythonSelf: pythonSuper: {
          whoosh = pythonSuper.whoosh.overrideAttrs ( z : rec { doCheck=false; doInstallCheck = false;});
          pyflakes = pythonSuper.pyflakes.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false; } );
+         scipy = pythonSuper.scipy.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false; } );
        };
      };
    })
