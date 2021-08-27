@@ -15,5 +15,9 @@
   networking.interfaces.enp1s0.useDHCP = true;
 
   services.openssh.enable = true;
+  services.openssh.gatewayPorts = "yes";
+  services.openssh.extraConfig = ''
+    AllowTcpForwarding yes
+  '';
 
 }
