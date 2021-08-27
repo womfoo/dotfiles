@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   hostName = "a32b08";
 in
@@ -10,9 +10,9 @@ in
 
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./shared/builder.nix
-    # ./shared/gikos-telegraf.nix
-    ./shared/gikos-kranium.nix
+    ../shared/builder.nix
+    # ../shared/gikos-telegraf.nix
+    ../shared/gikos-kranium.nix
   ];
 
   boot.loader.generic-extlinux-compatible.enable = true;
@@ -27,16 +27,69 @@ in
     };
 
   # tmpfs makes builds faster than sd
+  /*
   fileSystems."/tmp" =
-    { device = "habilog.gikos.net:/armorydata/${config.sdImage.imageBaseName}";
+    { device = "habilog.gikos.net:/armorydata/${hostName}";
       fsType = "nfs";
       options = ["auto" "nofail" "soft"];
     };
+  */
 
 
-  networking.hostName = "${config.sdImage.imageBaseName}";
+  powerManagement.powerDownCommands = ''
+    logger 'Trying to stop harddisk'
+    ${pkgs.hdparm}/sbin/hdparm -y /dev/sda
+    logger 'Trying to wait for hdd'
+    ${pkgs.coreutils}/bin/sleep 5
+    logger 'Ending wait for hdd'
+  '';
+
+  networking.hostName = hostName;
 
   environment.systemPackages = with pkgs; [
+ 
+    w3m-nographics # needed for the manual anyway
+    testdisk # useful for repairing boot problems
+    ms-sys # for writing Microsoft boot sectors / MBRs
+    efibootmgr
+    efivar
+    parted
+    gptfdisk
+    ddrescue
+    ccrypt
+    cryptsetup # needed for dm-crypt volumes
+    mkpasswd # for generating password files
+    ntp
+# Some text editors.
+    vim
+
+# Some networking tools.
+    fuse
+    fuse3
+    sshfs-fuse
+    rsync
+    socat
+    screen
+
+# Hardware-related tools.
+    sdparm
+    hdparm
+    smartmontools # for diagnosing hard disks
+    pciutils
+    usbutils
+
+# Tools to create / manipulate filesystems.
+    ntfsprogs # for resizing NTFS partitions
+    dosfstools
+    xfsprogs.bin
+    jfsutils
+    f2fs-tools
+
+# Some compression/archiver tools.
+    unzip
+    zip
+
+
     darcs
     dnsutils
     emacs-nox
@@ -58,6 +111,29 @@ in
   ];
 
   services.openssh.enable = true;
+
+  nixpkgs.overlays = [
+    (self: super: {
+      haskellPackages = super.haskellPackages.override {
+        overrides = haskellSelf: haskellSuper: {
+          vector = self.haskell.lib.dontCheck haskellSuper.vector;
+          zip-archive = self.haskell.lib.dontCheck haskellSuper.zip-archive;
+          hint = self.haskell.lib.dontCheck haskellSuper.hint;
+        };
+      };
+    })
+
+   (self: super: {
+     python39Packages = pkgs.python36Packages.override {
+       overrides = pythonSelf: pythonSuper: {
+         whoosh = pythonSuper.whoosh.overrideAttrs ( z : rec { doCheck=false; doInstallCheck = false;});
+         pyflakes = pythonSuper.pyflakes.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false; } );
+         scipy = pythonSuper.scipy.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false; } );
+       };
+     };
+   })
+  ];
+
 /*
   services.xserver = {
     enable = true;
@@ -70,6 +146,34 @@ in
 */
 
   system.stateVersion = "21.11"; # Did you read the comment?
+
+  systemd.services.park-sda =
+    { description = "Try to park harddisk";
+
+
+      after = [ "umount.target" ];
+      wantedBy = [ "shutdown.target" ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "park-sda-script" ''
+           
+          ${pkgs.hdparm}/sbin/hdparm -y /dev/sda;
+          ${pkgs.coreutils}/bin/sleep 5;
+        '';
+
+
+
+
+      };
+    };
+
+
+  time.timeZone = "Australia/Sydney";
+
+
+
+
 
 }
 
