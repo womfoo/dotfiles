@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 
 let
   ubootTinkerboard = pkgs.callPackage ./pkgs/uboot/tinkerboard {};
@@ -18,7 +18,7 @@ in
   boot.loader.generic-extlinux-compatible.enable = true;
   boot.loader.grub.enable = false;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPatches = lib.singleton {
+  boot.kernelPatches = pkgs.lib.singleton {
       name = "mainline 5.13 disable ks8851";
       patch = null;
       extraConfig = ''
