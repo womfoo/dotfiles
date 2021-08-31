@@ -60,9 +60,7 @@
       emacs
       encfs
       exfat
-      exfat-utils
       # facter
-      myfacter
       f2fs-tools
       fcitx
       ffmpeg
@@ -159,7 +157,6 @@
       jmeter
       jq
       jwhois
-      kdeApplications.konqueror
       kdiff3-qt5
       keepassx
       kitty
@@ -240,14 +237,17 @@
       pulsemixer
       pv
       pypi2nix
-      python3
-      # python36Packages.gunicorn
-      python3Packages.binwalk
-      python3Packages.pip
-      python3Packages.sqlparse
+      (python3.withPackages (
+        ps: with ps; with python3Packages; [
+          gunicorn
+          binwalk
+          sqlparse
+          (pkgs.callPackage ../pkgs/metawear {})
+        ]
+      ))
       qemu
       qpdf
-      r10k
+      # r10k
       ranger
       redshift
       remmina # rdp

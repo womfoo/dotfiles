@@ -1,9 +1,7 @@
 { config, options, lib, pkgs, ... }:
 
 let
-  # noplay = true; # no distractions
   noplay = false;
-  myfacter = pkgs.facter.override { libwhereami = null; };
   idpmetadata = pkgs.fetchurl {
     url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
     sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
@@ -146,7 +144,6 @@ in
   # List packages installed in system profile. To search by name, run:
   # -env -qaP | grep wget
 
-  services.tftpd.enable = true;
   services.dovecot2.enable = true;
 
   # List services that you want to enable:
