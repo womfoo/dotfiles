@@ -2,47 +2,6 @@
 
 let
   noplay = false;
-  idpmetadata = pkgs.fetchurl {
-    url = "https://kranium.oktapreview.com/app/exk5sig0ciaHGuguQ0h7/sso/saml/metadata";
-    sha256 = "023bvc32dw4wcxn53b38rl7mbyb5bh5vl3dfhschjb100g61a979";
-  };
-  # basic auth testing
-  # user: user
-  # password: swordfish
-  basicPasswordFile = pkgs.writeText "htpasswd" ''
-  user:$apr1$/ZZCxKOB$C7SdA24Qn6D9w9N0CAgiC/
-  '';
-  spfiles = pkgs.stdenv.mkDerivation {
-    name = "localhost-spfiles";
-    src = ./.;
-    buildInputs = [ pkgs.openssl ];
-    buildPhase = ''
-      ${pkgs.apacheHttpdPackages.mod_auth_mellon}/bin/mellon_create_metadata.sh localhost http://localhost/mellon
-    '';
-    installPhase = ''
-      mkdir -p $out/private
-      mkdir -p $out/public
-      mkdir -p $out/basic_auth
-      echo 'hello basic auth' > $out/basic_auth/hello.txt
-      cp localhost.key $out/private
-      cp localhost.cert $out/public
-      cp localhost.xml $out/public
-      ln -s ${pkgs.linuxPackages.virtualboxGuestAdditions.src} $out/public/vbox.iso
-      ln -s /home/kranium/Downloads $out/private/Downloads
-      mkdir $out/test
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/index.html $out/test/
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/rts.js $out/test/
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/out.js $out/test/
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/lib.js $out/test/
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe/runmain.js $out/test/
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/app/css $out/test/
-      ln -s /home/kranium/git/github.com/haskell-nix/hnix-web-repl/app/js $out/test/
-      mkdir $out/phonenumbers
-      ln -s /home/kranium/git/github.com/google/libphonenumber/javascript/i18n/phonenumbers $out/phonenumbers
-      mkdir $out/bullshit
-    '';
-  };
-  secrets = import ./secrets.nix;
 in
 {
   imports =
@@ -108,22 +67,8 @@ in
     ];
 
     extraHosts = ''
-      127.0.0.1 arawaraw
       127.0.0.1 silverspark.gikos.net
       127.0.0.1 geolite.maxmind.com
-      10.61.164.26 ip.ipscape.local
-      10.61.164.50 mulan.ipscape.local
-      10.61.164.111 freeipa.ipscape.local
-      10.61.164.155 pm.ipscape.local
-      # 127.0.0.1 voipmonitor.org
-      # 127.0.0.1 www.voipmonitor.org
-      # 127.0.0.1 download.voipmonitor.org
-      # 127.0.0.1 cloud.voipmonitor.org
-      # 127.0.0.1 cloud2.voipmonitor.org
-      # 127.0.0.1 cloud3.voipmonitor.org
-      127.0.0.1 manager.gikos.net
-      127.0.0.1 beamdocs
-      127.0.0.1 miso
     '' +lib.optionalString noplay ''
       127.0.0.1 laarc.io
       127.0.0.1 lobste.rs
@@ -134,19 +79,6 @@ in
     '';
   };
 
-  # Select internationalisation properties.
-  # i18n = {
-  #   consoleFont = "lat9w-16";
-  #   consoleKeyMap = "us";
-  #   defaultLocale = "en_US.UTF-8";
-  # };
-
-  # List packages installed in system profile. To search by name, run:
-  # -env -qaP | grep wget
-
-  services.dovecot2.enable = true;
-
-  # List services that you want to enable:
   services.acpid.enable = true;
   services.upower.enable = true;
 
@@ -162,26 +94,15 @@ in
   services.openssh.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.fxlinuxprint ];
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.fxlinuxprint ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
   services.xserver.libinput.enable = true;
   services.xserver.synaptics.enable = false;
-  # services.xserver.synaptics.enable = true;
-  # services.xserver.synaptics.palmDetect = true;
-  # services.xserver.synaptics.fingersMap = [1 3 2];
-  # services.xserver.synaptics.twoFingerScroll = true;
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.kdm.enable = true;
-  # services.xserver.desktopManager.kde4.enable = true;
-  # services.xserver.desktopManager.kde5.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
-  #services.xserver.displayManager.lightdm.enable = true;   #the real deal
-  services.xserver.displayManager.sddm.enable = true;   #the real deal
+  services.xserver.displayManager.sddm.enable = true;
 
   services.xserver.screenSection = ''
     Option "metamodes" "nvidia-auto-select +0+0 { ForceFullCompositionPipeline = On }"
@@ -189,79 +110,10 @@ in
     Option         "TripleBuffer" "on"
   '';
 
-  services.xserver.videoDrivers = [ "nvidia" ];       #non-free <-- faster but breaks ttys and brightness keys
-  services.xserver.windowManager.xmonad.enable = true;                 # do not remove
-  services.xserver.windowManager.xmonad.enableContribAndExtras = true; # do not remove
+  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.windowManager.xmonad.enable = true;
+  services.xserver.windowManager.xmonad.enableContribAndExtras = true;
   services.xserver.displayManager.defaultSession = "none+xmonad";
-
-  services.locate.enable = true;
-  services.locate.localuser = "root";
-  services.locate.pruneFS = [
-    "afs"
-    "anon_inodefs"
-    "auto"
-    "autofs"
-    "bdev"
-    "binfmt"
-    "binfmt_misc"
-    "cgroup"
-    "cifs"
-    "coda"
-    "configfs"
-    "cramfs"
-    "cpuset"
-    "debugfs"
-    "devfs"
-    "devpts"
-    "devtmpfs"
-    "ecryptfs"
-    "eventpollfs"
-    "exofs"
-    "futexfs"
-    "ftpfs"
-    "fuse"
-    "fusectl"
-    "fuse.sshfs"
-    "gfs"
-    "gfs2"
-    "hostfs"
-    "hugetlbfs"
-    "inotifyfs"
-    "iso9660"
-    "jffs2"
-    "lustre"
-    "misc"
-    "mqueue"
-    "ncpfs"
-    "nnpfs"
-    "ocfs"
-    "ocfs2"
-    "pipefs"
-    "proc"
-    "ramfs"
-    "rpc_pipefs"
-    "securityfs"
-    "selinuxfs"
-    "sfs"
-    "shfs"
-    "smbfs"
-    "sockfs"
-    "spufs"
-    # "nfs"
-    # "NFS"
-    # "nfs4"
-    # "nfsd"
-    "sshfs"
-    "subfs"
-    "supermount"
-    "sysfs"
-    "tmpfs"
-    "ubifs"
-    "udf"
-    "usbfs"
-    "vboxsf"
-    "vperfctrfs"
-  ];
 
   users.extraUsers.telegraf = {
     extraGroups = [ "telegraf" ];
@@ -316,129 +168,6 @@ in
     #   "openssl-1.0.2u"
     # ];
   };
-
-  services.httpd = {
-    enable = true;
-    adminAddr = "admin@localhost";
-    enableMellon = true;
-    #listen = [ { ip = "*"; port = 8080;} ];
-    #listen = [ { ip = "  127.0.0.1"; port = 8080;} ];
-        #sslServerCert = "/tmp/gikos_net.cert";
-        #sslServerKey = "/tmp/gikos_net.key";
-
-    virtualHosts = {
-      "silverspark.gikos.net" = {
-        #listen = [ { ip = "  127.0.0.1"; port = 8080;} ];
-        #listen = [ { ip = "  127.0.0.1"; port = 80;} ];
-        documentRoot = "${spfiles}";
-        extraConfig = ''
-        
-        <ifModule mod_headers.c>
-          #Header set Access-Control-Allow-Origin 'origin-list'
-          Header set Access-Control-Allow-Origin "http://localhost"
-          Header always set Access-Control-Allow-Methods "POST, PUT, GET, DELETE, OPTIONS"
-          Header always set Access-Control-Allow-Headers "Content-Type"           
-        </ifModule>
-        <Location /server-status>
-            SetHandler server-status
-            Require host localhost
-            Order deny,allow
-            Deny from all
-            Allow from   127.0.0.0/255.0.0.0
-        </Location>
-        <Location />
-            MellonEnable "info"
-            MellonSPPrivateKeyFile ${spfiles}/private/localhost.key
-            MellonSPCertFile ${spfiles}/public/localhost.cert
-            MellonSpMetadataFile ${spfiles}/public/localhost.xml
-            MellonIdPMetadataFile ${idpmetadata}
-            MellonEndpointPath "/mellon"
-        </Location>
-        <Location /private>
-            Options Indexes FollowSymLinks
-            MellonEnable "auth"
-            
-        <IfModule mod_autoindex.c>
-            Options Indexes FollowSymLinks
-            IndexOptions FancyIndexing
-            IndexOptions VersionSort
-            IndexOptions HTMLTable
-            IndexOptions FoldersFirst
-            IndexOptions IconsAreLinks
-            IndexOptions IgnoreCase
-            IndexOptions SuppressDescription
-            IndexOptions SuppressHTMLPreamble
-            IndexOptions XHTML
-            IndexOptions IconWidth=16
-            IndexOptions IconHeight=16
-            IndexOptions NameWidth=*
-            IndexOrderDefault Descending Name
-            HeaderName /index-style/header.html
-            ReadmeName /index-style/footer.html
-        </ifModule>
-        </Location>
-
-        <Location /basic_auth>
-            AuthName "Please Log In"
-            AuthType Basic
-            require valid-user
-            AuthUserFile ${basicPasswordFile}
-        </Location>
-        <Location /podview>
-        </Location>
-        <Location /hnix-frontend>
-        </Location>
-
-        '';
-      };
-      "hydra.gikos.net" = {
-        documentRoot = "/var/lib/hydra/cache";
-
-        extraConfig = ''
-        
-        <Location /private>
-        <IfModule mod_autoindex.c>
-            Options Indexes FollowSymLinks
-            IndexOptions FancyIndexing
-            IndexOptions VersionSort
-            IndexOptions HTMLTable
-            IndexOptions FoldersFirst
-            IndexOptions IconsAreLinks
-            IndexOptions IgnoreCase
-            IndexOptions SuppressDescription
-            IndexOptions SuppressHTMLPreamble
-            IndexOptions XHTML
-            IndexOptions IconWidth=16
-            IndexOptions IconHeight=16
-            IndexOptions NameWidth=*
-            IndexOrderDefault Descending Name
-            HeaderName /index-style/header.html
-            ReadmeName /index-style/footer.html
-        </ifModule>
-        </Location>
-        '';
-      };
-      "arawaraw" = {
-        documentRoot = "/home/kranium/arawaraw";
-      };
-      "localhost2" = {
-        documentRoot = "/home/kranium/git/github.com/haskell-nix/hnix-web-repl/result/ghcjs/hnix-frontend/bin/frontend.jsexe";
-      };
-      "geolite.maxmind.com" = {
-        documentRoot = "/home/kranium/geoip";
-      };
-      "beamdocs" = {
-        documentRoot = "/home/kranium/git/github.com/haskell-beam/beam/site";
-      };
-      "miso.gikos.net" = {
-        documentRoot = "/home/kranium/git/github.com/dmjio/miso";
-      };
-    };
-  };
-
-  users.extraUsers.wwwrun.extraGroups = ["transmission" "hydra" ];
-
-  # programs.java.enable = true;
 
   programs.light.enable = true;
   programs.kbdlight.enable = true;
@@ -506,7 +235,6 @@ in
   services.usbmuxd.enable = true;
 
   boot.supportedFilesystems = [ "btrfs" "jfs" "reiserfs" "xfs" ];
-  # system.nixos.stateVersion = "18.03"; # compat generation <= 1898
   system.stateVersion = "18.03";
 
   services.postgresql.enable = true;
