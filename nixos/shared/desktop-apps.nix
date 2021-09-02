@@ -62,7 +62,7 @@
       exfat
       # facter
       f2fs-tools
-      fcitx
+      # fcitx # virtual keyboard
       ffmpeg
       file
       firefox
@@ -157,9 +157,9 @@
       jmeter
       jq
       jwhois
-      kdiff3-qt5
+      # kdiff3-qt5
       keepassx
-      kitty
+      # kitty
       kops
       kpcli
       # ktorrent
@@ -179,7 +179,7 @@
       mc
       meld
       minicom
-      monero
+      # monero
       mosh
       mpv
       # msf
@@ -271,7 +271,7 @@
       smartmontools
       smemstat
       sox
-      spaceFM
+      # spaceFM
       speedtest-cli
       # spotify
       sqlite
