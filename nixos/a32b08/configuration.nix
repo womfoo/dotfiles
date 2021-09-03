@@ -113,31 +113,7 @@ in
   services.openssh.enable = true;
 
   nixpkgs.overlays = [
-    (self: super: {
-        ell = super.ell.overrideAttrs (o: {doCheck = false;});
-        collectd = super.collectd.override (o: {jdk = null;});
-      }
-    )
-    (self: super: {
-      haskellPackages = super.haskellPackages.override {
-        overrides = haskellSelf: haskellSuper: {
-          arbtt = self.haskell.lib.dontCheck haskellSuper.arbtt;
-          vector = self.haskell.lib.dontCheck haskellSuper.vector;
-          zip-archive = self.haskell.lib.dontCheck haskellSuper.zip-archive;
-          hint = self.haskell.lib.dontCheck haskellSuper.hint;
-        };
-      };
-    })
-
-   (self: super: {
-     python39Packages = pkgs.python36Packages.override {
-       overrides = pythonSelf: pythonSuper: {
-         whoosh = pythonSuper.whoosh.overrideAttrs ( z : rec { doCheck=false; doInstallCheck = false;});
-         pyflakes = pythonSuper.pyflakes.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false; } );
-         scipy = pythonSuper.scipy.overrideAttrs( z : rec{ doCheck=false; doInstallCheck = false; } );
-       };
-     };
-   })
+    (import ../shared/overlay-armv7l.nix) 
   ];
 
 /*
