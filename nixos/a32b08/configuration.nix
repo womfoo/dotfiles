@@ -114,8 +114,14 @@ in
 
   nixpkgs.overlays = [
     (self: super: {
+        ell = super.ell.overrideAttrs (o: {doCheck = false;});
+        collectd = super.collectd.override (o: {jdk = null;});
+      }
+    )
+    (self: super: {
       haskellPackages = super.haskellPackages.override {
         overrides = haskellSelf: haskellSuper: {
+          arbtt = self.haskell.lib.dontCheck haskellSuper.arbtt;
           vector = self.haskell.lib.dontCheck haskellSuper.vector;
           zip-archive = self.haskell.lib.dontCheck haskellSuper.zip-archive;
           hint = self.haskell.lib.dontCheck haskellSuper.hint;
