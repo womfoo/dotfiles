@@ -33,37 +33,26 @@ in
     };
     firewall.logRefusedPackets = true;
     firewall.allowedTCPPorts = [
-      22
-      80                     # http
-      111 # nfs? more
+      111 # nfs
       2049 # nfs
-      4000 # nfs/statd
-      4001 # nfs/lockd
-      4002 # nfs/mount
-      5000 # FIXME: nix-serve temp move behind apache
-      # 5060                   # sip
-      # 5432                   # postgres
-      8086 # telegraf
-      # 8140 # puppet
-      9200 # elastic
-      7000 # FIXME: hydra temp move behind apache
+      config.services.nfs.server.statdPort
+      config.services.nfs.server.mountdPort
+      config.services.nfs.server.lockdPort
+      config.services.nix-serve.port # FIXME: move behind apache
+      config.services.hydra.port # FIXME: move behind apache
     ];
     firewall.allowedUDPPorts = [
-      53                       # dns
-      67                       # udp client -> server (dhcp?)
-      # 68                     # udp server ->
-      111 # nfs? more
+      53 # dnsmasq
+      67 # dhcpd
+      111 # nfs
       2049 # nfs
-      4000 # nfs/statd
-      4001 # nfs/lockd
-      4002 # nfs/mountd
-      # 5060                   # sip
+      config.services.nfs.server.statdPort
+      config.services.nfs.server.mountdPort
+      config.services.nfs.server.lockdPort
     ];
     firewall.allowedUDPPortRanges = [
       # https://blog.g3rt.nl/allow-google-chromecast-host-firewall-iptables.html
       { from = 32768; to = 61000; }
-      # is this for asterisk?
-      { from = 10000; to = 15000; }
     ];
 
     extraHosts = ''
