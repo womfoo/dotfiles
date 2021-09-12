@@ -12,7 +12,6 @@ in
       ../shared/gikos-kranium.nix
       ../shared/desktop-apps.nix
       # ./old-work.nix
-      ../shared/fix-unstable-no-audio.nix
       #./asterisk-test.nix
     ];
 
