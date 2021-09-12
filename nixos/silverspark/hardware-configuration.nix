@@ -27,6 +27,12 @@
       fsType = "vfat";
     };
 
+  fileSystems."/legacydata" =
+    { device = "habilog.gikos.net:/legacydata";
+      fsType = "nfs";
+      options = ["auto" "nofail" "soft"];
+    };
+
   fileSystems."/armorydata" =
     { device = "habilog.gikos.net:/armorydata";
       fsType = "nfs";
