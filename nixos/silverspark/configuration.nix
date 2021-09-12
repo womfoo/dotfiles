@@ -15,8 +15,8 @@ in
       #./asterisk-test.nix
     ];
 
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_5_12; # nvidia fails on 5.13
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_5_12;
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -70,8 +70,8 @@ in
   services.acpid.enable = true;
   services.upower.enable = true;
 
-  services.mbpfan.enable = true;
-  services.mbpfan.minFanSpeed = 4000; # noisy
+  # services.mbpfan.enable = true;
+  # services.mbpfan.minFanSpeed = 4000; # noisy
   # services.mbpfan.lowTemp = 55;   # try ranges 55-63, default is 63
   # services.mbpfan.highTemp = 58;  # try ranges 58-66, default is 66
   # services.mbpfan.maxTemp = 78;   # do not set it > 90, default is 86
@@ -115,9 +115,9 @@ in
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull; # we need to use the full package for bluetooth support
   #for wireless headset
-  hardware.pulseaudio.extraConfig = ''
-    load-module module-switch-on-connect
-  '';
+  # hardware.pulseaudio.extraConfig = ''
+  #   load-module module-switch-on-connect
+  # '';
 
   hardware.bluetooth.enable = true;
 
@@ -147,6 +147,7 @@ in
       };
       haskellPackages = pkgs.haskellPackages.override {
             overrides = hsSelf: hsSuper: {
+              postgres-websockets = hsSelf.haskell.lib.doJailbreak hsSuper.postgres-websockets;
               sproxy2 = hsSelf.callPackage /home/kranium/git/github.com/ip1981/sproxy2/default.nix { } ;
               docopt = hsSelf.callPackage /home/kranium/git/github.com/jefdaj/docopt.hs/default.nix { };
             };
@@ -240,6 +241,7 @@ in
   nix.extraOptions = ''
     keep-outputs = true
     extra-platforms = aarch64-linux
+    experimental-features = nix-command flakes
   '';
 
   services.arbtt.enable = true;

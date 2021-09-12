@@ -14,6 +14,7 @@
       # arduino
       aria2
       asciinema
+      audacity
       augeas
       avidemux
       awscli
@@ -123,6 +124,7 @@
           http-conduit
           mysql-simple
           nix-derivation # pretty
+          nix-diff
           password
           postgresql-simple
           semver-range
@@ -181,8 +183,10 @@
       minicom
       # monero
       mosh
+      mplayer # (mplayer.override {v4lSupport =true;})
       mpv
       # msf
+      mtools
       (mtr.override { withGtk = true; })
       ncdu
       neovim
@@ -202,7 +206,9 @@
       nomacs
       ntfs3g
       nur.repos.mic92.rhasspy
+      nvd
       oathToolkit
+      obs-studio
       okular
       openldap # ldapsearch
       openssl
@@ -224,6 +230,7 @@
       picocom
       pipes # screensaver
       # pkgconfig
+      plasma5Packages.kdenlive
       pmtools # acpidump
       poppler_utils # pdf2txt
       postgresql #just for the psql command
@@ -243,6 +250,9 @@
           binwalk
           sqlparse
           (pkgs.callPackage ../pkgs/metawear {})
+          (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
+          bluepy
+          pytest
         ]
       ))
       qemu
@@ -294,7 +304,7 @@
       (tor-browser-bundle-bin.override { pulseaudioSupport = true;})
       trayer
       tree
-      tsung
+      # tsung
       unzip
       usbutils # lsusb
       # vagrant
@@ -338,7 +348,10 @@
       zbar # parse qr codes
       zfs
       zip
-      zoom-us
+      # zoom-us
       zsync
     ];
+
+  hardware.enableAllFirmware = true;
+
 }
