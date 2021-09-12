@@ -22,11 +22,6 @@
       fsType = "ext4";
     };
 
-  fileSystems."/MacOSX" =
-    { device = "/dev/disk/by-uuid/8979d211-650a-34a5-b0eb-3116ec7c277b";
-      fsType = "hfsplus";
-    };
-
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/67E3-17ED";
       fsType = "vfat";
