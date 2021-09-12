@@ -9,6 +9,7 @@ in
       ./hardware-configuration.nix
       ./telegraf.nix
       ../shared/hydra.nix
+      ../shared/paperless.nix
       ../shared/gikos-kranium.nix
       ../shared/desktop-apps.nix
       # ./old-work.nix
@@ -263,16 +264,6 @@ in
 
   services.grafana = {
     enable = true;
-  };
-
-  services.paperless.enable = true;
-  services.paperless.address = "0.0.0.0";
-  services.paperless.extraConfig = {
-    PAPERLESS_TIME_ZONE = "Australia/Sydney";
-    PAPERLESS_DISABLE_LOGIN = "false";
-    PAPERLESS_LIST_PER_PAGE = 1000;
-    PAPERLESS_ALLOWED_HOSTS = "paperless.kranium.net,127.0.0.1";
-    #PAPERLESS_INLINE_DOC=  "false";
   };
 
 }
