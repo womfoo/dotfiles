@@ -18,12 +18,12 @@
  ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/212b3cca-cf95-4adb-8045-3e6391ef8177";
+    { device = "/dev/disk/by-label/NIXOS";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/67E3-17ED";
+    { device = "/dev/disk/by-label/EFI";
       fsType = "vfat";
     };
 
