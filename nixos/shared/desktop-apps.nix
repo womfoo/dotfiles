@@ -183,14 +183,14 @@
       meld
       minicom
       # monero
-      mosh
+      # mosh
       mplayer # (mplayer.override {v4lSupport =true;})
       mpv
       # msf
       mtools
       (mtr.override { withGtk = true; })
       ncdu
-      neovim
+      # neovim
       net_snmp
       # netdata
       nethogs
@@ -213,7 +213,7 @@
       okular
       openldap # ldapsearch
       openssl
-      packer
+      # packer
       pandoc
       parallel
       parcellite
@@ -263,7 +263,7 @@
       redshift
       remmina # rdp
       rhash
-      rpm
+      # rpm
       rrdtool
       rsync
       rtl-sdr
@@ -276,7 +276,7 @@
       shellcheck
       # slack # resource hog
       signal-desktop
-      simplescreenrecorder
+      # simplescreenrecorder
       sipp
       sipsak
       smartmontools
@@ -296,7 +296,7 @@
       tcpdump
       # teams
       # teamviewer
-      terminator
+      # terminator
       terraform
       # tesseract
       texlive.combined.scheme-full
@@ -335,6 +335,7 @@
       xlibs.xwd
       xmlsec
       xorg.xauth
+      xorg.xev
       xorg.xdpyinfo
       xorg.xhost
       xorg.xlsfonts # font for xosd

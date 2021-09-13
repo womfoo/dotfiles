@@ -143,6 +143,7 @@ in
     allowUnfree = true;
     overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix" ];
     packageOverrides = pkgs: {
+      # 11-Sep-2021 works 6d8be3549ca453a3a60d73ddcf368c84742dadb0
       nur = import /home/kranium/git/github.com/nix-community/nur-combined {
         inherit pkgs;
       };
@@ -225,7 +226,7 @@ in
   services.usbmuxd.enable = true;
 
   boot.supportedFilesystems = [ "btrfs" "jfs" "reiserfs" "xfs" ];
-  system.stateVersion = "18.03";
+  system.stateVersion = "21.11";
 
   services.postgresql.enable = true;
   services.postgresql.enableTCPIP = true;
