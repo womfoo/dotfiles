@@ -1,6 +1,11 @@
 - name: run git repos
   hosts: localhost
   tasks:
+    - name: git homemanager
+      git:
+        repo: https://github.com/nix-community/home-manager
+        version: master
+        dest: /home/kranium/git/github.com/nix-community/home-manager
     - name: git nur
       git:
         repo: https://github.com/nix-community/nur-combined

@@ -141,6 +141,7 @@
       hiera-eyaml
       hledger
       hledger-web
+      home-manager
       htop
       httpie
       hwloc
