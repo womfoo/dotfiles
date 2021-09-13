@@ -1,6 +1,9 @@
-{ config, ... }: {
-
-  services.paperless-ng = {
+{ config, lib, ... }:
+let
+  myPaperless = if lib.versionOlder config.system.nixos.version "21.11" then "paperless" else "paperless-ng";
+in
+{
+  services."${myPaperless}" = {
     enable = true;
     address = "0.0.0.0";
     extraConfig = {
