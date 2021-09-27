@@ -113,8 +113,21 @@ in
   powerManagement.cpuFreqGovernor = "performance";
 
   hardware.facetimehd.enable = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull; # we need to use the full package for bluetooth support
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+    # config.pipewire = {
+    #   "context.properties" = {
+    #     "default.clock.rate" = 192000;
+    #     "default.clock.allowed-rates" = [ 44100 48000 96000 192000 ];
+    #   };
+    # };
+  };
+  # hardware.pulseaudio.enable = true;
+  # hardware.pulseaudio.package = pkgs.pulseaudioFull; # we need to use the full package for bluetooth support
   #for wireless headset
   # hardware.pulseaudio.extraConfig = ''
   #   load-module module-switch-on-connect
@@ -138,26 +151,30 @@ in
   virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  nixpkgs.config = {
-    allowBroken = true;
+  nixpkgs = {
+    overlays = [
+      (import ../shared/overlay-x86_64.nix)
+    ];
+    config = {
+      allowBroken = true;
     allowUnfree = true;
-    overlays = [ "/home/kranium/git/github.com/stesie/azure-cli-nix" ];
     packageOverrides = pkgs: {
       # 11-Sep-2021 works 6d8be3549ca453a3a60d73ddcf368c84742dadb0
       nur = import /home/kranium/git/github.com/nix-community/nur-combined {
         inherit pkgs;
       };
-      haskellPackages = pkgs.haskellPackages.override {
-            overrides = hsSelf: hsSuper: {
-              postgres-websockets = hsSelf.haskell.lib.doJailbreak hsSuper.postgres-websockets;
-              sproxy2 = hsSelf.callPackage /home/kranium/git/github.com/ip1981/sproxy2/default.nix { } ;
-              docopt = hsSelf.callPackage /home/kranium/git/github.com/jefdaj/docopt.hs/default.nix { };
-            };
-      };
+    #   haskellPackages = pkgs.haskellPackages.override {
+    #         overrides = hsSelf: hsSuper: {
+    #           postgres-websockets = hsSelf.haskell.lib.doJailbreak hsSuper.postgres-websockets;
+    #           sproxy2 = hsSelf.callPackage /home/kranium/git/github.com/ip1981/sproxy2/default.nix { } ;
+    #           docopt = hsSelf.callPackage /home/kranium/git/github.com/jefdaj/docopt.hs/default.nix { };
+    #         };
+    #   };
     };
     # permittedInsecurePackages = [
     #   "openssl-1.0.2u"
     # ];
+    };
   };
 
   programs.light.enable = true;

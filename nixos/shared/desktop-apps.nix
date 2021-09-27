@@ -1,4 +1,5 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+{
 
   environment.systemPackages = with pkgs;
     [
@@ -7,10 +8,12 @@
       acpi
       ag
       aircrack-ng
+      alsaUtils
       ansible
       antimony
       arandr
       arc-theme
+      ardour
       # arduino
       aria2
       asciinema
@@ -29,6 +32,7 @@
       btrfs-progs
       # bundix # mini_portile2
       calibre
+      carla
       certbot
       cfssl
       # chromedriver
@@ -127,6 +131,7 @@
           nix-diff
           password
           postgresql-simple
+          reanimate
           semver-range
           torrent
           turtle
@@ -203,7 +208,7 @@
       nixfmt
       # nixops
       nmap
-      nmap-graphical
+      # nmap-graphical
       nomacs
       ntfs3g
       nur.repos.mic92.rhasspy
@@ -270,6 +275,7 @@
       # ruby_2_6
       runc
       rxvt_unicode-with-plugins
+      scala
       screen
       scrot
       shared_mime_info
@@ -308,7 +314,7 @@
       # tsung
       unzip
       usbutils # lsusb
-      # vagrant
+      vagrant
       vdpauinfo
       # veracrypt
       vim

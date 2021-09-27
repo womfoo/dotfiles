@@ -10,6 +10,18 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
+
+  # should we want to use USB audio only
+  # boot.blacklistedKernelModules = [
+  #   "snd_hda_codec_hdmi"
+  #   "snd_hda_intel"
+  # ];
+
+  # TODO: fix microphone input on audio jack
+  # boot.extraModprobeConfig = ''
+  #   # https://github.com/davidjo/snd_hda_macbookpro
+  # '';
+
   boot.kernelModules = [ "kvm-intel" "wl" ];
   #boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta config.boot.kernelPackages.rtl8814au ];
   boot.extraModulePackages = [
