@@ -3,7 +3,7 @@
 
   environment.systemPackages = with pkgs;
     [
-      abcde # rip cds
+      # abcde # rip cds
       # abiword
       acpi
       ag
@@ -12,7 +12,7 @@
       ansible
       antimony
       arandr
-      arc-theme
+      # arc-theme
       ardour
       # arduino
       aria2
@@ -39,9 +39,9 @@
       # chromium
       cifs_utils
       cli53
-      compton-git
+      # compton-git
       config.boot.kernelPackages.bcc
-      config.boot.kernelPackages.bpftrace
+      # config.boot.kernelPackages.bpftrace
       conntrack_tools
       cpuminer-multi
       cryptsetup
@@ -75,7 +75,7 @@
       flameshot
       fnotifystat
       forkstat
-      fpm
+      # fpm
       freecad
       fuse_exfat
       geoip
@@ -175,6 +175,7 @@
       # languagetool # very-basic grammarly
       libnotify # notify-send pp
       libphonenumber
+      libqrencode # qrencode
       libreoffice
       libva-full # vaapiVdpau should install this but I need vainfo
       libva-utils
@@ -254,6 +255,7 @@
         ps: with ps; with python3Packages; [
           gunicorn
           binwalk
+          netifaces
           sqlparse
           (pkgs.callPackage ../pkgs/metawear {})
           (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})

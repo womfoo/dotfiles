@@ -1,4 +1,5 @@
-{ lib, pkgs, config, ... }: {
+{ lib, pkgs, config, ... }:
+{
 
   imports = [
     (import /home/kranium/git/github.com/nix-community/home-manager/nixos)
