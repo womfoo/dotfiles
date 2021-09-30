@@ -1,0 +1,4 @@
+{
+  somedesktop = { system = "x86_64-linux"; tags = ["desktop"];        interfaces = { eth0 = { ip = "192.168.1.200"; mac = "aa:bb:cc:dd:ee:ff"; }; }; };
+  a32builder  = { system = "armv7l-linux"; tags = ["builder" "rpi2"]; interfaces = { eth0 = { ip = "192.168.1.201"; mac = "aa:bb:cc:dd:ee:ff"; }; }; };
+}
