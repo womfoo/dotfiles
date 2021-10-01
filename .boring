@@ -1,2 +1,6 @@
+# to enable:
+# darcs setpref boringfile .boring
 ^\nixos/configuration.nix$
+^\.xmonad/xmonad-aarch64-linux$
+^\.xmonad/xmonad.errors$
 ~$
