@@ -1,0 +1,9 @@
+keys:
+  - &admin 57ad00bfcc14c34e3c81b9fb62959581ebd6f94e
+  - &stockwell 7cbff503d7e3412b2ad2dea9648626d0adfe9752
+creation_rules:
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *admin
+      - *stockwell

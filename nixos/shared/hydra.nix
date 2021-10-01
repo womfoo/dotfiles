@@ -4,15 +4,11 @@ let
   builders = lib.filterAttrs (name: value: builtins.elem "builder" value.tags) inventory;
 in
 {
-  #FIXME: move to DNS
-  networking.extraHosts = lib.concatStrings (builtins.attrValues (
-    builtins.mapAttrs (name: value: name + " " + value.interfaces.eth0.ip + "\n") inventory));
-
   nix.buildMachines = builtins.attrValues (
     builtins.mapAttrs (name: value: { inherit (value) system;
                                       hostName = name;
                                       sshUser = "builder";
-                                      sshKey = "/var/lib/hydra/builder-key";
+                                      sshKey = "/run/secrets/builder-key";
                                     }) builders);
 
   services.hydra = {

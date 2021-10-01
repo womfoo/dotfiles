@@ -16,3 +16,8 @@
         repo: https://github.com/syl20bnr/spacemacs
         version: master
         dest: /home/kranium/.emacs.d
+    - name: git sops
+      git:
+        repo: https://github.com/Mic92/sops-nix
+        version: master
+        dest: /home/kranium/git/github.com/Mic92/sops-nix
