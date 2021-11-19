@@ -5928,28 +5928,21 @@
     ncdu
     mc
     screen
-    firefox
-    xmobar
-    emacs
-    chromium
-    #irefox
+    emacs-nox
     dmenu
-    #llvm_7
     vim
-    #mpv
-    #pulsemixer
     git
-    #darcs
+    darcs
     iotop
     nethogs
     tmux
-    #parted
     tcpdump
     speedtest-cli
     arandr
     st
     wget
     ffmpeg
+    ifuse
   ];
 
   time.timeZone = "Australia/Sydney";
