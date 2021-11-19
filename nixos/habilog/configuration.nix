@@ -5869,14 +5869,14 @@
   services.nfs.server.mountdPort = 47001;
   services.nfs.server.lockdPort = 47002;
   services.nfs.server.exports    = ''
-      /dashcam *(ro,insecure,no_root_squash,no_subtree_check,fsid=1)
-      /armorydata 172.19.86.100/32(rw,no_root_squash,no_subtree_check,fsid=2)
-      /legacydata 172.19.86.100/32(rw,no_root_squash,no_subtree_check,fsid=2)
-      /nix/store 172.19.86.100/32(ro,no_root_squash,no_subtree_check,fsid=2)
-      /armorydata/a32b01 172.19.86.201/32(ro,no_root_squash,no_subtree_check,fsid=2)
-      /armorydata/a32b02 172.19.86.202/32(ro,no_root_squash,no_subtree_check,fsid=2)
-      /armorydata/a32b03 172.19.86.203/32(ro,no_root_squash,no_subtree_check,fsid=2)
-      /armorydata/a32b08 172.19.86.203/32(ro,no_root_squash,no_subtree_check,fsid=2)
+      /dashcam *(ro,insecure,no_root_squash,no_subtree_check)
+      /armorydata 172.19.87.100/31(rw,no_root_squash,no_subtree_check)
+      /legacydata 172.19.87.100/31(rw,no_root_squash,no_subtree_check)
+      /nix/store 172.19.86.100/31(ro,no_root_squash,no_subtree_check)
+      /armorydata/a32b1 172.19.86.201/32(rw,no_root_squash,no_subtree_check)
+      /armorydata/a32b2 172.19.86.202/32(rw,no_root_squash,no_subtree_check)
+      /armorydata/a32b3 172.19.86.203/32(rw,no_root_squash,no_subtree_check)
+      /armorydata/a32b08 172.19.86.203/32(rw,no_root_squash,no_subtree_check)
     '';
   networking.timeServers = [
     "0.au.pool.ntp.org"
