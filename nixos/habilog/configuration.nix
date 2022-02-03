@@ -13,6 +13,7 @@
     ./modules/heartbeat.nix
     ./modules/rtmp.nix
     ../shared/gikos-kranium.nix
+    ../shared/gikos-net-bind.nix
   ];
 
   nixpkgs.overlays = [
@@ -6088,31 +6089,6 @@
     extraGroups = [ "dialout"];
   };
 
-  services.bind = {
-    enable = true;
-    ipv4Only = true;
-    cacheNetworks = [
-      "127.0.0.0/24"
-      "172.19.86.0/24"
-      "172.19.87.0/24"
-    ];
-    extraOptions = ''
-      response-policy { zone "rpz.db"; };
-      querylog yes;
-      recursion yes;
-      dnssec-validation auto;
-    '';
-    extraConfig = ''
-     statistics-channels {
-       inet 127.0.0.1 port 8053;
-     };
-    '';
-    zones = { "rpz.db" = 
-              { file = "/tmp/rpz.db"; 
-                 master = true; 
-              };
-    };
-  };
 
   nix.extraOptions = ''
     keep-outputs = true
