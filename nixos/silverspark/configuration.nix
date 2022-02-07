@@ -146,8 +146,11 @@ in
 
   virtualisation.docker.enable = true;
 
-  services.flatpak.enable = true;
-  xdg.portal.enable = true;
+  #FIXME: disable flatpak permanently? for 22.05
+  # Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde
+  # To use Flatpak you must enable XDG Desktop Portals with xdg.portal.enable.
+  #services.flatpak.enable = true;
+  #xdg.portal.enable = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
 
