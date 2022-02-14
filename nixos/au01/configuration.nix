@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  deployment.targetHost = "149.28.180.243";
+  # deployment.buildOnTarget = true; # requires colmena unstable
+
   imports = [
     ./hardware-configuration.nix
     ../shared/gikos-kranium.nix
