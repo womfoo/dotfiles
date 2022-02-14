@@ -71,7 +71,7 @@
   #installer.cloneConfig = false;
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8814au ];
-  #boot.kernelModules = [ "8812au" ];
+  boot.kernelModules = [ "cpufreq-conservative" ];
 
   # OpenSSH is forced to have an empty `wantedBy` on the installer system[1], this won't allow it
   # to be automatically started. Override it with the normal value.
@@ -88,13 +88,14 @@
   services.nfs.server.lockdPort = 47002;
   services.nfs.server.exports    = ''
       /dashcam *(ro,insecure,no_root_squash,no_subtree_check)
-      /armorydata 172.19.87.100/31(rw,no_root_squash,no_subtree_check)
-      /legacydata 172.19.87.100/31(rw,no_root_squash,no_subtree_check)
+      /armorydata 172.19.86.100/31(rw,no_root_squash,no_subtree_check)
+      /legacydata 172.19.86.100/31(rw,no_root_squash,no_subtree_check)
       /nix/store 172.19.86.100/31(ro,no_root_squash,no_subtree_check)
       /armorydata/a32b1 172.19.86.201/32(rw,no_root_squash,no_subtree_check)
       /armorydata/a32b2 172.19.86.202/32(rw,no_root_squash,no_subtree_check)
       /armorydata/a32b3 172.19.86.203/32(rw,no_root_squash,no_subtree_check)
       /armorydata/a32b08 172.19.86.203/32(rw,no_root_squash,no_subtree_check)
+      /phonebackup 172.19.86.100/24(rw,no_root_squash,no_subtree_check)
     '';
   networking.timeServers = [
     "0.au.pool.ntp.org"
@@ -120,7 +121,6 @@
     5000 # octoprint
     8086 # influxdb
     9050 # can we move this to config.services.tor.settings.SOCKSPort?
-    config.services.mosquitto.port
   ];
   networking.firewall.allowedUDPPorts = [
     53
@@ -133,6 +133,7 @@
   networking.hostId = "6ea8191e";
 
   environment.systemPackages = with pkgs; [
+    darcs
     dnsutils
     parted
     hub
@@ -153,11 +154,13 @@
     tmux
     tcpdump
     speedtest-cli
-    arandr
-    st
+    #arandr
+    #st
     wget
-    ffmpeg
+    #ffmpeg
     ifuse
+    iw
+    bitcoin
   ];
 
   time.timeZone = "Australia/Sydney";
@@ -188,86 +191,10 @@
 
   services.usbmuxd.enable = true;
 
-  systemd.services.telegraf.path = [ pkgs.procps ]; # telegraf procstat will fail without this
-  services.telegraf.enable = true;
-  services.telegraf.extraConfig = {
-    global_tags = {
-      user = "root";
-    };
-    agent = {
-      interval = "30s";
-      round_interval = true;
-      metric_batch_size = 1000;
-      metric_buffer_limit = 10000;
-      collection_jitter = "0s";
-      flush_interval = "30s";
-      flush_jitter = "0s";
-      #precision = "";
-      debug = false;
-      quiet = false;
-      #logfile = "";
-      #hostname = "";
-      omit_hostname = false;
-    };
-    inputs = {
-      bind = {
-       #urls = [ "http://localhost:8053/json/v1" ];
-       #gather_memory_contexts = true;
-       #gather_views = true;
-      };
-      statsd = {
-        delete_timings = true;
-        service_address = ":8125";
-      };
-      conntrack = {};
-      cpu = {
-        percpu = true;
-        totalcpu = true;
-        collect_cpu_time = false;
-      };
-      disk = { };
-      diskio = { };
-      interrupts = {};
-      kernel = { };
-      mem = { };
-      net = { };
-      netstat = { };
-      nstat = {
-        proc_net_netstat  = "/proc/net/netstat";
-        proc_net_snmp     = "/proc/net/snmp";
-        proc_net_snmp6    = "/proc/net/snmp6";
-        dump_zeros        = true;
-      };
-      system = { };
-      swap = { };
-      processes = { };
-      procstat = {
-        exe = ".*"; # limit this in the future, this sends everything
-        pid_finder = "pgrep";
-      };
-      zfs = {};
-    };
-    outputs = { influxdb = { database = "metrics";
-                             urls = [ "http://localhost:8086" ];
-              };
-    };
-  };
-
-  services.influxdb.enable = true;
-  services.influxdb.extraConfig = {
-    udp = [{
-      enabled = false;
-    }];
-  };
-
-  users.mutableUsers = false;
-
   security.sudo.wheelNeedsPassword = false;
 
-  # avoid hangs
-  powerManagement.cpuFreqGovernor = "performance";
-  powerManagement.cpufreq.max = 1416000;
-  powerManagement.cpufreq.min = 1416000;
+  # FIXME: avoid hangs, apply RAM fix
+  powerManagement.cpuFreqGovernor = "conservative";
 
   hardware.enableAllFirmware = true;
   hardware.pulseaudio.enable = true;
