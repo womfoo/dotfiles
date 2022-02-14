@@ -1,15 +1,20 @@
 { pkgs, lib, ... }:
 let
-  inventory = import ./inventory.nix;
-  inventory' = lib.filterAttrs (name: value: builtins.elem "builder" value.tags) inventory;
+  inventory = import ./inventory.nix { inherit lib; };
+  builders = lib.filterAttrs (name: value: builtins.elem "builder" value.tags) inventory;
 in
 {
+  #FIXME: move to DNS
+  networking.extraHosts = lib.concatStrings (builtins.attrValues (
+    builtins.mapAttrs (name: value: name + " " + value.interfaces.eth0.ip + "\n") inventory));
+
   nix.buildMachines = builtins.attrValues (
     builtins.mapAttrs (name: value: { inherit (value) system;
                                       hostName = name;
                                       sshUser = "builder";
                                       sshKey = "/var/lib/hydra/builder-key";
-                                    }) inventory');
+                                    }) builders);
+
   services.hydra = {
     enable = true;
     debugServer = true;
@@ -21,6 +26,7 @@ in
     useSubstitutes = true;
     port = 7000;
   };
+
   # FIMXE: follwed steps in https://nixos.wiki/wiki/Binary_Cache need to move this to sops-nix
   services.nix-serve = {
     enable = true;
