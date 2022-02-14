@@ -4,6 +4,20 @@ let
   builders = lib.filterAttrs (name: value: builtins.elem "builder" value.tags) inventory;
 in
 {
+  imports = [ ./secrets.nix ];
+
+  sops.secrets.builder-key = {
+    format = "binary";
+    sopsFile = ../secrets/builders/builder-key;
+    owner = "hydra-queue-runner";
+    mode = "0400";
+  };
+
+  #FIXME: move to DNS
+  # FIXME: generalize this for wifi?
+  networking.extraHosts = lib.concatStrings (builtins.attrValues (
+    builtins.mapAttrs (name: value: value.interfaces.eth0.ip + " " + name + "\n") builders));
+
   nix.buildMachines = builtins.attrValues (
     builtins.mapAttrs (name: value: { inherit (value) system;
                                       hostName = name;
