@@ -11,6 +11,7 @@ in
       ../shared/hydra.nix
       ../shared/paperless.nix
       ../shared/gikos-kranium.nix
+      ../shared/gikos-kranium-hm.nix
       ../shared/desktop-apps.nix
       # ./old-work.nix
       #./asterisk-test.nix
