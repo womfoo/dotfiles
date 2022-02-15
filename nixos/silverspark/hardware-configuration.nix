@@ -13,7 +13,7 @@
 
   boot.blacklistedKernelModules = [
     # conflicts with wl
-    bcma
+    "bcma"
     # # disable onboard audio
     # "snd_hda_codec_hdmi"
     # "snd_hda_intel"
