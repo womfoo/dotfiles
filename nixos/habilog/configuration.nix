@@ -63,6 +63,9 @@
       fsType = "zfs";
     };
   };
+  swapDevices = [
+    { device = "/dev/md/swap"; }
+  ];
 
   programs.ssh.startAgent = true;
 
@@ -161,6 +164,8 @@
     ifuse
     iw
     bitcoin
+    smartmontools
+    nmon
   ];
 
   time.timeZone = "Australia/Sydney";
