@@ -43,7 +43,7 @@
       config.boot.kernelPackages.bcc
       # config.boot.kernelPackages.bpftrace
       conntrack_tools
-      cpuminer-multi
+      #cpuminer-multi # deleted upstream
       cryptsetup
       cura
       darcs
@@ -65,7 +65,7 @@
       emacs
       encfs
       exfat
-      # facter
+      facter
       f2fs-tools
       # fcitx # virtual keyboard
       ffmpeg
@@ -85,10 +85,9 @@
       gitFull
       glxinfo
       gnome3.adwaita-icon-theme
-      gnome3.cheese
+      # gnome3.cheese
       gnome3.evince
       gnome3.file-roller
-      gnome3.librsvg
       gnome3.seahorse # edit items in gnome-keyring
       # gnucash
       # gnumeric
@@ -100,7 +99,7 @@
       go2nix
       google-chrome
       # google-chrome-beta
-      google-chrome-dev
+      # google-chrome-dev
       gpa
       gparted
       gpodder
@@ -119,14 +118,19 @@
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
+          brittany
           HsOpenSSL
+          brick
           cabal-install
           cabal2nix
           esqueleto
           fast-logger
+          hnix
+          hnix-store-remote
           hlint
           http-conduit
           mysql-simple
+          network-info
           nix-derivation # pretty
           nix-diff
           password
@@ -138,8 +142,8 @@
           xmobar
           xmonad
           xmonad-contrib
-          yeganesh
-          brick
+          # duckling
+          # yeganesh
         ]))
       hfsprogs
       hicolor-icon-theme
@@ -177,6 +181,7 @@
       libphonenumber
       libqrencode # qrencode
       libreoffice
+      librsvg # rsvg-convert
       libva-full # vaapiVdpau should install this but I need vainfo
       libva-utils
       libxml2 # xmllint
@@ -210,6 +215,7 @@
       # nixops
       nmap
       # nmap-graphical
+      nmon
       nomacs
       ntfs3g
       nur.repos.mic92.rhasspy
@@ -226,11 +232,12 @@
       parted
       pass
       pasystray
+      patchutils # splitdiff
       patchelf
       pavucontrol
       pciutils # setpci
       pdfcrack
-      pdfmod
+      # pdfmod
       pdftk
       # pianobar
       pick
@@ -274,6 +281,7 @@
       rrdtool
       rsync
       rtl-sdr
+      rtorrent
       # ruby_2_6
       runc
       rxvt_unicode-with-plugins
@@ -295,6 +303,7 @@
       # spotify
       sqlite
       sqlitebrowser
+      ssh-import-id
       sshfs
       sshpass
       st
@@ -321,11 +330,12 @@
       # veracrypt
       vim
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
+      virt-manager
       vlc
       # vulnix
       # vscode
       vnstat
-      vscode
+      # vscode
       wavemon
       wget
       which

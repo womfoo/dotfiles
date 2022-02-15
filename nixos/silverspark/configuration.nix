@@ -1,7 +1,9 @@
 { config, options, lib, pkgs, ... }:
 
 let
+  grafana-mqtt-datasource = pkgs.callPackage /home/kranium/git/github.com/grafana/mqtt-datasource {};
   noplay = false;
+  # noplay = true;
 in
 {
   imports =
@@ -17,8 +19,8 @@ in
       #./asterisk-test.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxPackages_5_12;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # 2021-11-16: 5.15.1 not working with nvidia
+  # boot.kernelPackages = pkgs.linuxPackages_5_14;
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -84,8 +86,11 @@ in
   services.openssh.enable = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
-  # services.printing.drivers = [ pkgs.fxlinuxprint ];
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
+
+  hardware.sane.enable = true;
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -100,7 +105,9 @@ in
     Option         "TripleBuffer" "on"
   '';
 
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
   services.xserver.videoDrivers = [ "nvidia" ];
+  #services.xserver.videoDrivers = [ "nvidiaLegacy470" ];
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
   services.xserver.displayManager.defaultSession = "none+xmonad";
@@ -111,7 +118,7 @@ in
   hardware.cpu.intel.updateMicrocode = true;
 
   #this tends to overheat
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "performance"; # defaults to powersave
 
   hardware.facetimehd.enable = true;
   services.pipewire = {
@@ -152,7 +159,7 @@ in
   # To use Flatpak you must enable XDG Desktop Portals with xdg.portal.enable.
   #services.flatpak.enable = true;
   #xdg.portal.enable = true;
-  virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
 
   nixpkgs = {
@@ -199,7 +206,7 @@ in
   nix.binaryCachePublicKeys = lib.mkForce [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     # "thefloweringash-armv7.cachix.org-1:v+5yzBD2odFKeXbmC+OPWVqx4WVoIVO6UXgnSAWFtso="
-    # "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
     # "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
     # "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     # "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
@@ -286,6 +293,8 @@ in
 
   services.grafana = {
     enable = true;
+    # declarativePlugins = [  ];
+    # declarativePlugins = with pkgs.grafanaPlugins; [ grafana-mqtt-datasource grafadruid-druid-datasource ];
   };
 
 }

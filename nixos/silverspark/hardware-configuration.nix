@@ -11,11 +11,13 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "usb_storage" "uas" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
 
-  # should we want to use USB audio only
-  # boot.blacklistedKernelModules = [
-  #   "snd_hda_codec_hdmi"
-  #   "snd_hda_intel"
-  # ];
+  boot.blacklistedKernelModules = [
+    # conflicts with wl
+    bcma
+    # # disable onboard audio
+    # "snd_hda_codec_hdmi"
+    # "snd_hda_intel"
+  ];
 
   # TODO: fix microphone input on audio jack
   # boot.extraModprobeConfig = ''
