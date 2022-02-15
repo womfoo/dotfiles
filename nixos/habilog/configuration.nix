@@ -10,6 +10,7 @@
     ./helios64/default.nix
     ../shared/gikos-kranium.nix
     ../shared/gikos-net-bind.nix
+    ../shared/router.nix
   ];
 
   services.nginx = {
@@ -169,30 +170,6 @@
   ];
 
   time.timeZone = "Australia/Sydney";
-
-  networking = {
-    #wireless.enable = true; #this seems to turn on supplicant
-    hostName = "habilog";
-    interfaces = {
-      eth0 = {
-        ipv4.addresses = [ { address = "172.19.86.1"; prefixLength = 24; } ];
-        useDHCP = false;
-      };
-      wlan0 = {
-        ipv4.addresses = [ { address = "172.19.87.1"; prefixLength = 24; } ];
-        useDHCP = false;
-      };
-      #eth1 = {
-      #useDHCP = true;
-      #};
-    };
-    nat = {
-      enable =true;
-        externalInterface = "eth1"; # iphone
-        internalIPs = [ "172.19.86.0/24" "172.19.87.0/24"];
-        internalInterfaces =  [ "eth0" "wlan0" ];
-    };
-  };
 
   services.usbmuxd.enable = true;
 
