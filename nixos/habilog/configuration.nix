@@ -20,7 +20,9 @@
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
   boot.consoleLogLevel = lib.mkDefault 7;
-  boot.initrd.kernelModules = [ "phy_rockchip_pcie" "md_mod" "dm_mod" "ahci" "usb_storage" "pci" "pcie_rockchip_host" "md" ]; #FIXME: find the bare minimum
+  boot.initrd.kernelModules = [ "phy_rockchip_pcie" "md_mod" "dm_mod" "ahci" "usb_storage" "pci" "pcie_rockchip_host" "md"  #FIXME: find the bare minimum
+    "ledtrig_netdev" /* "ledtrig-usbport" */ # FIXME: ledtrig does not blink
+  ];
 
   fileSystems = {
     "/" = {
