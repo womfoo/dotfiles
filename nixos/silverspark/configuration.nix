@@ -6,6 +6,32 @@ let
   # noplay = true;
 in
 {
+  nix.package = pkgs.nixUnstable;
+  nix.settings.cores = 4;
+  nix.settings.max-jobs = lib.mkDefault 8;
+  nix.settings.substituters = lib.mkForce [
+    "https://cache.nixos.org/"
+    # "https://thefloweringash-armv7.cachix.org"
+    # "https://nixcache.reflex-frp.org"
+    # "https://static-haskell-nix.cachix.org"
+    # "https://hydra.iohk.io"
+    # "https://miso-haskell.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = lib.mkForce [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    # "thefloweringash-armv7.cachix.org-1:v+5yzBD2odFKeXbmC+OPWVqx4WVoIVO6UXgnSAWFtso="
+    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+    # "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
+    # "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    # "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
+  ];
+  nix.extraOptions = ''
+    keep-outputs = true
+    extra-platforms = aarch64-linux
+    experimental-features = nix-command flakes
+  '';
+  nix.distributedBuilds = true;
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -191,27 +217,6 @@ in
   programs.light.enable = true;
   programs.kbdlight.enable = true;
 
-  nix.useSandbox = true;
-  nix.buildCores = 4;
-  nix.distributedBuilds = true;
-
-  nix.binaryCaches = lib.mkForce [
-    "https://cache.nixos.org/"
-    # "https://thefloweringash-armv7.cachix.org"
-    # "https://nixcache.reflex-frp.org"
-    # "https://static-haskell-nix.cachix.org"
-    # "https://hydra.iohk.io"
-    # "https://miso-haskell.cachix.org"
-  ];
-  nix.binaryCachePublicKeys = lib.mkForce [
-    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    # "thefloweringash-armv7.cachix.org-1:v+5yzBD2odFKeXbmC+OPWVqx4WVoIVO6UXgnSAWFtso="
-    "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
-    # "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
-    # "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    # "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
-  ];
-
   #services.dockerRegistry.enable = true;
   environment.etc.hosts.mode = "0644";
 
@@ -265,14 +270,6 @@ in
     host all all 172.17.0.0/16 trust
   '';
 
-  nix.trustedUsers = ["hydra" "hydra-evaluator" "hydra-queue-runner" "kranium" ];
-  nix.package = pkgs.nixUnstable;
-
-  nix.extraOptions = ''
-    keep-outputs = true
-    extra-platforms = aarch64-linux
-    experimental-features = nix-command flakes
-  '';
 
   services.arbtt.enable = true;
   # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;

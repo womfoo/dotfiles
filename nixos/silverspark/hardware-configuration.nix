@@ -55,7 +55,6 @@
 
   swapDevices = [ ];
 
-  nix.maxJobs = lib.mkDefault 8;
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   # High-DPI console
   # nixos 19.09
