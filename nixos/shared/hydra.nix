@@ -8,7 +8,7 @@ in
 
   sops.secrets.builder-key = {
     format = "binary";
-    sopsFile = ../secrets/builders/builder-key;
+    sopsFile = ../secrets/builders/builder.key;
     owner = "hydra-queue-runner";
     mode = "0400";
   };
@@ -22,7 +22,7 @@ in
     builtins.mapAttrs (name: value: { inherit (value) system;
                                       hostName = name;
                                       sshUser = "builder";
-                                      sshKey = "/run/secrets/builder-key";
+                                      sshKey = "/run/secrets/builder.key";
                                     }) builders);
 
   services.hydra = {
