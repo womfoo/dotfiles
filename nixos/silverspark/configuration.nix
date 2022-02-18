@@ -63,6 +63,8 @@ in
     };
     firewall.logRefusedPackets = true;
     firewall.allowedTCPPorts = [
+      80
+      443
       111 # nfs
       2049 # nfs
       config.services.nfs.server.statdPort

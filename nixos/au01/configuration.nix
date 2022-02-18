@@ -26,6 +26,11 @@
     "gikos.net"      = { forceSSL = true; enableACME = true; locations."/".root = "/srv/gikos.net"; };
     "www.gikos.net"  = { forceSSL = true; enableACME = true; globalRedirect = "https://gikos.net"; };
     "au01.gikos.net" = { forceSSL = true; enableACME = true; globalRedirect = "https://gikos.net"; };
+    "rc.gikos.net"          = { locations."/" = { proxyPass = "http://10.100.0.3:80"; }; };
+    "octoprint.gikos.net"   = { locations."/" = { proxyPass = "http://10.100.0.3:80"; }; };
+    "silverspark.gikos.net" = { locations."/" = { proxyPass = "http://10.100.0.2:80"; }; };
+    "paperless.gikos.net"   = { locations."/" = { proxyPass = "http://10.100.0.2:80"; }; };
+
   };
 
   security.acme.acceptTerms = true;
