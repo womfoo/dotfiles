@@ -41,6 +41,7 @@ in
       ../shared/gikos-kranium.nix
       ../shared/gikos-kranium-hm.nix
       ../shared/desktop-apps.nix
+      ../shared/secrets.nix
       # ./old-work.nix
       #./asterisk-test.nix
     ];
@@ -69,6 +70,7 @@ in
       config.services.nfs.server.lockdPort
       config.services.nix-serve.port # FIXME: move behind apache
       config.services.hydra.port # FIXME: move behind apache
+      config.networking.wireguard.interfaces.wg0.listenPort
     ];
     firewall.allowedUDPPorts = [
       53 # dnsmasq
@@ -270,7 +272,6 @@ in
     host all all 172.17.0.0/16 trust
   '';
 
-
   services.arbtt.enable = true;
   # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;
 
@@ -294,4 +295,22 @@ in
     # declarativePlugins = with pkgs.grafanaPlugins; [ grafana-mqtt-datasource grafadruid-druid-datasource ];
   };
 
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.2/24" ];
+      listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
+      privateKeyFile = config.sops.secrets.wg-private-key.path;
+      peers = [
+        {
+          publicKey = "ykVVI6YfSDarxLfDwwCrnA7KYNUD3lHyK0QkGFtXIgA=";
+          allowedIPs = [ "10.100.0.0/24" ];
+          endpoint = "149.28.180.243:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+
+  sops.secrets.wg-private-key = {};
+  sops.defaultSopsFile = ../secrets/silverspark/secrets.yaml;
 }

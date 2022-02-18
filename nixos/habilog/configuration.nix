@@ -11,6 +11,7 @@
     ../shared/gikos-kranium.nix
     ../shared/gikos-net-bind.nix
     ../shared/router.nix
+    ../shared/secrets.nix
   ];
 
   services.nginx = {
@@ -135,6 +136,7 @@
     config.services.nfs.server.statdPort
     config.services.nfs.server.mountdPort
     config.services.nfs.server.lockdPort
+    config.networking.wireguard.interfaces.wg0.listenPort
   ];
   networking.hostId = "6ea8191e";
 
@@ -214,5 +216,26 @@
   nix.extraOptions = ''
     keep-outputs = true
   '';
+
+  systemd.watchdog.device = "/dev/watchdog";
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.3/24" ];
+      listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
+      privateKeyFile = config.sops.secrets.wg-private-key.path;
+      peers = [
+        {
+          publicKey = "ykVVI6YfSDarxLfDwwCrnA7KYNUD3lHyK0QkGFtXIgA=";
+          allowedIPs = [ "10.100.0.0/24" ];
+          endpoint = "149.28.180.243:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
+
+  sops.secrets.wg-private-key = {};
+  sops.defaultSopsFile = ../secrets/habilog/secrets.yaml;
 
 }

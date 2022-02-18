@@ -1,5 +1,6 @@
 keys:
   - &admin 57ad00bfcc14c34e3c81b9fb62959581ebd6f94e
+  - &au01 a72dca1ce7219b68445f0c52a6d6e21593e21105
   - &habilog 5865a1eb16a2b37561c5ef7d8e595882d044cfda
   - &silverspark c3c0e3dcaa5267045e9ff198d87fb9862f04a1fa
   - &stockwell 7cbff503d7e3412b2ad2dea9648626d0adfe9752
@@ -9,5 +10,20 @@ creation_rules:
     - pgp:
       - *admin
       - *habilog
+      - *silverspark
       - *stockwell
+  - path_regex: secrets/au01/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *admin
+      - *au01
+  - path_regex: secrets/habilog/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *admin
+      - *habilog
+  - path_regex: secrets/silverspark/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *admin
       - *silverspark

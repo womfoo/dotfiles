@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ../shared/gikos-kranium.nix
+    ../shared/secrets.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
@@ -44,6 +45,29 @@
   # services.openssh.permitRootLogin = "no";
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [
+    config.networking.wireguard.interfaces.wg0.listenPort
+  ];
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.1/24" ];
+      listenPort = 51820;
+      privateKeyFile = config.sops.secrets.wg-private-key.path;
+      peers = [
+        { # silverspark
+          publicKey = "yN3RhSg0wcdGZoqZbrnb4zudQQY/XgYaijyyo22ra2c=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+        { # habilog, FIXME: not connecting when nat enabled
+          publicKey = "OeCRZ1VuatQ1rGO7lw1S06so/3dSZfXRTKBx3S61kEY=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
+      ];
+    };
+  };
+
+  sops.secrets.wg-private-key = {};
+  sops.defaultSopsFile = ../secrets/au01/secrets.yaml;
 
 }

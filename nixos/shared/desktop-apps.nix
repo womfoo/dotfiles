@@ -91,6 +91,7 @@
       gnome3.seahorse # edit items in gnome-keyring
       # gnucash
       # gnumeric
+      gnupg
       # gnupg1compat
       # gnutls
       go
@@ -297,6 +298,7 @@
       sipsak
       smartmontools
       smemstat
+      sops
       sox
       # spaceFM
       speedtest-cli
@@ -304,6 +306,7 @@
       sqlite
       sqlitebrowser
       ssh-import-id
+      ssh-to-pgp
       sshfs
       sshpass
       st
