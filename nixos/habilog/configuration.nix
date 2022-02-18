@@ -139,39 +139,41 @@
     config.networking.wireguard.interfaces.wg0.listenPort
   ];
   networking.hostId = "6ea8191e";
+  networking.hostName = "habilog";
 
   environment.systemPackages = with pkgs; [
-    darcs
-    dnsutils
-    parted
-    hub
-    nix-top
-    youtube-dl
-    ntfs3g
-    python3Packages.pip # test if octoprint works with this
-    ncdu
-    mc
-    screen
-    emacs-nox
-    dmenu
-    vim
-    git
-    darcs
-    iotop
-    nethogs
-    tmux
-    tcpdump
-    speedtest-cli
-    #arandr
-    #st
-    wget
-    #ffmpeg
-    ifuse
-    iw
     bitcoin
-    smartmontools
+    darcs
+    darcs
+    dmenu
+    dnsutils
+    emacs-nox
+    ffmpeg-full
+    git
+    hub
+    ifuse
+    iotop
+    iw
+    mc
+    ncdu
+    nethogs
+    nix-top
     nmon
+    ntfs3g
+    parted
+    python3Packages.pip # test if octoprint works with this
+    screen
+    smartmontools
+    speedtest-cli
+    tcpdump
+    tmux
+    vim
+    wget
+    youtube-dl
   ];
+
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "kranium@gikos.net";
 
   time.timeZone = "Australia/Sydney";
 
@@ -237,5 +239,7 @@
 
   sops.secrets.wg-private-key = {};
   sops.defaultSopsFile = ../secrets/habilog/secrets.yaml;
+
+  zramSwap.enable = lib.mkDefault true;
 
 }

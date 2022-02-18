@@ -34,9 +34,11 @@ let
     paperless    CNAME   habilog
     octoprint    CNAME   habilog
     www          CNAME   au01
+    paperless    CNAME   silverspark
     ; just in case someone asks for localhost.gikos.net
     ;localhost       A       127.0.0.1
     ; our hostnames, in alphabetical order
+    silverspark    A       172.19.86.100
     habilog        A       172.19.86.1
     au01           A       149.28.180.24
     ; FIXME: make @ a CNAME to au01
