@@ -11,6 +11,7 @@ in
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../shared/builder.nix
+    ../shared/common.nix
     # ../shared/gikos-telegraf.nix
     ../shared/gikos-kranium.nix
   ];
@@ -110,8 +111,6 @@ in
     wget
   ];
 
-  services.openssh.enable = true;
-
   nixpkgs.overlays = [
     (import ../shared/overlay-armv7l.nix) 
   ];
@@ -149,13 +148,6 @@ in
 
       };
     };
-
-
-  time.timeZone = "Australia/Sydney";
-
-
-
-
 
 }
 

@@ -80,14 +80,6 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8814au ];
   boot.kernelModules = [ "cpufreq-conservative" ];
 
-  # OpenSSH is forced to have an empty `wantedBy` on the installer system[1], this won't allow it
-  # to be automatically started. Override it with the normal value.
-  # [1] https://github.com/NixOS/nixpkgs/blob/9e5aa25/nixos/modules/profiles/installation-device.nix#L76
-  #systemd.services.sshd.wantedBy = lib.mkOverride 40 [ "multi-user.target" ];
-
-  # Enable OpenSSH out of the box.
-  services.sshd.enable = true;
-
   # nfs makes this unstable
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
@@ -174,8 +166,6 @@
 
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "kranium@gikos.net";
-
-  time.timeZone = "Australia/Sydney";
 
   services.usbmuxd.enable = true;
 

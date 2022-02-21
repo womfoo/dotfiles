@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../shared/gikos-kranium.nix
     ../shared/secrets.nix
+    ../shared/common.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
@@ -42,7 +43,6 @@
     wget
   ];
 
-  services.openssh.enable = true;
   services.openssh.gatewayPorts = "yes";
   services.openssh.extraConfig = ''
     AllowTcpForwarding yes

@@ -36,6 +36,7 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./telegraf.nix
+      ../shared/common.nix
       ../shared/hydra.nix
       ../shared/paperless.nix
       ../shared/gikos-kranium.nix
@@ -112,9 +113,6 @@ in
   # services.mbpfan.pollingInterval = 1;
   # services.mbpfan.verbose = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
@@ -180,8 +178,6 @@ in
   };
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
 
-  time.timeZone = "Australia/Sydney";
-
   virtualisation.docker.enable = true;
 
   #FIXME: disable flatpak permanently? for 22.05
@@ -222,7 +218,6 @@ in
   programs.kbdlight.enable = true;
 
   #services.dockerRegistry.enable = true;
-  environment.etc.hosts.mode = "0644";
 
   services.nfs.server = {
     enable     = true;
@@ -280,8 +275,6 @@ in
   environment.variables = {
       PATH = "$PATH:/home/kranium/bin";
   };
-
-  programs.gnupg.agent.enable = true;
 
   programs.tmux = {
     enable = true;

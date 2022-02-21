@@ -5,6 +5,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../shared/common.nix
       ../shared/hydra.nix
       ../shared/gikos-kranium.nix
       ../shared/desktop-apps.nix
@@ -33,13 +34,10 @@
   services.acpid.enable = true;
   services.upower.enable = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-
   services.xserver.enable = true;
   services.xserver.autorun = false;
   services.xserver.displayManager.startx.enable = true;
-  
+
   # FIXME: see if we can replace the ff as I would like to try just using startx
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
@@ -61,8 +59,6 @@
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
 
-  time.timeZone = "Australia/Sydney";
-
   #services.flatpak.enable = true;
   xdg.portal.enable = true;
   virtualisation.virtualbox.host.enable = true;
@@ -78,8 +74,6 @@
       };
     };
   };
-
-  environment.etc.hosts.mode = "0644";
 
   environment.interactiveShellInit = ''
     # TERM=rxvt-unicode-256color seen in remote which makes backspace broken
@@ -98,8 +92,6 @@
     export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)
   '';
 
-  programs.ssh.startAgent = true;
-
   #services.influxdb.enable = true;
 
   #iphone mounting needs
@@ -115,8 +107,6 @@
   '';
 
   services.arbtt.enable = true;
-
-  programs.gnupg.agent.enable = true;
 
   programs.tmux = {
     enable = true;
