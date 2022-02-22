@@ -1,9 +1,9 @@
-# mostly based on https://github.com/angerman/nixos-docker-sd-image-builder
 { config, options, pkgs, lib, ... }:
+let
+  inventory = import ../shared/inventory.nix { inherit lib; };
+in
 {
   imports = [
-    # <nixpkgs/nixos/modules/installer/cd-dvd/sd-image.nix>
-    # <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
     ../shared/common.nix
     ../shared/timescaledb.nix
     ./modules/rtmp.nix
@@ -213,14 +213,14 @@
 
   networking.wireguard.interfaces = {
     wg0 = {
-      ips = [ "10.100.0.3/24" ];
+      ips = [ (inventory.habilog.interfaces.wg0.ip + "/24") ];
       listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
       privateKeyFile = config.sops.secrets.wg-private-key.path;
       peers = [
         {
-          publicKey = "ykVVI6YfSDarxLfDwwCrnA7KYNUD3lHyK0QkGFtXIgA=";
+          publicKey = inventory.au01.interfaces.wg0.publicKey;
           allowedIPs = [ "10.100.0.0/24" ];
-          endpoint = "149.28.180.243:51820";
+          endpoint = inventory.au01.interfaces.wg0.ip + ":51820";
           persistentKeepalive = 25;
         }
       ];
