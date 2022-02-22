@@ -10,4 +10,8 @@ mkShell {
   nativeBuildInputs = [
     (pkgs.callPackage sops-nix {}).sops-import-keys-hook
   ];
+
+  shellHook = ''
+    sops -d common/inventory_secrets.nix.sops > common/inventory_secrets.nix
+  '';
 }
