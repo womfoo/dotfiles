@@ -32,6 +32,7 @@ in
     "au01.gikos.net" = { forceSSL = true; enableACME = true; globalRedirect = "https://gikos.net"; };
     "rc.gikos.net"          = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
     "octoprint.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
+    "hydra.gikos.net"       = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
     "silverspark.gikos.net" = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
     "paperless.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
   };
