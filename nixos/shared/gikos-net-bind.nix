@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 let
+  inventory = import ./inventory.nix { inherit lib; };
   responsePolicy = pkgs.writeText "rpz.db" ''
     $TTL 1H
     @                       SOA LOCALHOST. named-mgr.example.com (1 1h 15m 30d 2h)
@@ -31,18 +32,17 @@ let
     ;            MX      10 habilog
     ; define domain functions with CNAMEs
     rc           CNAME   habilog
-    paperless    CNAME   habilog
     octoprint    CNAME   habilog
     www          CNAME   au01
     paperless    CNAME   silverspark
     ; just in case someone asks for localhost.gikos.net
     ;localhost       A       127.0.0.1
     ; our hostnames, in alphabetical order
-    silverspark    A       172.19.86.100
-    habilog        A       172.19.86.1
-    au01           A       149.28.180.24
+    silverspark    A       ${inventory.silverspark.interfaces.eth0.ip}
+    habilog        A       ${inventory.au01.interfaces.eth0.ip}
+    au01           A       172.19.86.1
     ; FIXME: make @ a CNAME to au01
-    @              A       149.28.180.24
+    @              A       ${inventory.au01.interfaces.eth0.ip}
  '';
 
 in
