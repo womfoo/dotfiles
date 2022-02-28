@@ -35,6 +35,7 @@ let
     octoprint    CNAME   habilog
     www          CNAME   au01
     paperless    CNAME   silverspark
+    influxdb.syd0 CNAME  au01
     ; just in case someone asks for localhost.gikos.net
     ;localhost       A       127.0.0.1
     ; our hostnames, in alphabetical order

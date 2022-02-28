@@ -2,10 +2,6 @@
 
   services.telegraf.enable = true;
   services.telegraf.extraConfig = {
-    # global_tags = {
-    #   user = "root";
-    # };
-    /*
     agent = {
       interval = "30s";
       round_interval = true;
@@ -48,16 +44,18 @@
       system = { };
       swap = { };
       processes = { };
+      /*
+      # Feb 26 20:48:00 habilog telegraf[374674]: 2022-02-26T09:48:00Z E! [inputs.procstat] Error in plugin: Could not find pgrep binary: exec: "pgrep": executable file not found in $PATH
       procstat = {
         exe = ".*"; # limit this in the future, this sends everything
         pid_finder = "pgrep";
       };
+      */
     };
     outputs = { influxdb = { database = "metrics";
-                             urls = [ "http://influxdb.syd0.gikos.net:8086" ];
+                             urls = [ "http://127.0.0.1:8086" ];
               };
     };
-    */
   };
 
 }

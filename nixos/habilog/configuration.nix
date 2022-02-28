@@ -10,6 +10,7 @@ in
     ./helios64/default.nix
     ../shared/gikos-kranium.nix
     ../shared/gikos-net-bind.nix
+    ../shared/gikos-net-telegraf.nix
     ../shared/router.nix
     ../shared/secrets.nix
   ];
@@ -226,6 +227,8 @@ in
       ];
     };
   };
+
+  services.influxdb.enable = true;
 
   sops.secrets.wg-private-key = {};
   sops.defaultSopsFile = ../secrets/habilog/secrets.yaml;
