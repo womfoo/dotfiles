@@ -5,14 +5,14 @@ let
   wiredNet    = { interface = "eth0";
                   ip             = "172.19.86.1";
                   subnet         = "172.19.86.0";
-                  dhcpLowerRange = "172.19.86.100";
-                  dhcpUpperRange = "172.19.86.200"; };
+                  dhcpLowerRange = "172.19.86.50";
+                  dhcpUpperRange = "172.19.86.99"; };
   wirelessNet = { ssid = "tatsulok";
                   interface = "wlan0";
                   ip             = "172.19.87.1";
                   subnet         = "172.19.87.0";
-                  dhcpLowerRange = "172.19.87.100";
-                  dhcpUpperRange = "172.19.87.200"; };
+                  dhcpLowerRange = "172.19.87.50";
+                  dhcpUpperRange = "172.19.87.99"; };
   inventory = import ./inventory.nix { inherit lib; };
   wiredHosts = lib.filterAttrs (name: value: builtins.elem "sydg0" value.tags) inventory;
   dhcpText = ''
