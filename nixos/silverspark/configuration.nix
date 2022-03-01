@@ -300,7 +300,7 @@ in
         {
           publicKey = inventory.au01.interfaces.wg0.publicKey;
           allowedIPs = [ "10.100.0.0/24" ];
-          endpoint = inventory.au01.interfaces.wg0.ip + ":51820";
+          endpoint = inventory.au01.interfaces.eth0.ip + ":51820";
           persistentKeepalive = 25;
         }
       ];
