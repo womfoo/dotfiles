@@ -8,6 +8,7 @@ in
     ../shared/timescaledb.nix
     ./modules/rtmp.nix
     ./helios64/default.nix
+    ../shared/hydra.nix
     ../shared/gikos-kranium.nix
     ../shared/gikos-net-bind.nix
     ../shared/gikos-net-telegraf.nix
@@ -37,6 +38,10 @@ in
     };
     "/var/db/influxdb" =
     { device = "habilogpool/influxdb";
+      fsType = "zfs";
+    };
+    "/var/lib/hydra" =
+    { device = "habilogpool/hydra";
       fsType = "zfs";
     };
     "/var/spool/mail" =
@@ -118,6 +123,7 @@ in
     config.services.nfs.server.statdPort
     config.services.nfs.server.mountdPort
     config.services.nfs.server.lockdPort
+    config.services.hydra.port
     5000 # octoprint
     8086 # influxdb
     9050 # can we move this to config.services.tor.settings.SOCKSPort?

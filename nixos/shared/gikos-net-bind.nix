@@ -31,6 +31,8 @@ let
                 NS      habilog
     ;            MX      10 habilog
     ; define domain functions with CNAMEs
+    cache        CNAME   habilog
+    hydra        CNAME   habilog
     rc           CNAME   habilog
     octoprint    CNAME   habilog
     www          CNAME   au01
@@ -40,7 +42,7 @@ let
     ;localhost       A       127.0.0.1
     ; our hostnames, in alphabetical order
     silverspark    A       ${inventory.silverspark.interfaces.eth0.ip}
-    habilog        A       ${inventory.au01.interfaces.eth0.ip}
+    habilog        A       ${inventory.habilog.interfaces.eth0.ip}
     au01           A       172.19.86.1
     ; FIXME: make @ a CNAME to au01
     @              A       ${inventory.au01.interfaces.eth0.ip}
@@ -78,4 +80,5 @@ in
       };
     };
   };
+
 }
