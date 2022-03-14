@@ -24,6 +24,7 @@ in
 
   services.fail2ban.enable = true;
   services.fail2ban.jails.ssh-iptables = "enabled = true";
+  services.fail2ban.maxretry = 1;
 
   services.nginx.enable = true;
   services.nginx.virtualHosts = {
