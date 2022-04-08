@@ -27,6 +27,7 @@ in
   services.fail2ban.maxretry = 1;
 
   services.nginx.enable = true;
+  services.nginx.recommendedProxySettings = true;
   services.nginx.virtualHosts = {
     "gikos.net"      = { forceSSL = true; enableACME = true; locations."/".root = "/srv/gikos.net"; };
     "www.gikos.net"  = { forceSSL = true; enableACME = true; globalRedirect = "https://gikos.net"; };

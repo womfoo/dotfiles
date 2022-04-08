@@ -4,7 +4,7 @@
 
   users.extraUsers.kranium = {
     name = "kranium";
-    extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" "kranium" "scanner" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" "kranium" "scanner" "cdrom" ];
     group = "users";
     uid = 2000;
     createHome = true;

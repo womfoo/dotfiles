@@ -35,6 +35,7 @@
       calibre
       carla
       certbot
+      cdrkit # wodim
       cfssl
       # chromedriver
       # chromium
@@ -59,6 +60,7 @@
       dpkg # view files inside debs
       dropbox
       duc
+      dvdplusrwtools
       ec2_ami_tools
       ec2_api_tools
       ecdsautils
@@ -172,6 +174,7 @@
       jmeter
       jq
       jwhois
+      # k3b
       # kdiff3-qt5
       keepassx
       # kitty
