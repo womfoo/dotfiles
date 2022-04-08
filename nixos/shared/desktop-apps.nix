@@ -6,7 +6,7 @@
       # abcde # rip cds
       # abiword
       acpi
-      ag
+      acpica-tools # was pmtools # acpidump
       aircrack-ng
       alsaUtils
       ansible
@@ -29,6 +29,7 @@
       bluez-tools # bt-device --list
       bmon
       brave
+      briss # crop pdf whitespace
       btrfs-progs
       # bundix # mini_portile2
       calibre
@@ -37,12 +38,12 @@
       cfssl
       # chromedriver
       # chromium
-      cifs_utils
+      cifs-utils
       cli53
       # compton-git
       config.boot.kernelPackages.bcc
       # config.boot.kernelPackages.bpftrace
-      conntrack_tools
+      conntrack-tools
       #cpuminer-multi # deleted upstream
       cryptsetup
       cura
@@ -50,10 +51,10 @@
       darktable
       debootstrap
       dillo
-      discord
+      # discord
       dmenu
       dnsutils # nslookup
-      docker_compose
+      docker-compose
       dos2unix
       dpkg # view files inside debs
       dropbox
@@ -77,7 +78,7 @@
       forkstat
       # fpm
       freecad
-      fuse_exfat
+      fzf
       geoip
       ghostscript # needed by emacs doc-view
       gimp
@@ -103,7 +104,7 @@
       # google-chrome-dev
       gpa
       gparted
-      gpodder
+      # gpodder
       gptfdisk
       gpxsee
       graphviz
@@ -131,6 +132,7 @@
           hlint
           http-conduit
           mysql-simple
+          netlink
           network-info
           nix-derivation # pretty
           nix-diff
@@ -180,10 +182,9 @@
       # languagetool # very-basic grammarly
       libnotify # notify-send pp
       libphonenumber
-      libqrencode # qrencode
       libreoffice
       librsvg # rsvg-convert
-      libva-full # vaapiVdpau should install this but I need vainfo
+      libva # vaapiVdpau should install this but I need vainfo
       libva-utils
       libxml2 # xmllint
       libxslt
@@ -246,7 +247,6 @@
       pipes # screensaver
       # pkgconfig
       plasma5Packages.kdenlive
-      pmtools # acpidump
       poppler_utils # pdf2txt
       postgresql #just for the psql command
       # postman
@@ -273,29 +273,31 @@
       ))
       qemu
       qpdf
+      qrencode
       # r10k
       ranger
       redshift
       remmina # rdp
       rhash
       # rpm
-      rrdtool
+      # rrdtool
       rsync
-      rtl-sdr
+      # rtl-sdr
       rtorrent
       # ruby_2_6
-      runc
+      # runc
       rxvt_unicode-with-plugins
-      scala
+      # scala
       screen
       scrot
-      shared_mime_info
+      shared-mime-info
       shellcheck
       # slack # resource hog
       signal-desktop
+      silver-searcher # ag
       # simplescreenrecorder
-      sipp
-      sipsak
+      # sipp
+      # sipsak
       smartmontools
       smemstat
       sops
@@ -352,8 +354,8 @@
       xclip
       xdotool
       xfontsel
-      xlibs.xkill
-      xlibs.xwd
+      xorg.xkill
+      xorg.xwd
       xmlsec
       xorg.xauth
       xorg.xev
@@ -361,12 +363,12 @@
       xorg.xhost
       xorg.xlsfonts # font for xosd
       xorg.xwininfo
-      xosd
+      # xosd
       xsane
       xscreensaver
       xzgv
-      yate
-      youtubeDL
+      # yate
+      youtube-dl
       yq
       zbar # parse qr codes
       zfs

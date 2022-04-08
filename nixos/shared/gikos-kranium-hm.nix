@@ -12,6 +12,7 @@
        firefox = {
          enable = true;
          extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+           foxyproxy-standard
            ublock-origin
            vimium
          ];

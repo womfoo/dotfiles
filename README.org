@@ -1,2 +1,7 @@
 * dotfiles
-  dotfiles and config for all my NixOS devices. Still messy but am working on it.
+  dotfiles and config for all my NixOS devices.
+
+* tasks
+** TODO home-manager everything
+** TODO hydra build everything
+** TODO flakes
