@@ -48,8 +48,8 @@ in
       #./asterisk-test.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest; # 2021-11-16: 5.15.1 not working with nvidia
-  # boot.kernelPackages = pkgs.linuxPackages_5_14;
+  boot.kernelPackages = pkgs.linuxPackages_latest; # 2022-04-12: wl not compiling
+  # boot.kernelPackages = pkgs.linuxPackages_5_16;
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -103,6 +103,8 @@ in
     '';
   };
 
+  services.nginx.enable = true;
+
   services.acpid.enable = true;
   services.upower.enable = true;
 
@@ -115,11 +117,11 @@ in
   # services.mbpfan.verbose = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplipWithPlugin ];
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
-  hardware.sane.enable = true;
-  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
+  # hardware.sane.enable = true;
+  # hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -150,6 +152,8 @@ in
   powerManagement.cpuFreqGovernor = "performance"; # defaults to powersave
 
   hardware.facetimehd.enable = true;
+  hardware.facetimehd.withCalibration = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -175,7 +179,7 @@ in
   # for steam to work
   hardware.opengl = {
     driSupport = true;
-    driSupport32Bit = true;
+    # driSupport32Bit = true;
   };
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
 

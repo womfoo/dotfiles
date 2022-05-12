@@ -41,6 +41,7 @@
       # chromium
       cifs-utils
       cli53
+      colmena
       # compton-git
       config.boot.kernelPackages.bcc
       # config.boot.kernelPackages.bpftrace
@@ -73,7 +74,7 @@
       # fcitx # virtual keyboard
       ffmpeg
       file
-      firefox
+      # firefox
       flac
       flameshot
       fnotifystat
@@ -88,7 +89,7 @@
       gitFull
       glxinfo
       gnome3.adwaita-icon-theme
-      # gnome3.cheese
+      gnome3.cheese
       gnome3.evince
       gnome3.file-roller
       gnome3.seahorse # edit items in gnome-keyring
@@ -187,8 +188,9 @@
       libphonenumber
       libreoffice
       librsvg # rsvg-convert
-      libva # vaapiVdpau should install this but I need vainfo
-      libva-utils
+      # error: a 'i686-linux' with features {} is required to build '/nix/store/qaxgwyhh90dd0323sjn5qjdngvm4ai4z-nvidia-vaapi-driver-0.0.5.drv'
+      #libva # vaapiVdpau should install this but I need vainfo
+      # libva-utils
       libxml2 # xmllint
       libxslt
       lm_sensors
@@ -271,6 +273,7 @@
           (pkgs.callPackage ../pkgs/metawear {})
           (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
           bluepy
+          pylint
           pytest
         ]
       ))
@@ -353,6 +356,7 @@
       wkhtmltopdf
       wxsqlite3
       wxsqliteplus
+      xawtv
       xcalib # calibrate colors
       xclip
       xdotool
@@ -376,7 +380,7 @@
       zbar # parse qr codes
       zfs
       zip
-      # zoom-us
+      zoom-us
       zsync
     ];
 
