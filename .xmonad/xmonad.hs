@@ -6,7 +6,7 @@ import XMonad.Hooks.ManageHelpers (doFullFloat,isFullscreen)
 import XMonad.Hooks.SetWMName     (setWMName)
 import XMonad.Layout.NoBorders    (smartBorders)
 import XMonad.Util.EZConfig       (additionalKeys)
-import XMonad.Hooks.EwmhDesktops  (ewmh,fullscreenEventHook)
+import XMonad.Hooks.EwmhDesktops  (ewmh,ewmhFullscreen)
 import XMonad.Util.Run            (spawnPipe,unsafeSpawn)
 import Graphics.X11.ExtraTypes.XF86
 
@@ -26,14 +26,13 @@ main = do
   -- spawn "redshift -l -33.84:151.21 -t 6500:3500"
   -- spawn "firefox"
   xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
-  xmonad $ docks $ ewmh def
+  xmonad $ docks $ ewmh $ ewmhFullscreen def
     { modMask            = mod4Mask
     , terminal           = "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\" tmux"
     , focusedBorderColor = "#cc6666"
     , normalBorderColor  = "#373b41"
     , borderWidth        = 3
     , startupHook        = setWMName "LG3D"
-    , handleEventHook    = fullscreenEventHook -- fix chrome fullscreen
     , manageHook         = manageDocks
                            <+> ( isFullscreen --> doFullFloat )
                            <+> manageHook def
