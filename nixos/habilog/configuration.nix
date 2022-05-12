@@ -13,7 +13,6 @@ in
     ../shared/gikos-net-bind.nix
     ../shared/gikos-net-telegraf.nix
     ../shared/router.nix
-    ../shared/secrets.nix
   ];
 
   services.nginx = {

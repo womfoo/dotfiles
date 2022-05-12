@@ -1,10 +1,5 @@
 { pkgs, ... }:
 {
-
-  imports = [
-    (import /home/kranium/git/github.com/nix-community/home-manager/nixos)
-  ];
-
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
      home.packages = [ pkgs.lolcat ];

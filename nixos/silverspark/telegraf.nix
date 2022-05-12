@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-  secrets = import ./secrets.nix;
   asteriskCheckScript = pkgs.writeScript "telegraf-check-asterisk" ''
      #!${pkgs.bash}/bin/bash
      echo

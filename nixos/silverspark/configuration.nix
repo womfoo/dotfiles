@@ -43,7 +43,6 @@ in
       ../shared/gikos-kranium.nix
       ../shared/gikos-kranium-hm.nix
       ../shared/desktop-apps.nix
-      ../shared/secrets.nix
       # ./old-work.nix
       #./asterisk-test.nix
     ];
@@ -201,10 +200,6 @@ in
       allowBroken = true;
     allowUnfree = true;
     packageOverrides = pkgs: {
-      # 11-Sep-2021 works 6d8be3549ca453a3a60d73ddcf368c84742dadb0
-      nur = import /home/kranium/git/github.com/nix-community/nur-combined {
-        inherit pkgs;
-      };
     #   haskellPackages = pkgs.haskellPackages.override {
     #         overrides = hsSelf: hsSuper: {
     #           postgres-websockets = hsSelf.haskell.lib.doJailbreak hsSuper.postgres-websockets;

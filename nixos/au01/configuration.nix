@@ -9,7 +9,6 @@ in
   imports = [
     ./hardware-configuration.nix
     ../shared/gikos-kranium.nix
-    ../shared/secrets.nix
     ../shared/common.nix
   ];
 

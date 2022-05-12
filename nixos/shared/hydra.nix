@@ -6,8 +6,6 @@ in
 {
   nix.distributedBuilds = true;
 
-  imports = [ ./secrets.nix ];
-
   sops.secrets.builder-key = {
     format = "binary";
     sopsFile = ../secrets/builders/builder.key;

@@ -67,12 +67,6 @@
   nixpkgs.config = {
     allowBroken = true;
     allowUnfree = true;
-    packageOverrides = pkgs: {
-      # 11-Sep-2021 works 6d8be3549ca453a3a60d73ddcf368c84742dadb0
-      nur = import /home/kranium/git/github.com/nix-community/nur-combined {
-        inherit pkgs;
-      };
-    };
   };
 
   environment.interactiveShellInit = ''
