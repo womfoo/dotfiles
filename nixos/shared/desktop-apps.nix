@@ -68,6 +68,7 @@
       elfutils
       emacs
       encfs
+      ethtool
       exfat
       facter
       f2fs-tools
@@ -290,7 +291,7 @@
       rsync
       # rtl-sdr
       rtorrent
-      # ruby_2_6
+      ruby
       # runc
       rxvt_unicode-with-plugins
       # scala
