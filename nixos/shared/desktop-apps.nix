@@ -177,13 +177,14 @@
       jq
       jwhois
       # k3b
-      # kdiff3-qt5
+      kdiff3
       keepassx
       # kitty
       kops
       kpcli
       # ktorrent
       kubectl
+      kubernetes-helm
       # languagetool # very-basic grammarly
       libnotify # notify-send pp
       libphonenumber
@@ -201,6 +202,7 @@
       mc
       meld
       minicom
+      minikube
       # monero
       # mosh
       mplayer # (mplayer.override {v4lSupport =true;})
@@ -224,6 +226,7 @@
       nmap
       # nmap-graphical
       nmon
+      node2nix
       nomacs
       ntfs3g
       nur.repos.mic92.rhasspy
@@ -269,6 +272,9 @@
         ps: with ps; with python3Packages; [
           gunicorn
           binwalk
+          pip
+          python-lsp-server rope
+          # epc importmagic # python emacs
           netifaces
           sqlparse
           (pkgs.callPackage ../pkgs/metawear {})
