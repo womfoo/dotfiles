@@ -41,7 +41,7 @@
       # chromium
       cifs-utils
       cli53
-      colmena
+      # colmena
       # compton-git
       config.boot.kernelPackages.bcc
       # config.boot.kernelPackages.bpftrace

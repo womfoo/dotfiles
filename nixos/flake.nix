@@ -1,3 +1,6 @@
+#
+# this is being deprecated and moved to the ../flake.nix with divnix/std
+#
 {
   inputs = {
     nixpkgs = { url = "path:/home/kranium/git/github.com/womfoo/nixpkgs"; };
