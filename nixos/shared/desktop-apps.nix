@@ -22,6 +22,7 @@
       avidemux
       awscli
       baobab
+      bat
       bettercap
       bind
       binutils # ld, ar
@@ -53,6 +54,7 @@
       darktable
       debootstrap
       dillo
+      direnv
       # discord
       dmenu
       dnsutils # nslookup
@@ -81,7 +83,7 @@
       fnotifystat
       forkstat
       # fpm
-      freecad
+      # freecad
       fzf
       geoip
       ghostscript # needed by emacs doc-view
@@ -102,7 +104,7 @@
       go
       # go-jira
       go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
-      go2nix
+      # go2nix
       google-chrome
       # google-chrome-beta
       # google-chrome-dev
@@ -142,7 +144,7 @@
           nix-diff
           password
           postgresql-simple
-          reanimate
+          # reanimate
           semver-range
           torrent
           turtle
@@ -152,14 +154,14 @@
           # duckling
           # yeganesh
         ]))
-      hfsprogs
+      # hfsprogs
       hicolor-icon-theme
       hiera-eyaml
       hledger
       hledger-web
       home-manager
       htop
-      httpie
+      # httpie
       hwloc
       ifuse
       imagemagick
@@ -177,14 +179,16 @@
       jq
       jwhois
       # k3b
+      kakoune-unwrapped
       kdiff3
       keepassx
       # kitty
-      kops
-      kpcli
+      # kops
+      kotlin
+      # kpcli
       # ktorrent
-      kubectl
-      kubernetes-helm
+      # kubectl
+      # kubernetes-helm
       # languagetool # very-basic grammarly
       libnotify # notify-send pp
       libphonenumber
@@ -202,7 +206,7 @@
       mc
       meld
       minicom
-      minikube
+      # minikube
       # monero
       # mosh
       mplayer # (mplayer.override {v4lSupport =true;})
@@ -233,7 +237,7 @@
       nvd
       oathToolkit
       obs-studio
-      okular
+      # okular
       openldap # ldapsearch
       openssl
       # packer
@@ -255,7 +259,7 @@
       picocom
       pipes # screensaver
       # pkgconfig
-      plasma5Packages.kdenlive
+      # plasma5Packages.kdenlive
       poppler_utils # pdf2txt
       postgresql #just for the psql command
       # postman
@@ -285,18 +289,20 @@
         ]
       ))
       qemu
-      qpdf
+      # qpdf
       qrencode
       # r10k
-      ranger
+      # ranger
       redshift
       remmina # rdp
       rhash
+      ripgrep
       # rpm
       # rrdtool
       rsync
       # rtl-sdr
       rtorrent
+      tty-share
       ruby
       # runc
       rxvt_unicode-with-plugins
@@ -319,6 +325,7 @@
       speedtest-cli
       # spotify
       sqlite
+      sqlite.dev # because rails
       sqlitebrowser
       ssh-import-id
       ssh-to-pgp
@@ -335,7 +342,7 @@
       terraform
       # tesseract
       texlive.combined.scheme-full
-      thunderbird
+      # thunderbird
       tmux-cssh
       (tor-browser-bundle-bin.override { pulseaudioSupport = true;})
       trayer
@@ -384,11 +391,12 @@
       # yate
       youtube-dl
       yq
+      z-lua
       zbar # parse qr codes
       zfs
       zip
       zoom-us
-      zsync
+      # zsync
     ];
 
   hardware.enableAllFirmware = true;

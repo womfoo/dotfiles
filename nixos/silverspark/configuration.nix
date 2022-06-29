@@ -32,6 +32,7 @@ in
     keep-outputs = true
     extra-platforms = aarch64-linux
     experimental-features = nix-command flakes
+    allow-import-from-derivation = true
   '';
   nix.distributedBuilds = true;
 
@@ -49,8 +50,8 @@ in
       #./asterisk-test.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest; # 2022-04-12: wl not compiling
-  # boot.kernelPackages = pkgs.linuxPackages_5_16;
+  # boot.kernelPackages = pkgs.linuxPackages_latest; # 2022-04-12: wl not compilingg
+  boot.kernelPackages = pkgs.linuxPackages_5_17; # 2022-06-03 5_18 wl / nvidia not compiling
 
   # Use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -118,8 +119,8 @@ in
   # services.mbpfan.verbose = true;
 
   # Enable CUPS to print documents.
-  # services.printing.enable = true;
-  # services.printing.drivers = [ pkgs.hplipWithPlugin ];
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
   # hardware.sane.enable = true;
   # hardware.sane.extraBackends = [ pkgs.hplipWithPlugin ];
@@ -148,6 +149,8 @@ in
     extraGroups = [ "telegraf" ];
   };
   hardware.cpu.intel.updateMicrocode = true;
+
+  services.avahi.enable = true;
 
   #this tends to overheat
   powerManagement.cpuFreqGovernor = "performance"; # defaults to powersave
@@ -185,6 +188,7 @@ in
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
 
   virtualisation.docker.enable = true;
+  virtualisation.podman.enable = true;
 
   #FIXME: disable flatpak permanently? for 22.05
   # Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde
