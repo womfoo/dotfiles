@@ -1,24 +1,13 @@
 (self: super: {
-  /*
-  hydra-unstable = super.hydra-unstable.overrideAttrs (o: rec{
-    src = super.fetchFromGitHub {
-      owner = "NixOS";
-      repo = "hydra";
-      rev = "9bce425c3304173548d8e822029644bb51d35263";
-      sha256 = "sha256-tGzwKNW/odtAYcazWA9bPVSmVXMGKfXsqCA1UYaaxmU=";
-    };
-  });
   python3Packages = super.python3Packages.override {
     overrides = pythonSelf: pythonSuper: {
-      capturer = pythonSuper.capturer.overrideAttrs(z: rec{doCheck=false;});
-      websockets = pythonSuper.websockets.overrideAttrs(z: rec{doCheck=false;});
+      magic-wormhole = pythonSuper.magic-wormhole.overrideAttrs(z: rec{doCheck=false;doInstallCheck = false;});
     };
   };
-  */
   haskellPackages = super.haskellPackages.override {
     overrides = haskellSelf: haskellSuper: {
-      reanimate = self.haskell.lib.dontCheck haskellSuper.reanimate;
-      reanimate-svg = self.haskell.lib.dontCheck haskellSuper.reanimate-svg;
+      reanimate = self.haskell.lib.dontCheck (self.haskell.lib.doJailbreak haskellSuper.reanimate); # aeson >=1.3.0.0 && <2
+      reanimate-svg = self.haskell.lib.dontCheck haskellSuper.reanimate-svg; # https://github.com/NixOS/nixpkgs/issues/153078
     };
   };
 })

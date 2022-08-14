@@ -38,6 +38,7 @@ in
     extraConfig = ''
       max_output_size = ${builtins.toString(4*1024*1024*1024)}
     '';
+    # package = pkgs.hydra;
   };
 
   system.activationScripts =

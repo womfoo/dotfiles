@@ -3,5 +3,6 @@
 ^\nixos/configuration.nix$
 ^\.xmonad/xmonad-aarch64-linux$
 ^\.xmonad/xmonad.errors$
+^\.std.*$
 ^nixos/secrets/common/inventory_secrets\.nix$
 ~$

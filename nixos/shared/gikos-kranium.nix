@@ -1,5 +1,20 @@
 { ... }:
 {
+
+  environment.interactiveShellInit = ''
+    # TERM=rxvt-unicode-256color seen in remote which makes backspace broken
+    # use remove the 'unicode' part for now
+    TERM=rxvt-256color
+    # append history instead of overwrite
+    shopt -s histappend
+    # big history, record everything
+    export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+    export HISTSIZE=-1
+    export HISTFILESIZE=-1
+ '';
+
+  programs.ssh.startAgent = true;
+
   security.sudo.wheelNeedsPassword = false;
 
   users.extraUsers.kranium = {

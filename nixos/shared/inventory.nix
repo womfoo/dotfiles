@@ -32,4 +32,4 @@ let
                     interfaces.wg0 = { ip  = "10.100.0.1"; publicKey = "ykVVI6YfSDarxLfDwwCrnA7KYNUD3lHyK0QkGFtXIgA="; }; };
   };
   nodes_mac = import ./inventory_secrets.nix;
-in lib.foldr lib.recursiveUpdate {} [ nodes nodes_network nodes_mac ]
+in builtins.foldl' lib.recursiveUpdate {} [ nodes nodes_network nodes_mac ]

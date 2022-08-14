@@ -1,12 +1,14 @@
 { pkgs, config, ... }:
 {
-
+  # this is bad practice but with zero load time
+  # TODO: will move to per proj devshells + direnv
   environment.systemPackages = with pkgs;
     [
       # abcde # rip cds
       # abiword
       acpi
       acpica-tools # was pmtools # acpidump
+      # adoptopenjdk-jre-bin # java
       aircrack-ng
       alsaUtils
       ansible
@@ -16,6 +18,7 @@
       ardour
       # arduino
       aria2
+      arion
       asciinema
       audacity
       augeas
@@ -26,7 +29,7 @@
       bettercap
       bind
       binutils # ld, ar
-      # bitcoin
+      bitcoin
       bluez-tools # bt-device --list
       bmon
       brave
@@ -34,6 +37,7 @@
       btrfs-progs
       # bundix # mini_portile2
       calibre
+      cargo
       carla
       certbot
       cdrkit # wodim
@@ -42,7 +46,7 @@
       # chromium
       cifs-utils
       cli53
-      # colmena
+      colmena
       # compton-git
       config.boot.kernelPackages.bcc
       # config.boot.kernelPackages.bpftrace
@@ -50,9 +54,11 @@
       #cpuminer-multi # deleted upstream
       cryptsetup
       cura
+      damon
       darcs
       darktable
-      debootstrap
+      # debootstrap
+      # diffoscope
       dillo
       direnv
       # discord
@@ -103,7 +109,7 @@
       # gnutls
       go
       # go-jira
-      go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
+      # go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
       # go2nix
       google-chrome
       # google-chrome-beta
@@ -114,6 +120,7 @@
       gptfdisk
       gpxsee
       graphviz
+      grpcurl
       gsmartcontrol
       gst_all_1.gst-plugins-bad
       gst_all_1.gst-plugins-base
@@ -126,16 +133,19 @@
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
-          brittany
+          HPDF
+          HTF
           HsOpenSSL
           brick
+          brittany
           cabal-install
           cabal2nix
+          # duckling
           esqueleto
           fast-logger
+          hlint
           hnix
           hnix-store-remote
-          hlint
           http-conduit
           mysql-simple
           netlink
@@ -144,14 +154,13 @@
           nix-diff
           password
           postgresql-simple
-          # reanimate
+          reanimate
           semver-range
           torrent
           turtle
           xmobar
           xmonad
           xmonad-contrib
-          # duckling
           # yeganesh
         ]))
       # hfsprogs
@@ -175,7 +184,7 @@
       iptraf-ng
       ispell
       iw
-      jmeter
+      # jmeter
       jq
       jwhois
       # k3b
@@ -202,14 +211,17 @@
       lm_sensors
       lmdb # mdb_copy for backing up monero
       lsof
+      macchanger
+      magic-wormhole
       masterpdfeditor
+      mat2 # metadata anonymization
       mc
       meld
       minicom
       # minikube
       # monero
       # mosh
-      mplayer # (mplayer.override {v4lSupport =true;})
+      # mplayer # (mplayer.override {v4lSupport =true;})
       mpv
       # msf
       mtools
@@ -226,6 +238,7 @@
       nix-prefetch-git
       nix-top
       nixfmt
+      # nixos-shell
       # nixops
       nmap
       # nmap-graphical
@@ -233,11 +246,12 @@
       node2nix
       nomacs
       ntfs3g
-      nur.repos.mic92.rhasspy
+      # nur.repos.mic92.rhasspy #
       nvd
       oathToolkit
-      obs-studio
+      # obs-studio
       # okular
+      openjdk11_headless
       openldap # ldapsearch
       openssl
       # packer
@@ -277,7 +291,7 @@
           gunicorn
           binwalk
           pip
-          python-lsp-server rope
+          # python-lsp-server rope # broken 4-Aug-2022
           # epc importmagic # python emacs
           netifaces
           sqlparse
@@ -305,8 +319,11 @@
       tty-share
       ruby
       # runc
+      rust-analyzer
+      rustc
       rxvt_unicode-with-plugins
-      # scala
+      sbt
+      scala
       screen
       scrot
       shared-mime-info
@@ -319,8 +336,8 @@
       # sipsak
       smartmontools
       smemstat
-      sops
-      sox
+      # sops
+      # sox
       # spaceFM
       speedtest-cli
       # spotify
@@ -339,10 +356,14 @@
       # teams
       # teamviewer
       # terminator
-      terraform
+      # terraform # bitte does not support 1.x yet
+      # terraform_0_13
       # tesseract
       texlive.combined.scheme-full
       # thunderbird
+      tig
+      tmate
+      tmux
       tmux-cssh
       (tor-browser-bundle-bin.override { pulseaudioSupport = true;})
       trayer
@@ -356,9 +377,9 @@
       vim
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
       virt-manager
-      vlc
+      # vlc
       # vulnix
-      # vscode
+      vscode
       vnstat
       # vscode
       wavemon
@@ -389,7 +410,7 @@
       xscreensaver
       xzgv
       # yate
-      youtube-dl
+      yt-dlp # better youtube-dl
       yq
       z-lua
       zbar # parse qr codes

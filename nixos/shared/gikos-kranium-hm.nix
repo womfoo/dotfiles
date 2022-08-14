@@ -17,10 +17,15 @@
            isDefault = true;
            path = "s0h80mj1.default-1471996773737"; # FIXME: generalize outside silverspark
          };
+         profiles.work = {
+           id = 1;
+         };
+         # package = nixpkgs-stable.firefox;
        };
        git = {
          enable = true;
-         userEmail = "kranium@gikos.net";
+         # userEmail = "kranium@gikos.net";
+         userEmail = "kraniumgikos.mendoza@iohk.io";
          userName  = "Kranium Gikos Mendoza";
        };
      };

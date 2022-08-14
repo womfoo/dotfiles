@@ -12,6 +12,7 @@ in {
       darcs
       git
       sops
+      vault
     ];
   };
 }
