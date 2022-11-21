@@ -4,13 +4,14 @@
   # TODO: will move to per proj devshells + direnv
   environment.systemPackages = with pkgs;
     [
-      # abcde # rip cds
+      surf midori epiphany
+      # bcde # rip cds
       # abiword
       acpi
       acpica-tools # was pmtools # acpidump
       # adoptopenjdk-jre-bin # java
       aircrack-ng
-      alsaUtils
+      alsa-utils
       ansible
       antimony
       arandr
@@ -24,6 +25,7 @@
       augeas
       avidemux
       awscli
+      b2sum
       baobab
       bat
       bettercap
@@ -48,6 +50,7 @@
       cli53
       colmena
       # compton-git
+      conda
       config.boot.kernelPackages.bcc
       # config.boot.kernelPackages.bpftrace
       conntrack-tools
@@ -75,6 +78,7 @@
       ecdsautils
       elfutils
       emacs
+      emojipick
       encfs
       ethtool
       exfat
@@ -89,19 +93,23 @@
       fnotifystat
       forkstat
       # fpm
+      fprintd
       # freecad
       fzf
       geoip
+      gh
       ghostscript # needed by emacs doc-view
       gimp
       gitAndTools.hub
-      gitFull
+      # gitFull
+      glances
       glxinfo
-      gnome3.adwaita-icon-theme
-      gnome3.cheese
-      gnome3.evince
-      gnome3.file-roller
-      gnome3.seahorse # edit items in gnome-keyring
+      gnome.adwaita-icon-theme
+      gnome.cheese
+      gnome.eog
+      gnome.evince
+      gnome.file-roller
+      gnome.seahorse # edit items in gnome-keyring
       # gnucash
       # gnumeric
       gnupg
@@ -119,6 +127,7 @@
       # gpodder
       gptfdisk
       gpxsee
+      gradle
       graphviz
       grpcurl
       gsmartcontrol
@@ -133,9 +142,11 @@
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
+          stack
           HPDF
           HTF
           HsOpenSSL
+          # bech32
           brick
           brittany
           cabal-install
@@ -152,6 +163,7 @@
           network-info
           nix-derivation # pretty
           nix-diff
+          nix-tree
           password
           postgresql-simple
           reanimate
@@ -174,10 +186,11 @@
       hwloc
       ifuse
       imagemagick
+      imv
       inetutils
       influxdb
       inkscape
-      inotifyTools
+      inotify-tools
       iotop
       ipcalc
       iperf
@@ -196,7 +209,7 @@
       kotlin
       # kpcli
       # ktorrent
-      # kubectl
+      kubectl
       # kubernetes-helm
       # languagetool # very-basic grammarly
       libnotify # notify-send pp
@@ -228,11 +241,13 @@
       (mtr.override { withGtk = true; })
       ncdu
       # neovim
-      net_snmp
+      net-snmp
       # netdata
+      netdiscover
       nethogs
       networkmanagerapplet
       ngrep
+      niv
       nix-index
       nix-output-monitor
       nix-prefetch-git
@@ -278,9 +293,11 @@
       postgresql #just for the psql command
       # postman
       powerstat
+      powertop
       ppp
       pptp
       procmail # lockfile
+      protobuf # protoc
       psmisc # killall
       pssh
       pulsemixer
@@ -308,7 +325,7 @@
       # r10k
       # ranger
       redshift
-      remmina # rdp
+      # remmina # rdp
       rhash
       ripgrep
       # rpm
@@ -321,7 +338,7 @@
       # runc
       rust-analyzer
       rustc
-      rxvt_unicode-with-plugins
+      rxvt-unicode
       sbt
       scala
       screen
@@ -360,7 +377,7 @@
       # terraform_0_13
       # tesseract
       texlive.combined.scheme-full
-      # thunderbird
+      thunderbird
       tig
       tmate
       tmux
@@ -374,6 +391,7 @@
       vagrant
       vdpauinfo
       # veracrypt
+      victoriametrics
       vim
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
       virt-manager
@@ -389,8 +407,8 @@
       wirelesstools # iwconfig
       wireshark
       wkhtmltopdf
-      wxsqlite3
-      wxsqliteplus
+      # wxsqlite3
+      # wxsqliteplus
       xawtv
       xcalib # calibrate colors
       xclip
@@ -399,6 +417,7 @@
       xorg.xkill
       xorg.xwd
       xmlsec
+      xournal
       xorg.xauth
       xorg.xev
       xorg.xdpyinfo

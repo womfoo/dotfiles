@@ -2,13 +2,17 @@
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/9dead5565a9ce7e25d9dfb7230b885bdaf634177";
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/b39fd6e4edef83cb4a135ebef98751ce23becc33";
+    # nixpkgs.url = "path:/home/kranium/git/github.com/womfoo/nixpkgs";
     std.url = "github:divnix/std";
-
+    openhab-nix.url = "path:/home/kranium/git/github.com/B4dM4n/openhab-nix";
     home-manager = {url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs";};
     sops-nix = { url ="github:Mic92/sops-nix"; inputs.nixpkgs.follows = "nixpkgs";};
     nur = { url = "github:nix-community/NUR"; };
     hydra = { url = "github:NixOS/hydra"; };
+    spongix = { url = "github:input-output-hk/spongix"; };
 
   };
 
@@ -16,7 +20,7 @@
     (inputs.std.growOn {
       inherit inputs;
       cellsFrom = ./cells;
-      organelles = [
+      cellBlocks = [
        (inputs.std.devshells "devshell")
       ];
     }
@@ -42,6 +46,7 @@
             ./nixos/vhagar/configuration.nix
             inputs.home-manager.nixosModule
             inputs.sops-nix.nixosModule
+            inputs.spongix.nixosModules.spongix
           ];
       };
 

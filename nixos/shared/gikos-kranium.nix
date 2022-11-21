@@ -32,6 +32,14 @@
     ];
   };
   # FIXME: check if these still hold vs defaults
-  users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; telegraf = { }; } ;
+  users.extraGroups = { networkmanager = { } ; kranium = { gid = 2000; } ; kranium2 = { gid = 2001; }; telegraf = { }; } ;
+
+  users.extraUsers.kranium2 = {
+    name = "kranium2";
+    group = "users";
+    uid = 2001;
+    createHome = true;
+    isNormalUser = true;
+  };
 
 }
