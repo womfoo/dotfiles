@@ -6,7 +6,8 @@
 in {
   default = std.lib.mkShell {
     packages = with inputs.nixpkgs.pkgs; [
-      inputs.std.std.cli.default
+      # inputs.std.std.cli.default
+      std.cli.default
       alejandra
       colmena
       darcs

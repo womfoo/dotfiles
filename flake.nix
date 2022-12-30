@@ -4,8 +4,10 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/9dead5565a9ce7e25d9dfb7230b885bdaf634177";
     # nixpkgs.url = "github:NixOS/nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    nixpkgs.url = "github:NixOS/nixpkgs/b39fd6e4edef83cb4a135ebef98751ce23becc33";
     # nixpkgs.url = "path:/home/kranium/git/github.com/womfoo/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs/b39fd6e4edef83cb4a135ebef98751ce23becc33";
+    # nixpkgs.url = "github:NixOS/nixpkgs/baf863dbd5d3dfab7758f49296a8967ab0a31317";
+    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
     std.url = "github:divnix/std";
     openhab-nix.url = "path:/home/kranium/git/github.com/B4dM4n/openhab-nix";
     home-manager = {url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs";};

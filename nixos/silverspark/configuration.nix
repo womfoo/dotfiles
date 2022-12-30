@@ -11,13 +11,13 @@ in
   nix.settings.cores = 4;
   nix.settings.max-jobs = lib.mkDefault 8;
   nix.settings.substituters = lib.mkForce [
+    "https://cache.iog.io"
     "https://cache.nixos.org/"
     # "https://thefloweringash-armv7.cachix.org"
     # "https://nixcache.reflex-frp.org"
     # "https://static-haskell-nix.cachix.org"
-    "https://hydra.iohk.io"
+    # "https://hydra.iohk.io"
     # "https://miso-haskell.cachix.org"
-    "https://cache.iog.io"
   ];
   nix.settings.trusted-public-keys = lib.mkForce [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -26,7 +26,7 @@ in
     # "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     # "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
-    "'cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ='"
+    "'cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
   ];
   nix.extraOptions = ''
     keep-outputs = true
@@ -41,13 +41,14 @@ in
       ./hardware-configuration.nix
       ./telegraf.nix
       ../shared/common.nix
-      ../shared/hydra.nix
+      #../shared/hydra.nix
       ../shared/paperless.nix
       ../shared/gikos-kranium.nix
       ../shared/gikos-kranium-hm.nix
       ../shared/desktop-apps.nix
       # ./old-work.nix
       #./asterisk-test.nix
+      ./traefik.nix
     ];
 
   # boot.kernelPackages = pkgs.linuxPackages_latest; # 2022-04-12: wl not compilingg
@@ -64,6 +65,8 @@ in
     networkmanager = {
       enable = true;
       dns = "none";
+      unmanaged = [ "wg0" /* "wlp3s0" */
+                  ];
     };
     firewall.logRefusedPackets = true;
     firewall.allowedTCPPorts = [
@@ -105,7 +108,7 @@ in
     '';
   };
 
-  services.nginx.enable = true;
+  # services.nginx.enable = true;
 
   services.acpid.enable = true;
   services.upower.enable = true;
@@ -224,7 +227,17 @@ in
   programs.kbdlight.enable = true;
 
   #services.dockerRegistry.enable = true;
-
+/*
+  services = {
+    httpd = {
+      enable = true;
+      adminAddr = "fake@XXXX.com";
+      extraModules = [
+        # { name = "tile"; path = "${pkgs.apacheHttpdPackages.mod_tile}/modules/mod_tile.so"; }
+      ];
+    };
+  };
+*/
   services.nfs.server = {
     enable     = true;
     createMountPoints = true;

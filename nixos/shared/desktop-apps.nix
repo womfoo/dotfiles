@@ -95,6 +95,7 @@
       # fpm
       fprintd
       # freecad
+      fx
       fzf
       geoip
       gh
@@ -119,7 +120,7 @@
       # go-jira
       # go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
       # go2nix
-      google-chrome
+      google-chrome # /nix/store/pjq6jrm31xn2zw0cmwza3x0hg3lxpz2a-google-chrome-106.0.5249.119/bin/google-chrome-stable
       # google-chrome-beta
       # google-chrome-dev
       gpa
@@ -128,7 +129,7 @@
       gptfdisk
       gpxsee
       gradle
-      graphviz
+      # graphviz # dot
       grpcurl
       gsmartcontrol
       gst_all_1.gst-plugins-bad
@@ -199,6 +200,7 @@
       iw
       # jmeter
       jq
+      jmtpfs
       jwhois
       # k3b
       kakoune-unwrapped
@@ -264,7 +266,7 @@
       # nur.repos.mic92.rhasspy #
       nvd
       oathToolkit
-      # obs-studio
+      obs-studio
       # okular
       openjdk11_headless
       openldap # ldapsearch
@@ -339,8 +341,8 @@
       rust-analyzer
       rustc
       rxvt-unicode
-      sbt
-      scala
+      # sbt
+      # scala_3
       screen
       scrot
       shared-mime-info
@@ -406,7 +408,7 @@
       wire-desktop
       wirelesstools # iwconfig
       wireshark
-      wkhtmltopdf
+      # wkhtmltopdf # vulnerable qtwebkit-5.212.0-alpha4
       # wxsqlite3
       # wxsqliteplus
       xawtv

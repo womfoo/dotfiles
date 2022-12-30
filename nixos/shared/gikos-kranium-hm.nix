@@ -1,8 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-stable, ... }:
 {
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
      home.packages = [ pkgs.lolcat ];
+     # home.stateVersion = "22.05";
+     home.stateVersion = "22.11";
      programs = {
        firefox = {
          enable = true;
@@ -28,6 +30,8 @@
          userEmail = "kraniumgikos.mendoza@iohk.io";
          userName  = "Kranium Gikos Mendoza";
        };
+       man.enable = false;
      };
+     manual.manpages.enable = false;
   };
 }

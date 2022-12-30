@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
-
+{ config, lib, pkgs, ... }:
+let
+  noplay = false;
+  # noplay = true;
+in
 {
   imports =
     [
@@ -7,21 +10,31 @@
       ../shared/common.nix
       ../shared/desktop-apps.nix
       ../shared/gikos-kranium.nix
+      ../shared/gikos-kranium-hm.nix
       ./hardware-configuration.nix
     ];
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
   boot.kernelModules = [ "v4l2loopback" "snd-aloop" ];
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = ["intel_pstate=disable"];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
+  boot.supportedFilesystems = [ "zfs" ];
   boot.tmpOnTmpfs = true;
+
+  environment.variables = {
+    MOZ_USE_XINPUT2 = "1";
+  };
 
   fileSystems."/armorydata" =
     { device = "habilog.gikos.net:/armorydata";
       fsType = "nfs";
       options = ["auto" "nofail" "soft"];
+    };
+  fileSystems."/var/lib/postgresql" =
+    { device = "data/postgresql";
+      fsType = "zfs";
     };
 
   hardware.bluetooth.enable = true;
@@ -49,6 +62,11 @@
   # nix.settings.max-jobs = lib.mkDefault 8;
   nix.distributedBuilds = true;
 
+  networking.firewall.allowedTCPPorts = [
+    config.services.postgresql.port
+  ];
+
+  networking.hostId = "f0670973";
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.macAddress = "random";
@@ -62,9 +80,12 @@
   services.arbtt.enable = true;
   # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;
   services.avahi.enable = true;
+  services.avahi.nssmdns = true; # needed for printing
+  #services.fprintd.enable = true;
   services.fwupd.enable = true;
   services.fwupd.enableTestRemote = true;
   services.hardware.bolt.enable = true;
+  services.paperless.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -78,9 +99,11 @@
     #   };
     # };
   };
+  security.polkit.enable = true;
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_13;
+    enableTCPIP = true;
     # extraPlugins = with pkgs.postgresql_13.pkgs; [ postgis pg_repack ];
     ensureDatabases = [
       "dbsync_mainnet"
@@ -93,10 +116,14 @@
       { name = "dbsync_preprod"; ensurePermissions = { "DATABASE dbsync_preprod" = "ALL PRIVILEGES"; }; }
     ];
   };
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
   services.rpcbind.enable = true; # needed for NFS client
   services.tlp.enable = true;
   services.touchegg.enable = true;
+  services.udisks2.enable = true; # needed for calibre
   services.upower.enable = true;
+  services.vault.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.defaultSession = "none+xmonad";
   services.xserver.displayManager.sddm.enable = true;
@@ -104,6 +131,7 @@
   services.xserver.libinput.enable = true;
   services.xserver.synaptics.enable = false;
   services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.wacom.enable = true; # havent figured out the eraser yet
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 

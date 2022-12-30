@@ -14,6 +14,7 @@
  '';
 
   programs.ssh.startAgent = true;
+  programs.git.lfs.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
