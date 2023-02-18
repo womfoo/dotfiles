@@ -29,6 +29,13 @@
          # userEmail = "kranium@gikos.net";
          userEmail = "kraniumgikos.mendoza@iohk.io";
          userName  = "Kranium Gikos Mendoza";
+         signing = {
+           signByDefault = true;
+           key ="30079627378B190345DAEF17A578D4096D011982";
+         };
+         extraConfig = {
+           push.autoSetupRemote =  true;
+         };
        };
        man.enable = false;
      };

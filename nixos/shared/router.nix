@@ -1,7 +1,8 @@
 { pkgs, lib, ... }:
 let
   # FIXME: cleanup redundant config with CIDR/subnet parsing
-  wanNet      = { interface = "eth1"; };
+  wanNet      = { interface = "tun0"; };
+  #wanNet      = { interface = "eth2"; };
   wiredNet    = { interface = "eth0";
                   ip             = "172.19.86.1";
                   subnet         = "172.19.86.0";
@@ -49,6 +50,7 @@ in
     };
     nat = {
       enable =true;
+      dmzHost = wiredNet.ip; # wanNet
       externalInterface = "${wanNet.interface}";
       internalIPs = [ (wiredNet.subnet + "/24")
                       (wirelessNet.subnet + "/24") ];
@@ -76,5 +78,13 @@ in
       wpa_pairwise=CCMP
     '';
   };
+
+  services.openvpn.servers = {
+    tun0  = {
+      config = '' config /armorydata/tun0.conf '';
+    };
+  };
+
+
 
 }

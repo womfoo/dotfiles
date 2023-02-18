@@ -87,6 +87,7 @@
       # fcitx # virtual keyboard
       ffmpeg
       file
+      find-cursor
       # firefox
       flac
       flameshot
@@ -149,7 +150,7 @@
           HsOpenSSL
           # bech32
           brick
-          brittany
+          # brittany 9.2
           cabal-install
           cabal2nix
           # duckling
@@ -167,7 +168,7 @@
           nix-tree
           password
           postgresql-simple
-          reanimate
+          # reanimate # fails on ghc 9.2 https://github.com/reanimate/reanimate/issues/299
           semver-range
           torrent
           turtle
@@ -214,6 +215,7 @@
       kubectl
       # kubernetes-helm
       # languagetool # very-basic grammarly
+      light
       libnotify # notify-send pp
       libphonenumber
       libreoffice
@@ -390,7 +392,7 @@
       # tsung
       unzip
       usbutils # lsusb
-      vagrant
+      #vagrant
       vdpauinfo
       # veracrypt
       victoriametrics

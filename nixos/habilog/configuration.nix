@@ -126,6 +126,7 @@ in
     5000 # octoprint
     8086 # influxdb
     9050 # can we move this to config.services.tor.settings.SOCKSPort?
+    445 139 # samba fixme
   ];
   networking.firewall.allowedUDPPorts = [
     53
@@ -135,6 +136,7 @@ in
     config.services.nfs.server.mountdPort
     config.services.nfs.server.lockdPort
     config.networking.wireguard.interfaces.wg0.listenPort
+    137 138 # samba fixme
   ];
   networking.hostId = "6ea8191e";
   networking.hostName = "habilog";
@@ -148,13 +150,17 @@ in
     emacs-nox
     ffmpeg-full
     git
+    gnupg
     hub
     ifuse
+    iperf
     iotop
     iw
     mc
+    minicom
     ncdu
     nethogs
+    nix-output-monitor
     nix-top
     nmon
     ntfs3g
@@ -181,7 +187,7 @@ in
   powerManagement.cpuFreqGovernor = "conservative";
 
   hardware.enableAllFirmware = true;
-  hardware.pulseaudio.enable = true;
+  # hardware.pulseaudio.enable = true;
   hardware.firmware = [ pkgs.wireless-regdb ];
 
   boot.supportedFilesystems = [ "zfs" ];
@@ -217,6 +223,8 @@ in
 
   systemd.watchdog.device = "/dev/watchdog";
 
+  systemd.services.wireguard-wg0.after = lib.mkForce [ ];
+  systemd.services.wireguard-wg0.requires = lib.mkForce [ ];
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ (inventory.habilog.interfaces.wg0.ip + "/24") ];

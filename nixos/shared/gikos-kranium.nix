@@ -37,6 +37,7 @@
 
   users.extraUsers.kranium2 = {
     name = "kranium2";
+    extraGroups = [ "docker" ];
     group = "users";
     uid = 2001;
     createHome = true;

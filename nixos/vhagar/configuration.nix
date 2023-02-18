@@ -14,7 +14,7 @@ in
       ./hardware-configuration.nix
     ];
 
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback config.boot.kernelPackages.rtl8814au ];
   boot.kernelModules = [ "v4l2loopback" "snd-aloop" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = ["intel_pstate=disable"];
@@ -32,8 +32,20 @@ in
       fsType = "nfs";
       options = ["auto" "nofail" "soft"];
     };
+  fileSystems."/var/lib/docker" =
+    { device = "data/docker";
+      fsType = "zfs";
+    };
   fileSystems."/var/lib/postgresql" =
     { device = "data/postgresql";
+      fsType = "zfs";
+    };
+  fileSystems."/home/kranium/.local/share/Daedalus" =
+    { device = "data/daedalus";
+      fsType = "zfs";
+    };
+  fileSystems."/zfstemp" =
+    { device = "data/temp";
       fsType = "zfs";
     };
 
@@ -63,6 +75,8 @@ in
   nix.distributedBuilds = true;
 
   networking.firewall.allowedTCPPorts = [
+    config.services.nginx.defaultHTTPListenPort
+    config.services.nginx.defaultSSLListenPort
     config.services.postgresql.port
   ];
 
@@ -115,6 +129,19 @@ in
       { name = "dbsync_testnet"; ensurePermissions = { "DATABASE dbsync_testnet" = "ALL PRIVILEGES"; }; }
       { name = "dbsync_preprod"; ensurePermissions = { "DATABASE dbsync_preprod" = "ALL PRIVILEGES"; }; }
     ];
+    settings = {
+      shared_preload_libraries = "pg_stat_statements";
+      "pg_stat_statements.track" = "all";
+    };
+    authentication = ''
+    # Generated file; do not edit!
+    # TYPE  DATABASE        USER            ADDRESS                 METHOD
+    local   all             all                                     trust
+    host    all             all             127.0.0.1/32            trust
+    host    all             all             ::1/128                 trust
+    host    all             all             172.17.0.0/16           trust
+    '';
+
   };
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
@@ -137,8 +164,19 @@ in
 
   system.stateVersion = "22.05";
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      group = "docker";
+      hosts = [ "fd://" ];
+      log-driver = "journald";
+      # FIXME: storage-driver zfs?
+      live-restore = true;
+      bip = "10.9.8.7/16"; # state library doesn't like default but this is still adding the ff:
+    };
+  };
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
 
 }
+

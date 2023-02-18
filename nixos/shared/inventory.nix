@@ -26,7 +26,7 @@ let
     habilog     = { interfaces.eth0.ip  =   "172.19.86.1";
                     interfaces.wg0 = { ip  = "10.100.0.2"; publicKey = "OeCRZ1VuatQ1rGO7lw1S06so/3dSZfXRTKBx3S61kEY="; }; };
     silverspark = { interfaces.eth0.ip  = "172.19.86.100";
-                    interfaces.wg0 = { ip  = "10.100.0.2"; publicKey = "yN3RhSg0wcdGZoqZbrnb4zudQQY/XgYaijyyo22ra2c="; }; };
+                    interfaces.wg0 = { ip  = "10.100.0.100"; publicKey = "yN3RhSg0wcdGZoqZbrnb4zudQQY/XgYaijyyo22ra2c="; }; };
     stockwell   = { interfaces.eth0.ip  = "172.19.86.101"; };
     au01        = { interfaces.eth0.ip = "149.28.180.243";
                     interfaces.wg0 = { ip  = "10.100.0.1"; publicKey = "ykVVI6YfSDarxLfDwwCrnA7KYNUD3lHyK0QkGFtXIgA="; }; };

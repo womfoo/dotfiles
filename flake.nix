@@ -4,10 +4,13 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/9dead5565a9ce7e25d9dfb7230b885bdaf634177";
     # nixpkgs.url = "github:NixOS/nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/22.05";
-    # nixpkgs.url = "path:/home/kranium/git/github.com/womfoo/nixpkgs";
+    nixpkgs.url = "path:/home/kranium/git/github.com/womfoo/nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/b39fd6e4edef83cb4a135ebef98751ce23becc33";
     # nixpkgs.url = "github:NixOS/nixpkgs/baf863dbd5d3dfab7758f49296a8967ab0a31317";
-    nixpkgs.url = "github:NixOS/nixpkgs/22.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/22.11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/677ed08a50931e38382dbef01cba08a8f7eac8f6"; # unstable (2022-12-29)
+    # nixpkgs.url = "github:NixOS/nixpkgs/d7705c01ef0a39c8ef532d1033bace8845a07d35"; # unstable (2023-01-20)
+    # nixpkgs.url = "github:NixOS/nixpkgs/e1e1b192c1a5aab2960bf0a0bd53a2e8124fa18e"; # unstable (2023-02-01)
     std.url = "github:divnix/std";
     openhab-nix.url = "path:/home/kranium/git/github.com/B4dM4n/openhab-nix";
     home-manager = {url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs";};

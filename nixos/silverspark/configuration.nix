@@ -1,4 +1,4 @@
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, pkgs, /*nixpkgs-stable,*/ ... }:
 
 let
   grafana-mqtt-datasource = pkgs.callPackage /home/kranium/git/github.com/grafana/mqtt-datasource {};
@@ -286,6 +286,8 @@ in
     host all all 172.28.0.0/24 trust
     host all all 172.16.0.0/16 trust
     host all all 172.17.0.0/16 trust
+    # host node_db all 0.0.0.0/0 trust
+    # host node_db all ::0/0 trust
   '';
 
   services.arbtt.enable = true;
@@ -309,6 +311,7 @@ in
     # declarativePlugins = with pkgs.grafanaPlugins; [ grafana-mqtt-datasource grafadruid-druid-datasource ];
   };
 
+  systemd.services.wireguard-wg0.after = lib.mkForce [ ];
   networking.wireguard.interfaces = {
     wg0 = {
       ips = [ (inventory.silverspark.interfaces.wg0.ip + "/24") ];
