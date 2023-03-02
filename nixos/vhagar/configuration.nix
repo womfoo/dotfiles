@@ -117,6 +117,7 @@ in
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_13;
+    port = 15432; # don't fight with most docker
     enableTCPIP = true;
     # extraPlugins = with pkgs.postgresql_13.pkgs; [ postgis pg_repack ];
     ensureDatabases = [
@@ -149,6 +150,7 @@ in
   services.tlp.enable = true;
   services.touchegg.enable = true;
   services.udisks2.enable = true; # needed for calibre
+  services.usbmuxd.enable = true; # for ifuse/ios tethering
   services.upower.enable = true;
   services.vault.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
@@ -170,8 +172,9 @@ in
       group = "docker";
       hosts = [ "fd://" ];
       log-driver = "journald";
-      # FIXME: storage-driver zfs?
+      # storage-driver zfs?
       live-restore = true;
+      # runtimes play with nvidia runtime?
       bip = "10.9.8.7/16"; # state library doesn't like default but this is still adding the ff:
     };
   };

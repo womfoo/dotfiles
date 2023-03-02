@@ -58,7 +58,7 @@
       cryptsetup
       cura
       damon
-      darcs
+      # darcs
       darktable
       # debootstrap
       # diffoscope
@@ -103,7 +103,7 @@
       ghostscript # needed by emacs doc-view
       gimp
       gitAndTools.hub
-      # gitFull
+      gitFull
       glances
       glxinfo
       gnome.adwaita-icon-theme
@@ -206,7 +206,7 @@
       # k3b
       kakoune-unwrapped
       kdiff3
-      keepassx
+      keepassxc
       # kitty
       # kops
       kotlin
@@ -316,7 +316,7 @@
           # epc importmagic # python emacs
           netifaces
           sqlparse
-          (pkgs.callPackage ../pkgs/metawear {})
+          # (pkgs.callPackage ../pkgs/metawear {}) # broken 28-Mar-2023
           (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
           bluepy
           pylint

@@ -28,7 +28,7 @@ in
 
   fileSystems = {
     "/" = {
-      device = "/dev/md/habilog";
+      device = "/dev/disk/by-id/md-name-habilog:NIXOS_ROOT";
       fsType = "ext4";
     };
     "/boot" = {
@@ -41,6 +41,10 @@ in
     };
     "/var/lib/hydra" =
     { device = "habilogpool/hydra";
+      fsType = "zfs";
+    };
+    "/var/lib/postgresql" =
+    { device = "habilogpool/postgresql";
       fsType = "zfs";
     };
     "/var/spool/mail" =

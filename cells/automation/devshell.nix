@@ -1,19 +1,14 @@
 {
   inputs,
   cell,
-}: let
-  inherit (inputs.std) std;
-in {
-  default = std.lib.mkShell {
-    packages = with inputs.nixpkgs.pkgs; [
-      # inputs.std.std.cli.default
-      std.cli.default
-      alejandra
-      colmena
-      darcs
-      git
-      sops
-      vault
-    ];
+}: {
+  default = inputs.std.lib.dev.mkShell {
+    commands = with inputs.nixpkgs.pkgs; [
+      { package = alejandra; }
+      { package = colmena; }
+      { package = darcs; }
+      { package = git; }
+      { package = sops; }
+      ];
   };
 }
