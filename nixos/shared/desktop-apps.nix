@@ -58,7 +58,7 @@
       cryptsetup
       cura
       damon
-      # darcs
+      darcs
       darktable
       # debootstrap
       # diffoscope
@@ -212,7 +212,7 @@
       kotlin
       # kpcli
       # ktorrent
-      kubectl
+      # kubectl
       # kubernetes-helm
       # languagetool # very-basic grammarly
       light

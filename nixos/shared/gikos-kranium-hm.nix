@@ -1,4 +1,12 @@
 { pkgs, nixpkgs-stable, ... }:
+let
+  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    foxyproxy-standard
+    ublock-origin
+    vimium
+  ];
+in
+
 {
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
@@ -8,19 +16,20 @@
      programs = {
        firefox = {
          enable = true;
-         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-           foxyproxy-standard
-           ublock-origin
-           vimium
-         ];
          # extensions will not work if you dont have profiles defined
          profiles.kranium = {
            id = 0;
            isDefault = true;
            path = "s0h80mj1.default-1471996773737"; # FIXME: generalize outside silverspark
+           inherit extensions;
          };
          profiles.work = {
            id = 1;
+           inherit extensions;
+         };
+         profiles.test = {
+           id = 2;
+           inherit extensions;
          };
          # package = nixpkgs-stable.firefox;
        };

@@ -45,6 +45,17 @@
           ];
       };
 
+
+      nixosConfigurations.habilog = inputs.nixpkgs.lib.nixosSystem rec {
+        system = "aarch64-linux";
+        modules =
+          [
+            { nixpkgs.overlays = [ inputs.nur.overlay ]; }
+            ./nixos/habilog/configuration.nix
+            inputs.sops-nix.nixosModule
+          ];
+      };
+
       colmena = {
         meta = {
           nixpkgs = import inputs.nixpkgs {

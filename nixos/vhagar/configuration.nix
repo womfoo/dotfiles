@@ -16,7 +16,11 @@ in
 
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback config.boot.kernelPackages.rtl8814au ];
   boot.kernelModules = [ "v4l2loopback" "snd-aloop" ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModprobeConfig = ''
+    options thinkpad_acpi fan_control=1
+  '';
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
   boot.kernelParams = ["intel_pstate=disable"];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
@@ -79,7 +83,7 @@ in
     config.services.nginx.defaultSSLListenPort
     config.services.postgresql.port
   ];
-
+  networking.firewall.trustedInterfaces = [ "cni+" ]; # k3s
   networking.hostId = "f0670973";
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
@@ -99,6 +103,7 @@ in
   services.fwupd.enable = true;
   services.fwupd.enableTestRemote = true;
   services.hardware.bolt.enable = true;
+  services.k3s.enable = true;
   services.paperless.enable = true;
   services.pipewire = {
     enable = true;
@@ -149,10 +154,13 @@ in
   services.rpcbind.enable = true; # needed for NFS client
   services.tlp.enable = true;
   services.touchegg.enable = true;
+  services.thinkfan.enable = true;
+  # services.nbfc.enable = true;
   services.udisks2.enable = true; # needed for calibre
   services.usbmuxd.enable = true; # for ifuse/ios tethering
   services.upower.enable = true;
   services.vault.enable = true;
+  systemd.watchdog.device = "/dev/watchdog";
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.defaultSession = "none+xmonad";
   services.xserver.displayManager.sddm.enable = true;
@@ -175,7 +183,7 @@ in
       # storage-driver zfs?
       live-restore = true;
       # runtimes play with nvidia runtime?
-      bip = "10.9.8.7/16"; # state library doesn't like default but this is still adding the ff:
+      # bip = "10.9.8.7/16"; # state library doesn't like default but this is still adding the ff:
     };
   };
   virtualisation.libvirtd.enable = true;

@@ -31,8 +31,8 @@
   programs.ssh.startAgent = true;
 
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "prohibit-password";
+  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.PermitRootLogin = "prohibit-password";
 
   time.timeZone = "Australia/Sydney";
 
