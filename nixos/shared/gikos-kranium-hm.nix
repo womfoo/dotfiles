@@ -49,5 +49,8 @@ in
        man.enable = false;
      };
      manual.manpages.enable = false;
+     services.dunst.enable = true;
+     services.gpg-agent.enable = true;
+     services.gpg-agent.maxCacheTtl = 14400;
   };
 }

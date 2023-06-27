@@ -55,6 +55,7 @@ main = do
                      ,((0,xF86XK_AudioLowerVolume), spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
                      ,((0,xF86XK_AudioMute), spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
                      ,((mod4Mask, xK_c), spawn "find-cursor -c red")
+                     ,((mod4Mask, xK_n), spawn "networkmanager_dmenu")
                      ,((mod4Mask, xK_u), spawn "~/bin/sendkeys.sh alias_")
                      ,((mod4Mask, xK_o), spawn "~/bin/sendkeys.sh password")
                      ,((mod4Mask, xK_i), spawn "~/bin/sendkeys.sh totp")

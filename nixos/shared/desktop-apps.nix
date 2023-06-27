@@ -14,6 +14,7 @@
       alsa-utils
       ansible
       antimony
+      apfs-fuse
       arandr
       # arc-theme
       ardour
@@ -92,6 +93,7 @@
       flac
       flameshot
       fnotifystat
+      freecad
       forkstat
       # fpm
       fprintd
@@ -144,6 +146,7 @@
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
+          getopt-generics
           stack
           HPDF
           HTF
@@ -216,6 +219,7 @@
       # kubernetes-helm
       # languagetool # very-basic grammarly
       light
+      libimobiledevice # idevice pair 00000000-0000000000000000
       libnotify # notify-send pp
       libphonenumber
       libreoffice
@@ -250,6 +254,7 @@
       netdiscover
       nethogs
       networkmanagerapplet
+      networkmanager_dmenu
       ngrep
       niv
       nix-index
@@ -283,6 +288,7 @@
       patchutils # splitdiff
       patchelf
       pavucontrol
+      peaclock
       pciutils # setpci
       pdfcrack
       # pdfmod
@@ -306,7 +312,7 @@
       pssh
       pulsemixer
       pv
-      pypi2nix
+      # pypi2nix # unmaintained
       (python3.withPackages (
         ps: with ps; with python3Packages; [
           gunicorn
@@ -333,12 +339,13 @@
       rhash
       ripgrep
       # rpm
+      rpPPPoE
       # rrdtool
       rsync
       # rtl-sdr
       rtorrent
       tty-share
-      ruby
+      # ruby # test if this fights with vagrant
       # runc
       rust-analyzer
       rustc
@@ -352,9 +359,10 @@
       # slack # resource hog
       signal-desktop
       silver-searcher # ag
-      # simplescreenrecorder
+      simplescreenrecorder
       # sipp
       # sipsak
+      slic3r
       smartmontools
       smemstat
       # sops
@@ -392,13 +400,15 @@
       # tsung
       unzip
       usbutils # lsusb
-      #vagrant
+      vagrant
+      vault
       vdpauinfo
       # veracrypt
-      victoriametrics
+      # victoriametrics
       vim
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
       virt-manager
+      virt-top
       # vlc
       # vulnix
       vscode

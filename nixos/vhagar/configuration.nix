@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  noplay = false;
-  # noplay = true;
+  # noplay = false;
+  noplay = true;
 in
 {
   imports =
@@ -12,20 +12,24 @@ in
       ../shared/gikos-kranium.nix
       ../shared/gikos-kranium-hm.nix
       ./hardware-configuration.nix
+      # ../shared/dovecot.nix
     ];
 
-  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback config.boot.kernelPackages.rtl8814au ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback config.boot.kernelPackages.rtl8814au ];
   boot.kernelModules = [ "v4l2loopback" "snd-aloop" ];
   boot.extraModprobeConfig = ''
     options thinkpad_acpi fan_control=1
   '';
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
-  boot.kernelParams = ["intel_pstate=disable"];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelParams = ["intel_pstate=disable"
+                       "intel_iommu=on"
+                       "vme_core.default_ps_max_latency_us=5500"
+                      ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   boot.supportedFilesystems = [ "zfs" ];
-  boot.tmpOnTmpfs = true;
+  boot.tmp.useTmpfs = true;
 
   environment.variables = {
     MOZ_USE_XINPUT2 = "1";
@@ -77,10 +81,23 @@ in
   nix.settings.cores = 4;
   # nix.settings.max-jobs = lib.mkDefault 8;
   nix.distributedBuilds = true;
+  networking.extraHosts = ''
+    127.0.0.1 tahanan
+    127.0.0.1 grafana.local-prism
+    127.0.0.1 argocd.local-prism
+    127.0.0.1 gitea.local-prism
+  '' + lib.optionalString noplay ''
+    127.0.0.1 laarc.io
+    127.0.0.1 lobste.rs
+    127.0.0.1 news.ycombinator.com
+    127.0.0.1 slashdot.org
+    127.0.0.1 twitter.com
+    127.0.0.1 www.youtube.com
+  '';
 
   networking.firewall.allowedTCPPorts = [
-    config.services.nginx.defaultHTTPListenPort
-    config.services.nginx.defaultSSLListenPort
+    # config.services.nginx.defaultHTTPListenPort
+    # config.services.nginx.defaultSSLListenPort
     config.services.postgresql.port
   ];
   networking.firewall.trustedInterfaces = [ "cni+" ]; # k3s
@@ -97,6 +114,7 @@ in
   services.acpid.enable = true;
   services.arbtt.enable = true;
   # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;
+  services.atd.enable = true; # at for alarms
   services.avahi.enable = true;
   services.avahi.nssmdns = true; # needed for printing
   #services.fprintd.enable = true;
@@ -104,6 +122,9 @@ in
   services.fwupd.enableTestRemote = true;
   services.hardware.bolt.enable = true;
   services.k3s.enable = true;
+  services.k3s.extraFlags = ''
+    --disable traefik
+  '';
   services.paperless.enable = true;
   services.pipewire = {
     enable = true;
@@ -122,7 +143,7 @@ in
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_13;
-    port = 15432; # don't fight with most docker
+    # port = 15432; # don't fight with most docker
     enableTCPIP = true;
     # extraPlugins = with pkgs.postgresql_13.pkgs; [ postgis pg_repack ];
     ensureDatabases = [
@@ -149,6 +170,7 @@ in
     '';
 
   };
+
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   services.rpcbind.enable = true; # needed for NFS client
@@ -156,10 +178,11 @@ in
   services.touchegg.enable = true;
   services.thinkfan.enable = true;
   # services.nbfc.enable = true;
+  # services.udev.packages = with pkgs; [ ];
   services.udisks2.enable = true; # needed for calibre
   services.usbmuxd.enable = true; # for ifuse/ios tethering
   services.upower.enable = true;
-  services.vault.enable = true;
+  # services.vault.enable = true;
   systemd.watchdog.device = "/dev/watchdog";
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.displayManager.defaultSession = "none+xmonad";

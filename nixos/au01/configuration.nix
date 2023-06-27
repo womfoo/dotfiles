@@ -71,6 +71,12 @@ in
           publicKey = inventory.habilog.interfaces.wg0.publicKey;
           allowedIPs = [ (inventory.habilog.interfaces.wg0.ip + "/32") ];
         }
+        {
+          # publicKey = inventory.habilog.interfaces.wg0.publicKey;
+          # allowedIPs = [ (inventory.habilog.interfaces.wg0.ip + "/32") ];
+          publicKey = "yFquu1LfTkqMaSuqqvlvCBmSnmoUM2onSCrcEgfNQhE=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
       ];
     };
   };

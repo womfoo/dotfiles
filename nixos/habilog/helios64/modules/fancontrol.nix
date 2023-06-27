@@ -1,41 +1,29 @@
 { pkgs, ... }:
+let
+  fan_p6 = "/sys/devices/platform/fan1/hwmon/hwmon0/pwm1";
+  #fan_p6 = "/sys/devices/platform/fan1/hwmon/hwmon1/pwm1";
+  #fan_p6 = "/sys/devices/platform/fan1/hwmon/hwmon2/pwm1";
+  fan_p7 = "/sys/devices/platform/fan2/hwmon/hwmon1/pwm1";
+  #fan_p7 = "/sys/devices/platform/fan2/hwmon/hwmon2/pwm1";
+  #fan_p7 = "/sys/devices/platform/fan2/hwmon/hwmon3/pwm1";
+  #fan_p7 = "/sys/devices/platform/fan2/hwmon/hwmon4/pwm1";
+
+  #temp_input = "/sys/class/hwmon/hwmon0/temp1_input"; # lm75
+  temp_input = "/sys/class/hwmon/hwmon2/temp1_input"; # lm75
+  #temp_input = "/sys/class/hwmon/hwmon4/temp1_input"; # lm75
+  #temp_input = "/sys/class/hwmon/hwmon-1/temp1_input"; # lm75
+in
 {
   hardware.fancontrol.enable = true;
   hardware.fancontrol.config = ''
     # Helios64 PWM Fan Control Configuration
     # Temp source : /dev/thermal-cpu
     INTERVAL=10
-    FCTEMPS=/dev/fan-p6/pwm1=/dev/thermal-cpu/temp1_input /dev/fan-p7/pwm1=/dev/thermal-cpu/temp1_input
-    MINTEMP=/dev/fan-p6/pwm1=40 /dev/fan-p7/pwm1=40
-    MAXTEMP=/dev/fan-p6/pwm1=80 /dev/fan-p7/pwm1=80
-    MINSTART=/dev/fan-p6/pwm1=60 /dev/fan-p7/pwm1=60
-    MINSTOP=/dev/fan-p6/pwm1=29 /dev/fan-p7/pwm1=29
+    FCTEMPS=${fan_p6}=${temp_input} ${fan_p7}=${temp_input}
+    MINTEMP=${fan_p6}=40 ${fan_p7}=40
+    MAXTEMP=${fan_p6}=80 ${fan_p7}=80
+    MINSTART=${fan_p6}=60 ${fan_p7}=60
+    MINSTOP=${fan_p6}=29 ${fan_p7}=29
     MINPWM=20
   '';
-
-  services.udev.packages = [
-    # Fan control
-    (pkgs.callPackage (
-      { stdenv, lib, coreutils }:
-      stdenv.mkDerivation {
-        name = "helios64-udev-fancontrol";
-
-        dontUnpack = true;
-        dontBuild = true;
-
-        installPhase = ''
-          mkdir -p "$out/etc/udev/rules.d/";
-          install -Dm644 "${./bsp/90-helios64-hwmon.rules}" \
-            "$out/etc/udev/rules.d/90-helios64-hwmon.rules"
-          substituteInPlace "$out/etc/udev/rules.d/90-helios64-hwmon.rules" \
-            --replace '/bin/ln'  '${lib.getBin coreutils}/bin/ln'
-        '';
-
-        meta = with lib; {
-          description = "Udev rules for fancontrol for the Helios64";
-          platforms = platforms.linux;
-        };
-      }
-    ) {})
-  ];
 }

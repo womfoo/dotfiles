@@ -1,14 +1,15 @@
 { pkgs, lib, ... }:
 let
   # FIXME: cleanup redundant config with CIDR/subnet parsing
-  wanNet      = { interface = "tun0"; };
-  #wanNet      = { interface = "eth2"; };
+  #wanNet      = { interface = "tun0"; };
+  wanNet      = { interface = "enu1u3c4i2"; };
   wiredNet    = { interface = "eth0";
-                  ip             = "172.19.86.1";
+                  ip             = "172.19.86.3";
                   subnet         = "172.19.86.0";
                   dhcpLowerRange = "172.19.86.50";
-                  dhcpUpperRange = "172.19.86.99"; };
-  wirelessNet = { ssid = "tatsulok";
+                  dhcpUpperRange = "172.19.86.99";
+                 };
+  wirelessNet = { ssid = "tatsulokold";
                   interface = "wlan0";
                   ip             = "172.19.87.1";
                   subnet         = "172.19.87.0";
@@ -16,12 +17,16 @@ let
                   dhcpUpperRange = "172.19.87.99"; };
   inventory = import ./inventory.nix { inherit lib; };
   wiredHosts = lib.filterAttrs (name: value: builtins.elem "sydg0" value.tags) inventory;
-  dhcpText = ''
+  dhcpText =
+/*
+    ''
     subnet ${wiredNet.subnet} netmask 255.255.255.0 {
       option domain-name-servers ${wiredNet.ip}, 8.8.8.8, 8.8.4.4;
       option routers ${wiredNet.ip};
       range ${wiredNet.dhcpLowerRange} ${wiredNet.dhcpUpperRange};
     }
+*/
+   ''
     subnet ${wirelessNet.subnet} netmask 255.255.255.0 {
       option domain-name-servers ${wirelessNet.ip}, 8.8.8.8, 8.8.4.4;
       option routers ${wirelessNet.ip};
@@ -65,17 +70,21 @@ in
 
   services.dhcpd4 = {
     enable = true;
-    interfaces =  [ wiredNet.interface wirelessNet.interface ];
+    interfaces =  [ /* wiredNet.interface */ wirelessNet.interface ];
     extraConfig = dhcpText;
   };
 
   services.hostapd = {
+    countryCode = "AU";
     enable = true;
     ssid = wirelessNet.ssid;
+    wpa=false;
     interface = wirelessNet.interface;
     # be less insecure
     extraConfig = ''
+      wpa=2
       wpa_pairwise=CCMP
+      wpa_psk_file=/tmp/wifipasswords.txt
     '';
   };
 

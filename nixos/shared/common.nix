@@ -26,8 +26,9 @@
     allow-import-from-derivation = true
     extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
   '';
+  nix.settings.sandbox = false;
 
-  programs.gnupg.agent.enable = true;
+  # programs.gnupg.agent.enable = true;
   programs.ssh.startAgent = true;
 
   services.openssh.enable = true;

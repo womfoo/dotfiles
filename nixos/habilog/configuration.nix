@@ -5,13 +5,14 @@ in
 {
   imports = [
     ../shared/common.nix
-    ../shared/timescaledb.nix
-    ./modules/rtmp.nix
+ #   ../shared/timescaledb.nix
+ #   ./modules/rtmp.nix
     ./helios64/default.nix
-    ../shared/hydra.nix
+ #   ../shared/hydra.nix
     ../shared/gikos-kranium.nix
+    ../shared/gikos-net-kaye.nix
     ../shared/gikos-net-bind.nix
-    ../shared/gikos-net-telegraf.nix
+ #   ../shared/gikos-net-telegraf.nix
     ../shared/router.nix
   ];
 
@@ -35,50 +36,20 @@ in
       device = "/dev/disk/by-label/NIXOS_BOOT";
       fsType = "ext4";
     };
-    "/var/db/influxdb" =
-    { device = "habilogpool/influxdb";
-      fsType = "zfs";
-    };
-    "/var/lib/hydra" =
-    { device = "habilogpool/hydra";
-      fsType = "zfs";
-    };
-    "/var/lib/postgresql" =
-    { device = "habilogpool/postgresql";
-      fsType = "zfs";
-    };
-    "/var/spool/mail" =
-    { device = "habilogpool/mail";
-      fsType = "zfs";
-    };
     "/armorydata" =
-    { device = "habilogpool/armorydata";
+    { device = "tank/armorydata";
       fsType = "zfs";
     };
     "/dashcam" =
-    { device = "habilogpool/dashcam";
-      fsType = "zfs";
-    };
-    "/2021refuge" =
-    { device = "habilogpool/2021refuge";
-      fsType = "zfs";
-    };
-    "/legacydata" =
-    { device = "habilogpool/legacydata";
-      fsType = "zfs";
-    };
-    "/home/kranium/.bitcoin" =
-    { device = "habilogpool/btcchain";
+    { device = "tank/dashcam";
       fsType = "zfs";
     };
     "/phonebackup" =
-    { device = "habilogpool/phonebackup";
+    { device = "tank/phonebackup";
       fsType = "zfs";
     };
   };
-  swapDevices = [
-    { device = "/dev/md/swap"; }
-  ];
+  system.stateVersion = "22.11";
 
   programs.ssh.startAgent = true;
 
@@ -88,6 +59,7 @@ in
 
   boot.extraModulePackages = with config.boot.kernelPackages; [ rtl8814au ];
   boot.kernelModules = [ "cpufreq-conservative" ];
+  boot.kernelParams = [ "usbcore.autosuspend=-1" ];
 
   # nfs makes this unstable
   services.nfs.server.enable = true;
@@ -177,7 +149,7 @@ in
     tmux
     vim
     wget
-    youtube-dl
+    yt-dlp
   ];
 
   security.acme.acceptTerms = true;
@@ -202,30 +174,40 @@ in
     allowBroken = true;
   };
 
-  boot.initrd.mdadmConf = ''
+  boot.initrd.services.swraid.mdadmConf = ''
     ARRAY /dev/md/habilog metadata=1.2 name=habilog:NIXOS_ROOT UUID=622fc7b7:7a5e10ae:7b70659f:24f1b2cb
-    ARRAY /dev/md/swap metadata=1.2 name=habilog:NIXOS_SWAP UUID=28865355:1ebf9b51:8b4191ca:a9bf583a
   '';
+
+/*
   services.dovecot2.enable = true;
+  services.dovecot2.modules = [ pkgs.dovecot_fts_xapian ];
+  services.dovecot2.mailPlugins.globally.enable = [ "fts" "fts_xapian" ];
   services.dovecot2.extraConfig = ''
+    plugin {
+          fts = xapian
+          fts_xapian = partial=3 full=20
+          fts_autoindex = yes
+          fts_enforced = yes
+        }
+    service indexer-worker {
+      vsz_limit = 512 M
+    }
     service imap {
-    vsz_limit = 512 M
+      vsz_limit = 512 M
     }
   '';
-
-  services.roundcube.enable = true;
-  services.roundcube.hostName = "rc.gikos.net";
-
+*/
+/*
   services.octoprint.enable = true;
   users.extraUsers.octoprint = {
     extraGroups = [ "dialout"];
   };
-
+*/
   nix.extraOptions = ''
     keep-outputs = true
   '';
 
-  systemd.watchdog.device = "/dev/watchdog";
+  # MAYBE THIS KILLING THE MACHINE # systemd.watchdog.device = "/dev/watchdog";
 
   systemd.services.wireguard-wg0.after = lib.mkForce [ ];
   systemd.services.wireguard-wg0.requires = lib.mkForce [ ];
@@ -245,11 +227,43 @@ in
     };
   };
 
-  services.influxdb.enable = true;
+  # services.influxdb.enable = true;
 
   sops.secrets.wg-private-key = {};
   sops.defaultSopsFile = ../secrets/habilog/secrets.yaml;
 
   zramSwap.enable = lib.mkDefault true;
+
+/*
+  services.samba = {
+    enable = true;
+    openFirewall = true;
+    package = pkgs.sambaFull;
+    shares = {
+      time_machine = {
+        path = "/kaye-time-machine";
+        "valid users" = "kaye";
+        public = "no";
+        writeable = "yes";
+        "force user" = "kaye";
+        "fruit:aapl" = "yes";
+        "fruit:time machine" = "yes";
+        "vfs objects" = "catia fruit streams_xattr";
+      };
+    };
+  };
+
+    services.avahi = {
+      enable = true;
+      nssmdns = true;
+      publish = {
+        enable = true;
+        userServices = true;
+      };
+    };
+
+  services.xserver.displayManager.startx.enable = true;
+  services.xserver.enable = true;
+*/
 
 }
