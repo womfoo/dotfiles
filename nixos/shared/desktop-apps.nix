@@ -61,6 +61,7 @@
       damon
       darcs
       darktable
+      ddcutil
       # debootstrap
       # diffoscope
       dillo
@@ -454,5 +455,6 @@
     ];
 
   hardware.enableAllFirmware = true;
+  hardware.i2c.enable = true;
 
 }

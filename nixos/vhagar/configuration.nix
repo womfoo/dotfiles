@@ -104,6 +104,8 @@ in
   networking.hostId = "f0670973";
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
+  networking.networkmanager.enableFccUnlock = true;
+  networking.networkmanager.logLevel = "TRACE";
   networking.networkmanager.wifi.macAddress = "random";
   networking.networkmanager.extraConfig = ''
     hostname-mode=none

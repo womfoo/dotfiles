@@ -13,7 +13,8 @@ Config {font = "xft:DejaVu Sans Mono:pixelsize=20:foundry=unknown:slant=0:width=
         ,Run TopProc [] 30
         ,Run CpuFreq ["-t","<cpu0> <cpu1> <cpu2> <cpu3>GHz","-L","0","-H","2","-l","#b5bd68","-n","#b5bd68","-h","#cc6666"] 60
         ,Run CoreTemp ["-t","<core0> <core1> <core2> <core3>c","-L","40","-H","60","-l","#b5bd68","-n","gray90","-h","#cc6666"] 60
-        ,Run Date "%a %b %_d %Y <fc=#ee9a00>%H:%M:%S</fc>" "date" 10
+        ,Run Date "%a %b %_d %Y <fc=#ee9a00>%H:%M:%S %Z</fc>" "date" 10
+        ,Run DateZone "%a %b %_d %Y" "de_DE.UTF-8" "UTC" "date" 10`
         ,Run Network "wlp3s0" ["-t <rx>/<tx>Kbs","-S true","-L","0","-H","32","--low","#b5bd68","--normal","#ffffcc","--high","#cc6666"] 10
         ,Run Battery ["-t","<left>% <timeleft>","-L","50","-H","75","-h","#b5bd68","-n","#ffffcc","-l","#cc6666"] 10
        ]

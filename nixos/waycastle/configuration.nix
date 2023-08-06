@@ -85,6 +85,10 @@
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [
+    6443 # k3s api
+    8080 # more k3s
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -122,7 +126,24 @@
     };
   };
 
+  services.fwupd.enable = true;
 
+  services.k3s.enable = true;
+  services.k3s.role = "server";
+  # Slightly reduce resource usage
+  services.k3s.extraFlags = builtins.toString [
+
+    "--disable=traefik"
+    # "--disable" "coredns"
+    # "--disable" "coredns"
+    # "--disable" "local-storage"
+    # "--disable" "metrics-server"
+    # "--disable" "servicelb"
+    # "--disable" "traefik"
+    # "--pause-image" "test.local/pause:local"
+    # "--disable-network-policy"
+    "--tls-san" "172.19.86.1"
+  ];
 
 }
 
