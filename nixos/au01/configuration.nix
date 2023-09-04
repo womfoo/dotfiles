@@ -29,13 +29,19 @@ in
   services.nginx.recommendedProxySettings = true;
   services.nginx.virtualHosts = {
     "gikos.net"      = { forceSSL = true; enableACME = true; locations."/".root = "/srv/gikos.net"; };
-    "www.gikos.net"  = { forceSSL = true; enableACME = true; globalRedirect = "https://gikos.net"; };
-    "au01.gikos.net" = { forceSSL = true; enableACME = true; globalRedirect = "https://gikos.net"; };
+    "www.gikos.net"  = { forceSSL = true; enableACME = true; /* globalRedirect = "https://gikos.net"; */};
+    "au01.gikos.net" = { forceSSL = true; enableACME = true; /* globalRedirect = "https://gikos.net"; */};
     "rc.gikos.net"          = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
     "octoprint.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
     "hydra.gikos.net"       = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
     "silverspark.gikos.net" = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
     "paperless.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
+    # test cloudflare
+    "kranium.net" = {
+      addSSL = true;
+      sslCertificate = "/var/lib/manualssl/kranium.net/cert1.pem";
+      sslCertificateKey = "/var/lib/manualssl/kranium.net/privkey1.pem";
+      sslTrustedCertificate = "/var/lib/manualssl/kranium.net/fullchain1.pem";
   };
 
   security.acme.acceptTerms = true;

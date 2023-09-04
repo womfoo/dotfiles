@@ -35,16 +35,21 @@ in
        };
        git = {
          enable = true;
-         # userEmail = "kranium@gikos.net";
-         userEmail = "kraniumgikos.mendoza@iohk.io";
+         userEmail = "kranium@gikos.net";
          userName  = "Kranium Gikos Mendoza";
-         signing = {
-           signByDefault = true;
-           key ="30079627378B190345DAEF17A578D4096D011982";
-         };
          extraConfig = {
            push.autoSetupRemote =  true;
          };
+         includes = [
+           {
+             condition = "gitdir:/home/kranium/git/github.com/input-output-hk/**";
+             contents.user.email = "kraniumgikos.mendoza@iohk.io";
+             contents.user.signingKey = "30079627378B190345DAEF17A578D4096D011982";
+             contents.tag.gpgSign = "true";
+             contents.commit.gpgSign = "true";
+           }
+
+         ];
        };
        man.enable = false;
      };

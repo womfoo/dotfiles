@@ -18,7 +18,7 @@
       arandr
       # arc-theme
       ardour
-      # arduino
+      arduino
       aria2
       arion
       asciinema
@@ -147,6 +147,8 @@
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
+          # arduino-copilot
+          pi-lcd
           getopt-generics
           stack
           HPDF
@@ -316,6 +318,7 @@
       # pypi2nix # unmaintained
       (python3.withPackages (
         ps: with ps; with python3Packages; [
+          (opencv4.override {enableGtk3 = true;})
           gunicorn
           binwalk
           pip
@@ -452,6 +455,7 @@
       zip
       zoom-us
       # zsync
+      # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
     ];
 
   hardware.enableAllFirmware = true;

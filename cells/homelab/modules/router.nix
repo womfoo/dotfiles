@@ -1,14 +1,15 @@
 { config, lib, ... }:
 let
   baseConf = {
-    wan = { interface = "eth0"; };
-    wired  = {
-      interface      = "enp0s31f6";
-      vip            = "172.19.86.1";
-      ip             = "172.19.86.2";
-      subnet         = "172.19.86.0";
-      dhcpLowerRange = "172.19.86.50";
-      dhcpUpperRange = "172.19.86.99"; };
+    # wan = { interface = "eth0"; };
+    wan = { interface = "enp0s31f6"; };
+    # wired  = {
+    #   interface      = "enp0s31f6";
+    #   vip            = "172.19.86.1";
+    #   ip             = "172.19.86.2";
+    #   subnet         = "172.19.86.0";
+    #   dhcpLowerRange = "172.19.86.50";
+    #   dhcpUpperRange = "172.19.86.99"; };
     wireless = {
       ssid           = "tatsulok";
       interface      = "wlan0";
@@ -43,14 +44,14 @@ with lib;
       # finalConf = baseConf;
     in mkIf cfg.enable {
     networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
-    services.keepalived.enable = true;
-    services.keepalived.vrrpInstances.wired = {
-      interface = finalConf.wired.interface;
-      state = "MASTER";
-      priority = 50;
-      virtualIps = [{ addr = "${finalConf.wired.vip}/24"; }];
-      virtualRouterId = 1;
-    };
+    # services.keepalived.enable = true;
+    # services.keepalived.vrrpInstances.wired = {
+    #   interface = finalConf.wired.interface;
+    #   state = "MASTER";
+    #   priority = 50;
+    #   virtualIps = [{ addr = "${finalConf.wired.vip}/24"; }];
+    #   virtualRouterId = 1;
+    # };
 
     services.usbmuxd.enable = true; # for ifuse/ios tethering
 
@@ -63,10 +64,10 @@ with lib;
     networking = {
       # wireless.enable = true; # do not enable, turns on supplicant
       interfaces = {
-        "${finalConf.wired.interface}" = {
-          ipv4.addresses = [ { address = finalConf.wired.ip; prefixLength = 24; } ];
-          useDHCP = false;
-        };
+        # "${finalConf.wired.interface}" = {
+        #   ipv4.addresses = [ { address = finalConf.wired.ip; prefixLength = 24; } ];
+        #   useDHCP = false;
+        # };
         "${finalConf.wireless.interface}" = {
           ipv4.addresses = [ { address = finalConf.wireless.ip; prefixLength = 24; } ];
           useDHCP = false;
@@ -75,9 +76,9 @@ with lib;
       nat = {
         enable = true;
         externalInterface = "${finalConf.wan.interface}";
-        internalIPs = [ (finalConf.wired.subnet + "/24")
+        internalIPs = [ /* (finalConf.wired.subnet + "/24") */
                         (finalConf.wireless.subnet + "/24") ];
-        internalInterfaces = [ finalConf.wired.interface
+        internalInterfaces = [ /* finalConf.wired.interface */
                                finalConf.wireless.interface ];
       };
     };
@@ -86,7 +87,7 @@ with lib;
     services.kea.dhcp4.settings = {
       interfaces-config = {
         interfaces = [
-          finalConf.wired.interface
+          # finalConf.wired.interface
           finalConf.wireless.interface
         ];
       };
@@ -116,24 +117,24 @@ with lib;
             }
           ];
         }
-        {
-          pools = [
-            {
-              pool = "${finalConf.wired.dhcpLowerRange} - ${finalConf.wired.dhcpUpperRange}";
-            }
-          ];
-          subnet = "${finalConf.wired.subnet}/24";
-          option-data = [
-            {
-              name = "routers";
-              data = finalConf.wired.vip;
-            }
-            {
-              name ="domain-name-servers";
-              data = "8.8.8.8,8.8.4.4";
-            }
-          ];
-        }
+        # {
+        #   pools = [
+        #     {
+        #       pool = "${finalConf.wired.dhcpLowerRange} - ${finalConf.wired.dhcpUpperRange}";
+        #     }
+        #   ];
+        #   subnet = "${finalConf.wired.subnet}/24";
+        #   option-data = [
+        #     {
+        #       name = "routers";
+        #       data = finalConf.wired.vip;
+        #     }
+        #     {
+        #       name ="domain-name-servers";
+        #       data = "8.8.8.8,8.8.4.4";
+        #     }
+        #   ];
+        # }
       ];
       valid-lifetime = 86400;
     };

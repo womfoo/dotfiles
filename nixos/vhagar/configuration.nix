@@ -1,13 +1,14 @@
 { config, lib, pkgs, ... }:
 let
-  # noplay = false;
-  noplay = true;
+  noplay = false;
+  # noplay = true;
 in
 {
   imports =
     [
       # ../shared/anonwifi.nix
       ../shared/common.nix
+      ../shared/builder.nix
       ../shared/desktop-apps.nix
       ../shared/gikos-kranium.nix
       ../shared/gikos-kranium-hm.nix
@@ -20,8 +21,9 @@ in
   boot.extraModprobeConfig = ''
     options thinkpad_acpi fan_control=1
   '';
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest; # zfs b0rk 6.5
   # boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_4;
   boot.kernelParams = ["intel_pstate=disable"
                        "intel_iommu=on"
                        "vme_core.default_ps_max_latency_us=5500"
@@ -29,7 +31,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   boot.supportedFilesystems = [ "zfs" ];
-  boot.tmp.useTmpfs = true;
+  # boot.tmp.useTmpfs = true; # gone in 23.11?
 
   environment.variables = {
     MOZ_USE_XINPUT2 = "1";
@@ -78,14 +80,21 @@ in
     };
   };
 
-  nix.settings.cores = 4;
-  # nix.settings.max-jobs = lib.mkDefault 8;
+  nix.settings.cores = 10;
+  nix.settings.max-jobs = lib.mkDefault 4;
   nix.distributedBuilds = true;
   networking.extraHosts = ''
     127.0.0.1 tahanan
     127.0.0.1 grafana.local-prism
     127.0.0.1 argocd.local-prism
     127.0.0.1 gitea.local-prism
+    172.19.86.1 builds.sr.ht.local
+    172.19.86.1 git.sr.ht.local
+    172.19.86.1 hub.sr.ht.local
+    172.19.86.1 logs.sr.ht.local
+    172.19.86.1 man.sr.ht.local
+    172.19.86.1 meta.sr.ht.local
+    172.19.86.1 sr.ht.local
   '' + lib.optionalString noplay ''
     127.0.0.1 laarc.io
     127.0.0.1 lobste.rs
@@ -214,5 +223,7 @@ in
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
 
+  # warning: impurities
+  boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
 }
 
