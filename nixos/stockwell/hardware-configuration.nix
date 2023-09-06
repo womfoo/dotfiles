@@ -14,19 +14,19 @@
   boot.extraModulePackages = [ config.boot.kernelPackages.broadcom_sta ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/08c10dd1-a2eb-4efb-8a33-b633ecb77bbf";
+    { device = "/dev/disk/by-uuid/2065b16d-86d3-45e7-9344-d6395da42e83";
       fsType = "ext4";
     };
 
   boot.initrd.luks.devices."nixos_x86-64_usb".device = "/dev/disk/by-uuid/d2e9313f-6fe9-45c2-b13f-90d9d86dba17";
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/AFB4-0BB9";
+    { device = "/dev/disk/by-uuid/CD1C-03DA";
       fsType = "vfat";
     };
 
   swapDevices = [ ];
 
   # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+  # hardware.video.hidpi.enable = lib.mkDefault true;
 }

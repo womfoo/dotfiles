@@ -17,7 +17,7 @@
       apfs-fuse
       arandr
       # arc-theme
-      ardour
+      # ardour
       arduino
       aria2
       arion
@@ -87,7 +87,8 @@
       facter
       f2fs-tools
       # fcitx # virtual keyboard
-      ffmpeg
+      # ffmpeg
+      ffmpeg-full
       file
       find-cursor
       # firefox
@@ -147,6 +148,8 @@
       (haskellPackages.ghcWithPackages (self:
         with haskellPackages;
         with pkgs.haskell.lib; [
+          skylighting
+          highlighting-kate
           # arduino-copilot
           pi-lcd
           getopt-generics
@@ -182,6 +185,7 @@
           xmonad
           xmonad-contrib
           # yeganesh
+          Monadoro
         ]))
       # hfsprogs
       hicolor-icon-theme
@@ -406,6 +410,7 @@
       usbutils # lsusb
       vagrant
       vault
+      vbetool # sudo vbetool dpms off
       vdpauinfo
       # veracrypt
       # victoriametrics

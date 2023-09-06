@@ -31,11 +31,11 @@ in
     "gikos.net"      = { forceSSL = true; enableACME = true; locations."/".root = "/srv/gikos.net"; };
     "www.gikos.net"  = { forceSSL = true; enableACME = true; /* globalRedirect = "https://gikos.net"; */};
     "au01.gikos.net" = { forceSSL = true; enableACME = true; /* globalRedirect = "https://gikos.net"; */};
-    "rc.gikos.net"          = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
-    "octoprint.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
-    "hydra.gikos.net"       = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
-    "silverspark.gikos.net" = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
-    "paperless.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
+    # "rc.gikos.net"          = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
+    # "octoprint.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
+    # "hydra.gikos.net"       = { locations."/" = { proxyPass = "http://" + inventory.habilog.interfaces.wg0.ip + ":80"; }; };
+    # "silverspark.gikos.net" = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
+    # "paperless.gikos.net"   = { locations."/" = { proxyPass = "http://" + inventory.silverspark.interfaces.wg0.ip + ":80"; }; };
     # test cloudflare
     "kranium.net" = {
       addSSL = true;
@@ -64,30 +64,32 @@ in
     config.networking.wireguard.interfaces.wg0.listenPort
   ];
 
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ (inventory.au01.interfaces.wg0.ip + "/24") ];
-      listenPort = 51820;
-      privateKeyFile = config.sops.secrets.wg-private-key.path;
-      peers = [
-        { publicKey = inventory.silverspark.interfaces.wg0.publicKey;
-          allowedIPs = [ (inventory.silverspark.interfaces.wg0.ip + "/32") ];
-        }
-        { # FIXME: not connecting when nat enabled
-          publicKey = inventory.habilog.interfaces.wg0.publicKey;
-          allowedIPs = [ (inventory.habilog.interfaces.wg0.ip + "/32") ];
-        }
-        {
-          # publicKey = inventory.habilog.interfaces.wg0.publicKey;
-          # allowedIPs = [ (inventory.habilog.interfaces.wg0.ip + "/32") ];
-          publicKey = "yFquu1LfTkqMaSuqqvlvCBmSnmoUM2onSCrcEgfNQhE=";
-          allowedIPs = [ "10.100.0.3/32" ];
-        }
-      ];
-    };
-  };
+  # networking.wireguard.interfaces = {
+  #   wg0 = {
+  #     ips = [ (inventory.au01.interfaces.wg0.ip + "/24") ];
+  #     listenPort = 51820;
+  #     privateKeyFile = config.sops.secrets.wg-private-key.path;
+  #     peers = [
+  #       { publicKey = inventory.silverspark.interfaces.wg0.publicKey;
+  #         allowedIPs = [ (inventory.silverspark.interfaces.wg0.ip + "/32") ];
+  #       }
+  #       { # FIXME: not connecting when nat enabled
+  #         publicKey = inventory.habilog.interfaces.wg0.publicKey;
+  #         allowedIPs = [ (inventory.habilog.interfaces.wg0.ip + "/32") ];
+  #       }
+  #       {
+  #         # publicKey = inventory.habilog.interfaces.wg0.publicKey;
+  #         # allowedIPs = [ (inventory.habilog.interfaces.wg0.ip + "/32") ];
+  #         publicKey = "yFquu1LfTkqMaSuqqvlvCBmSnmoUM2onSCrcEgfNQhE=";
+  #         allowedIPs = [ "10.100.0.3/32" ];
+  #       }
+  #     ];
+  #   };
+  # };
 
   sops.secrets.wg-private-key = {};
   sops.defaultSopsFile = ../secrets/au01/secrets.yaml;
-
+  };
 }
+
+

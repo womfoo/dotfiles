@@ -13,14 +13,14 @@
     export HISTFILESIZE=-1
  '';
 
-  programs.ssh.startAgent = true;
+  # programs.ssh.startAgent = true;
   programs.git.lfs.enable = true;
 
   security.sudo.wheelNeedsPassword = false;
 
   users.extraUsers.kranium = {
     name = "kranium";
-    extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" "kranium" "scanner" "cdrom" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "docker" "vboxusers" "video" "lp" "dialout" "libvirtd" "qemu-libvirtd" "kranium" "kvm" "scanner" "cdrom" ];
     group = "users";
     uid = 2000;
     createHome = true;

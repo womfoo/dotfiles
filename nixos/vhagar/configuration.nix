@@ -23,7 +23,7 @@ in
   '';
   # boot.kernelPackages = pkgs.linuxPackages_latest; # zfs b0rk 6.5
   # boot.kernelPackages = pkgs.linuxPackages_5_15;
-  boot.kernelPackages = pkgs.linuxPackages_6_4;
+  # boot.kernelPackages = pkgs.linuxPackages_6_4;
   boot.kernelParams = ["intel_pstate=disable"
                        "intel_iommu=on"
                        "vme_core.default_ps_max_latency_us=5500"
@@ -113,7 +113,7 @@ in
   networking.hostId = "f0670973";
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
-  networking.networkmanager.enableFccUnlock = true;
+  # networking.networkmanager.enableFccUnlock = true;
   networking.networkmanager.logLevel = "TRACE";
   networking.networkmanager.wifi.macAddress = "random";
   networking.networkmanager.extraConfig = ''
@@ -225,5 +225,38 @@ in
 
   # warning: impurities
   boot.binfmt.emulatedSystems = [ "armv7l-linux" "aarch64-linux" ];
+
+  services.dbus.packages = [ pkgs.gcr ];
+
+
+  # environment.etc.exports =
+  #   { text = "# dummy exports file so vagrant doesnt crash";
+  #     mode = "0444";
+#   };
+
+  networking.firewall.interfaces."virbr1" = {
+    allowedTCPPorts = [ 2049 ];
+    allowedUDPPorts = [ 2049 ];
+  };
+
+  services.nfs.server.enable = true;
+  services.nfs.server.statdPort = 47000;
+  services.nfs.server.mountdPort = 47001;
+  services.nfs.server.lockdPort = 47002;
+  services.nfs.server.exports    = ''
+    # virbr1 iface
+    /home/kranium/vagrantboxen/debian-bookworm64 192.168.121.1/24(rw,no_root_squash,no_subtree_check)
+  '';
+
+  # https://github.com/keyboardio/Chrysalis/blob/master/static/udev/60-kaleidoscope.rules
+  services.udev.extraRules = ''
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2300", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2301", SYMLINK+="model01", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2302", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="1209", ATTRS{idProduct}=="2303", SYMLINK+="Atreus2", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="0005", SYMLINK+="model100", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="0006", SYMLINK+="model100", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
+  '';
+
 }
 

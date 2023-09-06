@@ -6,9 +6,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../shared/common.nix
-      ../shared/hydra.nix
       ../shared/gikos-kranium.nix
-      ../shared/desktop-apps.nix
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -19,7 +17,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
-    # nameservers = [ "8.8.8.8" "8.8.4.4" ];
+    nameservers = [ "1.1.1.1" /* "8.8.8.8" "8.8.4.4" */ ];
     hostName = "stockwell";
     networkmanager = {
       enable = true;
@@ -34,15 +32,6 @@
   services.acpid.enable = true;
   services.upower.enable = true;
 
-  services.xserver.enable = true;
-  services.xserver.autorun = false;
-  services.xserver.displayManager.startx.enable = true;
-
-  # FIXME: see if we can replace the ff as I would like to try just using startx
-  services.xserver.windowManager.xmonad.enable = true;
-  services.xserver.windowManager.xmonad.enableContribAndExtras = true;
-  services.xserver.displayManager.defaultSession = "none+xmonad";
-
   hardware.cpu.intel.updateMicrocode = true;
 
   #this tends to overheat
@@ -50,17 +39,12 @@
 
   hardware.pulseaudio.enable = true;
   hardware.pulseaudio.package = pkgs.pulseaudioFull; # we need to use the full package for bluetooth support
-  #for wireless headset
-  # hardware.pulseaudio.extraConfig = ''
-  #   load-module module-switch-on-connect
-  # '';
 
   hardware.bluetooth.enable = true;
 
   hardware.opengl.extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
 
   #services.flatpak.enable = true;
-  xdg.portal.enable = true;
   virtualisation.virtualbox.host.enable = true;
   virtualisation.libvirtd.enable = true;
 
@@ -69,29 +53,10 @@
     allowUnfree = true;
   };
 
-  environment.interactiveShellInit = ''
-    # TERM=rxvt-unicode-256color seen in remote which makes backspace broken
-    # use remove the 'unicode' part for now
-    TERM=rxvt-256color
-    # append history instead of overwrite
-    shopt -s histappend
-    # big history, record everything
-    export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-    export HISTSIZE=-1
-    export HISTFILESIZE=-1
-  '';
-
-  services.xserver.displayManager.sessionCommands = ''
-     # This allows GTK to load SVG icons.
-    export GDK_PIXBUF_MODULE_FILE=$(echo ${pkgs.librsvg.out}/lib/gdk-pixbuf-2.0/*/loaders.cache)
-  '';
-
-  #services.influxdb.enable = true;
-
   #iphone mounting needs
   services.usbmuxd.enable = true;
 
-  system.stateVersion = "21.1";
+  system.stateVersion = "23.11";
   nix.package = pkgs.nixUnstable;
 
   nix.extraOptions = ''
@@ -99,15 +64,5 @@
     extra-platforms = aarch64-linux
     experimental-features = nix-command flakes
   '';
-
-  services.arbtt.enable = true;
-
-  programs.tmux = {
-    enable = true;
-    historyLimit = 50000;
-    extraConfig = ''
-      run-shell ${pkgs.tmuxPlugins.logging}/share/tmux-plugins/logging/logging.tmux
-    '';
-  };
 
 }

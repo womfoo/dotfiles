@@ -9,6 +9,7 @@
     # "https://nixcache.reflex-frp.org"
     # "https://static-haskell-nix.cachix.org"
     # "https://miso-haskell.cachix.org"
+    "https://nixiosk.cachix.org"
   ];
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -18,6 +19,7 @@
     # "miso-haskell.cachix.org-1:6N2DooyFlZOHUfJtAx1Q09H0P5XXYzoxxQYiwn6W1e8="
     "cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    "nixiosk.cachix.org-1:A4kH9p+y9NjDWj0rhaOnv3OLIOPTbjRIsXRPEeTtiS4="
   ];
   nix.extraOptions = ''
     keep-outputs = true
@@ -29,11 +31,12 @@
   nix.settings.sandbox = false;
 
   # programs.gnupg.agent.enable = true;
-  programs.ssh.startAgent = true;
+  # programs.ssh.startAgent = true;
 
   services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
-  services.openssh.settings.PermitRootLogin = "prohibit-password";
+  # services.openssh.settings.PasswordAuthentication = false;
+  # services.openssh.settings.PermitRootLogin = "prohibit-password";
+  # services.openssh.settings.PasswordAuthentication = true;
 
   time.timeZone = "Australia/Sydney";
 
