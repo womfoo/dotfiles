@@ -63,6 +63,7 @@
       darktable
       ddcutil
       # debootstrap
+      dfeet # d-feet
       # diffoscope
       dillo
       direnv
@@ -200,7 +201,7 @@
       imagemagick
       imv
       inetutils
-      influxdb
+      # influxdb
       inkscape
       inotify-tools
       iotop
@@ -223,7 +224,7 @@
       # kpcli
       # ktorrent
       # kubectl
-      # kubernetes-helm
+      kubernetes-helm
       # languagetool # very-basic grammarly
       light
       libimobiledevice # idevice pair 00000000-0000000000000000
@@ -376,6 +377,7 @@
       # sops
       # sox
       # spaceFM
+      speechd # spd-say
       speedtest-cli
       # spotify
       sqlite
@@ -399,6 +401,7 @@
       texlive.combined.scheme-full
       thunderbird
       tig
+      timetrap
       tmate
       tmux
       tmux-cssh

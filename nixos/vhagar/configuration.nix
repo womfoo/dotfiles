@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
-  noplay = false;
-  # noplay = true;
+  # noplay = false;
+  noplay = true;
 in
 {
   imports =
@@ -46,10 +46,6 @@ in
     { device = "data/docker";
       fsType = "zfs";
     };
-  fileSystems."/var/lib/postgresql" =
-    { device = "data/postgresql";
-      fsType = "zfs";
-    };
   fileSystems."/home/kranium/.local/share/Daedalus" =
     { device = "data/daedalus";
       fsType = "zfs";
@@ -58,7 +54,10 @@ in
     { device = "data/temp";
       fsType = "zfs";
     };
-
+  fileSystems."/var/lib/rancher" =
+    { device = "data/rancher";
+      fsType = "zfs";
+    };
   hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.nvidia.modesetting.enable = true;
@@ -100,14 +99,13 @@ in
     127.0.0.1 lobste.rs
     127.0.0.1 news.ycombinator.com
     127.0.0.1 slashdot.org
-    127.0.0.1 twitter.com
     127.0.0.1 www.youtube.com
   '';
 
+  # 127.0.0.1 twitter.com # because grok
   networking.firewall.allowedTCPPorts = [
     # config.services.nginx.defaultHTTPListenPort
     # config.services.nginx.defaultSSLListenPort
-    config.services.postgresql.port
   ];
   networking.firewall.trustedInterfaces = [ "cni+" ]; # k3s
   networking.hostId = "f0670973";
@@ -151,36 +149,6 @@ in
     # };
   };
   security.polkit.enable = true;
-  services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_13;
-    # port = 15432; # don't fight with most docker
-    enableTCPIP = true;
-    # extraPlugins = with pkgs.postgresql_13.pkgs; [ postgis pg_repack ];
-    ensureDatabases = [
-      "dbsync_mainnet"
-      "dbsync_testnet"
-      "dbsync_preprod"
-    ];
-    ensureUsers = [
-      { name = "dbsync_mainnet"; ensurePermissions = { "DATABASE dbsync_mainnet" = "ALL PRIVILEGES"; }; }
-      { name = "dbsync_testnet"; ensurePermissions = { "DATABASE dbsync_testnet" = "ALL PRIVILEGES"; }; }
-      { name = "dbsync_preprod"; ensurePermissions = { "DATABASE dbsync_preprod" = "ALL PRIVILEGES"; }; }
-    ];
-    settings = {
-      shared_preload_libraries = "pg_stat_statements";
-      "pg_stat_statements.track" = "all";
-    };
-    authentication = ''
-    # Generated file; do not edit!
-    # TYPE  DATABASE        USER            ADDRESS                 METHOD
-    local   all             all                                     trust
-    host    all             all             127.0.0.1/32            trust
-    host    all             all             ::1/128                 trust
-    host    all             all             172.17.0.0/16           trust
-    '';
-
-  };
 
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
