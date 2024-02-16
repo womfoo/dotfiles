@@ -1,0 +1,10 @@
+.bin
+.cache
+.config
+.data
+.run
+result
+
+#emacs
+*~
+\#*\#
