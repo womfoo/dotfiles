@@ -4,6 +4,7 @@
 .data
 .run
 result
+secrets/common/inventory_secrets.nix
 
 #emacs
 *~
