@@ -225,23 +225,6 @@ in
   # services.mullvad-vpn.enable = true;
 
 
-  # networking.wireguard.interfaces = {
-  #   mullvad0 = {
-  #     ips = [ "10.64.33.203/32" "fc00:bbbb:bbbb:bb01::1:21ca/128" ];
-  #     listenPort = 51820;
-  #     privateKey = "KE349wucWum+m78+rH38MRbfLVsbg3Ez8nEN8hscsX4=";
-  #     # privateKey = "AP3jIQgRYd2BL9xYonyECKvOYqwHlUW7Jehqp0uMkWI=";
-  #     # privateKeyFile = config.sops.secrets.wg-private-key.path;
-  #     peers = [
-  #       {
-  #         publicKey = "1H/gj8SVNebAIEGlvMeUVC5Rnf274dfVKbyE+v5G8HA=";
-  #         allowedIPs = [ "0.0.0.0/0" "::0/0" ];
-  #         endpoint = "103.216.220.18:51820";
-  #       }
-  #     ];
-  #   };
-
-  # };
 
 
 }
