@@ -63,7 +63,7 @@
       darktable
       ddcutil
       # debootstrap
-      dfeet # d-feet
+      d-spy # was dfeet and d-feet
       # diffoscope
       dillo
       direnv
@@ -252,7 +252,7 @@
       lsof
       macchanger
       magic-wormhole
-      masterpdfeditor
+      # masterpdfeditor
       mat2 # metadata anonymization
       mc
       meld
@@ -285,7 +285,7 @@
       nmap
       # nmap-graphical
       nmon
-      node2nix
+      # node2nix
       nomacs
       ntfs3g
       # nur.repos.mic92.rhasspy #
@@ -476,7 +476,7 @@
       zbar # parse qr codes
       zfs
       zip
-      zoom-us
+      # zoom-us
       # zsync
       # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
     ];

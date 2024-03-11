@@ -2,18 +2,11 @@
   description = "Config";
 
   inputs = {
-    # disko.inputs.nixpkgs.follows = "nixpkgs";
-    # disko.url = "github:nix-community/disko";
-    # home-manager.url = "github:blaggacao/home-manager";
-    # nixgl.inputs.nixpkgs.follows = "nixpkgs";
-    # nixgl.url = "github:guibou/nixGL";
-    # nixos-generators.inputs.nixlib.follows = "nixpkgs";
-    # nixos-generators.inputs.nixpkgs.follows = "nixpkgs";
-    # nixos-generators.url = "github:nix-community/nixos-generators";
-    # qnr.url = "github:divnix/quick-nix-registry";
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "std/blank";
     colmena.url = "github:zhaofengli/colmena";
+    darwin.inputs.nixpkgs.follows = "nixos";
+    darwin.url = "github:LnL7/nix-darwin";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
     hive.inputs.colmena.follows = "colmena";
@@ -21,8 +14,7 @@
     hive.url = "github:divnix/hive";
     home-23-05.url = "github:nix-community/home-manager/release-23.05";
     home.follows = "home-23-05";
-    lihim.url = "git+file:///Users/kranium/git/github.com/womfoo/lihim";
-    #lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
+    lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
@@ -34,10 +26,6 @@
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
     std.url = "github:divnix/std";
-    darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixos";
-    };
   };
 
   outputs = {
@@ -72,8 +60,6 @@
           # suites aggregate profiles
           (functions "nixosSuites")
           (functions "homeSuites")
-
-          # (functions "darwinConfigurations")
 
           # configurations can be deployed
           darwinConfigurations
