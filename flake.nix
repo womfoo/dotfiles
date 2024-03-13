@@ -65,7 +65,7 @@
           darwinConfigurations
           nixosConfigurations
           colmenaConfigurations
-
+          
           (devshells "shells")
         ];
     }
