@@ -15,10 +15,15 @@
       { package = colmena; }
       { package = hledger; }
       { package = sops; }
+      { package = stow; }
       ];
      devshell.startup.decrypt_inventory.text = ''
        sops -d secrets/common/inventory_secrets.nix.sops > secrets/common/inventory_secrets.nix
      '';
+     devshell.startup.stow_legacy_configs.text = ''
+       stow --dir=legacy --target=$HOME .
+     '';
+
   } // {
     meta.description  = "basic shell/utils for configuring dotfiles";
   };
