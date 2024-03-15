@@ -25,7 +25,7 @@
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
-    std.url = "github:divnix/std";
+    std.url = "github:divnix/std/v0.33.0";
   };
 
   outputs = {

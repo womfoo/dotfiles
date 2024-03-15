@@ -11,7 +11,6 @@ in
     options thinkpad_acpi fan_control=1
   '';
   # boot.kernelPackages = pkgs.linuxPackages_latest; # zfs b0rk 6.5
-  # boot.kernelPackages = pkgs.linuxPackages_5_15;
   # boot.kernelPackages = pkgs.linuxPackages_6_4;
   boot.kernelParams = ["intel_pstate=disable"
                        "intel_iommu=on"
@@ -61,31 +60,14 @@ in
     extraPackages = with pkgs; [ libvdpau-va-gl vaapiVdpau ];
   };
 
-  # nixpkgs = {
-  #   # overlays = [
-  #   #   (import ../shared/overlay-x86_64.nix)
-  #   # ];
-  #   config = {
-  #     allowBroken = true;
-  #     allowUnfree = true;
-  #   };
-  # };
+  hardware.enableAllFirmware = true;
 
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
   nix.distributedBuilds = true;
+
   networking.extraHosts = ''
     127.0.0.1 tahanan
-    127.0.0.1 grafana.local-prism
-    127.0.0.1 argocd.local-prism
-    127.0.0.1 gitea.local-prism
-    172.19.86.1 builds.sr.ht.local
-    172.19.86.1 git.sr.ht.local
-    172.19.86.1 hub.sr.ht.local
-    172.19.86.1 logs.sr.ht.local
-    172.19.86.1 man.sr.ht.local
-    172.19.86.1 meta.sr.ht.local
-    172.19.86.1 sr.ht.local
   '' + lib.optionalString noplay ''
     127.0.0.1 laarc.io
     127.0.0.1 lobste.rs
@@ -115,7 +97,6 @@ in
 
   services.acpid.enable = true;
   services.arbtt.enable = true;
-  # services.arbtt.package = pkgs.haskell.packages.ghc8104.arbtt;
   services.atd.enable = true; # at for alarms
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true; # needed for printing
@@ -191,12 +172,6 @@ in
 
   services.dbus.packages = [ pkgs.gcr ];
 
-
-  # environment.etc.exports =
-  #   { text = "# dummy exports file so vagrant doesnt crash";
-  #     mode = "0444";
-#   };
-
   networking.firewall.interfaces."virbr1" = {
     allowedTCPPorts = [ 2049 ];
     allowedUDPPorts = [ 2049 ];
@@ -220,11 +195,5 @@ in
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="0005", SYMLINK+="model100", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="0006", SYMLINK+="model100", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
   '';
-
-
-  # services.mullvad-vpn.enable = true;
-
-
-
 
 }

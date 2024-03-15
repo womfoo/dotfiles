@@ -4,15 +4,13 @@
   # TODO: will move to per proj devshells + direnv
   environment.systemPackages = with pkgs;
     [
-      surf midori epiphany
-      # bcde # rip cds
       # abiword
       acpi
       acpica-tools # was pmtools # acpidump
       # adoptopenjdk-jre-bin # java
       aircrack-ng
       alsa-utils
-      ansible
+      # ansible
       antimony
       apfs-fuse
       arandr
@@ -20,7 +18,7 @@
       # ardour
       arduino
       aria2
-      arion
+      # arion
       asciinema
       audacity
       augeas
@@ -29,6 +27,7 @@
       b2sum
       baobab
       bat
+      # bcde # rip cds
       bettercap
       bind
       binutils # ld, ar
@@ -58,7 +57,7 @@
       #cpuminer-multi # deleted upstream
       cryptsetup
       cura
-      damon
+      # damon
       darcs
       darktable
       ddcutil
@@ -76,8 +75,8 @@
       dropbox
       duc
       dvdplusrwtools
-      ec2_ami_tools
-      ec2_api_tools
+      # ec2_ami_tools
+      # ec2_api_tools
       ecdsautils
       elfutils
       emacs
@@ -158,7 +157,7 @@
           lens
           xmobar
           dbus
-          # hpdft
+          hpdft
           # skylighting
           # highlighting-kate
           # # arduino-copilot
@@ -386,7 +385,7 @@
       simplescreenrecorder
       # sipp
       # sipsak
-      slic3r
+      # slic3r
       smartmontools
       smemstat
       # sops
@@ -405,6 +404,7 @@
       st
       # steam
       # subversionClient
+      # surf
       sysstat # iotop, etc...
       tcpdump
       # teams
@@ -416,7 +416,7 @@
       texlive.combined.scheme-full
       thunderbird
       tig
-      timetrap
+      # timetrap
       tmate
       tmux
       tmux-cssh
@@ -474,14 +474,11 @@
       yq
       z-lua
       zbar # parse qr codes
-      zfs
+      # zfs
       zip
       # zoom-us
       # zsync
       # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
     ];
-
-  # hardware.enableAllFirmware = true;
-  hardware.i2c.enable = true;
 
 }
