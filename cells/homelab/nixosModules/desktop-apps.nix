@@ -337,6 +337,7 @@
       (python3.withPackages (
         ps: with ps; with python3Packages; [
           # (opencv4.override {enableGtk3 = true;})
+          xattr
           opencv4
           gunicorn
           binwalk

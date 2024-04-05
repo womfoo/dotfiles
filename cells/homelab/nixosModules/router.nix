@@ -17,22 +17,10 @@ let
       subnet         = "172.19.87.0";
       dhcpLowerRange = "172.19.87.50";
       dhcpUpperRange = "172.19.87.99"; };
+    passwordFile = "/root/yolopasswords.txt";
   };
 
-  wifiHosts = {
-  };
-
-  dhcpHosts = hosts: builtins.concatStringsSep "\n"
-    (builtins.attrValues
-      (builtins.mapAttrs (name: value:
-        "${value.macAddr} ${value.password}")
-        hosts)
-    );
-
-  insecurePskFile = pkgs.writeText "yolo-passwords" ''
-    ${dhcpHosts wifiHosts}
-  '';
-  hostapdConf = pkgs.writeText "yolo-passwords" ''
+  hostapdConf = pf : pkgs.writeText "hostapd-config" ''
     channel=7
     ctrl_interface=/run/hostapd
     ctrl_interface_group=wheel
@@ -48,7 +36,7 @@ let
     ssid=tatsulok
     wpa=2
     wpa_pairwise=CCMP
-    wpa_psk_file=${insecurePskFile}
+    wpa_psk_file=${pf}
   '';
 
 in
@@ -74,7 +62,6 @@ with lib;
     let
       cfg = config.services.router;
       finalConf = lib.recursiveUpdate baseConf cfg.config;
-      # finalConf = baseConf;
     in mkIf cfg.enable {
     networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
     # services.keepalived.enable = true;
@@ -186,7 +173,7 @@ with lib;
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${pkgs.hostapd}/bin/hostapd ${hostapdConf}";
+        ExecStart = "${pkgs.hostapd}/bin/hostapd ${hostapdConf finalConf.passwordFile}";
         Restart = "always";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         RuntimeDirectory = "hostapd";

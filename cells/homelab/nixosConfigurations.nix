@@ -31,12 +31,19 @@
       inherit (inputs.nixpkgs) system;
       config.allowUnfree = true;
     };
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.systemd-boot.enable = true;
+    hardware.enableRedistributableFirmware = true;
     imports = [
       cell.hardwareProfiles.waycastle
       cell.nixosModules.router
       ./waycastle/configuration.nix
     ];
+    networking.hostName = "waycastle";
+    services.fwupd.enable = true;
+    services.router.config.passwordFile = inputs.lihim.x86_64-linux.lihim.lib.mkHostApdPasswordFile;
     services.router.enable = true;
+    system.stateVersion = "24.05";
   };
 
 }

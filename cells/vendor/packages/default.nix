@@ -11,7 +11,7 @@
 
   python-sense-hat = inputs.nixpkgs.callPackage ./python-sense-hat.nix { rtimu = rtimu; };
 
-  keepassx = inputs.nixpkgs.callPackage ./keepassx {};
+  # keepassx = inputs.nixpkgs.callPackage ./keepassx {};
 
 }
 

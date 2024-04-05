@@ -26,6 +26,8 @@
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
     std.url = "github:divnix/std/v0.33.0";
+    terranix.url = "github:terranix/terranix";
+    terranix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -42,6 +44,7 @@
         with std.blockTypes;
         with hive.blockTypes; [
 
+          (std.blockTypes.terra "terra" inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
           (std.blockTypes.installables "packages")
 
           (functions "overlays")
@@ -65,7 +68,7 @@
           darwinConfigurations
           nixosConfigurations
           colmenaConfigurations
-          
+
           (devshells "shells")
         ];
     }

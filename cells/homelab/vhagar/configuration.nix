@@ -84,9 +84,6 @@ in
   # networking.networkmanager.enableFccUnlock = true;
   networking.networkmanager.logLevel = "TRACE";
   networking.networkmanager.wifi.macAddress = "random";
-  networking.networkmanager.extraConfig = ''
-    hostname-mode=none
-  '';
 
   powerManagement.cpuFreqGovernor = "performance"; # defaults to powersave
 
