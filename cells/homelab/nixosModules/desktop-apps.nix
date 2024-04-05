@@ -151,7 +151,7 @@
           network
           aeson
           aeson-qq
-          brick
+          # brick # 964 bork
           vty
           cursor
           lens
@@ -161,7 +161,7 @@
           # skylighting
           # highlighting-kate
           # # arduino-copilot
-          pi-lcd
+          # pi-lcd # 964 bork
           # getopt-generics
           # stack
           # HPDF
@@ -278,7 +278,7 @@
       nix-output-monitor
       nix-prefetch-git
       nix-top
-      nixfmt
+      nixfmt-classic
       # nixos-shell
       # nixops
       nmap

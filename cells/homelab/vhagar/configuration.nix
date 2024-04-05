@@ -10,8 +10,8 @@ in
   boot.extraModprobeConfig = ''
     options thinkpad_acpi fan_control=1
   '';
-  # boot.kernelPackages = pkgs.linuxPackages_latest; # zfs b0rk 6.5
-  # boot.kernelPackages = pkgs.linuxPackages_6_4;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_6_8;
   boot.kernelParams = ["intel_pstate=disable"
                        "intel_iommu=on"
                        "vme_core.default_ps_max_latency_us=5500"
@@ -25,11 +25,6 @@ in
     MOZ_USE_XINPUT2 = "1";
   };
 
-  fileSystems."/armorydata" =
-    { device = "habilog.gikos.net:/armorydata";
-      fsType = "nfs";
-      options = ["auto" "nofail" "soft"];
-    };
   fileSystems."/var/lib/docker" =
     { device = "data/docker";
       fsType = "zfs";

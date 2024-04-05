@@ -11,11 +11,11 @@
       # { package = k9s; }
       # { package = kubectl; }
       # { package = kubernetes-helm; }
-      { package = alejandra; }
       { package = colmena; }
       { package = hledger; }
       { package = sops; }
       { package = stow; }
+      { package = nixfmt; }
       ];
      devshell.startup.decrypt_inventory.text = ''
        sops -d secrets/common/inventory_secrets.nix.sops > secrets/common/inventory_secrets.nix
