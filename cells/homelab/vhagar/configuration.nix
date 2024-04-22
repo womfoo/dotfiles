@@ -73,7 +73,7 @@ in
 
   # 127.0.0.1 twitter.com # because grok
   networking.firewall.allowedTCPPorts = [
-    8554
+    # 8554 # was frigate
     # config.services.nginx.defaultHTTPListenPort
     # config.services.nginx.defaultSSLListenPort
   ];
@@ -131,9 +131,9 @@ in
   services.upower.enable = true;
   # services.vault.enable = true;
   systemd.watchdog.device = "/dev/watchdog";
+  services.displayManager.defaultSession = "none+xmonad";
+  services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
-  services.xserver.displayManager.defaultSession = "none+xmonad";
-  services.xserver.displayManager.sddm.enable = true;
   services.xserver.enable = true;
   services.xserver.libinput.enable = true;
   services.xserver.synaptics.enable = false;

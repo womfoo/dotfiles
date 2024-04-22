@@ -1,4 +1,5 @@
 {
+
   vhagar = {pkgs, ...}: {
     bee.system = "x86_64-linux";
     bee.pkgs = import inputs.nixos {
@@ -19,9 +20,6 @@
       cell.nixosModules.gikos-kranium-hm
       cell.hardwareProfiles.vhagar
       ./vhagar/configuration.nix
-    ];
-    environment.systemPackages = [
-      inputs.cells.vendor.packages.openlens
     ];
   };
 

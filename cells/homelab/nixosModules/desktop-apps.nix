@@ -8,7 +8,7 @@
       acpi
       acpica-tools # was pmtools # acpidump
       # adoptopenjdk-jre-bin # java
-      aircrack-ng
+      # aircrack-ng
       alsa-utils
       # ansible
       antimony
@@ -17,11 +17,11 @@
       # arc-theme
       # ardour
       arduino
-      aria2
+      # aria2
       # arion
-      asciinema
+      # asciinema
       audacity
-      augeas
+      # augeas
       avidemux
       awscli
       b2sum
@@ -39,15 +39,15 @@
       btrfs-progs
       # bundix # mini_portile2
       calibre
-      cargo
+      # cargo
       carla
-      certbot
+      # certbot
       cdrkit # wodim
-      cfssl
+      # cfssl
       # chromedriver
       # chromium
       cifs-utils
-      cli53
+      # cli53
       colmena
       # compton-git
       conda
@@ -121,7 +121,7 @@
       gnupg
       # gnupg1compat
       # gnutls
-      go
+      # go
       # go-jira
       # go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
       # go2nix
@@ -224,7 +224,7 @@
       jmtpfs
       jwhois
       # k3b
-      kakoune-unwrapped
+      # kakoune-unwrapped
       kdiff3
       keepassxc
       # kitty
@@ -273,7 +273,7 @@
       networkmanagerapplet
       networkmanager_dmenu
       ngrep
-      niv
+      # niv
       nix-index
       nix-output-monitor
       nix-prefetch-git
@@ -288,9 +288,9 @@
       nomacs
       ntfs3g
       # nur.repos.mic92.rhasspy #
-      nvd
+      nvd # nix diff
       oathToolkit
-      obs-studio
+      # obs-studio
       # okular
       # openjdk11_headless
       # openjdk17_headless
@@ -428,7 +428,7 @@
       unzip
       usbutils # lsusb
       vagrant
-      vault
+      # vault
       vbetool # sudo vbetool dpms off
       vdpauinfo
       # veracrypt
@@ -442,7 +442,7 @@
       vscode
       vnstat
       # vscode
-      wavemon
+      wavemon # wifi diag
       wget
       which
       wire-desktop

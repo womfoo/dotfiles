@@ -30,21 +30,17 @@
     terranix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = {
-    std,
-    hive,
-    self,
-    ...
-  } @ inputs:
-    hive.growOn {
+  outputs = { std, hive, self, ... }@inputs:
+    let myCollect = hive.collect // { renamer = _cell: target: "${target}"; };
+    in hive.growOn {
       inherit inputs;
-      nixpkgsConfig = {allowUnfree = true;};
+      nixpkgsConfig = { allowUnfree = true; };
       cellsFrom = ./cells;
-      cellBlocks =
-        with std.blockTypes;
+      cellBlocks = with std.blockTypes;
         with hive.blockTypes; [
 
-          (std.blockTypes.terra "terra" inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
+          (std.blockTypes.terra "terra"
+            inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
           (std.blockTypes.installables "packages")
 
           (functions "overlays")
@@ -71,11 +67,10 @@
 
           (devshells "shells")
         ];
-    }
-    {
-      colmenaHive = hive.collect self "colmenaConfigurations";
-      nixosConfigurations = hive.collect self "nixosConfigurations";
-      darwinConfigurations = hive.collect self "darwinConfigurations";
+    } {
+      colmenaHive = myCollect self "colmenaConfigurations";
+      nixosConfigurations = myCollect self "nixosConfigurations";
+      darwinConfigurations = myCollect self "darwinConfigurations";
       devShells = inputs.std.harvest inputs.self [ "automation" "shells" ];
     };
 

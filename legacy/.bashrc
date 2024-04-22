@@ -18,5 +18,3 @@ export HISTFILESIZE=-1
 
 eval "$(direnv hook bash)"
 eval "$(z --init bash)"
-source <(lace _carapace) # lace-installer
-eval "$(direnv hook bash)" # lace-installer
