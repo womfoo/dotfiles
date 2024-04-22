@@ -1,8 +1,10 @@
-{ pkgs, nixpkgs-stable, ... }:
+{ pkgs, ... }:
 let
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     foxyproxy-standard
+    privacy-badger
     return-youtube-dislikes
+    tree-style-tab
     ublock-origin
     vimium
   ];
@@ -11,9 +13,8 @@ in
 {
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
-     home.packages = [ pkgs.lolcat ];
-     # home.stateVersion = "22.05";
-     home.stateVersion = "22.11";
+     # home.packages = [ pkgs.lolcat ];
+     home.stateVersion = "23.11";
      programs = {
        firefox = {
          enable = true;
@@ -32,7 +33,6 @@ in
            id = 2;
            inherit extensions;
          };
-         # package = nixpkgs-stable.firefox;
        };
        git = {
          enable = true;
@@ -51,7 +51,7 @@ in
              # format.signOff = true; # does not work
            }
            {
-             condition = "gitdir:/home/kranium/git/github.com/hyperledger-labs/**";
+             condition = "gitdir:/home/kranium/git/github.com/hyperledger/**";
              contents.user.email = "kraniumgikos.mendoza@iohk.io";
              contents.user.signingKey = "30079627378B190345DAEF17A578D4096D011982";
              contents.tag.gpgSign = "true";
@@ -72,7 +72,7 @@ in
      # services.gpg-agent.pinentryFlavor = "gnome3";
      # services.gpg-agent.pinentryFlavor = "curses";
      # Type: null or one of “curses”, “tty”, “gtk2”, “emacs”, “gnome3”, “qt”
-     
+
      services.gpg-agent.verbose = true;
      # services.gpg-agent.extraConfig = ''
      #   allow-emacs-pinentry

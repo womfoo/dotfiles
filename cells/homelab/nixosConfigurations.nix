@@ -7,16 +7,16 @@
       config.allowUnfree = true;
       overlays = [ inputs.nur.overlay
                    cell.overlays.x86_64
-                   # inputs.home-manager.nixosModule # FIXME
-                   # inputs.sops-nix.nixosModules.sops # FIXME
                  ];
     };
     imports = [
+      inputs.home.nixosModule
+      # inputs.sops-nix.nixosModules.sops # FIXME
       cell.nixosModules.common
       cell.nixosModules.builder
       cell.nixosModules.desktop-apps
       cell.nixosModules.gikos-kranium
-      # cell.nixosModules.gikos-kranium-hm # FIXME
+      cell.nixosModules.gikos-kranium-hm
       cell.hardwareProfiles.vhagar
       ./vhagar/configuration.nix
     ];
@@ -37,7 +37,6 @@
     imports = [
       cell.hardwareProfiles.waycastle
       cell.nixosModules.router
-      ./waycastle/configuration.nix
     ];
     networking.hostName = "waycastle";
     services.fwupd.enable = true;

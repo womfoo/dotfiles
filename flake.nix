@@ -12,8 +12,8 @@
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive";
-    home-23-05.url = "github:nix-community/home-manager/release-23.05";
-    home.follows = "home-23-05";
+    home-23-11.url = "github:nix-community/home-manager/release-23.11";
+    home.follows = "home-23-11";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";

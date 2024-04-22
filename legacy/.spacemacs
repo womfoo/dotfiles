@@ -614,6 +614,19 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ignored-local-variable-values
+   '((eval setq org-roam-db-location
+           (concat
+            (shell-command-to-string "git rev-parse --show-toplevel | tr -d '\12'")
+            "/.cache/org-roam.db"))
+     (eval setq org-attach-id-dir
+           (concat
+            (shell-command-to-string "git rev-parse --show-toplevel | tr -d '\12'")
+            "/docs/org/attach/"))
+     (eval setq org-roam-directory
+           (concat
+            (shell-command-to-string "git rev-parse --show-toplevel | tr -d '\12'")
+            "/docs/org"))))
  '(org-babel-load-languages
    '((awk . t)
      (ruby . t)
