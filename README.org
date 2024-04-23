@@ -1,16 +1,18 @@
 * dotfiles
   dotfiles and config for my devices running nix
 
-** local changes
+** local
 #+begin_src sh
   nixos-rebuild build --flake .
   sudo nixos-rebuild switch --flake .
-
-  colmena build --on vhagar $HOSTNAME
+#+end_src
+   or
+#+begin_src sh
+  colmena build --on $HOSTNAME
   sudo colmena apply-local --node $HOSTNAME
 #+end_src
-** remote changes
+** remote
 #+begin_src sh
   colmena build --on $REMOTE_HOST
-  colmena apply-local --node $REMOTE_HOST
+  colmena apply --on $REMOTE_HOST
 #+end_src
