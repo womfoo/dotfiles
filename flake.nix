@@ -21,7 +21,9 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos.follows = "nixpkgs";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nur = { url = "github:nix-community/NUR"; };
+    nur = {
+      url = "github:nix-community/NUR";
+    };
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,48 +32,65 @@
     terranix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { std, hive, self, ... }@inputs:
-    let myCollect = hive.collect // { renamer = _cell: target: "${target}"; };
-    in hive.growOn {
-      inherit inputs;
-      nixpkgsConfig = { allowUnfree = true; };
-      cellsFrom = ./cells;
-      cellBlocks = with std.blockTypes;
-        with hive.blockTypes; [
+  outputs =
+    {
+      std,
+      hive,
+      self,
+      ...
+    }@inputs:
+    let
+      myCollect = hive.collect // {
+        renamer = _cell: target: "${target}";
+      };
+    in
+    hive.growOn
+      {
+        inherit inputs;
+        nixpkgsConfig = {
+          allowUnfree = true;
+        };
+        cellsFrom = ./nix;
+        cellBlocks =
+          with std.blockTypes;
+          with hive.blockTypes;
+          [
 
-          (std.blockTypes.terra "terra"
-            inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
-          (std.blockTypes.installables "packages")
+            (std.blockTypes.terra "terra" inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
+            (std.blockTypes.installables "packages")
 
-          (functions "overlays")
+            (functions "overlays")
 
-          # modules implement
-          (functions "nixosModules")
-          (functions "homeModules")
-          (functions "devshellModules")
+            # modules implement
+            (functions "nixosModules")
+            (functions "homeModules")
+            (functions "devshellModules")
 
-          # profiles activate
-          (functions "hardwareProfiles")
-          (functions "nixosProfiles")
-          (functions "homeProfiles")
-          (functions "devshellProfiles")
+            # profiles activate
+            (functions "hardwareProfiles")
+            (functions "nixosProfiles")
+            (functions "homeProfiles")
+            (functions "devshellProfiles")
 
-          # suites aggregate profiles
-          (functions "nixosSuites")
-          (functions "homeSuites")
+            # suites aggregate profiles
+            (functions "nixosSuites")
+            (functions "homeSuites")
 
-          # configurations can be deployed
-          darwinConfigurations
-          nixosConfigurations
-          colmenaConfigurations
+            # configurations can be deployed
+            darwinConfigurations
+            nixosConfigurations
+            colmenaConfigurations
 
-          (devshells "shells")
+            (devshells "shells")
+          ];
+      }
+      {
+        colmenaHive = myCollect self "colmenaConfigurations";
+        nixosConfigurations = myCollect self "nixosConfigurations";
+        darwinConfigurations = myCollect self "darwinConfigurations";
+        devShells = inputs.std.harvest inputs.self [
+          "automation"
+          "shells"
         ];
-    } {
-      colmenaHive = myCollect self "colmenaConfigurations";
-      nixosConfigurations = myCollect self "nixosConfigurations";
-      darwinConfigurations = myCollect self "darwinConfigurations";
-      devShells = inputs.std.harvest inputs.self [ "automation" "shells" ];
-    };
-
+      };
 }
