@@ -1,4 +1,16 @@
 {
+  stonedoor = {pkgs, ...}: {
+    bee.system = "x86_64-linux";
+    bee.pkgs = import inputs.nixos {
+      inherit (inputs.nixpkgs) system;
+    };
+    imports = [
+      cell.nixosModules.common
+      cell.nixosModules.gikos-kranium
+      cell.hardwareProfiles.stonedoor
+      ./stonedoor/configuration.nix
+    ];
+  };
 
   vhagar = {pkgs, ...}: {
     bee.system = "x86_64-linux";

@@ -673,10 +673,11 @@
         "std": "std_2"
       },
       "locked": {
-        "dirtyRev": "081ca5461e9b04c5bce9121e029d185d4082c8bf-dirty",
-        "dirtyShortRev": "081ca54-dirty",
-        "lastModified": 1713689006,
-        "narHash": "sha256-LdaVF/394vbqmwg94m1rFhh17HJqo5QlKfLMzT+K0U0=",
+        "lastModified": 1713872810,
+        "narHash": "sha256-yWMiocTlf7/yJK6rWk5ozjqna4p7O2RhBC565zHy0Js=",
+        "ref": "refs/heads/master",
+        "rev": "5507db4e1eefe5e637559d400b6c83d1fd9742c3",
+        "revCount": 1,
         "type": "git",
         "url": "file:///home/kranium/git/github.com/womfoo/lihim"
       },
