@@ -28,11 +28,11 @@
     "nixiosk.cachix.org-1:A4kH9p+y9NjDWj0rhaOnv3OLIOPTbjRIsXRPEeTtiS4="
   ];
   nix.extraOptions = ''
-    keep-outputs = true
-    extra-platforms = aarch64-linux
-    experimental-features = nix-command flakes
     allow-import-from-derivation = true
+    experimental-features = nix-command flakes fetch-closure
+    extra-platforms = aarch64-linux
     extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
+    keep-outputs = true
   '';
   nix.settings.sandbox = false;
 

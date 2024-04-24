@@ -17,6 +17,7 @@
         { package = stow; }
         { package = nixfmt-rfc-style; }
         { package = terraform-backend-git; }
+        { package = pixiecore; }
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

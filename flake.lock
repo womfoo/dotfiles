@@ -230,6 +230,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713875178,
+        "narHash": "sha256-FFJ4dojuziC6HLxugW+2YJ1P+m5veDq0WZSpZRSm/SY=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "dea314155a9b8a4de242bdd4c005ba8a5dce8385",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "dmerge": {
       "inputs": {
         "haumea": [
@@ -673,11 +693,10 @@
         "std": "std_2"
       },
       "locked": {
-        "lastModified": 1713872810,
-        "narHash": "sha256-yWMiocTlf7/yJK6rWk5ozjqna4p7O2RhBC565zHy0Js=",
-        "ref": "refs/heads/master",
-        "rev": "5507db4e1eefe5e637559d400b6c83d1fd9742c3",
-        "revCount": 1,
+        "dirtyRev": "a5b431c7629fcafbeef0d6ebf6660f8af3642bbb-dirty",
+        "dirtyShortRev": "a5b431c-dirty",
+        "lastModified": 1714120676,
+        "narHash": "sha256-yFhwSzfy5m+TDznMxPgqCL0yRr/RBzWRqsWLszM5z6A=",
         "type": "git",
         "url": "file:///home/kranium/git/github.com/womfoo/lihim"
       },
@@ -1061,6 +1080,7 @@
         "colmena": "colmena",
         "darwin": "darwin",
         "devshell": "devshell",
+        "disko": "disko",
         "hive": "hive",
         "home": [
           "home-23-11"

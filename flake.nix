@@ -9,6 +9,8 @@
     darwin.url = "github:LnL7/nix-darwin";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive";
@@ -80,6 +82,7 @@
             darwinConfigurations
             nixosConfigurations
             colmenaConfigurations
+            diskoConfigurations
 
             (devshells "shells")
           ];
@@ -87,10 +90,32 @@
       {
         colmenaHive = myCollect self "colmenaConfigurations";
         nixosConfigurations = myCollect self "nixosConfigurations";
+        diskoConfigurations = myCollect self "diskoConfigurations";
         darwinConfigurations = myCollect self "darwinConfigurations";
         devShells = inputs.std.harvest inputs.self [
           "repo"
           "shells"
         ];
+      }
+      {
+        packages.x86_64-linux.netboot-dreadfort = inputs.nixpkgs.legacyPackages.x86_64-linux.symlinkJoin {
+          name = "netboot-dreadfort";
+          paths = with self.nixosConfigurations.dreadfort.config.system.build; [
+            netbootRamdisk
+            kernel
+            netbootIpxeScript
+            myInit
+          ];
+        };
+        packages.x86_64-linux.pixecore-dreadfort = inputs.nixpkgs.legacyPackages.x86_64-linux.symlinkJoin {
+          name = "netboot-dreadfort";
+          paths = with self.nixosConfigurations.dreadfort.config.system.build; [
+            netbootRamdisk
+            kernel
+            netbootIpxeScript
+            myInit
+          ];
+        };
+
       };
 }
