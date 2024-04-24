@@ -89,7 +89,7 @@
         nixosConfigurations = myCollect self "nixosConfigurations";
         darwinConfigurations = myCollect self "darwinConfigurations";
         devShells = inputs.std.harvest inputs.self [
-          "automation"
+          "repo"
           "shells"
         ];
       };
