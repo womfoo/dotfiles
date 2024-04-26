@@ -17,4 +17,5 @@
   services.router.config.passwordFile = inputs.lihim.x86_64-linux.lihim.lib.mkHostApdPasswordFile;
   services.router.enable = true;
   system.stateVersion = "24.05";
+  environment.systemPackages = with pkgs; [ tmux picocom ];
 }
