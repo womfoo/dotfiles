@@ -18,13 +18,16 @@ in
   };
   imports = [
     inputs.home.nixosModule
+    inputs.cardano-db-sync.nixosModules.cardano-db-sync
     cell.nixosModules.common
     cell.nixosModules.builder
+    cell.nixosModules.daedalus-db-sync
     cell.nixosModules.desktop-apps
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.hardwareProfiles.vhagar
   ];
+
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
   nix.distributedBuilds = true;

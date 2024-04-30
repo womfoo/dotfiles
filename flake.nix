@@ -1,6 +1,5 @@
 {
   description = "Config";
-
   inputs = {
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "std/blank";
@@ -30,8 +29,8 @@
     std.url = "github:divnix/std/v0.33.0";
     terranix.url = "github:terranix/terranix";
     terranix.inputs.nixpkgs.follows = "nixpkgs";
+    cardano-db-sync.url = "github:IntersectMBO/cardano-db-sync";
   };
-
   outputs =
     {
       std,
