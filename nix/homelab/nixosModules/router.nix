@@ -180,20 +180,32 @@ with lib;
         ];
         valid-lifetime = 86400;
       };
-
-      systemd.services.hostapd = {
-        description = "IEEE 802.11 Host Access-Point Daemon";
-
-        path = [ pkgs.hostapd ];
-        after = [ "sys-subsystem-net-devices-${finalConf.wireless.interface}.device" ];
-        bindsTo = [ "sys-subsystem-net-devices-${finalConf.wireless.interface}.device" ];
-        wantedBy = [ "multi-user.target" ];
-
-        serviceConfig = {
-          ExecStart = "${pkgs.hostapd}/bin/hostapd ${hostapdConf finalConf.passwordFile}";
-          Restart = "always";
-          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-          RuntimeDirectory = "hostapd";
+      services.hostapd = {
+        enable = true;
+        radios = {
+          "${finalConf.wireless.interface}" = {
+            wifi4.capabilities = [
+              "HT40"
+              "HT40-"
+              "SHORT-GI-20"
+              "SHORT-GI-40"
+              "TX-STBC"
+              "RX-STBC1"
+              "MAX-AMSDU-3839"
+              "DSSS_CCK-40"
+            ];
+            networks."${finalConf.wireless.interface}" = {
+              settings = {
+                wpa = "2";
+              };
+              ssid = finalConf.wireless.ssid;
+              authentication = {
+                mode = "none";
+                # mode = "wpa3-sae-transition";
+                wpaPskFile = finalConf.passwordFile;
+              };
+            };
+          };
         };
       };
     };

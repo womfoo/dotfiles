@@ -114,6 +114,7 @@
     gnome.eog
     gnome.evince
     gnome.file-roller
+    gnome.nautilus
     gnome.seahorse # edit items in gnome-keyring
     # gnucash
     # gnumeric
@@ -238,6 +239,7 @@
     kubernetes-helm
     # languagetool # very-basic grammarly
     light
+    libheif # make nautilus thumbnail HEIC, also requires pathToLink = share/thumbnailers
     libimobiledevice # idevice pair 00000000-0000000000000000
     libnotify # notify-send pp
     libphonenumber
@@ -486,4 +488,7 @@
     # zsync
     # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
   ];
+
+  environment.pathsToLink = [ "share/thumbnailers" ];
+
 }
