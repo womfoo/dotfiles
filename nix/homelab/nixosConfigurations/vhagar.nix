@@ -19,6 +19,8 @@ in
   imports = [
     inputs.home.nixosModule
     inputs.cardano-db-sync.nixosModules.cardano-db-sync
+    inputs.cardano-node.nixosModules.cardano-node
+    inputs.cardano-wallet.nixosModules.cardano-wallet
     cell.nixosModules.common
     cell.nixosModules.builder
     cell.nixosModules.daedalus-db-sync
@@ -27,7 +29,12 @@ in
     cell.nixosModules.gikos-kranium-hm
     cell.hardwareProfiles.vhagar
   ];
-
+  # FIXME: move to devshell
+  environment.systemPackages = [
+    inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet
+    inputs.cardano-cli.packages.x86_64-linux."cardano-cli:exe:cardano-cli"
+  ];
+  # services.cardano-wallet.package = inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet;
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
   nix.distributedBuilds = true;
@@ -59,6 +66,7 @@ in
   #services.fprintd.enable = true;
   services.fwupd.enable = true;
   # services.fwupd.enableTestRemote = true;
+  # services.grafana.enable = true;
   services.hardware.bolt.enable = true;
   services.k3s.enable = true;
   services.k3s.extraFlags = ''

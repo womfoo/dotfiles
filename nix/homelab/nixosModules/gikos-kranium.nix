@@ -18,6 +18,7 @@
       "paperless"
       "qemu-libvirtd"
       "scanner"
+      "users"
       "vboxusers"
       "video"
       "wheel"

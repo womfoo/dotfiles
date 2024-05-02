@@ -46,12 +46,24 @@
     device = "data/daedalus";
     fsType = "zfs";
   };
+  fileSystems."/var/db/postgresql" = {
+    device = "data/postgresql";
+    fsType = "zfs";
+  };
   fileSystems."/var/lib/docker" = {
     device = "data/docker";
     fsType = "zfs";
   };
   fileSystems."/var/lib/rancher" = {
     device = "data/rancher";
+    fsType = "zfs";
+  };
+  fileSystems."/var/lib/private/cexplorer-mainnet" = {
+    device = "data/dbsync-lstate-mainnet";
+    fsType = "zfs";
+  };
+  fileSystems."/var/lib/private/cexplorer-preprod" = {
+    device = "data/dbsync-lstate-preprod";
     fsType = "zfs";
   };
   fileSystems."/zfstemp" = {
