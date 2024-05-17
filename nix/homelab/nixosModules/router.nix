@@ -92,6 +92,15 @@ with lib;
         metric 100
       '';
 
+      services.avahi = {
+        enable = true;
+        allowInterfaces = [
+          finalConf.wired.interface
+          finalConf.wireless.interface
+        ];
+        reflector = true;
+      };
+
       networking = {
         # wireless.enable = true; # do not enable, turns on supplicant
         interfaces = {

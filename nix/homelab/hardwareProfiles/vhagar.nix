@@ -46,12 +46,16 @@
     device = "data/daedalus";
     fsType = "zfs";
   };
-  fileSystems."/var/db/postgresql" = {
-    device = "data/postgresql";
-    fsType = "zfs";
-  };
   fileSystems."/var/lib/docker" = {
     device = "data/docker";
+    fsType = "zfs";
+  };
+  fileSystems."/var/lib/libvirt" = {
+    device = "data/libvirt";
+    fsType = "zfs";
+  };
+  fileSystems."/var/lib/postgresql" = {
+    device = "data/postgresql";
     fsType = "zfs";
   };
   fileSystems."/var/lib/rancher" = {

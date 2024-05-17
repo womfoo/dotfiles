@@ -69,11 +69,11 @@ in
   # services.grafana.enable = true;
   services.hardware.bolt.enable = true;
   services.k3s.enable = true;
-  services.k3s.extraFlags = ''
-    --disable traefik
-    --server-arg '--kubelet-arg=eviction-hard=imagefs.available<5%,nodefs.available<5%' \
-    --server-arg '--kubelet-arg=eviction-minimum-reclaim=imagefs.available=5%,nodefs.available=5%'
-  '';
+  services.k3s.extraFlags = toString [
+   "--disable traefik"
+   "--kubelet-arg=eviction-hard=imagefs.available<2%,nodefs.available<2%"
+   "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=2%,nodefs.available=2%"
+  ];
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
   services.nfs.server.mountdPort = 47001;
@@ -82,6 +82,7 @@ in
     # virbr1 iface
     /home/kranium/vagrantboxen/debian-bookworm64 192.168.121.1/24(rw,no_root_squash,no_subtree_check)
   '';
+
   services.paperless.enable = true;
   services.pipewire = {
     enable = true;
@@ -126,9 +127,18 @@ in
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 
+  # TODO review ports
   networking.firewall.interfaces."virbr1" = {
-    allowedTCPPorts = [ 2049 ];
-    allowedUDPPorts = [ 2049 ];
+    allowedTCPPorts = [ 2049
+                        config.services.nfs.server.statdPort
+                        config.services.nfs.server.mountdPort
+                        config.services.nfs.server.lockdPort
+                      ];
+    allowedUDPPorts = [ 2049
+                        config.services.nfs.server.statdPort
+                        config.services.nfs.server.mountdPort
+                        config.services.nfs.server.lockdPort
+                      ];
   };
 
   system.stateVersion = "22.05";

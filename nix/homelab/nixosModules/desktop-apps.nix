@@ -97,7 +97,7 @@
     freecad
     forkstat
     # fpm
-    fprintd
+    # fprintd # fingerprint daemon, build timeouts
     # freecad
     fx
     fzf
@@ -222,6 +222,7 @@
     iptraf-ng
     ispell
     iw
+    jetbrains.idea-community
     # jmeter
     jq
     jmtpfs
@@ -259,6 +260,7 @@
     mat2 # metadata anonymization
     mc
     meld
+    metals
     minicom
     # minikube
     # monero
@@ -381,7 +383,7 @@
     rust-analyzer
     rustc
     rxvt-unicode
-    # sbt
+    (sbt.override { jre = jdk17; })
     # scala_3
     screen
     scrot
