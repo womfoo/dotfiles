@@ -157,7 +157,7 @@
         vty
         cursor
         lens
-        xmobar
+        # xmobar
         dbus
         hpdft
         # skylighting
@@ -300,7 +300,7 @@
     # okular
     # openjdk11_headless
     # openjdk17_headless
-    openjdk19_headless
+    # openjdk19_headless
     # openjdk21_headless
     openldap # ldapsearch
     openssl
@@ -336,7 +336,7 @@
     procmail # lockfile
     protobuf # protoc
     psmisc # killall
-    pssh
+    # pssh
     pulsemixer
     pv
     # pypi2nix # unmaintained
@@ -377,13 +377,13 @@
     rsync
     # rtl-sdr
     rtorrent
-    tty-share
+    # tty-share
     # ruby # test if this fights with vagrant
     # runc
     rust-analyzer
     rustc
     rxvt-unicode
-    (sbt.override { jre = jdk17; })
+    # (sbt.override { jre = jdk17; })
     # scala_3
     screen
     scrot

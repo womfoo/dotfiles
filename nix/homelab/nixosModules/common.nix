@@ -30,7 +30,7 @@
   nix.extraOptions = ''
     keep-outputs = true
     extra-platforms = aarch64-linux
-    experimental-features = nix-command flakes
+    experimental-features = nix-command flakes fetch-closure
     allow-import-from-derivation = true
     extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
   '';
