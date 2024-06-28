@@ -69,7 +69,7 @@ in
     services.gpg-agent.enable = true;
     services.gpg-agent.maxCacheTtl = 14400;
     services.gpg-agent.grabKeyboardAndMouse = false;
-    services.gpg-agent.pinentryFlavor = "emacs";
+    # services.gpg-agent.pinentryFlavor = "emacs";
     # services.gpg-agent.pinentryFlavor = "gnome3";
     # services.gpg-agent.pinentryFlavor = "curses";
     # Type: null or one of “curses”, “tty”, “gtk2”, “emacs”, “gnome3”, “qt”

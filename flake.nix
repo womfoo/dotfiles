@@ -5,9 +5,11 @@
     cardano-db-sync.url = "github:IntersectMBO/cardano-db-sync";
     cardano-node.url = "github:IntersectMBO/cardano-node/8.9.2";
     cardano-parts.url = "github:input-output-hk/cardano-parts";
+    cardano-addresses.url = "github:input-output-hk/cardano-addresses";
     cardano-wallet = {
+      url = "github:cardano-foundation/cardano-wallet/v2024-05-05";
       # url = "github:cardano-foundation/cardano-wallet/v2024-03-27"; # needs node 8+
-      url = "github:cardano-foundation/cardano-wallet/v2023-04-14";
+      # url = "github:cardano-foundation/cardano-wallet/v2023-04-14";
     };
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "std/blank";
@@ -19,15 +21,15 @@
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive";
-    home-23-11.url = "github:nix-community/home-manager/release-23.11";
-    home.follows = "home-23-11";
+    home.url = "github:nix-community/home-manager";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos.follows = "nixpkgs";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";
     };

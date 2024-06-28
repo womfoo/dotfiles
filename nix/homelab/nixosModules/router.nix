@@ -156,6 +156,7 @@ with lib;
         renew-timer = 1000;
         subnet4 = [
           {
+            id = 1;
             pools = [
               { pool = "${finalConf.wireless.dhcpLowerRange} - ${finalConf.wireless.dhcpUpperRange}"; }
             ];
@@ -172,6 +173,7 @@ with lib;
             ];
           }
           {
+            id = 2;
             pools = [ { pool = "${finalConf.wired.dhcpLowerRange} - ${finalConf.wired.dhcpUpperRange}"; } ];
             subnet = "${finalConf.wired.subnet}/24";
             option-data = [

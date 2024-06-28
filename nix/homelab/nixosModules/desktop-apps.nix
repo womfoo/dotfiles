@@ -429,7 +429,7 @@
     # timetrap
     tmate
     tmux
-    tmux-cssh
+    # tmux-cssh
     (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
     trayer
     tree
@@ -454,7 +454,7 @@
     wavemon # wifi diag
     wget
     which
-    wire-desktop
+    # wire-desktop
     wirelesstools # iwconfig
     wireshark
     # wkhtmltopdf # vulnerable qtwebkit-5.212.0-alpha4
@@ -468,6 +468,7 @@
     xorg.xkill
     xorg.xwd
     xmlsec
+    xmobar
     xournal
     xorg.xauth
     xorg.xev
