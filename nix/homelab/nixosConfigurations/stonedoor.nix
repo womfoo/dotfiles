@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos { inherit (inputs.nixpkgs) system; };
+  bee.pkgs = import inputs.nixos-24-05 { inherit (inputs.nixpkgs) system; };
   environment.systemPackages = with pkgs; [
     darcs
     vim

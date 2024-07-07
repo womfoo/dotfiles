@@ -27,6 +27,7 @@
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos.follows = "nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";

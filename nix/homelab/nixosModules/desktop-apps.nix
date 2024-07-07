@@ -6,6 +6,7 @@
     # abiword
     acpi
     acpica-tools # was pmtools # acpidump
+    adwaita-icon-theme
     # adoptopenjdk-jre-bin # java
     # aircrack-ng
     alsa-utils
@@ -43,6 +44,7 @@
     # certbot
     cdrkit # wodim
     # cfssl
+    cheese
     # chromedriver
     # chromium
     cifs-utils
@@ -80,8 +82,10 @@
     elfutils
     emacs
     emojipick
+    eog
     encfs
     ethtool
+    evince
     exfat
     facter
     f2fs-tools
@@ -89,6 +93,7 @@
     # ffmpeg
     ffmpeg-full
     file
+    file-roller
     find-cursor
     # firefox
     flac
@@ -103,19 +108,13 @@
     fzf
     geoip
     gh
+    ghidra
     ghostscript # needed by emacs doc-view
     gimp
     gitAndTools.hub
     gitFull
     glances
     glxinfo
-    gnome.adwaita-icon-theme
-    gnome.cheese
-    gnome.eog
-    gnome.evince
-    gnome.file-roller
-    gnome.nautilus
-    gnome.seahorse # edit items in gnome-keyring
     # gnucash
     # gnumeric
     gnupg
@@ -150,54 +149,15 @@
       with haskellPackages;
       with pkgs.haskell.lib;
       [
-        network
         aeson
         aeson-qq
-        # brick # 964 bork
-        vty
         cursor
-        lens
-        # xmobar
         dbus
         hpdft
-        # skylighting
-        # highlighting-kate
-        # # arduino-copilot
-        # pi-lcd # 964 bork
-        # getopt-generics
-        # stack
-        # HPDF
-        # HTF
-        # HsOpenSSL
-        # # bech32
-        # brick
-        # # brittany 9.2
-        # cabal-install
-        # cabal2nix
-        # duckling
-        # esqueleto
-        # fast-logger
-        # hlint
-        # hnix
-        # hnix-store-remote
-        # http-conduit
-        # mysql-simple
-        # netlink
-        # network-info
-        # nix-derivation # pretty
-        # nix-diff
-        # nix-tree
-        # password
-        # postgresql-simple
-        # # reanimate # fails on ghc 9.2 https://github.com/reanimate/reanimate/issues/299
-        # semver-range
-        # torrent
-        # turtle
-        # xmobar
-        # xmonad
-        # xmonad-contrib
-        # # yeganesh
-        # Monadoro
+        lens
+        network
+        timeline
+        vty
       ]
     ))
     # hfsprogs
@@ -270,6 +230,7 @@
     # msf
     mtools
     (mtr.override { withGtk = true; })
+    nautilus
     ncdu
     # neovim
     net-snmp
@@ -283,7 +244,7 @@
     nix-index
     nix-output-monitor
     nix-prefetch-git
-    nix-top
+    # nix-top
     nixfmt-rfc-style
     # nixos-shell
     # nixops
@@ -385,6 +346,7 @@
     rxvt-unicode
     # (sbt.override { jre = jdk17; })
     # scala_3
+    seahorse # edit items in gnome-keyring
     screen
     scrot
     shared-mime-info

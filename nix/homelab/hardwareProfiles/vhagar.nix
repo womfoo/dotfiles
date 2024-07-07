@@ -76,20 +76,17 @@
   };
   hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.nvidia.modesetting.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.sane.drivers.scanSnap.enable = true;
-  hardware.sane.enable = true;
-  hardware.enableAllFirmware = true;
-  # for steam to work
-  hardware.opengl = {
-    driSupport = true;
-    # driSupport32Bit = true;
+  hardware.graphics = {
     extraPackages = with pkgs; [
       libvdpau-va-gl
       vaapiVdpau
     ];
   };
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.sane.drivers.scanSnap.enable = true;
+  hardware.sane.enable = true;
+  hardware.enableAllFirmware = true;
   powerManagement.cpuFreqGovernor = "performance"; # defaults to powersave
   swapDevices = [ ];
 }

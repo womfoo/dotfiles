@@ -4,7 +4,7 @@ in
 # noplay = true;
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos {
+  bee.pkgs = import inputs.nixpkgs {
     inherit (inputs.nixpkgs) system;
     config.allowBroken = true;
     config.allowUnfree = true;
@@ -18,21 +18,23 @@ in
   };
   imports = [
     inputs.home.nixosModule
-    inputs.cardano-db-sync.nixosModules.cardano-db-sync
-    inputs.cardano-node.nixosModules.cardano-node
-    inputs.cardano-wallet.nixosModules.cardano-wallet
+    # inputs.cardano-db-sync.nixosModules.cardano-db-sync
+    # inputs.cardano-node.nixosModules.cardano-node
+    # inputs.cardano-wallet.nixosModules.cardano-wallet
     cell.nixosModules.common
     cell.nixosModules.builder
-    cell.nixosModules.daedalus-db-sync
+    # cell.nixosModules.daedalus-db-sync
     cell.nixosModules.desktop-apps
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.hardwareProfiles.vhagar
   ];
+
   # FIXME: move to devshell
   environment.systemPackages = [
-    inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet
-    inputs.cardano-cli.packages.x86_64-linux."cardano-cli:exe:cardano-cli"
+    # inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet
+    # inputs.cardano-cli.packages.x86_64-linux."cardano-cli:exe:cardano-cli"
+    # inputs.cardano-addresses.packages.x86_64-linux."cardano-addresses-cli:exe:cardano-address"
   ];
   # services.cardano-wallet.package = inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet;
   nix.settings.cores = 10;
@@ -74,6 +76,7 @@ in
    "--kubelet-arg=eviction-hard=imagefs.available<2%,nodefs.available<2%"
    "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=2%,nodefs.available=2%"
   ];
+  services.libinput.enable = true;
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
   services.nfs.server.mountdPort = 47001;
@@ -120,7 +123,6 @@ in
   services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.enable = true;
-  services.xserver.libinput.enable = true;
   services.xserver.synaptics.enable = false;
   services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.wacom.enable = true; # havent figured out the eraser yet
@@ -141,7 +143,7 @@ in
                       ];
   };
 
-  system.stateVersion = "22.05";
+  system.stateVersion = "24.05";
   systemd.watchdog.device = "/dev/watchdog";
   virtualisation.docker = {
     enable = true;
@@ -157,4 +159,21 @@ in
   };
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
+
+  power.ups = {
+    enable = true;
+    ups.slimlineups = {
+      # port = "/dev/ttyUSB0";
+      port = "/dev/ttyUSB1";
+      driver = "nutdrv_qx"; # "blazer_usb" does not work;
+    };
+    upsmon = {
+      enable = true;
+      # upsmon.settings.MINSUPPLIES = 1;
+      # monitor.slimlineups = {
+      #   user = "admin";
+      #   passwordFile = "wtf";
+      # };
+    };
+  };
 }

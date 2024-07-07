@@ -6539,6 +6539,22 @@
         "type": "github"
       }
     },
+    "nixos-24-05": {
+      "locked": {
+        "lastModified": 1720110830,
+        "narHash": "sha256-E5dN9GDV4LwMEduhBLSkyEz51zM17XkWZ3/9luvNOPs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c0d0be00d4ecc4b51d2d6948e37466194c1e6c51",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1715881912,
@@ -8245,10 +8261,11 @@
     },
     "nixpkgs_43": {
       "locked": {
-        "dirtyRev": "9b10b8f00cb5494795e5f51b39210fed4d2b0748-dirty",
-        "dirtyShortRev": "9b10b8f00cb5-dirty",
-        "lastModified": 1718870667,
-        "narHash": "sha256-wmAxGrAjSi/ZESd2bo6SUAo068sRbSi1ul9hjppl1SY=",
+        "lastModified": 1720340368,
+        "narHash": "sha256-Cm8XI37ipfCnAG2e2J3zfORNa5VKJs6UIvWNu+xlGoo=",
+        "ref": "refs/heads/realhotfix",
+        "rev": "7e4f0641ddb9468b4b69a8e0dce31fff151e975c",
+        "revCount": 647195,
         "type": "git",
         "url": "file:///home/kranium/git/github.com/womfoo/nixpkgs"
       },
@@ -9158,6 +9175,7 @@
         "nixos": [
           "nixpkgs"
         ],
+        "nixos-24-05": "nixos-24-05",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_43",
         "nur": "nur",
