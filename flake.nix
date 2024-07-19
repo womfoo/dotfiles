@@ -34,6 +34,7 @@
     nur = {
       url = "github:nix-community/NUR";
     };
+    srvos.url = "github:nix-community/srvos";
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";

@@ -8274,6 +8274,22 @@
         "url": "file:///home/kranium/git/github.com/womfoo/nixpkgs"
       }
     },
+    "nixpkgs_44": {
+      "locked": {
+        "lastModified": 1720340162,
+        "narHash": "sha256-iVLH0Ygtw/Iw9Q1cFFX7OhNnoPbc7/ZWW6J3c0zbiZw=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "60a94e515488e335bd5bce096431d490486915e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_5": {
       "locked": {
         "lastModified": 1653581809,
@@ -9179,6 +9195,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_43",
         "nur": "nur",
+        "srvos": "srvos",
         "std": "std_8",
         "terranix": "terranix_2"
       }
@@ -9535,6 +9552,24 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "srvos": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_44"
+      },
+      "locked": {
+        "lastModified": 1720400448,
+        "narHash": "sha256-v7JVJ8H1PyH7/8EU72mz7wzxJ1OLE/h3NCqQyZ6ONjs=",
+        "owner": "nix-community",
+        "repo": "srvos",
+        "rev": "21a3259985e3cddc455f64ad66d4a825b39934ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "srvos",
         "type": "github"
       }
     },

@@ -28,6 +28,7 @@ in
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.hardwareProfiles.vhagar
+    inputs.srvos.nixosModules.mixins-telegraf
   ];
 
   # FIXME: move to devshell
@@ -129,6 +130,12 @@ in
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
 
+  networking.firewall.interfaces.enp9s0u2u1u2 = {
+    allowedTCPPorts = [
+      9273 # telegraf promclient
+    ];
+  };
+
   # TODO review ports
   networking.firewall.interfaces."virbr1" = {
     allowedTCPPorts = [ 2049
@@ -159,6 +166,8 @@ in
   };
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
+
+  services.telegraf.extraConfig.inputs.upsd = {};
 
   power.ups = {
     enable = true;

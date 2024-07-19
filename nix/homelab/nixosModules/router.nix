@@ -137,7 +137,7 @@ with lib;
         };
       };
 
-      environment.systemPackages = with pkgs; [ iw ];
+      environment.systemPackages = with pkgs; [ dhcpcd iw libimobiledevice ];
 
       services.kea.dhcp4.enable = true;
       services.kea.dhcp4.settings = {

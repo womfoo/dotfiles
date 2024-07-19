@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos-24-05 {
+  bee.pkgs = import inputs.srvos.inputs.nixpkgs {
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };
@@ -11,19 +11,30 @@
     cell.nixosModules.common
     cell.nixosModules.gikos-kranium
     cell.nixosModules.router
+    inputs.srvos.nixosModules.server
+    inputs.srvos.nixosModules.roles-prometheus
   ];
+  networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
   networking.hostName = "waycastle";
   services.fwupd.enable = true;
   services.router.config.passwordFile = inputs.lihim.x86_64-linux.lihim.lib.mkHostApdPasswordFile;
   # services.router.config.wan.interface = "tun0";
+  # services.router.config.wan.interface = "eth0"; # iphone backup
+  services.router.config.wireless.interface = "wlp2s0";
   services.router.enable = true;
-  system.stateVersion = "24.05";
-  environment.systemPackages = with pkgs; [ tmux picocom ];
-
+  environment.systemPackages = with pkgs; [ picocom ];
+  # services.prometheus.globalConfig.scrape_interval = "10s"; # "1m"
+  services.prometheus.scrapeConfigs = [
+    {
+      job_name = "node";
+      static_configs = [{
+        targets = [ "172.19.86.52:9273" ];
+      }];
+    }
+  ];
   # services.openvpn.servers = {
   #   mullvadUSA  = {
   #     autoStart = true;
   #     config = '' config /srv/mullvad_config_linux_us_sjc/mullvad_us_sjc.conf ''; };
   # };
-
 }

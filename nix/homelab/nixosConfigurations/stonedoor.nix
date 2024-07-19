@@ -1,16 +1,17 @@
 { pkgs, ... }:
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos-24-05 { inherit (inputs.nixpkgs) system; };
+  bee.pkgs = import inputs.srvos.inputs.nixpkgs { inherit (inputs.nixpkgs) system; };
   environment.systemPackages = with pkgs; [
     darcs
-    vim
     wget
   ];
   imports = [
     cell.hardwareProfiles.stonedoor
     cell.nixosModules.common
     cell.nixosModules.gikos-kranium
+    inputs.srvos.nixosModules.server
+    inputs.srvos.nixosModules.mixins-nginx
   ];
   networking.domain = "gikos.net";
   networking.firewall.allowedTCPPorts = [
@@ -22,11 +23,6 @@
   networking.useDHCP = false;
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "kranium@gikos.net";
-  services.fail2ban.enable = true;
-  services.fail2ban.jails.ssh-iptables = "enabled = true";
-  services.fail2ban.maxretry = 1;
-  services.nginx.enable = true;
-  services.nginx.recommendedProxySettings = true;
   services.nginx.virtualHosts = {
     "gikos.net" = {
       forceSSL = true;
@@ -44,8 +40,5 @@
       globalRedirect = "https://gikos.net";
     };
   };
-  services.openssh.gatewayPorts = "yes";
-  services.openssh.extraConfig = ''
-    AllowTcpForwarding yes
-  '';
+  services.sshguard.enable = true;
 }
