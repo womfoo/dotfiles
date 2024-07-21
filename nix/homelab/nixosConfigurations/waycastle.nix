@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  inherit (inputs.lihim.lihim) constants lib;
+in
 {
   bee.system = "x86_64-linux";
   bee.pkgs = import inputs.srvos.inputs.nixpkgs {
@@ -17,18 +20,19 @@
   networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
   networking.hostName = "waycastle";
   services.fwupd.enable = true;
-  services.router.config.passwordFile = inputs.lihim.x86_64-linux.lihim.lib.mkHostApdPasswordFile;
+  services.router.config.passwordFile = lib.mkHostApdPasswordFile;
   # services.router.config.wan.interface = "tun0";
   # services.router.config.wan.interface = "eth0"; # iphone backup
   services.router.config.wireless.interface = "wlp2s0";
   services.router.enable = true;
+  services.router.inventory = constants.devices;
   environment.systemPackages = with pkgs; [ picocom ];
   # services.prometheus.globalConfig.scrape_interval = "10s"; # "1m"
   services.prometheus.scrapeConfigs = [
     {
       job_name = "node";
       static_configs = [{
-        targets = [ "172.19.86.52:9273" ];
+        targets = [ "${constants.devices.vhagar.interfaces.lan.mac}:9273" ];
       }];
     }
   ];

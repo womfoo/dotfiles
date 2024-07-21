@@ -29,6 +29,19 @@ let
     passwordFile = "/root/yolopasswords.txt";
   };
 
+  hasInterface = ifname : device :
+    lib.hasAttrByPath ["interfaces" ifname "ip" ] device &&
+    lib.hasAttrByPath ["interfaces" ifname "mac" ] device ;
+
+  inventoryWithInterface = ifname: devs: lib.filterAttrs (_: v: hasInterface ifname v) devs;
+
+  keaReservationFromInt = ifname: devs:
+      lib.mapAttrsToList (_: v: { hw-address =  lib.attrsets.getAttrFromPath ["interfaces" ifname "mac" ] v;
+                                  ip-address = lib.attrsets.getAttrFromPath ["interfaces" ifname "ip"] v;
+                                }
+                                  )
+        (inventoryWithInterface ifname devs);
+
   hostapdConf =
     pf:
     pkgs.writeText "hostapd-config" ''
@@ -62,6 +75,10 @@ with lib;
         '';
       };
       config = mkOption {
+        type = types.attrs;
+        default = { };
+      };
+      inventory = mkOption {
         type = types.attrs;
         default = { };
       };
@@ -171,6 +188,7 @@ with lib;
                 data = "8.8.8.8,8.8.4.4";
               }
             ];
+            reservations = keaReservationFromInt "wlan" cfg.inventory;
           }
           {
             id = 2;
@@ -187,6 +205,7 @@ with lib;
                 data = "8.8.8.8,8.8.4.4";
               }
             ];
+            reservations = keaReservationFromInt "lan" cfg.inventory;
           }
         ];
         valid-lifetime = 86400;
