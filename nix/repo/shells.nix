@@ -10,13 +10,13 @@
         # { package = k9s; }
         # { package = kubectl; }
         # { package = kubernetes-helm; }
-        { package = terraform; }
+        # { package = terraform; }
         { package = colmena; }
         { package = hledger; }
         { package = sops; }
         { package = stow; }
         { package = nixfmt-rfc-style; }
-        { package = terraform-backend-git; }
+        # { package = terraform-backend-git; }
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

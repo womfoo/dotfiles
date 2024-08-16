@@ -27,6 +27,7 @@ in
     cell.nixosModules.desktop-apps
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
+    cell.nixosModules.gikos-dockertest
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
   ];
@@ -132,6 +133,8 @@ in
 
   networking.firewall.interfaces.enp9s0u2u1u2 = {
     allowedTCPPorts = [
+      80
+      443
       9273 # telegraf promclient
     ];
   };
@@ -172,17 +175,26 @@ in
   power.ups = {
     enable = true;
     ups.slimlineups = {
-      # port = "/dev/ttyUSB0";
-      port = "/dev/ttyUSB1";
+      port = "/dev/ttyUSB0";
+      # port = "/dev/ttyUSB1";
       driver = "nutdrv_qx"; # "blazer_usb" does not work;
     };
     upsmon = {
       enable = true;
       # upsmon.settings.MINSUPPLIES = 1;
-      # monitor.slimlineups = {
-      #   user = "admin";
-      #   passwordFile = "wtf";
-      # };
+      monitor.slimlineups = {
+        user = "admin";
+        passwordFile = "wtf";
+      };
     };
   };
+
+  # https://discourse.nixos.org/t/can-i-inspect-the-installed-versions-of-system-packages/2763/15
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in formatted;
+
 }

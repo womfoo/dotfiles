@@ -82,8 +82,11 @@
       vaapiVdpau
     ];
   };
-  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  hardware.nvidia.open = true;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   hardware.sane.drivers.scanSnap.enable = true;
   hardware.sane.enable = true;
   hardware.enableAllFirmware = true;

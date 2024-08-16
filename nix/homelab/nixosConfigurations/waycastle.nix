@@ -8,6 +8,7 @@ in
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };
+  hardware.cpu.intel.updateMicrocode = true;
   hardware.enableRedistributableFirmware = true;
   imports = [
     cell.hardwareProfiles.waycastle
@@ -41,4 +42,5 @@ in
   #     autoStart = true;
   #     config = '' config /srv/mullvad_config_linux_us_sjc/mullvad_us_sjc.conf ''; };
   # };
+  users.users.root.initialHashedPassword = constants.defRootPasswordHash;
 }

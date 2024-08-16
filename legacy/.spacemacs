@@ -47,7 +47,7 @@ This function should only modify configuration layer settings."
      go
      graphviz
      haskell
-     helm
+     (helm :variables helm-enable-auto-resize t)
      html
      javascript
      ;; lsp
@@ -70,7 +70,12 @@ This function should only modify configuration layer settings."
      ;; spell-checking
      ;; syntax-checking
      terraform
-     tree-sitter
+     ;; tree-sitter
+     (tree-sitter :variables
+                  spacemacs-tree-sitter-hl-black-list '(js2-mode rjsx-mode)
+                  tree-sitter-syntax-highlight-enable t
+                  tree-sitter-fold-enable t
+                  tree-sitter-fold-indicators-enable nil)
      treemacs
      typescript
      version-control
@@ -665,5 +670,3 @@ Signed-off-by: Kranium Gikos Mendoza <kraniumgikos.mendoza@iohk.io>"))
 (add-hook 'git-commit-setup-hook 'my-git-commit-setup)
 (display-time-mode 1)
 
-(setq-default dotspacemacs-configuration-layers '(
-                                                  (helm :variables helm-enable-auto-resize t)))

@@ -163,6 +163,13 @@ with lib;
             finalConf.wired.interface
             finalConf.wireless.interface
           ];
+          # FIXME: revisit systemd timing
+          # DHCPSRV_OPEN_SOCKET_FAIL failed to open socket: the interface eth0 has no usable IPv4 addresses configured
+          # DHCPSRV_OPEN_SOCKET_FAIL failed to open socket: the interface wlan0 has no usable IPv4 addresses configured
+          # DHCP4_OPEN_SOCKETS_FAILED maximum number of open service sockets attempts: 0, has been exhausted without success
+          # DHCPSRV_NO_SOCKETS_OPEN no interface configured to listen to DHCP traffic
+          service-sockets-max-retries = 5;
+          service-sockets-retry-wait-time = 5000;
         };
         lease-database = {
           name = "/var/lib/kea/dhcp4.leases";

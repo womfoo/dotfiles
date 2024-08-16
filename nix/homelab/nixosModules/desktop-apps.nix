@@ -20,6 +20,8 @@
     # aria2
     # arion
     # asciinema
+    (aspellWithDicts
+      (dicts: with dicts; [ en en-computers en-science tl ]))
     audacity
     # augeas
     avidemux
@@ -33,6 +35,7 @@
     binutils # ld, ar
     bitcoin
     bluez-tools # bt-device --list
+    # bluetooth_battery
     bmon
     brave
     briss # crop pdf whitespace
@@ -57,7 +60,7 @@
     conntrack-tools
     #cpuminer-multi # deleted upstream
     cryptsetup
-    cura
+    # cura # /nix/store/819gmnvr4j21zc2jpyvij4q1ch6p11nx-cura-4.13.1/bin/cura
     # damon
     darcs
     darktable
@@ -151,6 +154,7 @@
       [
         aeson
         aeson-qq
+        brick
         cursor
         dbus
         hpdft
@@ -188,6 +192,7 @@
     jmtpfs
     jwhois
     # k3b
+    k6
     # kakoune-unwrapped
     kdiff3
     keepassxc
@@ -200,6 +205,7 @@
     kubernetes-helm
     # languagetool # very-basic grammarly
     light
+    libgpiod
     libheif # make nautilus thumbnail HEIC, also requires pathToLink = share/thumbnailers
     libimobiledevice # idevice pair 00000000-0000000000000000
     libnotify # notify-send pp
@@ -215,7 +221,7 @@
     lmdb # mdb_copy for backing up monero
     lsof
     macchanger
-    magic-wormhole
+    # magic-wormhole
     # masterpdfeditor
     mat2 # metadata anonymization
     mc
@@ -306,21 +312,16 @@
       with ps;
       with python3Packages;
       [
-        # (opencv4.override {enableGtk3 = true;})
-        xattr
-        opencv4
-        gunicorn
         binwalk
-        pip
-        # python-lsp-server rope # broken 4-Aug-2022
-        # epc importmagic # python emacs
-        netifaces
-        sqlparse
-        # (pkgs.callPackage ../pkgs/metawear {}) # broken 28-Mar-2023
-        # (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
         bluepy
+        boto3
+        kubernetes
+        # (pkgs.callPackage ../pkgs/metawear {}) # broken 28-Mar-2023
+        netifaces
+        # (opencv4.override {enableGtk3 = true;})
+        opencv4
         pylint
-        pytest
+        # (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
       ]
     ))
     qemu
