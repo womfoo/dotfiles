@@ -1,16 +1,6 @@
 {
   description = "Config";
   inputs = {
-    cardano-cli.url = "github:IntersectMBO/cardano-cli/cardano-cli-8.22.0.0";
-    cardano-db-sync.url = "github:IntersectMBO/cardano-db-sync";
-    cardano-node.url = "github:IntersectMBO/cardano-node/8.9.2";
-    cardano-parts.url = "github:input-output-hk/cardano-parts";
-    cardano-addresses.url = "github:input-output-hk/cardano-addresses";
-    cardano-wallet = {
-      url = "github:cardano-foundation/cardano-wallet/v2024-05-05";
-      # url = "github:cardano-foundation/cardano-wallet/v2024-03-27"; # needs node 8+
-      # url = "github:cardano-foundation/cardano-wallet/v2023-04-14";
-    };
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "std/blank";
     colmena.url = "github:zhaofengli/colmena";

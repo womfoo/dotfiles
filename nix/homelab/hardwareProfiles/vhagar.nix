@@ -62,12 +62,8 @@
     device = "data/rancher";
     fsType = "zfs";
   };
-  fileSystems."/var/lib/private/cexplorer-mainnet" = {
-    device = "data/dbsync-lstate-mainnet";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/private/cexplorer-preprod" = {
-    device = "data/dbsync-lstate-preprod";
+  fileSystems."/var/lib/private/ollama" = {
+    device = "data/ollama";
     fsType = "zfs";
   };
   fileSystems."/zfstemp" = {

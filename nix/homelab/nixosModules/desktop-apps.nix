@@ -33,7 +33,7 @@
     bettercap
     bind
     binutils # ld, ar
-    bitcoin
+    # bitcoin
     bluez-tools # bt-device --list
     # bluetooth_battery
     bmon
@@ -102,7 +102,7 @@
     flac
     flameshot
     fnotifystat
-    freecad
+    # freecad
     forkstat
     # fpm
     # fprintd # fingerprint daemon, build timeouts
@@ -134,6 +134,7 @@
     gparted
     # gpodder
     gptfdisk
+    gpustat
     gpxsee
     gradle
     # graphviz # dot
@@ -155,12 +156,17 @@
         aeson
         aeson-qq
         brick
+        brick-tabular-list
+        cabal2nix
         cursor
         dbus
         hpdft
+        hw-ip
         lens
         network
+        network-info
         timeline
+        vector
         vty
       ]
     ))
@@ -232,7 +238,8 @@
     # monero
     # mosh
     # mplayer # (mplayer.override {v4lSupport =true;})
-    mpv
+    # mpv
+    (mpv.override {scripts = [mpvScripts.mpris];})
     # msf
     mtools
     (mtr.override { withGtk = true; })
@@ -293,6 +300,7 @@
     pipes # screensaver
     # pkgconfig
     # plasma5Packages.kdenlive
+    playerctl
     poppler_utils # pdf2txt
     postgresql # just for the psql command
     # postman
@@ -417,7 +425,7 @@
     wavemon # wifi diag
     wget
     which
-    # wire-desktop
+    wire-desktop
     wirelesstools # iwconfig
     wireshark
     # wkhtmltopdf # vulnerable qtwebkit-5.212.0-alpha4

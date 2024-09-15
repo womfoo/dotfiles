@@ -79,4 +79,5 @@ in
     #   allow-emacs-pinentry
     # '';
   };
+
 }

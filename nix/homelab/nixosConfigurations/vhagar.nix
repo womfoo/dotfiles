@@ -18,9 +18,6 @@ in
   };
   imports = [
     inputs.home.nixosModule
-    # inputs.cardano-db-sync.nixosModules.cardano-db-sync
-    # inputs.cardano-node.nixosModules.cardano-node
-    # inputs.cardano-wallet.nixosModules.cardano-wallet
     cell.nixosModules.common
     cell.nixosModules.builder
     # cell.nixosModules.daedalus-db-sync
@@ -32,13 +29,6 @@ in
     inputs.srvos.nixosModules.mixins-telegraf
   ];
 
-  # FIXME: move to devshell
-  environment.systemPackages = [
-    # inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet
-    # inputs.cardano-cli.packages.x86_64-linux."cardano-cli:exe:cardano-cli"
-    # inputs.cardano-addresses.packages.x86_64-linux."cardano-addresses-cli:exe:cardano-address"
-  ];
-  # services.cardano-wallet.package = inputs.cardano-wallet.packages.x86_64-linux.cardano-wallet;
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
   nix.distributedBuilds = true;
@@ -171,6 +161,9 @@ in
   virtualisation.podman.enable = true;
 
   services.telegraf.extraConfig.inputs.upsd = {};
+  services.ollama.enable = true;
+  services.ollama.acceleration = "cuda";
+# services.nextjs-ollama-llm-ui.enable = true; # data dir broken
 
   power.ups = {
     enable = true;

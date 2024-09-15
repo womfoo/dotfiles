@@ -34,6 +34,7 @@
     extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
   '';
   nix.settings.sandbox = false;
+  nix.settings.trusted-users = [ "kranium" ];
 
   # programs.gnupg.agent.enable = true;
   # programs.ssh.startAgent = true;
