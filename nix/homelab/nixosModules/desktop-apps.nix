@@ -69,8 +69,8 @@
     d-spy # was dfeet and d-feet
     # diffoscope
     dillo
-    direnv
     # discord
+    dive
     dmenu
     dnsutils # nslookup
     docker-compose
@@ -257,7 +257,7 @@
     nix-index
     nix-output-monitor
     nix-prefetch-git
-    # nix-top
+    nix-top
     nixfmt-rfc-style
     # nixos-shell
     # nixops
@@ -454,7 +454,6 @@
     # yate
     yt-dlp # better youtube-dl
     yq
-    z-lua
     zbar # parse qr codes
     # zfs
     zip

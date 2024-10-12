@@ -7,6 +7,15 @@
 {
 
   environment.etc.hosts.mode = "0644";
+  environment.systemPackages = with pkgs; [
+    direnv
+    iperf
+    z-lua
+  ];
+
+  networking.firewall.allowedTCPPorts = [
+    5201
+  ];
 
   nix.settings.substituters = [
     "https://cache.nixos.org/"
@@ -45,4 +54,5 @@
   # services.openssh.settings.PasswordAuthentication = true;
 
   time.timeZone = "Australia/Sydney";
+
 }

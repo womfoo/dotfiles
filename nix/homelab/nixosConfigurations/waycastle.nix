@@ -18,7 +18,9 @@ in
     inputs.srvos.nixosModules.server
     inputs.srvos.nixosModules.roles-prometheus
   ];
-  networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
+  networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 80 9090 ];
+  networking.firewall.interfaces.enp0s31f6.allowedUDPPorts = [ 51820 ];
+  networking.firewall.interfaces.enp0s31f6.allowedTCPPorts = [ 80 ];
   networking.hostName = "waycastle";
   services.fwupd.enable = true;
   services.router.config.passwordFile = lib.mkHostApdPasswordFile;
