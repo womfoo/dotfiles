@@ -16,6 +16,8 @@ in
     # home.packages = [ pkgs.lolcat ];
     home.stateVersion = "23.11";
     programs = {
+      bash.enable = true;
+      direnv.enable = true;
       firefox = {
         enable = true;
         # extensions will not work if you dont have profiles defined
@@ -63,6 +65,7 @@ in
       };
       ssh.enable = true;
       man.enable = false;
+      z-lua.enable = true;
     };
     manual.manpages.enable = false;
     services.dunst.enable = true;
