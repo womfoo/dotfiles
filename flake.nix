@@ -1,6 +1,7 @@
 {
   description = "Config";
   inputs = {
+    agenix.url = "github:yaxitech/ragenix";
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "std/blank";
     colmena.url = "github:zhaofengli/colmena";
@@ -61,6 +62,8 @@
             (std.blockTypes.installables "packages")
 
             (functions "overlays")
+
+            (functions "secrets")
 
             # modules implement
             (functions "nixosModules")

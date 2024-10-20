@@ -2,9 +2,18 @@
   lib,
   pkgs,
   config,
+  inputs,
+  cell,
   ...
 }:
 {
+
+  imports = [
+    inputs.agenix.nixosModules.default
+    cell.secrets.init-root-password
+  ];
+
+  users.users.root.hashedPasswordFile = config.age.secrets."init-root-password".path;
 
   environment.etc.hosts.mode = "0644";
   environment.systemPackages = with pkgs; [

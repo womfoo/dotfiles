@@ -10,6 +10,8 @@
     cell.hardwareProfiles.stonedoor
     cell.nixosModules.common
     cell.nixosModules.gikos-kranium
+    cell.nixosModules.wireguard
+    cell.secrets."wg-stonedoor-priv-key"
     inputs.srvos.nixosModules.server
     inputs.srvos.nixosModules.mixins-nginx
   ];
@@ -23,6 +25,12 @@
   networking.useDHCP = false;
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "kranium@gikos.net";
+  services.mywg.enable = true;
+  services.mywg.host = "stonedoor";
+  services.mywg.hostPrivKeyFile = config.age.secrets."wg-stonedoor-priv-key".path;
+  services.mywg.makeServer = true;
+  services.mywg.peer = "waycastle";
+  # services.mywg.peers = [ "waycastle" ];
   services.nginx.virtualHosts = {
     "gikos.net" = {
       forceSSL = true;

@@ -3,6 +3,7 @@
   default =
     inputs.std.lib.dev.mkShell {
       commands = with inputs.nixpkgs.pkgs; [
+        { package = age; }
         # { package = darcs; }
         # { package = deadnix; }
         # { package = git; }
@@ -13,7 +14,7 @@
         # { package = terraform; }
         { package = colmena; }
         { package = hledger; }
-        { package = sops; }
+        { package = inputs.agenix.packages.${system}.default; }
         { package = stow; }
         { package = nixfmt-rfc-style; }
         # { package = terraform-backend-git; }
