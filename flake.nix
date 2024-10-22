@@ -18,6 +18,10 @@
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos.follows = "nixpkgs";
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
