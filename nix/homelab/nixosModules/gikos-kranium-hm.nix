@@ -16,9 +16,11 @@ in
     # home.packages = [ pkgs.lolcat ];
     home.stateVersion = "23.11";
     programs = {
+      atuin.enable = true;
       bash.enable = true;
       direnv.enable = true;
       firefox = {
+        package = inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin;
         enable = true;
         # extensions will not work if you dont have profiles defined
         profiles.kranium = {

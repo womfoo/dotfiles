@@ -192,7 +192,7 @@
     iptraf-ng
     ispell
     iw
-    jetbrains.idea-community
+    # jetbrains.idea-community
     # jmeter
     jq
     jmtpfs
@@ -204,7 +204,7 @@
     keepassxc
     # kitty
     # kops
-    kotlin
+    # kotlin
     # kpcli
     # ktorrent
     # kubectl
@@ -243,7 +243,7 @@
     # msf
     mtools
     (mtr.override { withGtk = true; })
-    nautilus
+    # nautilus
     ncdu
     # neovim
     net-snmp
@@ -306,8 +306,8 @@
     # postman
     powerstat
     powertop
-    ppp
-    pptp
+    # ppp
+    # pptp
     procmail # lockfile
     protobuf # protoc
     psmisc # killall
@@ -342,7 +342,7 @@
     rhash
     # ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
     # rpm
-    rpPPPoE
+    # rpPPPoE
     # rrdtool
     rsync
     # rtl-sdr
@@ -376,12 +376,12 @@
     speedtest-cli
     # spotify
     sqlite
-    sqlite.dev # because rails
+    # sqlite.dev # because rails
     sqlitebrowser
     ssh-import-id
     ssh-to-pgp
     sshfs
-    sshpass
+    # sshpass
     st
     # steam
     # subversionClient
@@ -425,7 +425,7 @@
     wavemon # wifi diag
     wget
     which
-    wire-desktop
+    # wire-desktop
     wirelesstools # iwconfig
     wireshark
     # wkhtmltopdf # vulnerable qtwebkit-5.212.0-alpha4
@@ -463,5 +463,10 @@
   ];
 
   environment.pathsToLink = [ "share/thumbnailers" ];
+
+  # FIXME
+  # permittedInsecurePackages = [
+  #   "wire-desktop-3.36.3462"
+  # ];
 
 }

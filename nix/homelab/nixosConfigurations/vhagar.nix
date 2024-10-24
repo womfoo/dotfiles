@@ -163,8 +163,12 @@ in
   services.telegraf.extraConfig.inputs.upsd = {};
   services.ollama.enable = true;
   services.ollama.acceleration = "cuda";
-# services.nextjs-ollama-llm-ui.enable = true; # data dir broken
-
+  services.ollama.loadModels = [
+    "gemma2:2b"
+    "llama3.1"
+  ];
+  services.nextjs-ollama-llm-ui.enable = true;
+/*
   power.ups = {
     enable = true;
     ups.slimlineups = {
@@ -181,7 +185,7 @@ in
       };
     };
   };
-
+*/
   # https://discourse.nixos.org/t/can-i-inspect-the-installed-versions-of-system-packages/2763/15
   environment.etc."current-system-packages".text =
     let

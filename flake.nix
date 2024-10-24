@@ -9,6 +9,7 @@
     darwin.url = "github:LnL7/nix-darwin";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
+    firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive";
@@ -20,9 +21,17 @@
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     # nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos.follows = "nixpkgs";
+    nixos-hardware = {
+      # url = "github:NixOS/nixos-hardware";
+      url = "git+file:///home/kranium/git/github.com/womfoo/nixos-hardware"; # patch bee.pkgs.overlays for now
+    };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs/bc947f541ae55e999ffdb4013441347d83b00feb";
-    nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/2768c7d042a37de65bb1b5b3268fc987e534c49d";
+    # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";
     };
