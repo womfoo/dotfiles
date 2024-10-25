@@ -25,7 +25,7 @@ main = do
   -- dunno what broke # redshift -O 6500 # doesnt even reset
   -- spawn "redshift -l -33.84:151.21 -t 6500:3500"
   -- spawn "firefox"
-  xmproc <- spawnPipe "/run/current-system/sw/bin/xmobar"
+  xmproc <- spawnPipe "xmobar"
   xmonad $ docks $ ewmh $ ewmhFullscreen def
     { modMask            = mod4Mask
     , terminal           = "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\" tmux"

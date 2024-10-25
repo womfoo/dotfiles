@@ -439,7 +439,6 @@
     xorg.xkill
     xorg.xwd
     xmlsec
-    xmobar
     xournal
     xorg.xauth
     xorg.xev
