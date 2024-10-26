@@ -66,6 +66,15 @@ in
         ];
       };
       ssh.enable = true;
+      tmux = {
+        enable = true;
+        extraConfig = ''
+          set-option -g history-limit 500000
+          set-option -g history-limit 500000
+          set -g status-bg blue
+          set -g status-fg white
+        '';
+      };
       man.enable = false;
       xmobar = {
         enable = true;
@@ -104,7 +113,7 @@ in
       };
       z-lua.enable = true;
     };
-    manual.manpages.enable = false;
+    manual.manpages.enable = true;
     services.dunst.enable = true;
     services.gpg-agent.enable = true;
     services.gpg-agent.maxCacheTtl = 14400;
@@ -118,6 +127,11 @@ in
     # services.gpg-agent.extraConfig = ''
     #   allow-emacs-pinentry
     # '';
+    xsession.windowManager.xmonad = {
+      enable = true;
+      # config = inputs.self + /legacy/.xmonad/xmonad.hs;
+      enableContribAndExtras = true;
+    };
   };
 
 }

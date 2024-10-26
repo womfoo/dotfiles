@@ -352,7 +352,7 @@
     # runc
     rust-analyzer
     rustc
-    rxvt-unicode
+    # rxvt-unicode # urxvt
     # (sbt.override { jre = jdk17; })
     # scala_3
     seahorse # edit items in gnome-keyring

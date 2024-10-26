@@ -24,7 +24,6 @@ main = do
   spawn "parcellite -n"
   -- dunno what broke # redshift -O 6500 # doesnt even reset
   -- spawn "redshift -l -33.84:151.21 -t 6500:3500"
-  -- spawn "firefox"
   xmproc <- spawnPipe "xmobar"
   xmonad $ docks $ ewmh $ ewmhFullscreen def
     { modMask            = mod4Mask
@@ -61,4 +60,3 @@ main = do
                      ,((mod4Mask, xK_i), spawn "~/bin/sendkeys.sh totp")
                      ,((mod4Mask .|. shiftMask , xK_t), spawn "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\"")
                      ]
--- instead of 0 use alsa_output.pci-0000_00_1b.0.analog-stereo
