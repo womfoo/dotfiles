@@ -9,7 +9,7 @@ let
   };
 in
 rec {
-  keepassx-22-11 = pkgs-22-11.keepassx;
+  keepassx-22-11 = pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass ) { };
   # python-rtimu = inputs.nixpkgs.callPackage ./python-rtimu.nix { rtimu = rtimu; };
   python-sense-hat = inputs.nixpkgs.callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   rtimu = inputs.nixpkgs.callPackage ./rtimu.nix { };

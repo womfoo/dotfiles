@@ -200,7 +200,7 @@
     k6
     # kakoune-unwrapped
     kdiff3
-    # keepassx-22-11 FIXME: fails due to deprecation notice, run from devshell for now
+    keepassx-22-11
     keepassxc
     # kitty
     # kops

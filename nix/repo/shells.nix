@@ -3,7 +3,6 @@
   default =
     inputs.std.lib.dev.mkShell {
       packages = [
-        inputs.cells.vendor.packages.keepassx-22-11
       ];
       commands = with inputs.nixpkgs.pkgs; [
         { package = age; }
