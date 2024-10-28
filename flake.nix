@@ -19,7 +19,8 @@
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
-    # nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixos.follows = "nixpkgs";
     nixos-hardware = {
       # url = "github:NixOS/nixos-hardware";
@@ -30,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/2768c7d042a37de65bb1b5b3268fc987e534c49d";
+    nixpkgs.url = "github:NixOS/nixpkgs/18536bf04cd71abd345f9579158841376fdd0c5a";
     # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";
@@ -39,7 +40,7 @@
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
-    std.url = "github:divnix/std/v0.33.0";
+    std.url = "github:divnix/std/v0.33.3";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -106,6 +107,9 @@
           "shells"
         ];
         packages = inputs.std.harvest inputs.self [ "vendor" "packages" ];
-        defaultPackage = inputs.std.harvest inputs.self [ "vendor" "packages" "openlens" ];
+      }
+      {
+        packages.aarch64-linux.sd-image-dreadfort = self.nixosConfigurations.dreadfort.config.system.build.sdImage;
       };
+
 }

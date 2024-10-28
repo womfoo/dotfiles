@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     foxyproxy-standard
     privacy-badger
@@ -20,7 +21,7 @@ in
       bash.enable = true;
       direnv.enable = true;
       firefox = {
-        package = inputs.firefox-nightly.packages.${pkgs.system}.firefox-nightly-bin;
+        package = firefox-nightly-bin;
         enable = true;
         # extensions will not work if you dont have profiles defined
         profiles.kranium = {

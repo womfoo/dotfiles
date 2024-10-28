@@ -2,6 +2,9 @@
 {
   default =
     inputs.std.lib.dev.mkShell {
+      packages = [
+        inputs.cells.vendor.packages.keepassx-22-11
+      ];
       commands = with inputs.nixpkgs.pkgs; [
         { package = age; }
         # { package = darcs; }
@@ -9,12 +12,13 @@
         # { package = git; }
         { package = inputs.std.std.cli.default; }
         # { package = k9s; }
+        # { package = inputs.cells.vendor.packages.keepassx-22-11; }
         # { package = kubectl; }
         # { package = kubernetes-helm; }
         # { package = terraform; }
         { package = colmena; }
         { package = hledger; }
-        { package = inputs.agenix.packages.${system}.default; }
+        { package = inputs.agenix.packages.default; }
         { package = stow; }
         { package = nixfmt-rfc-style; }
         # { package = terraform-backend-git; }

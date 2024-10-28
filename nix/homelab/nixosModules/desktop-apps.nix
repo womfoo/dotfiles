@@ -2,7 +2,7 @@
 {
   # this is bad practice but with zero load time
   # TODO: will move to per proj devshells + direnv
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with inputs.cells.vendor.packages; with pkgs; [
     # abiword
     acpi
     acpica-tools # was pmtools # acpidump
@@ -153,8 +153,6 @@
       with haskellPackages;
       with pkgs.haskell.lib;
       [
-        aeson
-        aeson-qq
         brick
         brick-tabular-list
         cabal2nix
@@ -162,6 +160,7 @@
         dbus
         hpdft
         hw-ip
+        iproute
         lens
         network
         network-info
@@ -201,6 +200,7 @@
     k6
     # kakoune-unwrapped
     kdiff3
+    # keepassx-22-11 FIXME: fails due to deprecation notice, run from devshell for now
     keepassxc
     # kitty
     # kops
@@ -363,6 +363,7 @@
     # slack # resource hog
     signal-desktop
     silver-searcher # ag
+    simple-scan
     simplescreenrecorder
     # sipp
     # sipsak
@@ -407,7 +408,9 @@
     # tsung
     unzip
     usbutils # lsusb
-    vagrant
+    v4l-utils # ir-keytable
+    # vagrant
+    vagrant-24-05
     # vault
     vbetool # sudo vbetool dpms off
     vdpauinfo
