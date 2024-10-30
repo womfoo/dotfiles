@@ -167,6 +167,12 @@ in
     "gemma2:2b"
     "llama3.1"
   ];
+  services.open-webui = {
+    enable = true;
+    environment = {
+      WEBUI_AUTH = "False";
+    };
+  };
   services.nextjs-ollama-llm-ui.enable = true;
 /*
   power.ups = {
