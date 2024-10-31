@@ -51,6 +51,7 @@
     allow-import-from-derivation = true
     extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
   '';
+  # nix.settings.max-jobs = 1;
   nix.settings.sandbox = false;
   nix.settings.trusted-users = [ "kranium" ];
 

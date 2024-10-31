@@ -12,7 +12,7 @@
     firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
-    hive.url = "github:divnix/hive";
+    hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
     home.url = "github:nix-community/home-manager";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     nixago.inputs.nixago-exts.follows = "";
@@ -37,6 +37,7 @@
       url = "github:nix-community/NUR";
     };
     srvos.url = "github:nix-community/srvos";
+    srvos.inputs.nixpkgs.follows = "nixos-24-05";
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";

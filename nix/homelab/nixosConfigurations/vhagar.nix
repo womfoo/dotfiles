@@ -68,7 +68,7 @@ in
    "--kubelet-arg=eviction-hard=imagefs.available<2%,nodefs.available<2%"
    "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=2%,nodefs.available=2%"
   ];
-  services.libinput.enable = true;
+  # services.libinput.enable = true;
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
   services.nfs.server.mountdPort = 47001;

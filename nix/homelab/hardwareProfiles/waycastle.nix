@@ -8,6 +8,7 @@
   ];
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "2";
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/cf7b96d0-487d-44f1-8f07-b2c99cbf00c7";
     fsType = "ext4";
