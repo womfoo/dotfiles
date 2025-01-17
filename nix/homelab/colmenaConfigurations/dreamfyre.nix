@@ -1,10 +1,11 @@
 let
   inherit (inputs.lihim.lihim.constants.devices) dreamfyre;
-in {
+in
+{
   deployment = {
     buildOnTarget = true;
     targetHost = dreamfyre.interfaces.lan.ip;
     targetUser = "kranium";
   };
-  imports = [cell.nixosConfigurations.dreamfyre];
+  imports = [ cell.nixosConfigurations.dreamfyre ];
 }

@@ -5,7 +5,6 @@
   ...
 }:
 {
-
   users.extraUsers.builder = {
     # name = "builder";
     uid = 5000;

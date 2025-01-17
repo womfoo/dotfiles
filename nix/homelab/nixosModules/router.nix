@@ -29,19 +29,19 @@ let
     passwordFile = "/root/yolopasswords.txt";
   };
 
-  hasInterface = ifname : device :
-    lib.hasAttrByPath ["interfaces" ifname "ip" ] device &&
-    lib.hasAttrByPath ["interfaces" ifname "mac" ] device ;
+  hasInterface =
+    ifname: device:
+    lib.hasAttrByPath [ "interfaces" ifname "ip" ] device
+    && lib.hasAttrByPath [ "interfaces" ifname "mac" ] device;
 
   inventoryWithInterface = ifname: devs: lib.filterAttrs (_: v: hasInterface ifname v) devs;
 
-  keaReservationFromInt = ifname: devs:
-      lib.mapAttrsToList (_: v: { hw-address =  lib.attrsets.getAttrFromPath ["interfaces" ifname "mac" ] v;
-                                  ip-address = lib.attrsets.getAttrFromPath ["interfaces" ifname "ip"] v;
-                                }
-                                  )
-        (inventoryWithInterface ifname devs);
-
+  keaReservationFromInt =
+    ifname: devs:
+    lib.mapAttrsToList (_: v: {
+      hw-address = lib.attrsets.getAttrFromPath [ "interfaces" ifname "mac" ] v;
+      ip-address = lib.attrsets.getAttrFromPath [ "interfaces" ifname "ip" ] v;
+    }) (inventoryWithInterface ifname devs);
 in
 with lib;
 {
@@ -133,19 +133,22 @@ with lib;
             finalConf.wireless.interface
           ];
 
-          forwardPorts =
-            [
-              {
-                destination = "172.19.86.101:8581";
-                proto = "tcp";
-                sourcePort = 48581;
-              }
-            ];
-
+          forwardPorts = [
+            {
+              destination = "172.19.86.101:8581";
+              proto = "tcp";
+              sourcePort = 48581;
+            }
+          ];
         };
       };
 
-      environment.systemPackages = with pkgs; [ dhcpcd iw libimobiledevice wirelesstools ];
+      environment.systemPackages = with pkgs; [
+        dhcpcd
+        iw
+        libimobiledevice
+        wirelesstools
+      ];
 
       services.kea.dhcp4.enable = true;
       services.kea.dhcp4.settings = {

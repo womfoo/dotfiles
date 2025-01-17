@@ -1,4 +1,8 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (inputs.lihim.lihim) constants lib;
 in
@@ -41,9 +45,11 @@ in
   services.prometheus.scrapeConfigs = [
     {
       job_name = "node";
-      static_configs = [{
-        targets = [ "${constants.devices.vhagar.interfaces.lan.mac}:9273" ];
-      }];
+      static_configs = [
+        {
+          targets = [ "${constants.devices.vhagar.interfaces.lan.mac}:9273" ];
+        }
+      ];
     }
   ];
   services.sshguard.enable = true;

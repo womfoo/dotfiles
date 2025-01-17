@@ -7,7 +7,6 @@
 let
   version = "7.2.1";
 in
-
 with python3Packages;
 buildPythonPackage rec {
   pname = "python-rtimu";

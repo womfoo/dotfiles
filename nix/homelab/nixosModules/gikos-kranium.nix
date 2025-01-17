@@ -1,6 +1,5 @@
 { ... }:
 {
-
   security.sudo.wheelNeedsPassword = false;
 
   users.extraUsers.kranium = {

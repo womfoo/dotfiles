@@ -72,7 +72,6 @@
           with std.blockTypes;
           with hive.blockTypes;
           [
-
             (std.blockTypes.terra "terra" inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
             (std.blockTypes.installables "packages")
 
@@ -101,6 +100,7 @@
             colmenaConfigurations
 
             (devshells "shells")
+            (nixago "configs")
           ];
       }
       {
@@ -111,10 +111,13 @@
           "repo"
           "shells"
         ];
-        packages = inputs.std.harvest inputs.self [ "vendor" "packages" ];
+        packages = inputs.std.harvest inputs.self [
+          "vendor"
+          "packages"
+        ];
       }
       {
-        packages.aarch64-linux.sd-image-dreadfort = self.nixosConfigurations.dreadfort.config.system.build.sdImage;
+        packages.aarch64-linux.sd-image-dreadfort =
+          self.nixosConfigurations.dreadfort.config.system.build.sdImage;
       };
-
 }

@@ -8,7 +8,7 @@
 
   # boot.blacklistedKernelModules = [ "rtl8xxxu" ];
   # boot.extraModulePackages = [ config.boot.kernelPackages.rtl8192eu ];
-  
+
   boot.kernelModules = [
     "kvm-intel"
     "snd-aloop"
@@ -36,7 +36,8 @@
     "rtsx_pci_sdmmc"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.initrd.luks.devices."crpytme".device = "/dev/disk/by-uuid/760e36d7-90af-43da-8102-0dc291663cb7";
+  boot.initrd.luks.devices."crpytme".device =
+    "/dev/disk/by-uuid/760e36d7-90af-43da-8102-0dc291663cb7";
   fileSystems."/" = {
     device = "/dev/mapper/crpytme";
     fsType = "btrfs";

@@ -25,5 +25,4 @@
   # sdImage = {
   #   compressImage = false;
   # };
-
 }

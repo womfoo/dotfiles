@@ -9,8 +9,6 @@ let
       cp trunk-combined $out/fakehydra
     '';
   };
-
-
 in
 # noplay = true;
 {
@@ -111,7 +109,7 @@ in
   services.rpcbind.enable = true; # needed for NFS client
   services.saned.enable = true;
   services.smartd.enable = true;
-  services.telegraf.extraConfig.inputs.upsd = {};
+  services.telegraf.extraConfig.inputs.upsd = { };
   services.tlp.enable = true;
   services.touchegg.enable = true;
   services.thinkfan.enable = true;
@@ -136,7 +134,7 @@ in
   services.xserver.wacom.enable = true; # havent figured out the eraser yet
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
-# system.configurationRevision = "haha";
+  # system.configurationRevision = "haha";
   networking.firewall.interfaces.enp9s0u2u1u2 = {
     allowedTCPPorts = [
       80
@@ -144,7 +142,6 @@ in
       9273 # telegraf promclient
     ];
   };
-
 
   networking.firewall = {
     allowedTCPPorts = [
@@ -156,19 +153,20 @@ in
     ];
   };
 
-
   # TODO review ports
   networking.firewall.interfaces."virbr1" = {
-    allowedTCPPorts = [ 2049
-                        config.services.nfs.server.statdPort
-                        config.services.nfs.server.mountdPort
-                        config.services.nfs.server.lockdPort
-                      ];
-    allowedUDPPorts = [ 2049
-                        config.services.nfs.server.statdPort
-                        config.services.nfs.server.mountdPort
-                        config.services.nfs.server.lockdPort
-                      ];
+    allowedTCPPorts = [
+      2049
+      config.services.nfs.server.statdPort
+      config.services.nfs.server.mountdPort
+      config.services.nfs.server.lockdPort
+    ];
+    allowedUDPPorts = [
+      2049
+      config.services.nfs.server.statdPort
+      config.services.nfs.server.mountdPort
+      config.services.nfs.server.lockdPort
+    ];
   };
 
   system.stateVersion = "24.05";
@@ -201,33 +199,32 @@ in
   #   };
   # };
   # services.nextjs-ollama-llm-ui.enable = true;
-/*
-  power.ups = {
-    enable = true;
-    ups.slimlineups = {
-      port = "/dev/ttyUSB0";
-      # port = "/dev/ttyUSB1";
-      driver = "nutdrv_qx"; # "blazer_usb" does not work;
-    };
-    upsmon = {
+  /*
+    power.ups = {
       enable = true;
-      # upsmon.settings.MINSUPPLIES = 1;
-      monitor.slimlineups = {
-        user = "admin";
-        passwordFile = "wtf";
+      ups.slimlineups = {
+        port = "/dev/ttyUSB0";
+        # port = "/dev/ttyUSB1";
+        driver = "nutdrv_qx"; # "blazer_usb" does not work;
+      };
+      upsmon = {
+        enable = true;
+        # upsmon.settings.MINSUPPLIES = 1;
+        monitor.slimlineups = {
+          user = "admin";
+          passwordFile = "wtf";
+        };
+      };
+    };
+  */
+
+  services.nginx = {
+    virtualHosts.localhost = {
+      locations = {
+        "/" = {
+          root = faketrunkcombined;
+        };
       };
     };
   };
-*/
-
-  services.nginx = {
-    virtualHosts.localhost =
-        {
-          locations = {
-            "/" = {
-              root = faketrunkcombined;
-            };
-          };
-        };
-    };
 }

@@ -1,4 +1,7 @@
-{ inputs, cell }:
+{
+  inputs,
+  cell,
+}:
 {
   default =
     inputs.std.lib.dev.mkShell {
@@ -19,10 +22,12 @@
         { package = hledger; }
         { package = inputs.agenix.packages.default; }
         { package = stow; }
-        { package = nixfmt-rfc-style; }
         { package = cell.packages.updatenixpkgs; }
         { package = go; }
         # { package = terraform-backend-git; }
+      ];
+      nixago = [
+        cell.configs.treefmt
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

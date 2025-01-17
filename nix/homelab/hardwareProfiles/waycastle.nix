@@ -23,25 +23,23 @@
   # ];
 
   virtualisation.oci-containers.containers = {
-     homebridge = {
-       image = "homebridge/homebridge:2024-10-25";
-       ports = [ "192.168.3.100:8581:8581" ];
-       # does not show up in netstat or iptables
-       # ports = [
-       #   # "127.0.0.1:8581:8581"
-       #   # "48581"
-       #   "8581"
-       # ];
-       volumes = [
-         "/volumes/homebridge:/homebridge"
-       ];
-       autoStart = true;
-       # cmd = [
-       #   "--base-url"
-       #   "\"/hackagecompare\""
-       # ];
-     };
-   };
-
-
+    homebridge = {
+      image = "homebridge/homebridge:2024-10-25";
+      ports = [ "192.168.3.100:8581:8581" ];
+      # does not show up in netstat or iptables
+      # ports = [
+      #   # "127.0.0.1:8581:8581"
+      #   # "48581"
+      #   "8581"
+      # ];
+      volumes = [
+        "/volumes/homebridge:/homebridge"
+      ];
+      autoStart = true;
+      # cmd = [
+      #   "--base-url"
+      #   "\"/hackagecompare\""
+      # ];
+    };
+  };
 }

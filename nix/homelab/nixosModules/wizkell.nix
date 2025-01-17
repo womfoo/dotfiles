@@ -12,9 +12,14 @@ let
   remoteName = "china01";
 
   mkAction =
-    { button, hosts }: let
-      args = lib.concatStringsSep " "
-        (map (h: inputs.lihim.lihim.constants.devices."${h}".interfaces.wlan.ip) hosts);
+    {
+      button,
+      hosts,
+    }:
+    let
+      args = lib.concatStringsSep " " (
+        map (h: inputs.lihim.lihim.constants.devices."${h}".interfaces.wlan.ip) hosts
+      );
     in
     ''
       begin
@@ -29,24 +34,27 @@ let
     lib.strings.concatLines [
       (mkAction {
         button = "KEY_AUX";
-        hosts = ["wizbulb1" "wizbulb2"];
+        hosts = [
+          "wizbulb1"
+          "wizbulb2"
+        ];
       })
       (mkAction {
         button = "KEY_4";
-        hosts = ["wizbulb1"];
+        hosts = [ "wizbulb1" ];
       })
       (mkAction {
         button = "KEY_5";
-        hosts = ["wizbulb2"];
+        hosts = [ "wizbulb2" ];
       })
 
       (mkAction {
         button = "KEY_1";
-        hosts = ["wizbulb3"];
+        hosts = [ "wizbulb3" ];
       })
       (mkAction {
         button = "KEY_7";
-        hosts = ["wizbulb3"];
+        hosts = [ "wizbulb3" ];
       })
     ]
   );
@@ -61,8 +69,7 @@ in
     configs = [
       china01
     ];
-    options =
-      ''
+    options = ''
       [lircd]
       device = /dev/lirc1
       driver = default
@@ -72,7 +79,10 @@ in
   systemd.services.wizkell = {
     description = "irexec wizkell script";
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" "lirc.service" ];
+    after = [
+      "network.target"
+      "lirc.service"
+    ];
     serviceConfig = {
       User = "lirc";
       Type = "forking";

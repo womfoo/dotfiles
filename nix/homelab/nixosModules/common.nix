@@ -7,7 +7,6 @@
   ...
 }:
 {
-
   imports = [
     inputs.agenix.nixosModules.default
     cell.secrets.init-root-password
@@ -70,6 +69,7 @@
   time.timeZone = "Australia/Sydney";
 
   system.configurationRevision = lib.mkIf (inputs.self ? rev) inputs.self.rev;
-  system.nixos.label = lib.mkIf (inputs.self ? shortRev) (config.system.nixos.version + "-" + inputs.self.shortRev);
-
+  system.nixos.label = lib.mkIf (inputs.self ? shortRev) (
+    config.system.nixos.version + "-" + inputs.self.shortRev
+  );
 }

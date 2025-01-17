@@ -12,3 +12,5 @@ nix/iot/packages/wizkell/dist-newstyle/
 #emacs
 *~
 \#*\#
+# nixago: ignore-linked-files
+/treefmt.toml

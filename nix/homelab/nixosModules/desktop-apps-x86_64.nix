@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     avidemux
     # cura # FTB pynest2d

@@ -1,4 +1,7 @@
-{ inputs, cell }:
+{
+  inputs,
+  cell,
+}:
 {
   cloudflare = {
     terraform.required_providers.cloudflare.source = "cloudflare/cloudflare";

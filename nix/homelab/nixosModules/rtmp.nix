@@ -1,13 +1,15 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   rtmpOverlay = self: super: {
     nginxMainline = super.nginxMainline.override (oldAttrs: {
-      modules = oldAttrs.modules ++ [super.nginxModules.rtmp];
+      modules = oldAttrs.modules ++ [ super.nginxModules.rtmp ];
     });
     #nginxStable = super.nginxStable.override (oldAttrs: {
     #  modules = oldAttrs.modules ++ [ super.nginxModules.rtmp ];
     #});
   };
-in {
+in
+{
   config = {
     systemd.services.nginx.preStart = ''
       mkdir -p /tmp/{hls,dash}
@@ -15,18 +17,20 @@ in {
     services.nginx = {
       defaultHTTPListenPort = 9000;
       enable = true;
-      virtualHosts = let
-        common = {
-          locations = {
-            "/hls" = {
-              root = "/tmp";
+      virtualHosts =
+        let
+          common = {
+            locations = {
+              "/hls" = {
+                root = "/tmp";
+              };
             };
           };
+        in
+        {
+          "172.19.86.101" = common;
+          "nas.localnet" = common;
         };
-      in {
-        "172.19.86.101" = common;
-        "nas.localnet" = common;
-      };
       appendConfig = ''
         rtmp {
           server {

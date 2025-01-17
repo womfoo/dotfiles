@@ -1,4 +1,7 @@
-{ inputs, cell }:
+{
+  inputs,
+  cell,
+}:
 let
   pkgs-24-05 = import inputs.nixos-24-05 {
     inherit (inputs.nixpkgs) system;
@@ -9,7 +12,7 @@ let
   };
 in
 rec {
-  keepassx-22-11 = pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass ) { };
+  keepassx-22-11 = pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass) { };
   # python-rtimu = inputs.nixpkgs.callPackage ./python-rtimu.nix { rtimu = rtimu; };
   python-sense-hat = inputs.nixpkgs.callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   rtimu = inputs.nixpkgs.callPackage ./rtimu.nix { };
