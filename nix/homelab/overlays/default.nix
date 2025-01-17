@@ -5,4 +5,9 @@
       applyOverlays = _final.callPackage ./apply-overlays-dtmerge.nix { };
     };
   };
+  rtmpOverlay = self: super: {
+    nginxMainline = super.nginxMainline.override (oldAttrs: {
+      modules = oldAttrs.modules ++ [ super.nginxModules.rtmp ];
+    });
+  };
 }

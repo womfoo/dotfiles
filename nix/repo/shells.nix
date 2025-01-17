@@ -20,6 +20,8 @@
         { package = inputs.agenix.packages.default; }
         { package = stow; }
         { package = nixfmt-rfc-style; }
+        { package = cell.packages.updatenixpkgs; }
+        { package = go; }
         # { package = terraform-backend-git; }
       ];
       devshell.startup.stow_legacy_configs.text = ''

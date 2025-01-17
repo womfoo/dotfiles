@@ -6,7 +6,7 @@
     # abiword
     acpi
     acpica-tools # was pmtools # acpidump
-    adwaita-icon-theme
+    #2405#adwaita-icon-theme
     # adoptopenjdk-jre-bin # java
     # aircrack-ng
     alsa-utils
@@ -89,9 +89,12 @@
     encfs
     ethtool
     evince
+    evtest
     exfat
+    exfatprogs
     facter
     f2fs-tools
+    f3
     # fcitx # virtual keyboard
     # ffmpeg
     ffmpeg-full
@@ -220,7 +223,7 @@
     librsvg # rsvg-convert
     # error: a 'i686-linux' with features {} is required to build '/nix/store/qaxgwyhh90dd0323sjn5qjdngvm4ai4z-nvidia-vaapi-driver-0.0.5.drv'
     #libva # vaapiVdpau should install this but I need vainfo
-    # libva-utils
+    libva-utils
     libxml2 # xmllint
     libxslt
     lm_sensors
@@ -340,7 +343,7 @@
     redshift
     # remmina # rdp
     rhash
-    # ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
+    ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
     # rpm
     # rpPPPoE
     # rrdtool
@@ -362,7 +365,7 @@
     shellcheck
     # slack # resource hog
     signal-desktop
-    silver-searcher # ag
+    # silver-searcher # ag
     simple-scan
     simplescreenrecorder
     # sipp
@@ -402,17 +405,18 @@
     tmate
     tmux
     # tmux-cssh
-    (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
+    tor-browser-bundle-bin # (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
     trayer
     tree
     # tsung
+    # uucp
     unzip
     usbutils # lsusb
     v4l-utils # ir-keytable
     # vagrant
-    vagrant-24-05
+    # vagrant-24-05
     # vault
-    vbetool # sudo vbetool dpms off
+    # vbetool # sudo vbetool dpms off
     vdpauinfo
     # veracrypt
     # victoriametrics
@@ -442,7 +446,7 @@
     xorg.xkill
     xorg.xwd
     xmlsec
-    xournal
+    xournalpp
     xorg.xauth
     xorg.xev
     xorg.xdpyinfo

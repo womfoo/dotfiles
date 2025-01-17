@@ -4,7 +4,8 @@ let
 in
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.srvos.inputs.nixpkgs {
+  # bee.pkgs = import inputs.srvos.inputs.nixpkgs {
+  bee.pkgs = import inputs.nixos-24-05 {
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };
@@ -46,4 +47,6 @@ in
     }
   ];
   services.sshguard.enable = true;
+  # users.mutableUsers = inputs.nixpkgs.lib.mkForce true;
+  users.mutableUsers = pkgs.lib.mkForce true;
 }

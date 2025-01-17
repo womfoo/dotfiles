@@ -42,26 +42,6 @@ let
                                   )
         (inventoryWithInterface ifname devs);
 
-  hostapdConf =
-    pf:
-    pkgs.writeText "hostapd-config" ''
-      channel=7
-      ctrl_interface=/run/hostapd
-      ctrl_interface_group=wheel
-      driver=nl80211
-      hw_mode=g
-      ieee80211ac=1
-      ieee80211n=1
-      interface=wlan0
-      logger_stdout=-1
-      logger_stdout_level=4
-      logger_syslog=-1
-      logger_syslog_level=4
-      ssid=tatsulok
-      wpa=2
-      wpa_pairwise=CCMP
-      wpa_psk_file=${pf}
-    '';
 in
 with lib;
 {
@@ -91,6 +71,7 @@ with lib;
       finalConf = lib.recursiveUpdate baseConf cfg.config;
     in
     mkIf cfg.enable {
+      networking.useNetworkd = true;
       networking.firewall.extraCommands = "iptables -A INPUT -p vrrp -j ACCEPT";
       # services.keepalived.enable = true;
       # services.keepalived.vrrpInstances.wired = {
@@ -151,10 +132,20 @@ with lib;
             finalConf.wired.interface
             finalConf.wireless.interface
           ];
+
+          forwardPorts =
+            [
+              {
+                destination = "172.19.86.101:8581";
+                proto = "tcp";
+                sourcePort = 48581;
+              }
+            ];
+
         };
       };
 
-      environment.systemPackages = with pkgs; [ dhcpcd iw libimobiledevice ];
+      environment.systemPackages = with pkgs; [ dhcpcd iw libimobiledevice wirelesstools ];
 
       services.kea.dhcp4.enable = true;
       services.kea.dhcp4.settings = {

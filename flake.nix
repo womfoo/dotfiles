@@ -9,16 +9,18 @@
     darwin.url = "github:LnL7/nix-darwin";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
-    firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
+    # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
     home.url = "github:nix-community/home-manager";
+    jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixos.follows = "nixpkgs";
@@ -31,13 +33,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/18536bf04cd71abd345f9579158841376fdd0c5a";
+    # nixpkgs.follows = "nixos-24-11";
+    nixpkgs.url = "github:NixOS/nixpkgs/9abb87b552b7f55ac8916b6fc9e5cb486656a2f3"; # (2025-01-13)
+    # nixpkgs.url = "github:NixOS/nixpkgs/18536bf04cd71abd345f9579158841376fdd0c5a";
     # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";
     };
     srvos.url = "github:nix-community/srvos";
-    srvos.inputs.nixpkgs.follows = "nixos-24-05";
+    srvos.inputs.nixpkgs.follows = "nixos-24-11";
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";

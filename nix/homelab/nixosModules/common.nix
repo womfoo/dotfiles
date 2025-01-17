@@ -52,8 +52,11 @@
     extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
   '';
   # nix.settings.max-jobs = 1;
-  nix.settings.sandbox = false;
+  # nix.settings.sandbox = false;
   nix.settings.trusted-users = [ "kranium" ];
+
+  nix.settings.gc-keep-outputs = true;
+  nix.settings.gc-keep-derivations = true;
 
   # programs.gnupg.agent.enable = true;
   # programs.ssh.startAgent = true;
@@ -63,6 +66,10 @@
   # services.openssh.settings.PermitRootLogin = "prohibit-password";
   # services.openssh.settings.PasswordAuthentication = true;
 
+  # time.timeZone = "Asia/Manila";
   time.timeZone = "Australia/Sydney";
+
+  system.configurationRevision = lib.mkIf (inputs.self ? rev) inputs.self.rev;
+  system.nixos.label = lib.mkIf (inputs.self ? shortRev) (config.system.nixos.version + "-" + inputs.self.shortRev);
 
 }

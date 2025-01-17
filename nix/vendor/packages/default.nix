@@ -13,5 +13,5 @@ rec {
   # python-rtimu = inputs.nixpkgs.callPackage ./python-rtimu.nix { rtimu = rtimu; };
   python-sense-hat = inputs.nixpkgs.callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   rtimu = inputs.nixpkgs.callPackage ./rtimu.nix { };
-  vagrant-24-05 = pkgs-24-05.vagrant;
+  # vagrant-24-05 = pkgs-24-05.vagrant;
 }

@@ -5,6 +5,10 @@
     "aarch64-linux"
   ];
   # boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback config.boot.kernelPackages.rtl8814au ];
+
+  # boot.blacklistedKernelModules = [ "rtl8xxxu" ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.rtl8192eu ];
+  
   boot.kernelModules = [
     "kvm-intel"
     "snd-aloop"
@@ -13,7 +17,7 @@
   boot.extraModprobeConfig = ''
     options thinkpad_acpi fan_control=1
   '';
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_6_8;
   boot.kernelParams = [
     "intel_pstate=disable"
@@ -23,7 +27,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable = true;
   boot.supportedFilesystems = [ "zfs" ];
-  boot.extraModulePackages = [ ];
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "nvme"
@@ -81,7 +84,8 @@
   # hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
-  hardware.nvidia.open = true;
+  # hardware.nvidia.open = true;
+  hardware.nvidia.open = false;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   hardware.sane.drivers.scanSnap.enable = true;
   hardware.sane.enable = true;

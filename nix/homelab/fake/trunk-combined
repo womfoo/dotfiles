@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+    <title>Hydra - nixos:trunk-combined</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" /><script type="text/javascript" src="https://hydra.nixos.org/static/js/jquery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://hydra.nixos.org/static/js/jquery/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src="https://hydra.nixos.org/static/js/moment/moment-2.24.0.min.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="https://hydra.nixos.org/static/fontawesome/css/all.css" rel="stylesheet" />
+<script type="text/javascript" src="https://hydra.nixos.org/static/js/popper.min.js"></script>
+<script type="text/javascript" src="https://hydra.nixos.org/static/bootstrap/js/bootstrap.min.js"></script>
+<link href="https://hydra.nixos.org/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+<!-- hydra.css may need to be moved to before boostrap to make the @media rule work. -->
+<link rel="stylesheet" href="https://hydra.nixos.org/static/css/hydra.css" type="text/css" />
+<link rel="stylesheet" href="https://hydra.nixos.org/static/css/rotated-th.css" type="text/css" />
+
+<style>
+  .popover { max-width: 40%; }
+</style>
+
+<script type="text/javascript" src="https://hydra.nixos.org/static/js/bootbox.min.js"></script>
+
+<link rel="stylesheet" href="https://hydra.nixos.org/static/css/tree.css" type="text/css" />
+
+<script type="text/javascript" src="https://hydra.nixos.org/static/js/common.js"></script>
+      <meta name="google-signin-client_id" content="816926039128-ia4s4rsqrq998rsevce7i09mo6a4nffg.apps.googleusercontent.com">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="https://hydra.nixos.org/">            <img src="https://hydra.nixos.org/logo" alt="Hydra Logo" class="logo" />        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav mr-auto">
+  <li class="nav-item dropdown"  >
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Status<b class="caret"></b></a>
+    <div class="dropdown-menu">  <a class="dropdown-item"href="https://hydra.nixos.org/queue_summary" >Queue (92/322719)  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/status" >Running builds  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/machines" >Machine status  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/evals" >Latest evaluations  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/all" >Latest builds  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/steps" >Latest steps  </a>    </div>
+  </li>  <li class="nav-item dropdown"  >
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Project<b class="caret"></b></a>
+    <div class="dropdown-menu">      <h6 class="dropdown-header">nixos</h6>
+      <div class="dropdown-divider"></div>  <a class="dropdown-item"href="https://hydra.nixos.org/project/nixos" >Overview  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/project/nixos/all" >Latest builds  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/project/nixos/channel/latest" >Channel  </a>    </div>
+  </li>  <li class="nav-item dropdown"  >
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Jobset<b class="caret"></b></a>
+    <div class="dropdown-menu">      <h6 class="dropdown-header">trunk-combined</h6>
+      <div class="dropdown-divider"></div>  <a class="dropdown-item active"href="https://hydra.nixos.org/jobset/nixos/trunk-combined" >Overview  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/jobset/nixos/trunk-combined/evals" >Evaluations  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/jobset/nixos/trunk-combined/all" >Latest builds  </a>  <a class="dropdown-item"href="https://hydra.nixos.org/jobset/nixos/trunk-combined/channel/latest" >Channel  </a>    </div>
+  </li>
+</ul>  <form class="form-inline" action="https://hydra.nixos.org/search">
+    <input name="query" type="text" class="form-control" placeholder="Search" value=""/>
+  </form>
+<ul class="navbar-nav">
+  <li class="nav-item dropdown" id="sign-in-menu" >
+    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Sign in<b class="caret"></b></a>
+    <div class="dropdown-menu dropdown-menu-right">        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <div id="g_id_onload" data-client_id="816926039128-ia4s4rsqrq998rsevce7i09mo6a4nffg.apps.googleusercontent.com" data-auto_prompt="false" data-callback="onGoogleSignIn">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+        <div class="dropdown-divider"></div>        <a class="dropdown-item" href="/github-redirect?after=jobset/nixos/trunk-combined">Sign in with GitHub</a>
+        <div class="dropdown-divider"></div>      <a class="dropdown-item" href="#hydra-signin" data-toggle="modal">Sign in with a Hydra account</a>    </div>
+  </li>
+</ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="skip-topbar"></div>
+        <div class="page-header"><a href="https://hydra.nixos.org/project/nixos">nixos</a>:trunk-combined        </div>
+
+
+
+<ul class="nav nav-tabs">
+  <li class="nav-item"><a class="nav-link active" href="#tabs-evaluations" data-toggle="tab">Evaluations</a></li>    <li class="nav-item"><a class="nav-link" href="#tabs-errors" data-toggle="tab"><span class="text-warning">Evaluation Errors</span></a></li>  <li class="nav-item"><a class="nav-link" href="#tabs-jobs" data-toggle="tab">Jobs</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-configuration" data-toggle="tab">Configuration</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-links" data-toggle="tab">Links</a></li>
+  <li class="nav-item"><a class="nav-link" href="#tabs-channels" data-toggle="tab">Channels</a></li>
+</ul>
+
+<div id="generic-tabs" class="tab-content">
+
+  <div id="tabs-evaluations" class="tab-pane active">
+
+    <table class="info-table">
+      <tr>
+        <th>Last checked:</th>
+        <td><time title="2024-11-09 10:41:01 (UTC)" data-timestamp="1731148861" datetime="2024-11-09T10:41:01Z" class="date is-absolute">2024-11-09 10:41:01</time>, <em class="text-warning">with errors!</em>        </td>
+      </tr>
+      <tr>
+        <th>Last evaluation:</th>
+        <td><time data-timestamp="1731148103" datetime="2024-11-09T10:28:23Z" title="2024-11-09 10:28:23 (UTC)" class="date is-absolute">2024-11-09 10:28:23</time>            (took 2 hours, 4 minutes, 26 seconds)        </td>
+      </tr>    </table>
+
+    <br/>
+  <table class="table table-condensed table-striped clickable-rows">
+    <thead>
+      <tr>
+        <th rowspan="2">#</th>        <th rowspan="2" style="width: 10em">Date</th>
+        <th rowspan="2">Input changes</th>
+        <th colspan="4">Jobs</th>
+      </tr>
+      <tr>
+        <th style="width: 2em">
+            <img src="https://hydra.nixos.org/static/images/emojione-check-2714.svg" height="12" width="12" title="Succeeded" alt="Succeeded" class="build-status" />
+        </th>
+        <th style="width: 2em">
+            <img src="https://hydra.nixos.org/static/images/emojione-red-x-274c.svg" height="12" width="12" title="Failed" alt="Failed" class="build-status" />
+        </th>
+        <th style="width: 2em">
+            <img src="https://hydra.nixos.org/static/images/emojione-question-2754.svg" height="12" width="12" title="Queued" alt="Queued" class="build-status" />
+        </th>
+        <th style="width: 2em">
+            <img src="https://hydra.nixos.org/static/images/delta.svg" height="12" width="12" title="Delta" alt="Delta" class="build-status" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809870">1809870</a></td>          <td class="nowrap"><time datetime="2024-11-09T10:28:23Z" data-timestamp="1731148103" title="2024-11-09 10:28:23 (UTC)" class="date is-relative">2h ago</time></td>
+          <td>nixpkgs →     <tt>76612b1</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">123992</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">1206</span>          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-secondary">22517</span>          </td>
+          <td align='right' class="nowrap">          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809835">1809835</a></td>          <td class="nowrap"><time title="2024-11-07 11:36:46 (UTC)" data-timestamp="1730979406" datetime="2024-11-07T11:36:46Z" class="date is-relative">2d ago</time></td>
+          <td>nixpkgs →     <tt>8f3c3f6</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">130203</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">1762</span>          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-secondary">15672</span>          </td>
+          <td align='right' class="nowrap">          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809795">1809795</a></td>          <td class="nowrap"><time datetime="2024-11-05T07:51:34Z" data-timestamp="1730793094" title="2024-11-05 07:51:34 (UTC)" class="date is-relative">4d ago</time></td>
+          <td>nixpkgs →     <tt>4aa3656</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">144499</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">2594</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-success'><strong>+7267</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809780">1809780</a></td>          <td class="nowrap"><time title="2024-11-04 12:12:53 (UTC)" datetime="2024-11-04T12:12:53Z" data-timestamp="1730722373" class="date is-relative">5d ago</time></td>
+          <td>nixpkgs →     <tt>14e770e</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">137232</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">9775</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-danger'><strong>-5923</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809750">1809750</a></td>          <td class="nowrap"><time data-timestamp="1730540476" datetime="2024-11-02T09:41:16Z" title="2024-11-02 09:41:16 (UTC)" class="date is-relative">2024-11-02</time></td>
+          <td>nixpkgs →     <tt>7ffd9ae</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">143155</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">3730</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-success'><strong>+4950</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809719">1809719</a></td>          <td class="nowrap"><time datetime="2024-11-01T08:02:16Z" data-timestamp="1730448136" title="2024-11-01 08:02:16 (UTC)" class="date is-relative">2024-11-01</time></td>
+          <td>nixpkgs →     <tt>2315372</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">138205</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">8676</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-success'><strong>+1070</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809702">1809702</a></td>          <td class="nowrap"><time title="2024-10-31 16:38:09 (UTC)" datetime="2024-10-31T16:38:09Z" data-timestamp="1730392689" class="date is-relative">2024-10-31</time></td>
+          <td>nixpkgs →     <tt>f00f17f</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">137135</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">9712</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-success'><strong>+54</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809684">1809684</a></td>          <td class="nowrap"><time title="2024-10-31 09:17:34 (UTC)" datetime="2024-10-31T09:17:34Z" data-timestamp="1730366254" class="date is-relative">2024-10-31</time></td>
+          <td>nixpkgs →     <tt>e19cfce</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">137081</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">9758</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-success'><strong>+908</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809676">1809676</a></td>          <td class="nowrap"><time data-timestamp="1730342962" datetime="2024-10-31T02:49:22Z" title="2024-10-31 02:49:22 (UTC)" class="date is-relative">2024-10-31</time></td>
+          <td>nixpkgs →     <tt>0573737</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">136173</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">11930</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-danger'><strong>-9346</strong></span>          </td>
+        </tr>        <tr>
+          <td><a class="row-link" href="https://hydra.nixos.org/eval/1809644">1809644</a></td>          <td class="nowrap"><time datetime="2024-10-29T13:09:55Z" data-timestamp="1730207395" title="2024-10-29 13:09:55 (UTC)" class="date is-relative">2024-10-29</time></td>
+          <td>nixpkgs →     <tt>807e915</tt>              <span class="badge badge-warning">Eval Errors</span>          </td>
+          <td align='right' class="nowrap">
+            <span class="badge badge-success">145519</span>
+          </td>
+          <td align="right" class="nowrap">            <span class="badge badge-danger">2488</span>          </td>
+          <td align="right" class="nowrap">          </td>
+          <td align='right' class="nowrap">              <span class='badge badge-success'><strong>+609</strong></span>          </td>
+        </tr>        <tr><td class="centered" colspan="7"><a href="https://hydra.nixos.org/jobset/nixos/trunk-combined/evals"><em>More...</em></a></td></tr>    </tbody>
+  </table>
+  </div>
+    <div id="tabs-errors" class="tab-pane">
+      <iframe src="https://hydra.nixos.org/jobset/nixos/trunk-combined/errors" loading="lazy" frameBorder="0" width="100%"></iframe>
+    </div>
+  <div id="tabs-configuration" class="tab-pane">
+
+    <table class="info-table">
+      <tr>
+        <th>State:</th>
+        <td>Enabled</td>
+      </tr>
+      <tr>
+        <th>Description:</th>
+        <td>Combined NixOS/Nixpkgs unstable</td>
+      </tr>      <tr>
+        <th>Nix expression:</th>
+        <td>
+          <tt>nixos/release-combined.nix</tt> in input
+          <tt>nixpkgs</tt>
+        </td>
+      </tr>      <tr>
+        <th>Check interval:</th>
+        <td>172800</td>
+      </tr>
+      <tr>
+        <th>Scheduling shares:</th>
+        <td>768 (0.00% out of 32926750 shares)</td>
+      </tr>
+      <tr>
+        <th>Enable Dynamic RunCommand Hooks:</th>
+        <td>No (not enabled by server)</td>
+      </tr>      <tr>
+        <th>Number of evaluations to keep:</th>
+        <td>2</td>
+      </tr>
+    </table>
+  <h3>Inputs</h3>
+  <table class="table table-striped table-condensed">
+    <thead>
+      <tr><th>Input name</th><th>Type</th><th>Values</th></tr>
+    </thead>
+    <tbody class="inputs">  <tr class="input " >
+    <td>
+      <tt>nixpkgs</tt>
+    </td>
+    <td>Git checkout    </td>
+    <td class="inputalts" id="input-nixpkgs">        <tt class="inputalt">https://github.com/NixOS/nixpkgs.git        </tt>    </td>
+  </tr>  <tr class="input " >
+    <td>
+      <tt>stableBranch</tt>
+    </td>
+    <td>Boolean    </td>
+    <td class="inputalts" id="input-stableBranch">        <tt class="inputalt">false        </tt>    </td>
+  </tr>    </tbody>
+  </table>  </div>
+  <div id="tabs-jobs" class="tab-pane">
+    <center><span class="spinner-border spinner-border-sm"/></center>
+  </div>
+  <script>    $(function() { makeLazyTab("tabs-jobs", "https://hydra.nixos.org/jobset/nixos/trunk-combined/jobs-tab", null ); });  </script>
+  <div id="tabs-links" class="tab-pane">
+    <ul>
+      <li><a href="https://hydra.nixos.org/jobset/nixos/trunk-combined/latest-eval">Latest finished evaluation</a></li>
+    </ul>
+  </div>
+  <div id="tabs-channels" class="tab-pane">
+    <center><span class="spinner-border spinner-border-sm"/></center>
+  </div>
+  <script>    $(function() { makeLazyTab("tabs-channels", "https://hydra.nixos.org/jobset/nixos/trunk-combined/channels-tab", null ); });  </script>
+</div>
+
+<script>
+  function confirmEvaluateJobset() {
+    bootbox.confirm(
+      'Are you sure you want to force evaluation of this jobset?',
+      function(c) {
+        if (!c) return;
+        requestJSON({
+          url: "https://hydra.nixos.org/api/push?force=1&amp;jobsets=nixos%3Atrunk-combined",
+          type: 'POST',
+          success: function(data) {
+            bootbox.alert("The jobset has been scheduled for evaluation.");
+          }
+        });
+      });
+  };
+
+  function deleteJobset() {
+    bootbox.confirm(
+      'Are you sure you want to delete this jobset?',
+      function(c) {
+        if (!c) return;
+        redirectJSON({
+          url: "https://hydra.nixos.org/jobset/nixos/trunk-combined",
+          type: 'DELETE'
+        });
+      });
+  };
+</script>
+
+      <footer class="navbar">
+        <hr />
+        <small>
+          <em><a href="http://nixos.org/hydra" target="_blank" class="squiggle">Hydra</a> 0.1.20241020.031aaa0 (using nix-2.24.8).</em>        </small>
+      </footer>
+
+    </div>
+
+  <div id="hydra-signin" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="signin-form">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="username" class="col-form-label">User name</label>
+              <input type="text" class="form-control" name="username"/>
+            </div>
+            <div class="form-group">
+              <label for="password" class="col-form-label">Password</label>
+              <input type="password" class="form-control" name="password"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    function finishSignOut() { }
+
+    $("#signin-form").submit(function(e) {
+      e.preventDefault();
+      requestJSON({
+        url: "https://hydra.nixos.org/login",
+        data: $(this).serialize(),
+        type: 'POST',
+        success: function(data) {
+          window.location.reload();
+        }
+      });
+      return false;
+    });
+
+    $("#sign-in-menu").on("click", function() {        $.getScript("https://apis.google.com/js/platform.js");    });
+
+  </script>
+    <script>
+      function onGoogleSignIn(googleUser) {
+        requestJSON({
+          url: "https://hydra.nixos.org/google-login",
+          data: "id_token=" + googleUser.credential,
+          type: 'POST',
+          success: function(data) {
+            window.location.reload();
+          }
+        });
+        return false;
+        };
+
+    </script>
+  </body>
+
+</html>

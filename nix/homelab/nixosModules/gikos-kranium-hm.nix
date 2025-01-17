@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
+  # inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
   extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     foxyproxy-standard
     privacy-badger
@@ -21,13 +21,12 @@ in
       bash.enable = true;
       direnv.enable = true;
       firefox = {
-        package = firefox-nightly-bin;
+        # package = firefox-nightly-bin;
         enable = true;
         # extensions will not work if you dont have profiles defined
         profiles.kranium = {
           id = 0;
           isDefault = true;
-          path = "s0h80mj1.default-1471996773737"; # FIXME: generalize outside silverspark
           inherit extensions;
         };
         profiles.work = {
@@ -49,20 +48,9 @@ in
         lfs.enable = true;
         includes = [
           {
-            condition = "gitdir:/home/kranium/git/github.com/input-output-hk/**";
-            contents.user.email = "kraniumgikos.mendoza@iohk.io";
-            contents.user.signingKey = "30079627378B190345DAEF17A578D4096D011982";
-            contents.tag.gpgSign = "true";
-            contents.commit.gpgSign = "true";
-            # format.signOff = true; # does not work
-          }
-          {
-            condition = "gitdir:/home/kranium/git/github.com/hyperledger/**";
-            contents.user.email = "kraniumgikos.mendoza@iohk.io";
-            contents.user.signingKey = "30079627378B190345DAEF17A578D4096D011982";
-            contents.tag.gpgSign = "true";
-            contents.commit.gpgSign = "true";
-            # format.signOff = true; # does not work
+            condition = "gitdir:/home/kranium/git/github.com/womfoo/**";
+            contents.user.email = "github@kranium.au";
+            contents.user.name = "Kranium Mendoza";
           }
         ];
       };

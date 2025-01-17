@@ -657,15 +657,12 @@ This function is called at the very end of Spacemacs initialization."
   (setq org-agenda-files
         (list "~/encfs/darcs.private/foostash/life.org"
               "~/encfs/darcs.private/foostash/nixos.org"
-              "~/work/worknotes/work.org"
               ))
   )
 (load-file "~/darcs/vc-darcs/vc-darcs.el")
 
 (defun my-git-commit-setup ()
-  (insert "fix/feat/chore: xyz
-
-Signed-off-by: Kranium Gikos Mendoza <kraniumgikos.mendoza@iohk.io>"))
+  (insert "DO NOT MERGE fix feat chore: xyz"))
 
 (add-hook 'git-commit-setup-hook 'my-git-commit-setup)
 (display-time-mode 1)

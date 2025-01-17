@@ -1,5 +1,16 @@
 let
+  wifiplay = "wlp0s20f0u6";
   noplay = false;
+  faketrunkcombined = pkgs.stdenv.mkDerivation {
+    name = "localhost-spfiles";
+    src = ../../homelab/fake;
+    installPhase = ''
+      mkdir -p $out/fakehydra
+      cp trunk-combined $out/fakehydra
+    '';
+  };
+
+
 in
 # noplay = true;
 {
@@ -9,8 +20,9 @@ in
     config.allowBroken = true;
     config.allowUnfree = true;
     overlays = [
-      inputs.nur.overlay
+      inputs.nur.overlays.default
       cell.overlays.x86_64
+      cell.overlays.rtmpOverlay
     ];
   };
   environment.variables = {
@@ -22,9 +34,11 @@ in
     cell.nixosModules.builder
     # cell.nixosModules.daedalus-db-sync
     cell.nixosModules.desktop-apps
+    cell.nixosModules.desktop-apps-x86_64
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
+    cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
   ];
@@ -62,12 +76,12 @@ in
   # services.fwupd.enableTestRemote = true;
   # services.grafana.enable = true;
   services.hardware.bolt.enable = true;
-  services.k3s.enable = true;
-  services.k3s.extraFlags = toString [
-   "--disable traefik"
-   "--kubelet-arg=eviction-hard=imagefs.available<2%,nodefs.available<2%"
-   "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=2%,nodefs.available=2%"
-  ];
+  # services.k3s.enable = true;
+  # services.k3s.extraFlags = toString [
+  #  "--disable traefik"
+  #  "--kubelet-arg=eviction-hard=imagefs.available<2%,nodefs.available<2%"
+  #  "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=2%,nodefs.available=2%"
+  # ];
   # services.libinput.enable = true;
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
@@ -96,6 +110,8 @@ in
   services.printing.drivers = [ pkgs.hplipWithPlugin ];
   services.rpcbind.enable = true; # needed for NFS client
   services.saned.enable = true;
+  services.smartd.enable = true;
+  services.telegraf.extraConfig.inputs.upsd = {};
   services.tlp.enable = true;
   services.touchegg.enable = true;
   services.thinkfan.enable = true;
@@ -120,7 +136,7 @@ in
   services.xserver.wacom.enable = true; # havent figured out the eraser yet
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
-
+# system.configurationRevision = "haha";
   networking.firewall.interfaces.enp9s0u2u1u2 = {
     allowedTCPPorts = [
       80
@@ -128,6 +144,18 @@ in
       9273 # telegraf promclient
     ];
   };
+
+
+  networking.firewall = {
+    allowedTCPPorts = [
+      1935
+      1936
+      8581
+      48302
+      51203
+    ];
+  };
+
 
   # TODO review ports
   networking.firewall.interfaces."virbr1" = {
@@ -160,20 +188,19 @@ in
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
 
-  services.telegraf.extraConfig.inputs.upsd = {};
-  services.ollama.enable = true;
-  services.ollama.acceleration = "cuda";
-  services.ollama.loadModels = [
-    "gemma2:2b"
-    "llama3.1"
-  ];
-  services.open-webui = {
-    enable = true;
-    environment = {
-      WEBUI_AUTH = "False";
-    };
-  };
-  services.nextjs-ollama-llm-ui.enable = true;
+  # services.ollama.enable = true;
+  # services.ollama.acceleration = "cuda";
+  # services.ollama.loadModels = [
+  #   "gemma2:2b"
+  #   "llama3.1"
+  # ];
+  # services.open-webui = {
+  #   enable = true;
+  #   environment = {
+  #     WEBUI_AUTH = "False";
+  #   };
+  # };
+  # services.nextjs-ollama-llm-ui.enable = true;
 /*
   power.ups = {
     enable = true;
@@ -192,12 +219,15 @@ in
     };
   };
 */
-  # https://discourse.nixos.org/t/can-i-inspect-the-installed-versions-of-system-packages/2763/15
-  environment.etc."current-system-packages".text =
-    let
-      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-      sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
-      formatted = builtins.concatStringsSep "\n" sortedUnique;
-    in formatted;
 
+  services.nginx = {
+    virtualHosts.localhost =
+        {
+          locations = {
+            "/" = {
+              root = faketrunkcombined;
+            };
+          };
+        };
+    };
 }
