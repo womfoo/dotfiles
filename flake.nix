@@ -34,7 +34,7 @@
     };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.follows = "nixos-24-11";
-    nixpkgs.url = "github:NixOS/nixpkgs/9abb87b552b7f55ac8916b6fc9e5cb486656a2f3"; # (2025-01-13)
+    nixpkgs.url = "github:NixOS/nixpkgs/9e4d519";
     # nixpkgs.url = "github:NixOS/nixpkgs/18536bf04cd71abd345f9579158841376fdd0c5a";
     # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
@@ -112,8 +112,14 @@
           "shells"
         ];
         packages = inputs.std.harvest inputs.self [
-          "vendor"
-          "packages"
+          [
+            "vendor"
+            "packages"
+          ]
+          [
+            "repo"
+            "packages"
+          ]
         ];
       }
       {

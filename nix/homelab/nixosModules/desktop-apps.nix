@@ -37,7 +37,6 @@
       ))
       audacity
       # augeas
-      avidemux
       awscli
       b2sum
       baobab
@@ -47,6 +46,7 @@
       bind
       binutils # ld, ar
       # bitcoin
+      blueberry
       bluez-tools # bt-device --list
       # bluetooth_battery
       bmon
@@ -185,6 +185,7 @@
           vty
         ]
       ))
+      gyro2bb
       # hfsprogs
       hicolor-icon-theme
       hiera-eyaml
@@ -437,7 +438,7 @@
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
       virt-manager
       virt-top
-      # vlc
+      vlc
       # vulnix
       vscode
       vnstat

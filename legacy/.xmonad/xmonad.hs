@@ -22,6 +22,7 @@ main = do
   spawn "nm-applet"
   spawn "pasystray"
   spawn "parcellite -n"
+  spawn "blueberry-tray"
   -- dunno what broke # redshift -O 6500 # doesnt even reset
   -- spawn "redshift -l -33.84:151.21 -t 6500:3500"
   xmproc <- spawnPipe "xmobar"

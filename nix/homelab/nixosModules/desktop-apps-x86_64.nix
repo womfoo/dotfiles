@@ -5,7 +5,7 @@
 }:
 {
   environment.systemPackages = with pkgs; [
-    avidemux
+    # avidemux
     # cura # FTB pynest2d
     dropbox
     # freecad # FTB shiboken2

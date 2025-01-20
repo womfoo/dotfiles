@@ -15,7 +15,7 @@ func UpdateHash(newhash string) {
 		log.Fatal(err)
 	}
 
-	re := regexp.MustCompile(`(?m)^ +nixpkgs.url = "github:NixOS\/nixpkgs\/.*$`) // Replace this with your regex
+	re := regexp.MustCompile(`(?m)^ +nixpkgs.url = "github:NixOS\/nixpkgs\/.*$`)
 
 	updatedContent := re.ReplaceAllString(string(content), "    nixpkgs.url = \"github:NixOS/nixpkgs/"+newhash+"\";")
 
