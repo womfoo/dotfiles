@@ -65,8 +65,7 @@
   # services.openssh.settings.PermitRootLogin = "prohibit-password";
   # services.openssh.settings.PasswordAuthentication = true;
 
-  # time.timeZone = "Asia/Manila";
-  time.timeZone = "Australia/Sydney";
+  time.timeZone = "Pacific/Auckland";
 
   system.configurationRevision = lib.mkIf (inputs.self ? rev) inputs.self.rev;
   system.nixos.label = lib.mkIf (inputs.self ? shortRev) (

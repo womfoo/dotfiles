@@ -1,0 +1,17 @@
+{
+  inputs,
+  cell,
+}:
+let
+  inherit (inputs.nixpkgs) callPackage;
+  pkgs = import inputs.nixpkgs {
+    inherit (inputs.nixpkgs) system;
+  };
+  inherit (inputs.std.lib.ops) writeScript;
+in
+{
+  backup = callPackage ./backup.nix { inherit writeScript pkgs; };
+  gcd = callPackage ./gcd.nix { inherit writeScript pkgs; };
+  mpvdash = callPackage ./mpvdash.nix { inherit writeScript pkgs; };
+  sendkeys = callPackage ./sendkeys.nix { inherit writeScript pkgs; };
+}

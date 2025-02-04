@@ -28,7 +28,7 @@ main = do
   xmproc <- spawnPipe "xmobar"
   xmonad $ docks $ ewmh $ ewmhFullscreen def
     { modMask            = mod4Mask
-    , terminal           = "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\" tmux"
+    , terminal           = "st -f \"DejaVu Sans Mono:pixelsize=60:style=Book\" tmux"
     , focusedBorderColor = "#cc6666"
     , normalBorderColor  = "#373b41"
     , borderWidth        = 3
@@ -49,15 +49,15 @@ main = do
                      ,((mod4Mask .|. shiftMask , xK_l), unsafeSpawn "xscreensaver-command -lock")
                      ,((0,xF86XK_MonBrightnessUp), spawn "sudo light -A 10")
                      ,((0,xF86XK_MonBrightnessDown), spawn "sudo light -U 10")
-                     ,((0,xF86XK_KbdBrightnessUp), spawn "kbdlight up")
-                     ,((0,xF86XK_KbdBrightnessDown), spawn "kbdlight down")
+                     -- ,((0,xF86XK_KbdBrightnessUp), spawn "kbdlight up")
+                     -- ,((0,xF86XK_KbdBrightnessDown), spawn "kbdlight down")
                      ,((0,xF86XK_AudioRaiseVolume), spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+")
                      ,((0,xF86XK_AudioLowerVolume), spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-")
                      ,((0,xF86XK_AudioMute), spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle")
                      ,((mod4Mask, xK_c), spawn "find-cursor -c red")
                      ,((mod4Mask, xK_n), spawn "networkmanager_dmenu")
-                     ,((mod4Mask, xK_u), spawn "~/bin/sendkeys.sh alias_")
-                     ,((mod4Mask, xK_o), spawn "~/bin/sendkeys.sh password")
-                     ,((mod4Mask, xK_i), spawn "~/bin/sendkeys.sh totp")
+                     ,((mod4Mask, xK_u), spawn "sendkeys alias_")
+                     ,((mod4Mask, xK_o), spawn "sendkeys password")
+                     ,((mod4Mask, xK_i), spawn "sendkeys totp")
                      ,((mod4Mask .|. shiftMask , xK_t), spawn "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\"")
                      ]

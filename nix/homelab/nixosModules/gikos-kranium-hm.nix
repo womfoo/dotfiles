@@ -17,6 +17,7 @@ in
     home.stateVersion = "23.11";
     programs = {
       atuin.enable = true;
+      atuin.flags = [ "--disable-up-arrow" ];
       bash.enable = true;
       direnv.enable = true;
       firefox = {
@@ -59,6 +60,7 @@ in
         extraConfig = ''
           set-option -g history-limit 500000
           set-option -g history-limit 500000
+          # set-option -g mouse on
           set -g status-bg blue
           set -g status-fg white
         '';

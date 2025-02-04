@@ -93,4 +93,5 @@
   hardware.enableAllFirmware = true;
   powerManagement.cpuFreqGovernor = "performance"; # defaults to powersave
   swapDevices = [ ];
+
 }

@@ -2,6 +2,9 @@
   inputs,
   cell,
 }:
+let
+  inherit (inputs.std.lib) dev cfg;
+in
 {
   default =
     inputs.std.lib.dev.mkShell {
@@ -24,10 +27,13 @@
         { package = stow; }
         { package = cell.packages.updatenixpkgs; }
         { package = go; }
+        { package = certbot; }
         # { package = terraform-backend-git; }
       ];
       nixago = [
         cell.configs.treefmt
+        (dev.mkNixago cfg.conform)
+        (dev.mkNixago cfg.lefthook)
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 KEY_DIR=/home/kranium/encfs/darcs.private/gikos-it/keys
 YAML_FILE=~/sendkeys.yaml
 

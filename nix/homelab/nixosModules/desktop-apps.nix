@@ -8,6 +8,7 @@
   # TODO: will move to per proj devshells + direnv
   environment.systemPackages =
     with inputs.cells.vendor.packages;
+    with inputs.cells.desktop.packages;
     with pkgs;
     [
       # abiword
@@ -39,6 +40,7 @@
       # augeas
       awscli
       b2sum
+      b3sum
       baobab
       bat
       # bcde # rip cds
@@ -143,7 +145,6 @@
       # go-jira
       # go-mtpfs # jmtpfs and mtpfs fails on my xiaomi
       # go2nix
-      google-chrome # /nix/store/pjq6jrm31xn2zw0cmwza3x0hg3lxpz2a-google-chrome-106.0.5249.119/bin/google-chrome-stable
       # google-chrome-beta
       # google-chrome-dev
       gpa
@@ -183,6 +184,7 @@
           timeline
           vector
           vty
+          zim-parser
         ]
       ))
       gyro2bb
@@ -193,6 +195,7 @@
       hledger-web
       home-manager
       htop
+      httrack
       # httpie
       hwloc
       ifuse
@@ -220,6 +223,7 @@
       keepassx-22-11
       keepassxc
       # kitty
+      kiwix-tools
       # kops
       # kotlin
       # kpcli
@@ -227,6 +231,7 @@
       # kubectl
       kubernetes-helm
       # languagetool # very-basic grammarly
+      # lefthook
       light
       libgpiod
       libheif # make nautilus thumbnail HEIC, also requires pathToLink = share/thumbnailers
@@ -256,7 +261,12 @@
       # mosh
       # mplayer # (mplayer.override {v4lSupport =true;})
       # mpv
-      (mpv.override { scripts = [ mpvScripts.mpris ]; })
+      (mpv.override {
+        scripts = [
+          mpvScripts.mpris
+          mpvScripts.vr-reversal
+        ];
+      })
       # msf
       mtools
       (mtr.override { withGtk = true; })
@@ -331,6 +341,7 @@
       # pssh
       pulsemixer
       pv
+      pwgen
       # pypi2nix # unmaintained
       (python3.withPackages (
         ps:
@@ -402,6 +413,8 @@
       # sshpass
       st
       # steam
+      step-cli # FIXME
+      step-ca
       # subversionClient
       # surf
       sysstat # iotop, etc...
@@ -427,10 +440,9 @@
       unzip
       usbutils # lsusb
       v4l-utils # ir-keytable
-      # vagrant
+      vagrant
       # vagrant-24-05
-      # vault
-      # vbetool # sudo vbetool dpms off
+      vault
       vdpauinfo
       # veracrypt
       # victoriametrics
@@ -441,7 +453,7 @@
       vlc
       # vulnix
       vscode
-      vnstat
+      # vnstat
       # vscode
       wavemon # wifi diag
       wget
@@ -480,12 +492,13 @@
       # zoom-us
       # zsync
       # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
+
+      backup
+      gcd
+      mpvdash
+      sendkeys
     ];
 
   environment.pathsToLink = [ "share/thumbnailers" ];
 
-  # FIXME
-  # permittedInsecurePackages = [
-  #   "wire-desktop-3.36.3462"
-  # ];
 }

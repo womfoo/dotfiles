@@ -1,0 +1,24 @@
+rsync \
+  -avh \
+  --exclude='.bundle' \
+  --exclude='.cache' \
+  --exclude='.conda' \
+  --exclude='.compose-cache' \
+  --exclude='.daedalus' \
+  --exclude='.emacs.d/eln-cache' \
+  --exclude='.gem' \
+  --exclude='.gnupg' \
+  --exclude='.gradle' \
+  --exclude='.local' \
+  --exclude='.npm' \
+  --exclude='.nv' \
+  --exclude='.platformio' \
+  --exclude='.sbt' \
+  --exclude='.vagrant.d/boxes' \
+  --exclude='.xmonad' \
+  --exclude='encfs' \
+  --exclude='git' \
+  --exclude='vagrantboxen' \
+  --exclude='work' \
+  /home/kranium/ \
+  /armorydata/kranium/
