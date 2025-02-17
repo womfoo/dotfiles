@@ -1,6 +1,6 @@
 let
   wifiplay = "wlp0s20f0u6";
-  noplay = false;
+  noplay = true;
   faketrunkcombined = pkgs.stdenv.mkDerivation {
     name = "localhost-spfiles";
     src = ../../homelab/fake;
@@ -10,7 +10,6 @@ let
     '';
   };
 in
-# noplay = true;
 {
   bee.system = "x86_64-linux";
   bee.pkgs = import inputs.nixpkgs {
@@ -30,7 +29,6 @@ in
     inputs.home.nixosModule
     cell.nixosModules.common
     cell.nixosModules.builder
-    # cell.nixosModules.daedalus-db-sync
     cell.nixosModules.desktop-apps
     cell.nixosModules.desktop-apps-x86_64
     cell.nixosModules.gikos-kranium
@@ -48,16 +46,47 @@ in
     ''
       127.0.0.1 tahanan
     ''
-
     + lib.optionalString noplay ''
       127.0.0.1 laarc.io
       127.0.0.1 lobste.rs
       127.0.0.1 news.ycombinator.com
       127.0.0.1 slashdot.org
       127.0.0.1 www.youtube.com
+      127.0.0.1 twitter.com
+      127.0.0.1 www.reddit.com
     '';
-  # 127.0.0.1 twitter.com # because grok
+  networking.useNetworkd = true;
+  networking.firewall = {
+    allowedTCPPorts = [
+      1935
+      1936
+      8581
+      48302
+      51203
+    ];
+  };
   networking.firewall.trustedInterfaces = [ "cni+" ]; # k3s
+  networking.firewall.interfaces.enp9s0u2u1u2 = {
+    allowedTCPPorts = [
+      80
+      443
+      9273 # telegraf promclient
+    ];
+  };
+  networking.firewall.interfaces."virbr1" = {
+    allowedTCPPorts = [
+      2049
+      config.services.nfs.server.statdPort
+      config.services.nfs.server.mountdPort
+      config.services.nfs.server.lockdPort
+    ];
+    allowedUDPPorts = [
+      2049
+      config.services.nfs.server.statdPort
+      config.services.nfs.server.mountdPort
+      config.services.nfs.server.lockdPort
+    ];
+  };
   networking.hostId = "f0670973";
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
@@ -82,6 +111,7 @@ in
   #  "--kubelet-arg=eviction-minimum-reclaim=imagefs.available=2%,nodefs.available=2%"
   # ];
   # services.libinput.enable = true;
+  services.locate.enable = true;
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
   services.nfs.server.mountdPort = 47001;
@@ -90,7 +120,29 @@ in
     # virbr1 iface
     /home/kranium/vagrantboxen/debian-bookworm64 192.168.121.1/24(rw,no_root_squash,no_subtree_check)
   '';
-
+  services.nginx = {
+    virtualHosts.localhost = {
+      locations = {
+        "/" = {
+          root = faketrunkcombined;
+        };
+      };
+    };
+  };
+  services.ollama.enable = true;
+  services.ollama.acceleration = "cuda";
+  services.ollama.loadModels = [
+    "gemma2:2b"
+    "llama3.1"
+    "deepseek-r1:1.5b"
+    "deepseek-r1:7b"
+  ];
+  services.open-webui = {
+    enable = true;
+    environment = {
+      WEBUI_AUTH = "False";
+    };
+  };
   services.paperless.enable = true;
   services.pipewire = {
     enable = true;
@@ -135,41 +187,6 @@ in
   services.xserver.wacom.enable = true; # havent figured out the eraser yet
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
-  # system.configurationRevision = "haha";
-  networking.firewall.interfaces.enp9s0u2u1u2 = {
-    allowedTCPPorts = [
-      80
-      443
-      9273 # telegraf promclient
-    ];
-  };
-
-  networking.firewall = {
-    allowedTCPPorts = [
-      1935
-      1936
-      8581
-      48302
-      51203
-    ];
-  };
-
-  # TODO review ports
-  networking.firewall.interfaces."virbr1" = {
-    allowedTCPPorts = [
-      2049
-      config.services.nfs.server.statdPort
-      config.services.nfs.server.mountdPort
-      config.services.nfs.server.lockdPort
-    ];
-    allowedUDPPorts = [
-      2049
-      config.services.nfs.server.statdPort
-      config.services.nfs.server.mountdPort
-      config.services.nfs.server.lockdPort
-    ];
-  };
-
   system.stateVersion = "24.05";
   systemd.watchdog.device = "/dev/watchdog";
   virtualisation.docker = {
@@ -186,22 +203,6 @@ in
   };
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
-
-  services.ollama.enable = true;
-  services.ollama.acceleration = "cuda";
-  services.ollama.loadModels = [
-    "gemma2:2b"
-    "llama3.1"
-    "deepseek-r1:1.5b"
-    "deepseek-r1:7b"
-  ];
-  services.open-webui = {
-    enable = true;
-    environment = {
-      WEBUI_AUTH = "False";
-    };
-  };
-  services.nextjs-ollama-llm-ui.enable = true;
   /*
     power.ups = {
       enable = true;
@@ -220,18 +221,6 @@ in
       };
     };
   */
-
-  services.nginx = {
-    virtualHosts.localhost = {
-      locations = {
-        "/" = {
-          root = faketrunkcombined;
-        };
-      };
-    };
-  };
-
-  networking.useNetworkd = true;
 
   # stolen from srvos
 

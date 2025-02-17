@@ -23,5 +23,5 @@ func UpdateHash(newhash string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("nixpkgs hash updated to " + newhash + "successfully")
+	fmt.Println("nixpkgs hash updated to " + newhash + " successfully")
 }

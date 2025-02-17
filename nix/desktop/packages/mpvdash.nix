@@ -13,7 +13,7 @@ writeScript {
     MTIME="''${MTIME:--2}"
 
     if [ "$BASEDIR" = "/home/kranium/" ]; then
-      BASEDIR=/dashcam/corolla/cont_rec/
+      BASEDIR=/dashcam/corolla/manual_rec/
     fi
 
     videos=""

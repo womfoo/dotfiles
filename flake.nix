@@ -34,8 +34,7 @@
     };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.follows = "nixos-24-11";
-    nixpkgs.url = "github:NixOS/nixpkgs/9e4d519";
-    # nixpkgs.url = "github:NixOS/nixpkgs/18536bf04cd71abd345f9579158841376fdd0c5a";
+    nixpkgs.url = "github:NixOS/nixpkgs/8bb3716";
     # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";
@@ -45,7 +44,7 @@
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
-    std.url = "github:divnix/std/v0.33.3";
+    std.url = "github:womfoo/std/fix-prettier-toml";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
   };
