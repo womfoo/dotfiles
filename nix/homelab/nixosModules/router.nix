@@ -215,18 +215,11 @@ with lib;
         enable = true;
         radios = {
           "${finalConf.wireless.interface}" = {
-            wifi4.capabilities = [
-              "HT40"
-              "HT40-"
-              "SHORT-GI-20"
-              "SHORT-GI-40"
-              "TX-STBC"
-              "RX-STBC1"
-              "MAX-AMSDU-3839"
-              "DSSS_CCK-40"
-            ];
+            noScan = true;
+            countryCode = "AU";
             networks."${finalConf.wireless.interface}" = {
               settings = {
+                # chanlist = "1 6 11";
                 wpa = "2";
               };
               ssid = finalConf.wireless.ssid;

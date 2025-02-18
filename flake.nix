@@ -39,12 +39,12 @@
     nur = {
       url = "github:nix-community/NUR";
     };
-    srvos.url = "github:nix-community/srvos";
+    srvos.url = "github:nix-community/srvos/a48f731";
     srvos.inputs.nixpkgs.follows = "nixos-24-11";
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
-    std.url = "github:womfoo/std/fix-prettier-toml";
+    std.url = "github:divnix/std";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
   };

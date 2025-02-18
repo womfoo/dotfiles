@@ -14,20 +14,15 @@ in
         { package = age; }
         # { package = darcs; }
         # { package = deadnix; }
-        # { package = git; }
         { package = inputs.std.std.cli.default; }
-        # { package = k9s; }
-        # { package = inputs.cells.vendor.packages.keepassx-22-11; }
         # { package = kubectl; }
         # { package = kubernetes-helm; }
         # { package = terraform; }
         { package = colmena; }
-        { package = hledger; }
         { package = inputs.agenix.packages.default; }
         { package = stow; }
         { package = cell.packages.updatenixpkgs; }
-        { package = go; }
-        { package = certbot; }
+        { package = inputs.cells.desktop.packages.checkghtoken; }
         # { package = terraform-backend-git; }
       ];
       nixago = [

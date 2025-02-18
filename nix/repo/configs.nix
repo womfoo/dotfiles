@@ -17,5 +17,9 @@ in
     data.formatter.nix = {
       command = nixpkgs.lib.getExe nixpkgs.nixfmt-rfc-style;
     };
+    data.formatter.py = {
+      command = "${nixpkgs.black}/bin/black";
+      includes = [ "*.py" ];
+    };
   };
 }

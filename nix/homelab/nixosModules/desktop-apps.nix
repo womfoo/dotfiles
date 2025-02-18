@@ -245,8 +245,10 @@
       libva-utils
       libxml2 # xmllint
       libxslt
+      linssid
       lm_sensors
       lmdb # mdb_copy for backing up monero
+      lnav
       lsof
       macchanger
       # magic-wormhole
@@ -357,6 +359,7 @@
           # (opencv4.override {enableGtk3 = true;})
           opencv4
           pylint
+          pytz
           # (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
         ]
       ))
@@ -441,7 +444,6 @@
       usbutils # lsusb
       v4l-utils # ir-keytable
       vagrant
-      # vagrant-24-05
       vault
       vdpauinfo
       # veracrypt

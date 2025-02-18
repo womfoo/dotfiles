@@ -1,6 +1,6 @@
 let
   wifiplay = "wlp0s20f0u6";
-  noplay = true;
+  noplay = false;
   faketrunkcombined = pkgs.stdenv.mkDerivation {
     name = "localhost-spfiles";
     src = ../../homelab/fake;
@@ -187,7 +187,7 @@ in
   services.xserver.wacom.enable = true; # havent figured out the eraser yet
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
   systemd.watchdog.device = "/dev/watchdog";
   virtualisation.docker = {
     enable = true;

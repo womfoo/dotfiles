@@ -8,13 +8,13 @@ let
 in
 {
   bee.system = "x86_64-linux";
-  # bee.pkgs = import inputs.srvos.inputs.nixpkgs {
   bee.pkgs = import inputs.nixos-24-05 {
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
+  # hardware.enableRedistributableFirmware = true;
   imports = [
     cell.hardwareProfiles.waycastle
     cell.nixosModules.common
@@ -35,7 +35,6 @@ in
   services.router.config.wireless.interface = "wlp2s0";
   services.router.enable = true;
   services.router.inventory = constants.devices;
-  environment.systemPackages = with pkgs; [ picocom ];
   services.mywg.enable = true;
   services.mywg.host = "waycastle";
   services.mywg.hostPrivKeyFile = config.age.secrets."wg-waycastle-priv-key".path;

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   # inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
-  extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+  extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
     foxyproxy-standard
     privacy-badger
     return-youtube-dislikes
@@ -14,7 +14,7 @@ in
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
     # home.packages = [ pkgs.lolcat ];
-    home.stateVersion = "23.11";
+    home.stateVersion = "24.11";
     programs = {
       atuin.enable = true;
       atuin.flags = [ "--disable-up-arrow" ];
