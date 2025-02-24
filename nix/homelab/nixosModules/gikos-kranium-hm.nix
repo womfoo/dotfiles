@@ -54,6 +54,16 @@ in
           }
         ];
       };
+      mpv = {
+        enable = true;
+        config = {
+          save-position-on-quit = true;
+        };
+        scripts = with pkgs.mpvScripts; [
+          mpris
+          vr-reversal
+        ];
+      };
       ssh.enable = true;
       tmux = {
         enable = true;
@@ -64,6 +74,9 @@ in
           set -g status-bg blue
           set -g status-fg white
         '';
+        plugins = with pkgs; [
+          tmuxPlugins.yank
+        ];
       };
       man.enable = false;
       xmobar = {

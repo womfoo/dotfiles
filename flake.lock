@@ -751,11 +751,11 @@
         "std": "std_2"
       },
       "locked": {
-        "lastModified": 1736692733,
-        "narHash": "sha256-RVshgySUA8P+PnqW6fsamjU0vjoNx5gQaouPlOJrfFk=",
+        "lastModified": 1740396079,
+        "narHash": "sha256-kIaaXrIxM9hDK4q/aY3a5nbsC1ERiTmdvvFbf/BSiYE=",
         "ref": "refs/heads/master",
-        "rev": "db57e9c14dcdb7b270b19105a105ad03cbc38190",
-        "revCount": 5,
+        "rev": "39db1267d393a408567ac35a44e565e3fdd6b36c",
+        "revCount": 7,
         "type": "git",
         "url": "file:///home/kranium/git/github.com/womfoo/lihim"
       },

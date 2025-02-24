@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   ...
 }:
 {
@@ -263,12 +262,6 @@
       # mosh
       # mplayer # (mplayer.override {v4lSupport =true;})
       # mpv
-      (mpv.override {
-        scripts = [
-          mpvScripts.mpris
-          mpvScripts.vr-reversal
-        ];
-      })
       # msf
       mtools
       (mtr.override { withGtk = true; })
@@ -372,6 +365,7 @@
       # remmina # rdp
       rhash
       ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
+      rmlint
       # rpm
       # rpPPPoE
       # rrdtool

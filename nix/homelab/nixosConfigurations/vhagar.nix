@@ -1,5 +1,4 @@
 let
-  wifiplay = "wlp0s20f0u6";
   noplay = false;
   faketrunkcombined = pkgs.stdenv.mkDerivation {
     name = "localhost-spfiles";
@@ -70,7 +69,8 @@ in
     allowedTCPPorts = [
       80
       443
-      9273 # telegraf promclient
+      9273
+      9977
     ];
   };
   networking.firewall.interfaces."virbr1" = {
