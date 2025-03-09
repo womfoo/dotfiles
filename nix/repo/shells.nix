@@ -24,6 +24,8 @@ in
         { package = cell.packages.updatenixpkgs; }
         { package = inputs.cells.desktop.packages.checkghtoken; }
         # { package = terraform-backend-git; }
+        { package = step-ca; }
+        { package = step-cli; }
       ];
       nixago = [
         cell.configs.treefmt

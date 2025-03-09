@@ -9,6 +9,7 @@
       "cdrom"
       "dialout"
       "docker"
+      "i2c"
       "kranium"
       "kvm"
       "libvirtd"

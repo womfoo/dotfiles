@@ -40,7 +40,6 @@
         direnv
         emacs
         ghc
-        gitFull
         hledger
         hledger-web
         htop

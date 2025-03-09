@@ -25,7 +25,7 @@ in
     MOZ_USE_XINPUT2 = "1";
   };
   imports = [
-    inputs.home.nixosModule
+    inputs.home.nixosModules.home-manager
     cell.nixosModules.common
     cell.nixosModules.builder
     cell.nixosModules.desktop-apps
@@ -44,6 +44,7 @@ in
   networking.extraHosts =
     ''
       127.0.0.1 tahanan
+      127.0.0.1 localca
     ''
     + lib.optionalString noplay ''
       127.0.0.1 laarc.io
@@ -237,5 +238,8 @@ in
   systemd.services.systemd-networkd.stopIfChanged = false;
   # Services that are only restarted might be not able to resolve when resolved is stopped before
   systemd.services.systemd-resolved.stopIfChanged = false;
+  security.pki.certificateFiles = [
+    (inputs.self + /root_ca.crt)
+  ];
 
 }

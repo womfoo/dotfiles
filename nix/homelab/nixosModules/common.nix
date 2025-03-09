@@ -9,14 +9,15 @@
 {
   imports = [
     inputs.agenix.nixosModules.default
-    cell.secrets.init-root-password
+    cell.secrets.init-root-password.nixosModule
   ];
 
-  users.users.root.hashedPasswordFile = config.age.secrets."init-root-password".path;
+  users.users.root.hashedPasswordFile = cell.secrets.init-root-password.path config;
 
   environment.etc.hosts.mode = "0644";
   environment.systemPackages = with pkgs; [
     direnv
+    gitFull
     iperf
     z-lua
   ];
@@ -56,9 +57,6 @@
 
   nix.settings.gc-keep-outputs = true;
   nix.settings.gc-keep-derivations = true;
-
-  # programs.gnupg.agent.enable = true;
-  # programs.ssh.startAgent = true;
 
   services.openssh.enable = true;
   # services.openssh.settings.PasswordAuthentication = false;

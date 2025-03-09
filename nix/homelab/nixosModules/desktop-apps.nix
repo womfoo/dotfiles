@@ -132,7 +132,7 @@
       ghostscript # needed by emacs doc-view
       gimp
       gitAndTools.hub
-      gitFull
+      # gitFull
       glances
       glxinfo
       # gnucash
@@ -346,6 +346,7 @@
           binwalk
           bluepy
           boto3
+          dbus
           kubernetes
           # (pkgs.callPackage ../pkgs/metawear {}) # broken 28-Mar-2023
           netifaces
@@ -371,12 +372,12 @@
       # rrdtool
       rsync
       # rtl-sdr
-      rtorrent
+      # rtorrent
       # tty-share
       # ruby # test if this fights with vagrant
       # runc
-      rust-analyzer
-      rustc
+      # rust-analyzer
+      # rustc
       # rxvt-unicode # urxvt
       # (sbt.override { jre = jdk17; })
       # scala_3
@@ -384,7 +385,7 @@
       screen
       scrot
       shared-mime-info
-      shellcheck
+      # shellcheck
       # slack # resource hog
       signal-desktop
       # silver-searcher # ag
@@ -410,8 +411,8 @@
       # sshpass
       st
       # steam
-      step-cli # FIXME
-      step-ca
+      # step-cli # FIXME
+      # step-ca
       # subversionClient
       # surf
       sysstat # iotop, etc...

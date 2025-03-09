@@ -31,4 +31,7 @@
     "ntfs"
     "vfat"
   ];
+
+  system.stateVersion = "25.05";
+
 }

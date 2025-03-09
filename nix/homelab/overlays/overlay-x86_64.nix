@@ -5,6 +5,9 @@
   #     triton-llvm = pysuper.triton-llvm.override {doCheck = false;};
   #   };
   # };
+  libzim = super.libzim.override { icu = super.icu75; };
+  libkiwix = super.libkiwix.override { icu = super.icu75; };
+  kiwix-tools = super.kiwix-tools.override { icu = super.icu75; };
   haskellPackages = super.haskellPackages.override {
     overrides = haskellSelf: haskellSuper: {
       brick = self.haskell.lib.compose.addBuildDepend haskellSuper.random (

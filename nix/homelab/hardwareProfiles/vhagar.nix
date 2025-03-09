@@ -82,6 +82,7 @@
       vaapiVdpau
     ];
   };
+  hardware.i2c.enable = true;
   # hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;

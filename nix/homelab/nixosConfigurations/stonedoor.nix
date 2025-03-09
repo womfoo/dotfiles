@@ -11,7 +11,7 @@
     cell.nixosModules.common
     cell.nixosModules.gikos-kranium
     cell.nixosModules.wireguard
-    cell.secrets."wg-stonedoor-priv-key"
+    cell.secrets."wg-stonedoor-priv-key".nixosModule
     inputs.srvos.nixosModules.server
     inputs.srvos.nixosModules.mixins-nginx
   ];
@@ -27,7 +27,7 @@
   security.acme.defaults.email = "kranium@gikos.net";
   services.mywg.enable = true;
   services.mywg.host = "stonedoor";
-  services.mywg.hostPrivKeyFile = config.age.secrets."wg-stonedoor-priv-key".path;
+  services.mywg.hostPrivKeyFile = cell.secrets."wg-stonedoor-priv-key".path config;
   services.mywg.makeServer = true;
   services.mywg.peer = "waycastle";
   # services.mywg.peers = [ "waycastle" ];
@@ -49,4 +49,5 @@
     };
   };
   services.sshguard.enable = true;
+  system.stateVersion = "24.11";
 }

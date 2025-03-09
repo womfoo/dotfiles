@@ -58,6 +58,7 @@ in
         enable = true;
         config = {
           save-position-on-quit = true;
+          video-unscaled = "yes"; # downscale-big;
         };
         scripts = with pkgs.mpvScripts; [
           mpris

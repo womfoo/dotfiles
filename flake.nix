@@ -2,6 +2,7 @@
   description = "Config";
   inputs = {
     agenix.url = "github:yaxitech/ragenix";
+    # agenix.url = "github:ryantm/agenix";
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "std/blank";
     colmena.url = "github:zhaofengli/colmena";
@@ -34,7 +35,7 @@
     };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.follows = "nixos-24-11";
-    nixpkgs.url = "github:NixOS/nixpkgs/8bb3716";
+    nixpkgs.url = "github:NixOS/nixpkgs/5135c59"; # 6313551";
     # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";

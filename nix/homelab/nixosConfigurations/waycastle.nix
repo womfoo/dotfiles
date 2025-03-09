@@ -13,17 +13,15 @@ in
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };
-  hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableAllFirmware = true;
-  # hardware.enableRedistributableFirmware = true;
+  hardware.enableRedistributableFirmware = true;
   imports = [
     cell.hardwareProfiles.waycastle
     cell.nixosModules.common
     cell.nixosModules.gikos-kranium
     cell.nixosModules.router
     cell.nixosModules.wireguard
-    cell.secrets."wg-waycastle-priv-key"
+    cell.secrets."wg-waycastle-priv-key".nixosModule
     inputs.cells.iot.nixosModules.mi-temp-exporter
     inputs.srvos.nixosModules.mixins-telegraf
     inputs.srvos.nixosModules.roles-prometheus
@@ -40,10 +38,16 @@ in
   ];
   services.mywg.enable = true;
   services.mywg.host = "waycastle";
-  services.mywg.hostPrivKeyFile = config.age.secrets."wg-waycastle-priv-key".path;
+  services.mywg.hostPrivKeyFile = cell.secrets."wg-waycastle-priv-key".path config;
   services.mywg.peer = "stonedoor";
   # services.mywg.peers = [ "stonedoor" ];
   # services.prometheus.globalConfig.scrape_interval = "10s"; # "1m"
+
+  systemd.services.prometheus.after = pkgs.lib.mkForce [ "network-online.target" "sys-subsystem-net-devices-enp0s20f0u3u2.device" ];
+  systemd.services.prometheus.requires = [
+    "network-online.target"
+    "sys-subsystem-net-devices-enp0s20f0u3u2.device"
+  ];
   services.prometheus.listenAddress = constants.devices.waycastle.interfaces.lan.ip;
   services.prometheus.scrapeConfigs = [
     {
@@ -65,8 +69,8 @@ in
   # services.router.config.wan.interface = "eth0"; # iphone backup
   services.router.config.wireless.interface = "wlp2s0";
   services.router.enable = true;
-  services.router.inventory = constants.devices;
+  services.router.inventory = builtins.removeAttrs constants.devices [ "wizbulb3" ]; # bulb @ diff AP
   services.sshguard.enable = true;
-  # users.mutableUsers = inputs.nixpkgs.lib.mkForce true;
   users.mutableUsers = pkgs.lib.mkForce true;
+  system.stateVersion = "24.05";
 }

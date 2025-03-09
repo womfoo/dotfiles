@@ -12,7 +12,8 @@ let
       {
         name = baseName;
         value = {
-          age.secrets."${baseName}".file = ./${name};
+          nixosModule.age.secrets."${baseName}".file = ./${name};
+          path = config: config.age.secrets."${baseName}".path;
         };
       }
     ) ageFiles
