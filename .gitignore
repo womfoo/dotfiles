@@ -4,9 +4,9 @@
 .data
 .run
 result
-legacy/.xmonad/build-x86_64-linux/
-legacy/.xmonad/xmonad-x86_64-linux
-legacy/.xmonad/xmonad.errors
+legacy/.xmonad/*
+!legacy/.xmonad/xmonad.hs
+
 nix/iot/packages/wizkell/dist-newstyle/
 
 #emacs

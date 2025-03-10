@@ -11,6 +11,8 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
+  boot.loader.efi.efiSysMountPoint = "/boot";
+
   fileSystems."/boot" = {
     device = "/dev/nvme0n1p1";
     fsType = "vfat";
@@ -39,5 +41,5 @@
   # networking.interfaces.usb0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlan0.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
+  # nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

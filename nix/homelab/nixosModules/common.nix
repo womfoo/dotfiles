@@ -49,7 +49,6 @@
     # extra-platforms = aarch64-linux
     experimental-features = nix-command flakes fetch-closure
     allow-import-from-derivation = true
-    extra-sandbox-paths = /etc/skopeo/auth.json=/etc/nix/skopeo/auth.json
   '';
   # nix.settings.max-jobs = 1;
   # nix.settings.sandbox = false;

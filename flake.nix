@@ -15,6 +15,7 @@
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
     home.url = "github:nix-community/home-manager";
+    home-24-11.url = "github:nix-community/home-manager/release-24.11";
     jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     nixago.inputs.nixago-exts.follows = "";

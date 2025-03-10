@@ -43,7 +43,10 @@ in
   # services.mywg.peers = [ "stonedoor" ];
   # services.prometheus.globalConfig.scrape_interval = "10s"; # "1m"
 
-  systemd.services.prometheus.after = pkgs.lib.mkForce [ "network-online.target" "sys-subsystem-net-devices-enp0s20f0u3u2.device" ];
+  systemd.services.prometheus.after = pkgs.lib.mkForce [
+    "network-online.target"
+    "sys-subsystem-net-devices-enp0s20f0u3u2.device"
+  ];
   systemd.services.prometheus.requires = [
     "network-online.target"
     "sys-subsystem-net-devices-enp0s20f0u3u2.device"

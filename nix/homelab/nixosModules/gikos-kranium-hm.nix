@@ -1,7 +1,14 @@
 { pkgs, ... }:
 let
   # inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
-  extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+  extensions =
+    if pkgs.lib.versionAtLeast (pkgs.lib.version) "25.05" then
+      {
+        packages = ext_vals;
+      }
+    else
+      ext_vals;
+  ext_vals = with pkgs.nur.repos.rycee.firefox-addons; [
     foxyproxy-standard
     privacy-badger
     return-youtube-dislikes
@@ -9,6 +16,7 @@ let
     ublock-origin
     vimium
   ];
+
 in
 {
   home-manager.useGlobalPkgs = true;

@@ -61,7 +61,7 @@
       # certbot
       cdrkit # wodim
       # cfssl
-      cheese
+      # cheese
       # chromedriver
       # chromium
       cifs-utils
@@ -90,7 +90,6 @@
       docker-compose
       dos2unix
       dpkg # view files inside debs
-      dropbox
       duc
       dvdplusrwtools
       # ec2_ami_tools
@@ -99,7 +98,7 @@
       elfutils
       emacs
       emojipick
-      eog
+      # eog
       encfs
       ethtool
       evince
@@ -113,7 +112,7 @@
       # ffmpeg
       ffmpeg-full
       file
-      file-roller
+      # file-roller
       find-cursor
       # firefox
       flac
@@ -152,7 +151,7 @@
       gptfdisk
       gpustat
       gpxsee
-      gradle
+      # gradle
       # graphviz # dot
       grpcurl
       gsmartcontrol
@@ -186,7 +185,6 @@
           zim-parser
         ]
       ))
-      gyro2bb
       # hfsprogs
       hicolor-icon-theme
       hiera-eyaml
@@ -381,7 +379,7 @@
       # rxvt-unicode # urxvt
       # (sbt.override { jre = jdk17; })
       # scala_3
-      seahorse # edit items in gnome-keyring
+      # seahorse # edit items in gnome-keyring
       screen
       scrot
       shared-mime-info
@@ -430,7 +428,6 @@
       tmate
       tmux
       # tmux-cssh
-      tor-browser-bundle-bin # (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
       trayer
       tree
       # tsung
@@ -438,8 +435,8 @@
       unzip
       usbutils # lsusb
       v4l-utils # ir-keytable
-      vagrant
-      vault
+      # vagrant
+      # vault
       vdpauinfo
       # veracrypt
       # victoriametrics
@@ -492,6 +489,7 @@
 
       backup
       gcd
+      gyro2bb
       mpvdash
       sendkeys
     ];

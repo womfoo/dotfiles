@@ -659,7 +659,7 @@ This function is called at the very end of Spacemacs initialization."
               "~/encfs/darcs.private/foostash/nixos.org"
               ))
   )
-(load-file "~/darcs/vc-darcs/vc-darcs.el")
+;(load-file "~/darcs/vc-darcs/vc-darcs.el")
 
 (defun my-git-commit-setup ()
   (insert "WIP DO NOT MERGE fix feat chore: xyz"))
