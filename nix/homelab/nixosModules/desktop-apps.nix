@@ -228,7 +228,7 @@
       # kubectl
       kubernetes-helm
       # languagetool # very-basic grammarly
-      # lefthook
+      lefthook
       light
       libgpiod
       libheif # make nautilus thumbnail HEIC, also requires pathToLink = share/thumbnailers
@@ -421,7 +421,8 @@
       # terraform # bitte does not support 1.x yet
       # terraform_0_13
       # tesseract
-      texlive.combined.scheme-full
+      # texlive.combined.scheme-full
+
       thunderbird
       tig
       # timetrap

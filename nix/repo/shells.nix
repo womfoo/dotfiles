@@ -21,16 +21,15 @@ in
         { package = colmena; }
         { package = inputs.agenix.packages.default; }
         { package = stow; }
+        { package = cell.packages.gen-secrets-nix; }
         { package = cell.packages.updatenixpkgs; }
         { package = inputs.cells.desktop.packages.checkghtoken; }
         # { package = terraform-backend-git; }
-        { package = step-ca; }
-        { package = step-cli; }
       ];
       nixago = [
         cell.configs.treefmt
-        (dev.mkNixago cfg.conform)
-        (dev.mkNixago cfg.lefthook)
+        cell.configs.lefthook
+        cell.configs.conform
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

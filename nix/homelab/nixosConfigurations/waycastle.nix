@@ -31,6 +31,7 @@ in
   networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
   networking.hostName = "waycastle";
   services.fwupd.enable = true;
+  services.locate.enable = true;
   services.mi-temp-exporter.enable = true;
   services.mi-temp-exporter.macs = [
     temp1.interfaces.bt.mac
@@ -61,6 +62,7 @@ in
             "127.0.0.1:9273"
             "127.0.0.1:9977"
             "${constants.devices.vhagar.interfaces.lan.ip}:9273"
+            "${constants.devices.dreamfyre.interfaces.lan.ip}:9273"
           ];
         }
       ];

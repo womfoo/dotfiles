@@ -16,3 +16,5 @@ nix/iot/packages/wizkell/dist-newstyle/
 /.conform.yaml
 /lefthook.yml
 /treefmt.toml
+
+secrets.nix

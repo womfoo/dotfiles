@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-# { config, lib, pkgs, ... }:
 {
 
   #networking.firewall.allowedTCPPorts = [ 6443 ];
@@ -14,36 +10,27 @@
     config.allowUnfree = true;
     overlays = [
       (import (inputs.jetpack-nixos + "/overlay.nix"))
-      (import (inputs.jetpack-nixos + "/overlay-with-config.nix") config) # inputs.nur.overlay
-      #cell.overlays.x86_64
+      (import (inputs.jetpack-nixos + "/overlay-with-config.nix") config)
       inputs.nur.overlays.default
     ];
   };
 
+  boot.loader.efi.efiSysMountPoint = "/boot"; # TODO: why cant this be in hardwareProfiles
+
   imports = [
-    inputs.home-24-11.nixosModule
     cell.hardwareProfiles.dreamfyre
-    inputs.jetpack-nixos.nixosModules.default
+    cell.nixosModules.common
     cell.nixosModules.desktop-apps
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
-    cell.nixosModules.common
+    inputs.home-24-11.nixosModule
+    inputs.jetpack-nixos.nixosModules.default
+    inputs.srvos.nixosModules.mixins-telegraf
   ];
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.systemd-boot.enable = true;
-
-  hardware.bluetooth.enable = true;
-  hardware.nvidia-jetpack.bootloader.autoUpdate = false;
-  hardware.nvidia-jetpack.carrierBoard = "devkit";
-  hardware.nvidia-jetpack.enable = true;
-  hardware.nvidia-jetpack.modesetting.enable = false;
-  hardware.nvidia-jetpack.som = "orin-agx"; # Other options include orin-agx, xavier-nx, and xavier-nx-emmc
-  hardware.nvidia.open = false;
-  hardware.opengl.enable = true;
-
   networking.hostName = "dreamfyre";
+  networking.firewall.allowedTCPPorts = [ 9273 ];
+  networking.useDHCP = lib.mkDefault true;
 
   security.sudo.wheelNeedsPassword = false;
 
