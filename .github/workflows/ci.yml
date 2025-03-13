@@ -6,32 +6,28 @@ on:
       - devel
   workflow_dispatch:
 
-permissions:
-  contents: read
-
-concurrency:
-  group: std-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  discover:
-    outputs:
-      hits: ${{ steps.discovery.outputs.hits }}
 
-    runs-on: ubuntu-latest
-    steps:
-      - uses: nixbuild/nix-quick-install-action@v30
-      - uses: divnix/std-action/discover@main
-        id: discovery
+  # x86_64-darwin:
+  #   uses: ./.github/workflows/std.yml
+  #   with:
+  #     runs-on: macos-13
+  #   secrets: inherit
 
-  shells:
-    needs: [discover]
-    if: fromJSON(needs.discover.outputs.hits).shells.build != '{}'
-    strategy:
-      matrix:
-        target: ${{ fromJSON(needs.discover.outputs.hits).shells.build }}
-    name: ${{ matrix.target.jobName }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: nixbuild/nix-quick-install-action@v30
-      - uses: divnix/std-action/run@main
+  # aarch64-darwin:
+  #   uses: ./.github/workflows/std.yml
+  #   with:
+  #     runs-on: macos-15
+  #   secrets: inherit
+
+  x86_64-linux:
+    uses: ./.github/workflows/std.yml
+    with:
+      runs-on: ubuntu-latest
+    secrets: inherit
+
+  aarch64-linux:
+    uses: ./.github/workflows/std.yml
+    with:
+      runs-on: ubuntu-24.04-arm
+    secrets: inherit

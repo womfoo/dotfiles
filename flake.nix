@@ -74,7 +74,7 @@
           with hive.blockTypes;
           [
             (std.blockTypes.terra "terra" inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
-            (std.blockTypes.installables "packages")
+            (std.blockTypes.installables "packages" { ci.build = true; })
 
             (functions "overlays")
 
@@ -100,7 +100,7 @@
             nixosConfigurations
             colmenaConfigurations
 
-            (devshells "shells")
+            (devshells "shells" { ci.build = true; })
             (nixago "configs")
           ];
       }

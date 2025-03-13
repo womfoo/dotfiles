@@ -1,0 +1,51 @@
+on:
+  push:
+    branches:
+      - *
+  workflow_call:
+    inputs:
+      runs-on:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: std-${{ github.workflow }}-${{ github.ref }}-${{ inputs.runs-on }}
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    outputs:
+      hits: ${{ steps.discovery.outputs.hits }}
+
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: nixbuild/nix-quick-install-action@v30
+      - uses: divnix/std-action/discover@main
+        id: discovery
+
+  # packages:
+  #   needs: [discover]
+  #   if: fromJSON(needs.discover.outputs.hits).packages.build != '{}'
+  #   strategy:
+  #     matrix:
+  #       target: ${{ fromJSON(needs.discover.outputs.hits).packages.build }}
+  #   name: ${{ matrix.target.jobName }}
+  #   runs-on: ${{ inputs.runs-on }}
+  #   steps:
+  #     - uses: nixbuild/nix-quick-install-action@v30
+  #     - uses: divnix/std-action/run@main
+
+  shells:
+    needs: [discover]
+    if: fromJSON(needs.discover.outputs.hits).shells.build != '{}'
+    strategy:
+      matrix:
+        target: ${{ fromJSON(needs.discover.outputs.hits).shells.build }}
+    name: ${{ matrix.target.jobName }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: nixbuild/nix-quick-install-action@v30
+      - uses: divnix/std-action/run@main

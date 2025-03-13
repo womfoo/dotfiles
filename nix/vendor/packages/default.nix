@@ -11,7 +11,11 @@ in
 rec {
   atc-mi-thermometer-exporter = callPackage ./atc-mi-thermometer-exporter.nix { };
   gyro2bb = callPackage ./gyro2bb.nix { };
-  keepassx-22-11 = pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass) { };
+  keepassx-22-11 =
+    if pkgs-22-11.stdenv.isLinux then
+      pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass) { }
+    else
+      pkgs-22-11.hello; # FIXME: dummy just to make things run
   # python-rtimu = callPackage ./python-rtimu.nix { rtimu = rtimu; };
   python-sense-hat = callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   rtimu = callPackage ./rtimu.nix { };
