@@ -1,0 +1,37 @@
+name: dotfiles CI
+
+on:
+  push:
+    branches:
+      - devel
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: std-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    outputs:
+      hits: ${{ steps.discovery.outputs.hits }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nixbuild/nix-quick-install-action@v30
+      - uses: divnix/std-action/discover@main
+        id: discovery
+
+  shells:
+    needs: [discover]
+    if: fromJSON(needs.discover.outputs.hits).shells.build != '{}'
+    strategy:
+      matrix:
+        target: ${{ fromJSON(needs.discover.outputs.hits).shells.build }}
+    name: ${{ matrix.target.jobName }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nixbuild/nix-quick-install-action@v30
+      - uses: divnix/std-action/run@main
