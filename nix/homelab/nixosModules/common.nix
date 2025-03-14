@@ -29,6 +29,7 @@
   nix.distributedBuilds = true;
   nix.settings.substituters = [
     "https://cache.nixos.org/"
+    "https://cache.kranium.au/k1/"
     # "https://cache.iog.io"
     # "https://thefloweringash-armv7.cachix.org"
     # "https://nixcache.reflex-frp.org"
@@ -38,6 +39,7 @@
   ];
   nix.settings.trusted-public-keys = [
     "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "k1:hP2qVxMBfTUByATCbyOJTeOeLz3vzG1QhG8t/Ix+ZY0="
     # "cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
     # "thefloweringash-armv7.cachix.org-1:v+5yzBD2odFKeXbmC+OPWVqx4WVoIVO6UXgnSAWFtso="
     # "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="

@@ -1,7 +1,4 @@
 on:
-  push:
-    branches:
-      - '*'
   workflow_call:
     inputs:
       runs-on:
@@ -26,17 +23,24 @@ jobs:
       - uses: divnix/std-action/discover@main
         id: discovery
 
-  # packages:
-  #   needs: [discover]
-  #   if: fromJSON(needs.discover.outputs.hits).packages.build != '{}'
-  #   strategy:
-  #     matrix:
-  #       target: ${{ fromJSON(needs.discover.outputs.hits).packages.build }}
-  #   name: ${{ matrix.target.jobName }}
-  #   runs-on: ${{ inputs.runs-on }}
-  #   steps:
-  #     - uses: nixbuild/nix-quick-install-action@v30
-  #     - uses: divnix/std-action/run@main
+  packages:
+    needs: [discover]
+    if: fromJSON(needs.discover.outputs.hits).packages.build != '{}'
+    strategy:
+      matrix:
+        target: ${{ fromJSON(needs.discover.outputs.hits).packages.build }}
+    name: ${{ matrix.target.jobName }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: nixbuild/nix-quick-install-action@v30
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
+        with:
+          endpoint: ${{ secrets.ATTIC_ENDPOINT }}
+          cache: ${{ secrets.ATTIC_CACHE }}
+          token: ${{ secrets.ATTIC_TOKEN }}
+          skip-push: ${{ github.ref == 'refs/heads/main' && 'false' || 'true' }}
+      - uses: divnix/std-action/run@main
 
   shells:
     needs: [discover]
@@ -48,4 +52,11 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: nixbuild/nix-quick-install-action@v30
+      - name: Setup Attic cache
+        uses: ryanccn/attic-action@v0
+        with:
+          endpoint: ${{ secrets.ATTIC_ENDPOINT }}
+          cache: ${{ secrets.ATTIC_CACHE }}
+          token: ${{ secrets.ATTIC_TOKEN }}
+          skip-push: ${{ github.ref == 'refs/heads/main' && 'false' || 'true' }}
       - uses: divnix/std-action/run@main

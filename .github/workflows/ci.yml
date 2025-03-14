@@ -2,19 +2,18 @@ name: dotfiles CI
 
 on:
   push:
-    branches:
-      - devel
-      - main
   workflow_dispatch:
 
 jobs:
 
+  # FIXME: discover skipping all builds
   # x86_64-darwin:
   #   uses: ./.github/workflows/std.yml
   #   with:
   #     runs-on: macos-13
   #   secrets: inherit
 
+  # FIXME: discover skipping all builds
   # aarch64-darwin:
   #   uses: ./.github/workflows/std.yml
   #   with:

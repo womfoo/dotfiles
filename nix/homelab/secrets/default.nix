@@ -33,6 +33,11 @@ let
         admins.kranium
         admins.kraniumarm
       ] ++ builtins.attrValues machines;
+      "nix/homelab/secrets/attic-env.age".publicKeys = [
+        admins.kranium
+        admins.kraniumarm
+        machines.pentos
+      ];
     }
     // mkWireguardHostKey "stonedoor"
     // mkWireguardHostKey "waycastle";

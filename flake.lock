@@ -706,10 +706,10 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1741653345,
-        "narHash": "sha256-ZMIniCKWJiVDeFoYj8o8XNHWVnWPt9MCxPbdiydtqwQ=",
+        "lastModified": 1741597147,
+        "narHash": "sha256-33Nn6xunwrWqZveJt3YEFF7s2CkMCL7DH66ru0duMi8=",
         "ref": "refs/heads/master",
-        "rev": "87e0d1311827f846ccba307b700aa5df12117d64",
+        "rev": "b184cb7410a44c51c30e96681deda08a33091bc1",
         "revCount": 384,
         "type": "git",
         "url": "file:///home/kranium/git/github.com/anduril/jetpack-nixos"
