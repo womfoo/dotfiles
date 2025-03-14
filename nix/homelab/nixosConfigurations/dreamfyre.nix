@@ -32,6 +32,23 @@
   networking.firewall.allowedTCPPorts = [ 9273 ];
   networking.useDHCP = lib.mkDefault true;
 
+  nix.buildMachines = [
+    {
+      hostName = "nix-remote-builder@${inputs.lihim.lihim.constants.devices.vhagar.interfaces.lan.ip}";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      # speedFactor = 5;
+      maxJobs = 4;
+      supportedFeatures = [
+        "benchmark"
+        "big-parallel"
+        "kvm"
+        "nixos-test"
+      ];
+      # mandatoryFeatures = [ ];
+    }
+  ];
+
   security.sudo.wheelNeedsPassword = false;
 
   services.displayManager.defaultSession = "none+xmonad";

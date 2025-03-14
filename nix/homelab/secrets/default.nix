@@ -33,10 +33,6 @@ let
         admins.kranium
         admins.kraniumarm
       ] ++ builtins.attrValues machines;
-      "nix/homelab/secrets/builder-key.age".publicKeys = [
-        admins.kranium
-        admins.kraniumarm
-      ] ++ builtins.attrValues machines;
     }
     // mkWireguardHostKey "stonedoor"
     // mkWireguardHostKey "waycastle";

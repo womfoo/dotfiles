@@ -662,7 +662,8 @@ This function is called at the very end of Spacemacs initialization."
 ;(load-file "~/darcs/vc-darcs/vc-darcs.el")
 
 (defun my-git-commit-setup ()
-  (insert "WIP DO NOT MERGE fix feat chore: xyz"))
+  (insert "wip: chore: update config/packages"))
+  ;(insert "WIP DO NOT MERGE fix feat chore: xyz"))
 
 (add-hook 'git-commit-setup-hook 'my-git-commit-setup)
 (display-time-mode 1)

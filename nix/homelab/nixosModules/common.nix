@@ -26,6 +26,7 @@
     5201
   ];
 
+  nix.distributedBuilds = true;
   nix.settings.substituters = [
     "https://cache.nixos.org/"
     # "https://cache.iog.io"

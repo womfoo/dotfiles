@@ -36,11 +36,11 @@ in
     cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
+    inputs.srvos.nixosModules.roles-nix-remote-builder
   ];
 
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
-  nix.distributedBuilds = true;
   networking.extraHosts =
     ''
       127.0.0.1 tahanan
@@ -91,8 +91,13 @@ in
   networking.hostId = "f0670973";
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
-  networking.networkmanager.logLevel = "TRACE";
+  # networking.networkmanager.logLevel = "TRACE";
   networking.networkmanager.wifi.macAddress = "random";
+
+  roles.nix-remote-builder.schedulerPublicKeys = [
+    inputs.lihim.pubkeys.constants.admins.dreamfyre
+  ];
+
   security.polkit.enable = true;
   services.acpid.enable = true;
   services.arbtt.enable = true;

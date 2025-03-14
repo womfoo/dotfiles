@@ -1,5 +1,8 @@
 {
 
+  # boot.binfmt.emulatedSystems = [
+  #   "x86_64-linux"
+  # ];
   boot.extraModulePackages = [ ];
   boot.initrd.availableKernelModules = [ "nvme" ];
   boot.initrd.kernelModules = [ ];

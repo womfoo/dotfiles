@@ -24,6 +24,8 @@ in
         { package = cell.packages.gen-secrets-nix; }
         { package = cell.packages.updatenixpkgs; }
         { package = inputs.cells.desktop.packages.checkghtoken; }
+        { package = oci-cli; }
+        { package = opentofu; }
         # { package = terraform-backend-git; }
       ];
       nixago = [
