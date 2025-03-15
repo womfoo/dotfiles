@@ -13,7 +13,7 @@
     # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
-    hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
+    hive.url = "github:divnix/hive";
     home.url = "github:nix-community/home-manager";
     home-24-11.url = "github:nix-community/home-manager/release-24.11";
     jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
@@ -97,7 +97,7 @@
 
             # configurations can be deployed
             darwinConfigurations
-            nixosConfigurations
+            (nixosConfigurations // { ci.build = true; })
             colmenaConfigurations
 
             (devshells "shells" { ci.build = true; })
