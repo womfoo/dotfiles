@@ -9,9 +9,13 @@ let
 in
 {
   conform = (mkNixago configs.conform) { };
-  lefthook = (mkNixago configs.lefthook) { };
+  lefthook = (mkNixago configs.lefthook) // {
+    data.pre-commit.commands.treefmt.run =
+      "${nixpkgs.lib.getExe nixpkgs.treefmt2} --fail-on-change {staged_files}";
+  };
   prettify = (mkNixago configs.prettify) { };
-  treefmt = (mkNixago configs.treefmt) {
+  treefmt = (mkNixago configs.treefmt) // {
+    commands = [ nixpkgs.treefmt2 ];
     data.formatter.go = {
       command = "${nixpkgs.go}/bin/gofmt";
       options = [ "-w" ];

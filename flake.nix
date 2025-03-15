@@ -13,11 +13,14 @@
     # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
-    hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
+    # hive.url = "github:divnix/hive";
+    hive.url = "git+file:///home/kranium/git/github.com/womfoo/hive";
     home.url = "github:nix-community/home-manager";
     home-24-11.url = "github:nix-community/home-manager/release-24.11";
-    jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
-    lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
+    # jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
+    jetpack-nixos.url = "github:womfoo/jetpack-nixos?ref=std-compat";
+    # lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
+    lihim.url = "github:womfoo/fake";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
@@ -27,8 +30,8 @@
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixos.follows = "nixpkgs";
     nixos-hardware = {
-      # url = "github:NixOS/nixos-hardware";
-      url = "git+file:///home/kranium/git/github.com/womfoo/nixos-hardware"; # patch bee.pkgs.overlays for now
+      url = "github:NixOS/nixos-hardware";
+      # url = "git+file:///home/kranium/git/github.com/womfoo/nixos-hardware"; # patch bee.pkgs.overlays for now
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -36,7 +39,7 @@
     };
     # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.follows = "nixos-24-11";
-    nixpkgs.url = "github:NixOS/nixpkgs/5135c59"; # 6313551";
+    nixpkgs.url = "github:NixOS/nixpkgs/c80f6a7";
     # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
     nur = {
       url = "github:nix-community/NUR";
@@ -47,6 +50,7 @@
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
     std.url = "github:divnix/std";
+    # std.url = "git+file:///home/kranium/git/github.com/womfoo/std";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -97,7 +101,7 @@
 
             # configurations can be deployed
             darwinConfigurations
-            nixosConfigurations
+            (nixosConfigurations // { ci.build = true; })
             colmenaConfigurations
 
             (devshells "shells" { ci.build = true; })

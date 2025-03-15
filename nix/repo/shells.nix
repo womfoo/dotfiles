@@ -29,8 +29,8 @@ in
         # { package = terraform-backend-git; }
       ];
       nixago = [
-        cell.configs.treefmt
-        cell.configs.lefthook
+        # cell.configs.treefmt
+        # cell.configs.lefthook
         cell.configs.conform
       ];
       devshell.startup.stow_legacy_configs.text = ''

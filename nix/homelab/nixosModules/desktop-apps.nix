@@ -363,7 +363,7 @@
       redshift
       # remmina # rdp
       rhash
-      ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
+      # ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
       rmlint
       # rpm
       # rpPPPoE
@@ -386,7 +386,7 @@
       # shellcheck
       # slack # resource hog
       signal-desktop
-      # silver-searcher # ag
+      silver-searcher # ag
       simple-scan
       simplescreenrecorder
       # sipp

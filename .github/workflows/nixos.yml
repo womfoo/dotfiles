@@ -1,4 +1,4 @@
-name: std-action build
+name: nixos build
 
 on:
   push:
@@ -8,26 +8,26 @@ jobs:
 
   # FIXME: discover skipping all builds
   # x86_64-darwin:
-  #   uses: ./.github/workflows/ci-std.yml
+  #   uses: ./.github/workflows/nixos-nix.yml
   #   with:
   #     runs-on: macos-13
   #   secrets: inherit
 
   # FIXME: discover skipping all builds
   # aarch64-darwin:
-  #   uses: ./.github/workflows/ci-std.yml
+  #   uses: ./.github/workflows/nixos-nix.yml
   #   with:
   #     runs-on: macos-15
   #   secrets: inherit
 
-  x86_64-linux:
-    uses: ./.github/workflows/ci-std.yml
-    with:
-      runs-on: ubuntu-latest
-    secrets: inherit
+  # x86_64-linux:
+  #   uses: ./.github/workflows/nixos-nix.yml
+  #   with:
+  #     runs-on: ubuntu-latest
+  #   secrets: inherit
 
   aarch64-linux:
-    uses: ./.github/workflows/ci-std.yml
+    uses: ./.github/workflows/nixos-nix.yml
     with:
       runs-on: ubuntu-24.04-arm
     secrets: inherit
