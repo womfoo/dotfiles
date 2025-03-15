@@ -13,7 +13,8 @@
     # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
-    hive.url = "github:divnix/hive";
+    # hive.url = "github:divnix/hive";
+    hive.url = "github:womfoo/hive?ref=test-nixos-build";
     home.url = "github:nix-community/home-manager";
     home-24-11.url = "github:nix-community/home-manager/release-24.11";
     jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";

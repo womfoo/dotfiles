@@ -563,15 +563,16 @@
         "std": "std"
       },
       "locked": {
-        "lastModified": 1739743388,
-        "narHash": "sha256-SowvJ3TfGnuvzDHT5O80Cjx0sy0EKHfyLWeep2PSWnQ=",
-        "owner": "divnix",
+        "lastModified": 1742049609,
+        "narHash": "sha256-etW5E/zfsAqh4xHHOfeC+q9SzKYnAZ2VO8B7ZZL4V2Q=",
+        "owner": "womfoo",
         "repo": "hive",
-        "rev": "6f8cbb31c567ee24176e0f86d55a5f0d5a4f2cfd",
+        "rev": "154fc0d1d2c51f54f2fe57e9141f54d10971bdee",
         "type": "github"
       },
       "original": {
-        "owner": "divnix",
+        "owner": "womfoo",
+        "ref": "test-nixos-build",
         "repo": "hive",
         "type": "github"
       }
