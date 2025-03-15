@@ -58,5 +58,5 @@ jobs:
           endpoint: ${{ secrets.ATTIC_ENDPOINT }}
           cache: ${{ secrets.ATTIC_CACHE }}
           token: ${{ secrets.ATTIC_TOKEN }}
-          skip-push: ${{ github.ref == 'refs/heads/main' && 'false' || 'true' }}
+          skip-push: true
       - uses: divnix/std-action/run@main
