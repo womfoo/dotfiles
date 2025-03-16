@@ -1,0 +1,45 @@
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: std-${{ github.workflow }}-${{ github.ref }}-${{ inputs.runs-on }}
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    outputs:
+      hits: ${{ steps.discovery.outputs.hits }}
+
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: nixbuild/nix-quick-install-action@v30
+      - uses: divnix/std-action/discover@main
+        id: discovery
+
+  shells:
+    needs: [discover]
+    if: fromJSON(needs.discover.outputs.hits).shells.build != '{}'
+    strategy:
+      matrix:
+        target: ${{ fromJSON(needs.discover.outputs.hits).shells.build }}
+    name: ${{ matrix.target.jobName }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nixbuild/nix-quick-install-action@v30
+      - if: github.repository == 'womfoo/dotfiles'
+        uses: ryanccn/attic-action@v0
+        with:
+          endpoint: ${{ secrets.ATTIC_ENDPOINT }}
+          cache: ${{ secrets.ATTIC_CACHE }}
+          token: ${{ secrets.ATTIC_TOKEN }}
+          skip-push: ${{ github.ref == 'refs/heads/main' && 'false' || 'true' }}
+      - name: Run Nix build
+        run: nix build .#packages.aarch64-linux.sd-image-dreadfort
