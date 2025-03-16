@@ -563,17 +563,17 @@
         "std": "std"
       },
       "locked": {
-        "lastModified": 1742109064,
-        "narHash": "sha256-npepg9fx9XeU7Rix5Kzc7OHgKxUckcvtJFb2mUp6cSE=",
-        "ref": "refs/heads/test-nixos-build",
-        "rev": "d2d9d7e52755f376ce6e6c5a51f57a86fd275862",
-        "revCount": 129,
-        "type": "git",
-        "url": "file:///home/kranium/git/github.com/womfoo/hive"
+        "lastModified": 1739743388,
+        "narHash": "sha256-SowvJ3TfGnuvzDHT5O80Cjx0sy0EKHfyLWeep2PSWnQ=",
+        "owner": "divnix",
+        "repo": "hive",
+        "rev": "6f8cbb31c567ee24176e0f86d55a5f0d5a4f2cfd",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/kranium/git/github.com/womfoo/hive"
+        "owner": "divnix",
+        "repo": "hive",
+        "type": "github"
       }
     },
     "home": {
