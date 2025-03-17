@@ -14,6 +14,7 @@
     cell.secrets."wg-stonedoor-priv-key".nixosModule
     inputs.srvos.nixosModules.server
     inputs.srvos.nixosModules.mixins-nginx
+    inputs.kraniumau.site.nixosModules.default
   ];
   networking.domain = "gikos.net";
   networking.firewall.allowedTCPPorts = [
@@ -32,16 +33,6 @@
   services.mywg.peer = "waycastle";
   # services.mywg.peers = [ "waycastle" ];
   services.nginx.virtualHosts = {
-    "gikos.net" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".root = "/srv/gikos.net";
-    };
-    "www.gikos.net" = {
-      forceSSL = true;
-      enableACME = true;
-      globalRedirect = "https://gikos.net";
-    };
     "au01.gikos.net" = {
       forceSSL = true;
       enableACME = true;

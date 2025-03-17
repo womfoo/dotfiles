@@ -16,8 +16,12 @@
     hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
     home.url = "github:nix-community/home-manager";
     home-24-11.url = "github:nix-community/home-manager/release-24.11";
-    jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
-    lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
+    # jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
+    jetpack-nixos.url = "github:womfoo/jetpack-nixos?ref=std-compat";
+    # kraniumau.url = "git+file:///home/kranium/git/private/kranium.au";
+    kraniumau.url = "github:womfoo/kranium.au";
+    # lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
+    lihim.url = "github:womfoo/fake";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";

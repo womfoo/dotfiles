@@ -127,7 +127,7 @@
       fzf
       geoip
       gh
-      ghidra
+      # ghidra
       ghostscript # needed by emacs doc-view
       gimp
       gitAndTools.hub
@@ -438,6 +438,7 @@
       v4l-utils # ir-keytable
       # vagrant
       # vault
+      vbindiff
       vdpauinfo
       # veracrypt
       # victoriametrics

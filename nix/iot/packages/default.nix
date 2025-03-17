@@ -14,4 +14,13 @@ rec {
     ];
     packages = ps: [ wizkell ];
   };
+  faketrunkcombined = pkgs.stdenv.mkDerivation {
+    name = "localhost-spfiles";
+    src = ../../homelab/fake;
+    installPhase = ''
+      mkdir -p $out/fakehydra
+      cp trunk-combined $out/fakehydra
+    '';
+  };
+
 }
