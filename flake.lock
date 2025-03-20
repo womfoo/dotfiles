@@ -667,17 +667,16 @@
         "std": "std"
       },
       "locked": {
-        "lastModified": 1711370182,
-        "narHash": "sha256-a8UK0PRMZWTN6Hu8f/ddwdtUyZsq8u/DYmySZUmpDfA=",
+        "lastModified": 1739743388,
+        "narHash": "sha256-SowvJ3TfGnuvzDHT5O80Cjx0sy0EKHfyLWeep2PSWnQ=",
         "owner": "divnix",
         "repo": "hive",
-        "rev": "658417a0461bbef57ef109eec28b029c212de2a9",
+        "rev": "6f8cbb31c567ee24176e0f86d55a5f0d5a4f2cfd",
         "type": "github"
       },
       "original": {
         "owner": "divnix",
         "repo": "hive",
-        "rev": "658417a0461bbef57ef109eec28b029c212de2a9",
         "type": "github"
       }
     },
@@ -1098,17 +1097,18 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1729742320,
-        "narHash": "sha256-u3Of8xRkN//me8PU+RucKA59/6RNy4B2jcGAF36P4jI=",
-        "ref": "refs/heads/master",
-        "rev": "e8a2f6d5513fe7b7d15701b2d05404ffdc3b6dda",
-        "revCount": 1994,
-        "type": "git",
-        "url": "file:///home/kranium/git/github.com/womfoo/nixos-hardware"
+        "lastModified": 1691322366,
+        "narHash": "sha256-oGyo2J22gauOieyX1xyoit/u1viONbspGdp3QhJh14o=",
+        "owner": "womfoo",
+        "repo": "nixos-hardware",
+        "rev": "ecb6b85ed843792bb7aeb8d42d096b9162624ee9",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/kranium/git/github.com/womfoo/nixos-hardware"
+        "owner": "womfoo",
+        "ref": "add-pi-4-sense-v1-overlay",
+        "repo": "nixos-hardware",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -1145,16 +1145,16 @@
     },
     "nixpkgs_11": {
       "locked": {
-        "lastModified": 1740560979,
-        "narHash": "sha256-Vr3Qi346M+8CjedtbyUevIGDZW8LcA1fTG0ugPY/Hic=",
-        "owner": "NixOS",
+        "lastModified": 1742475419,
+        "narHash": "sha256-hxm13Zc4dl5VFpZL6AafC8e1w3lvSfXkiQ6zA5yMm9Y=",
+        "owner": "womfoo",
         "repo": "nixpkgs",
-        "rev": "5135c59491985879812717f4c9fea69604e7f26f",
+        "rev": "ce69c8b7cd9065fe82b0f556ed55e82872c99ad9",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "5135c59",
+        "owner": "womfoo",
+        "ref": "std-399",
         "repo": "nixpkgs",
         "type": "github"
       }

@@ -13,12 +13,10 @@
     # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
-    hive.url = "github:divnix/hive/658417a0461bbef57ef109eec28b029c212de2a9";
+    hive.url = "github:divnix/hive";
     home.url = "github:nix-community/home-manager";
     home-24-11.url = "github:nix-community/home-manager/release-24.11";
-    # jetpack-nixos.url = "git+file:///home/kranium/git/github.com/anduril/jetpack-nixos";
     jetpack-nixos.url = "github:womfoo/jetpack-nixos?ref=std-compat";
-    # kraniumau.url = "git+file:///home/kranium/git/private/kranium.au";
     kraniumau.url = "github:womfoo/kranium.au";
     # lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     lihim.url = "github:womfoo/fake";
@@ -30,18 +28,12 @@
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixos.follows = "nixpkgs";
-    nixos-hardware = {
-      # url = "github:NixOS/nixos-hardware";
-      url = "git+file:///home/kranium/git/github.com/womfoo/nixos-hardware"; # patch bee.pkgs.overlays for now
-    };
+    nixos-hardware.url = "github:womfoo/nixos-hardware?ref=add-pi-4-sense-v1-overlay";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.follows = "nixos-24-11";
-    nixpkgs.url = "github:NixOS/nixpkgs/5135c59"; # 6313551";
-    # nixpkgs.url = "git+file:///home/kranium/git/github.com/womfoo/nixpkgs";
+    nixpkgs.url = "github:womfoo/nixpkgs?ref=std-399"; # "https://github.com/divnix/std/issues/399"
     nur = {
       url = "github:nix-community/NUR";
     };

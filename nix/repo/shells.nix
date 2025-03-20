@@ -30,8 +30,8 @@ in
       ];
       nixago = [
         cell.configs.treefmt
-        cell.configs.lefthook
-        cell.configs.conform
+        # cell.configs.lefthook
+        # cell.configs.conform
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

@@ -3,26 +3,41 @@
   cell,
 }:
 let
-  inherit (inputs) nixpkgs;
+  inherit (inputs.nixpkgs)
+    black
+    go
+    lib
+    nixfmt-rfc-style
+    treefmt
+    ;
   inherit (inputs.std.data) configs;
   inherit (inputs.std.lib.dev) mkNixago;
 in
 {
-  conform = (mkNixago configs.conform) { };
-  lefthook = (mkNixago configs.lefthook) { };
+  # FIXME: why does this not work but treefmt below works
+  # conform = (mkNixago configs.conform) { };
+  # lefthook = mkNixago (
+  #   lib.attrsets.recursiveUpdate configs.lefthook {
+  #     data.pre-commit.commands.treefmt.run =
+  #       "${lib.getExe treefmt} --fail-on-change {staged_files}";
+  #   }
+  # );
   prettify = (mkNixago configs.prettify) { };
-  treefmt = (mkNixago configs.treefmt) {
-    data.formatter.go = {
-      command = "${nixpkgs.go}/bin/gofmt";
-      options = [ "-w" ];
-      includes = [ "*.go" ];
-    };
-    data.formatter.nix = {
-      command = nixpkgs.lib.getExe nixpkgs.nixfmt-rfc-style;
-    };
-    data.formatter.py = {
-      command = "${nixpkgs.black}/bin/black";
-      includes = [ "*.py" ];
-    };
-  };
+  treefmt = mkNixago (
+    lib.attrsets.recursiveUpdate configs.treefmt {
+      commands = [ { package = treefmt; } ];
+      data.formatter.go = {
+        command = "${go}/bin/gofmt";
+        options = [ "-w" ];
+        includes = [ "*.go" ];
+      };
+      data.formatter.nix = {
+        command = lib.getExe nixfmt-rfc-style;
+      };
+      data.formatter.py = {
+        command = "${black}/bin/black";
+        includes = [ "*.py" ];
+      };
+    }
+  );
 }
