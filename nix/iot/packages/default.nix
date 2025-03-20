@@ -3,7 +3,7 @@
   cell,
 }:
 let
-  inherit (inputs.nixpkgs) haskellPackages;
+  inherit (inputs.nixpkgs) haskellPackages stdenv;
 in
 rec {
   wizkell = haskellPackages.callCabal2nix "wizkell" ./wizkell { };
@@ -14,7 +14,7 @@ rec {
     ];
     packages = ps: [ wizkell ];
   };
-  faketrunkcombined = pkgs.stdenv.mkDerivation {
+  faketrunkcombined = stdenv.mkDerivation {
     name = "localhost-spfiles";
     src = ../../homelab/fake;
     installPhase = ''
