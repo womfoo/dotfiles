@@ -1,6 +1,7 @@
 {
   pkgs,
   writeScript,
+  eyaml,
   ...
 }:
 writeScript {
@@ -8,7 +9,7 @@ writeScript {
   runtimeInputs =
     with pkgs;
     [
-      hiera-eyaml
+      eyaml
       oathToolkit
       yq
     ]

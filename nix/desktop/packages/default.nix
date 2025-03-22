@@ -4,6 +4,7 @@
 }:
 let
   inherit (inputs.nixpkgs) callPackage;
+  inherit (inputs.cells.vendor.packages) eyaml;
   pkgs = import inputs.nixpkgs {
     inherit (inputs.nixpkgs) system;
   };
@@ -14,5 +15,5 @@ in
   checkghtoken = callPackage ./checkghtoken.nix { inherit pkgs; };
   gcd = callPackage ./gcd.nix { inherit writeScript pkgs; };
   mpvdash = callPackage ./mpvdash.nix { inherit writeScript pkgs; };
-  sendkeys = callPackage ./sendkeys.nix { inherit writeScript pkgs; };
+  sendkeys = callPackage ./sendkeys.nix { inherit writeScript pkgs eyaml; };
 }

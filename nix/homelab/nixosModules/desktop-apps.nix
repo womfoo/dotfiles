@@ -187,7 +187,7 @@
       ))
       # hfsprogs
       hicolor-icon-theme
-      hiera-eyaml
+      # hiera-eyaml
       hledger
       hledger-web
       home-manager
@@ -490,6 +490,7 @@
       # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
 
       backup
+      eyaml
       gcd
       gyro2bb
       mpvdash
