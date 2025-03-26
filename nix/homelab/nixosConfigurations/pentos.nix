@@ -5,7 +5,7 @@
 }:
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixpkgs {
+  bee.pkgs = import inputs.nixos-24-11 {
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };
@@ -44,6 +44,18 @@
         proxyPass = "http://127.0.0.1:8080/";
         extraConfig = ''
           client_max_body_size 1G;
+          set $whitelist 0;
+
+          if ($http_user_agent ~* "curl/.*Nix") {
+              set $whitelist 1;
+          }
+          if ($http_user_agent ~* "Attic/") {
+              set $whitelist 1;
+          }
+          if ($whitelist = 1) {
+              return 200;
+          }
+          return 403;
         '';
       };
     };

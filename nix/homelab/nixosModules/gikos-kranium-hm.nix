@@ -51,7 +51,9 @@ in
         userEmail = "kranium@gikos.net";
         userName = "Kranium Gikos Mendoza";
         extraConfig = {
+          merge.conflictstyle = "diff3";
           push.autoSetupRemote = true;
+          rerere.enable = true;
         };
         lfs.enable = true;
         includes = [

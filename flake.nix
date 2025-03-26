@@ -22,7 +22,8 @@
     lihim.url = "github:womfoo/fake";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
-    nixago.url = "github:nix-community/nixago";
+    # nixago.url = "github:nix-community/nixago";
+    nixago.url = "github:korrat/nixago?ref=korrat/push-zwtrrxzqlrqr"; # https://github.com/nix-community/nixago/pull/61
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -33,7 +34,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:womfoo/nixpkgs?ref=std-399"; # "https://github.com/divnix/std/issues/399"
+    nixpkgs.url = "github:womfoo/nixpkgs/698214a";
     nur = {
       url = "github:nix-community/NUR";
     };

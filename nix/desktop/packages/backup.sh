@@ -5,6 +5,8 @@ rsync \
   --exclude='.conda' \
   --exclude='.compose-cache' \
   --exclude='.daedalus' \
+  --exclude='.docker' \
+  --exclude='.dropbox-dist' \
   --exclude='.emacs.d/eln-cache' \
   --exclude='.gem' \
   --exclude='.gnupg' \
@@ -14,6 +16,7 @@ rsync \
   --exclude='.nv' \
   --exclude='.platformio' \
   --exclude='.sbt' \
+  --exclude='.stack' \
   --exclude='.vagrant.d/boxes' \
   --exclude='.xmonad' \
   --exclude='encfs' \

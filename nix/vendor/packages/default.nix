@@ -11,6 +11,7 @@ in
 rec {
   atc-mi-thermometer-exporter = callPackage ./atc-mi-thermometer-exporter.nix { };
   eyaml = callPackage ./hiera-eyaml { };
+  git-recover = callPackage ./git-recover.nix { };
   gyro2bb = callPackage ./gyro2bb.nix { };
   keepassx-22-11 =
     if pkgs-22-11.stdenv.isLinux then

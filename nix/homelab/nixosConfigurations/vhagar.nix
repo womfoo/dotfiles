@@ -118,6 +118,7 @@ in
   # ];
   # services.libinput.enable = true;
   services.locate.enable = true;
+  services.locate.interval = "never";
   services.nfs.server.enable = true;
   services.nfs.server.statdPort = 47000;
   services.nfs.server.mountdPort = 47001;

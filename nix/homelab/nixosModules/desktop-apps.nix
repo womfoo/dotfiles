@@ -336,25 +336,25 @@
       pv
       pwgen
       # pypi2nix # unmaintained
-      (python3.withPackages (
-        ps:
-        with ps;
-        with python3Packages;
-        [
-          binwalk
-          bluepy
-          boto3
-          dbus
-          kubernetes
-          # (pkgs.callPackage ../pkgs/metawear {}) # broken 28-Mar-2023
-          netifaces
-          # (opencv4.override {enableGtk3 = true;})
-          opencv4
-          pylint
-          pytz
-          # (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
-        ]
-      ))
+      # (python3.withPackages (
+      #   ps:
+      #   with ps;
+      #   with python3Packages;
+      #   [
+      #     binwalk
+      #     bluepy
+      #     boto3
+      #     dbus
+      #     kubernetes
+      #     # (pkgs.callPackage ../pkgs/metawear {}) # broken 28-Mar-2023
+      #     netifaces
+      #     # (opencv4.override {enableGtk3 = true;})
+      #     opencv4
+      #     pylint
+      #     pytz
+      #     # (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
+      #   ]
+      # ))
       qemu
       # qpdf
       qrencode
@@ -492,6 +492,8 @@
       backup
       eyaml
       gcd
+      gco
+      git-recover
       gyro2bb
       mpvdash
       sendkeys

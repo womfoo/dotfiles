@@ -4,11 +4,22 @@
 }:
 let
   inherit (inputs.std.lib) dev cfg;
+  python' = (
+    inputs.nixpkgs.python3.withPackages (
+      ps:
+      with ps;
+      with inputs.nixpkgs.python3Packages;
+      [
+        pulsectl
+      ]
+    )
+  );
 in
 {
   default =
     inputs.std.lib.dev.mkShell {
       packages = [
+        python'
       ];
       commands = with inputs.nixpkgs.pkgs; [
         { package = age; }

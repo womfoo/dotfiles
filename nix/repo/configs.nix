@@ -9,6 +9,7 @@ let
     lib
     nixfmt-rfc-style
     treefmt
+    haskellPackages
     ;
   inherit (inputs.std.data) configs;
   inherit (inputs.std.lib.dev) mkNixago;
@@ -30,6 +31,14 @@ in
         command = "${go}/bin/gofmt";
         options = [ "-w" ];
         includes = [ "*.go" ];
+      };
+      data.formatter.haskell = {
+        command = "${haskellPackages.fourmolu}/bin/fourmolu";
+        options = [
+          "--mode"
+          "inplace"
+        ];
+        includes = [ "*.hs" ];
       };
       data.formatter.nix = {
         command = lib.getExe nixfmt-rfc-style;
