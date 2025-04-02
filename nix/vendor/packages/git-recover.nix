@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
     repo = name;
     owner = "ethomson";
   };
-  patchPhase = "sed -i 's#/bin/bash#/usr/bin/env bash'#' ${name}";
+  patchPhase = "sed -i 's#/bin/bash#/usr/bin/env bash#' ${name}";
   installPhase = ''
     mkdir -p $out/bin
     cp ${name} $out/bin/
