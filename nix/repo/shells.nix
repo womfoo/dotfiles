@@ -20,6 +20,8 @@ in
     inputs.std.lib.dev.mkShell {
       packages = [
         python'
+        inputs.nixpkgs.trivy # cant find any
+        inputs.nixpkgs.grype # grype -v sbom:./result --add-cpes-if-none
       ];
       commands = with inputs.nixpkgs.pkgs; [
         { package = age; }

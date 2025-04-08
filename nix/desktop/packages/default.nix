@@ -16,5 +16,6 @@ in
   gcd = callPackage ./gcd.nix { inherit writeScript pkgs; };
   gco = callPackage ./gco.nix { inherit pkgs; };
   mpvdash = callPackage ./mpvdash.nix { inherit writeScript pkgs; };
+  mvb2sum = callPackage ./mvb2sum.nix { inherit pkgs; };
   sendkeys = callPackage ./sendkeys.nix { inherit writeScript pkgs eyaml; };
 }

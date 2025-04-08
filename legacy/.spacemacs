@@ -32,13 +32,14 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(react
+     sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ascidoc
+     asciidoc
      ;; auto-completion
      ;; better-defaults
      csv
@@ -100,6 +101,7 @@ This function should only modify configuration layer settings."
                                       ;; outline-mode
                                       ;; origami-mode
                                       vc-darcs
+                                      envrc
                                       )
 
    ;; A list of packages that cannot be updated.
@@ -293,9 +295,12 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10.0
+                               :size 6.0
                                :weight normal
-                               :width normal)
+                               :width normal
+                               ;; :powerline-scale 1.1
+
+                               )
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
@@ -580,7 +585,7 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
   (spacemacs/load-spacemacs-env)
-)
+  )
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -588,7 +593,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-)
+  )
 
 
 (defun dotspacemacs/user-load ()
@@ -596,7 +601,7 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
 dump."
-)
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -605,7 +610,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-)
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -615,43 +620,103 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ignored-local-variable-values
-   '((eval setq org-roam-db-location
-           (concat
-            (shell-command-to-string "git rev-parse --show-toplevel | tr -d '\12'")
-            "/.cache/org-roam.db"))
-     (eval setq org-attach-id-dir
-           (concat
-            (shell-command-to-string "git rev-parse --show-toplevel | tr -d '\12'")
-            "/docs/org/attach/"))
-     (eval setq org-roam-directory
-           (concat
-            (shell-command-to-string "git rev-parse --show-toplevel | tr -d '\12'")
-            "/docs/org"))))
- '(org-babel-load-languages
-   '((awk . t)
-     (ruby . t)
-     (python . t)
-     (js . t)
-     (dot . t)
-     (groovy . t)
-     (java . t)
-     (emacs-lisp . t)
-     (shell . t)))
- '(package-selected-packages
-   '(typescript-mode vc-darcs bundler chruby enh-ruby-mode minitest rake rbenv robe inf-ruby rspec-mode rubocop rubocopfmt ruby-hash-syntax ruby-refactor ruby-test-mode ruby-tools rvm seeing-is-believing bmx-mode powershell nginx-mode arduino-mode cargo flycheck-rust wfnames racer pos-tip ron-mode rust-mode toml-mode blacken code-cells company-anaconda anaconda-mode cython-mode helm-cscope helm-pydoc importmagic epc ctable concurrent deferred live-py-mode lsp-pyright lsp-python-ms nose pip-requirements pipenv load-env-vars pippel poetry compat py-isort pydoc pyenv-mode pythonic pylookup pytest pyvenv sphinx-doc stickyfunc-enhance xcscope yapfify company-go flycheck-golangci-lint go-eldoc go-fill-struct go-gen-test go-guru go-impl go-rename go-tag go-mode godoctor csv-mode company-web web-completion-data counsel-css emmet-mode helm-css-scss pug-mode sass-mode haml-mode scss-mode slim-mode tagedit web-mode company-lua lua-mode attrap cmm-mode xref flycheck-haskell haskell-mode haskell-snippets helm-hoogle hindent hlint-refactor org org-dotemacs add-node-modules-path counsel-gtags counsel swiper ivy dap-mode lsp-docker lsp-treemacs bui lsp-mode ggtags helm-gtags impatient-mode import-js grizzl js-doc js2-refactor yasnippet multiple-cursors livid-mode nodejs-repl npm-mode prettier-js skewer-mode js2-mode simple-httpd tern web-beautify company yaml-mode terraform-mode nix-mode ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc smeargle restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete htmlize holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-descbinds helm-ag google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link font-lock+ flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(ignored-local-variable-values
+     '((eval setq org-roam-db-location
+             (concat
+              (shell-command-to-string
+               "git rev-parse --show-toplevel | tr -d '\12'")
+              "/.cache/org-roam.db"))
+       (eval setq org-attach-id-dir
+             (concat
+              (shell-command-to-string
+               "git rev-parse --show-toplevel | tr -d '\12'")
+              "/docs/org/attach/"))
+       (eval setq org-roam-directory
+             (concat
+              (shell-command-to-string
+               "git rev-parse --show-toplevel | tr -d '\12'")
+              "/docs/org"))))
+   '(org-babel-load-languages
+     '((awk . t) (ruby . t) (python . t) (js . t) (dot . t) (groovy . t) (java . t)
+       (emacs-lisp . t) (shell . t)))
+   '(package-selected-packages
+     '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent
+                          anaconda-mode arduino-mode attrap auto-compile
+                          auto-highlight-symbol blacken bmx-mode bui bundler cargo
+                          centered-cursor-mode chruby clean-aindent-mode cmm-mode
+                          code-cells column-enforce-mode company company-anaconda
+                          company-go company-lua company-web compat concurrent
+                          counsel counsel-css counsel-gtags csv-mode ctable
+                          cython-mode dap-mode deferred define-word devdocs
+                          diminish dired-quick-sort dotenv-mode drag-stuff
+                          dumb-jump editorconfig elisp-def elisp-slime-nav
+                          emmet-mode emr enh-ruby-mode envrc epc eval-sexp-fu
+                          evil-anzu evil-args evil-cleverparens evil-collection
+                          evil-easymotion evil-escape evil-evilified-state
+                          evil-exchange evil-goggles evil-iedit-state
+                          evil-indent-plus evil-lion evil-lisp-state evil-matchit
+                          evil-mc evil-nerd-commenter evil-numbers evil-org
+                          evil-surround evil-textobj-line evil-tutor
+                          evil-unimpaired evil-visual-mark-mode evil-visualstar
+                          expand-region eyebrowse fancy-battery flx-ido
+                          flycheck-elsa flycheck-golangci-lint flycheck-package
+                          flycheck-rust font-lock+ ggtags git-link git-messenger
+                          git-modes git-timemachine gitignore-templates gnuplot
+                          go-eldoc go-fill-struct go-gen-test go-guru go-impl
+                          go-mode go-rename go-tag godoctor golden-ratio
+                          google-translate grizzl haml-mode haskell-mode
+                          haskell-snippets helm-ag helm-cscope helm-css-scss
+                          helm-descbinds helm-git-grep helm-gtags helm-hoogle
+                          helm-ls-git helm-make helm-mode-manager helm-org
+                          helm-org-rifle helm-projectile helm-purpose helm-pydoc
+                          helm-swoop helm-themes helm-xref help-fns+ hide-comnt
+                          highlight-indentation highlight-numbers
+                          highlight-parentheses hindent hl-todo hlint-refactor
+                          holy-mode htmlize hungry-delete hybrid-mode
+                          impatient-mode import-js importmagic indent-guide
+                          inf-ruby info+ inspector ivy js-doc js2-mode
+                          js2-refactor link-hint live-py-mode livid-mode
+                          load-env-vars lorem-ipsum lsp-docker lsp-mode
+                          lsp-pyright lsp-python-ms lsp-treemacs lua-mode
+                          macrostep minitest multi-line multiple-cursors nameless
+                          nginx-mode nix-mode nodejs-repl nose npm-mode
+                          open-junk-file org org-cliplink org-contrib org-dotemacs
+                          org-download org-mime org-pomodoro org-present
+                          org-projectile org-rich-yank org-superstar orgit-forge
+                          overseer paradox password-generator pcre2el
+                          pip-requirements pipenv pippel poetry popwin pos-tip
+                          powershell prettier-js pug-mode py-isort pydoc
+                          pyenv-mode pylookup pytest pythonic pyvenv quickrun
+                          racer rainbow-delimiters rake rbenv request
+                          restart-emacs rjsx-mode robe ron-mode rspec-mode rubocop
+                          rubocopfmt ruby-hash-syntax ruby-refactor ruby-test-mode
+                          ruby-tools rust-mode rvm sass-mode scss-mode
+                          seeing-is-believing simple-httpd skewer-mode slim-mode
+                          smeargle space-doc spaceline-all-the-icons
+                          spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+                          sphinx-doc sql-indent sqlup-mode stickyfunc-enhance
+                          string-edit-at-point string-inflection swiper
+                          symbol-overlay symon tagedit term-cursor tern
+                          terraform-mode toc-org toml-mode treemacs-evil
+                          treemacs-icons-dired treemacs-magit treemacs-persp
+                          treemacs-projectile typescript-mode undo-tree
+                          use-package uuidgen vc-darcs vi-tilde-fringe
+                          vim-powerline volatile-highlights web-beautify
+                          web-completion-data web-mode wfnames which-key winum
+                          writeroom-mode ws-butler xcscope xref yaml-mode yapfify
+                          yasnippet)))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
 
 
 (with-eval-after-load 'org
@@ -660,12 +725,18 @@ This function is called at the very end of Spacemacs initialization."
               "~/encfs/darcs.private/foostash/nixos.org"
               ))
   )
-;(load-file "~/darcs/vc-darcs/vc-darcs.el")
+(load-file "~/darcs/vc-darcs/vc-darcs.el")
 
 (defun my-git-commit-setup ()
   (insert "wip: chore: update config/packages"))
-  ;(insert "WIP DO NOT MERGE fix feat chore: xyz"))
+                                        ;(insert "WIP DO NOT MERGE fix feat chore: xyz"))
 
 (add-hook 'git-commit-setup-hook 'my-git-commit-setup)
 (display-time-mode 1)
 
+(defun my/helm-find-files-github-dir ()
+  "Run helm-find-files with ~/git/github.com/ as the default directory."
+  (interactive)
+  (helm-find-files-1 "~/git/github.com/"))
+
+(spacemacs/set-leader-keys "f g" 'my/helm-find-files-github-dir)

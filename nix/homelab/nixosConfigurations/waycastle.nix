@@ -30,6 +30,12 @@ in
   networking.firewall.interfaces.enp0s31f6.allowedUDPPorts = [ 51820 ];
   networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
   networking.hostName = "waycastle";
+  networking.nat.forwardPorts = [
+    {
+      sourcePort = 24800;
+      destination = "172.19.86.101:24800";
+    }
+  ];
   services.fwupd.enable = true;
   services.locate.enable = true;
   services.mi-temp-exporter.enable = true;

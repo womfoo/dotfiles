@@ -1,5 +1,6 @@
 let
   noplay = false;
+  # noplay = true;
   faketrunkcombined = pkgs.stdenv.mkDerivation {
     name = "localhost-spfiles";
     src = ../../homelab/fake;
@@ -18,7 +19,7 @@ in
     overlays = [
       inputs.nur.overlays.default
       cell.overlays.x86_64
-      cell.overlays.rtmpOverlay
+      # cell.overlays.rtmpOverlay
     ];
   };
   environment.variables = {
@@ -33,7 +34,7 @@ in
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
-    cell.nixosModules.rtmp
+    # cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
     inputs.srvos.nixosModules.roles-nix-remote-builder
@@ -128,6 +129,15 @@ in
     /home/kranium/vagrantboxen/debian-bookworm64 192.168.121.1/24(rw,no_root_squash,no_subtree_check)
   '';
   services.nginx = {
+    enable = true;
+    defaultHTTPListenPort = 9999;
+    virtualHosts.tahanan = {
+      locations = {
+        "/" = {
+          root = "/opt/tahanan";
+        };
+      };
+    };
     virtualHosts.localhost = {
       locations = {
         "/" = {
@@ -210,6 +220,7 @@ in
   };
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
+  virtualisation.virtualbox.host.enable = true;
   /*
     power.ups = {
       enable = true;

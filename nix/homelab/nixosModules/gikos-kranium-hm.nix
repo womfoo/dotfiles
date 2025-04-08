@@ -21,8 +21,8 @@ in
 {
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
-    # home.packages = [ pkgs.lolcat ];
-    home.stateVersion = "24.11";
+    home.packages = with pkgs; [ deskflow ];
+    home.stateVersion = "25.05";
     programs = {
       atuin.enable = true;
       atuin.flags = [ "--disable-up-arrow" ];

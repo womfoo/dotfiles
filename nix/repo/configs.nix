@@ -23,9 +23,10 @@ in
   #       "${lib.getExe treefmt} --fail-on-change {staged_files}";
   #   }
   # );
-  prettify = (mkNixago configs.prettify) { };
+  # prettify = (mkNixago configs.prettify) { };
   treefmt = mkNixago (
     lib.attrsets.recursiveUpdate configs.treefmt {
+      packages = [ ];
       commands = [ { package = treefmt; } ];
       data.formatter.go = {
         command = "${go}/bin/gofmt";

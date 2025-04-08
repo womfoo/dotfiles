@@ -361,7 +361,7 @@
       # r10k
       # ranger
       redshift
-      # remmina # rdp
+      remmina # rdp
       rhash
       ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
       rmlint
@@ -446,6 +446,7 @@
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
       virt-manager
       virt-top
+      virt-viewer
       vlc
       # vulnix
       vscode
@@ -496,9 +497,18 @@
       git-recover
       gyro2bb
       mpvdash
+      mvb2sum
       sendkeys
     ];
 
   environment.pathsToLink = [ "share/thumbnailers" ];
+
+  fonts.packages = with pkgs; [
+    cantarell-fonts
+    gentium
+    noto-fonts-color-emoji
+    source-code-pro
+    twitter-color-emoji
+  ];
 
 }
