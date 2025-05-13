@@ -30,8 +30,7 @@
     microvm.inputs.nixpkgs.follows = "nixpkgs";
     nixago.inputs.nixago-exts.follows = "";
     nixago.inputs.nixpkgs.follows = "nixpkgs";
-    # nixago.url = "github:nix-community/nixago";
-    nixago.url = "github:korrat/nixago?ref=korrat/push-zwtrrxzqlrqr"; # https://github.com/nix-community/nixago/pull/61
+    nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -42,8 +41,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:womfoo/nixpkgs/5461b7f";
-    # nixpkgs.url = "github:womfoo/nixpkgs/698214a";
+    nixpkgs.url = "github:womfoo/nixpkgs/adaa24f";
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -53,8 +51,7 @@
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";
     std.inputs.microvm.follows = "microvm";
-    # std.url = "github:divnix/std";
-    std.url = "github:womfoo/std?ref=fix/temp-remove-prettier-toml";
+    std.url = "github:divnix/std";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
   };

@@ -3,7 +3,6 @@
   cell,
 }:
 let
-  inherit (inputs.std.lib) dev cfg;
   python' = (
     inputs.nixpkgs.python3.withPackages (
       ps:
@@ -17,7 +16,8 @@ let
 in
 {
   default =
-    inputs.std.lib.dev.mkShell {
+    with inputs.std.lib.dev;
+    mkShell {
       packages = [
         python'
         inputs.nixpkgs.trivy # cant find any
@@ -42,9 +42,9 @@ in
         # { package = terraform-backend-git; }
       ];
       nixago = [
-        cell.configs.treefmt
-        # cell.configs.lefthook
-        # cell.configs.conform
+        (mkNixago cell.configs.treefmt)
+        (mkNixago inputs.std.data.configs.conform)
+        (mkNixago inputs.std.data.configs.lefthook)
       ];
       devshell.startup.stow_legacy_configs.text = ''
         stow --dir=legacy --target=$HOME .

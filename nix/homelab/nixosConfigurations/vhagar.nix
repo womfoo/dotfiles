@@ -45,6 +45,7 @@ in
   networking.extraHosts =
     ''
       127.0.0.1 tahanan
+      127.0.0.1 handbook
       127.0.0.1 localca
     ''
     + lib.optionalString noplay ''
@@ -62,6 +63,7 @@ in
       1935
       1936
       8581
+      24800
       48302
       51203
     ];
@@ -135,6 +137,13 @@ in
       locations = {
         "/" = {
           root = "/opt/tahanan";
+        };
+      };
+    };
+    virtualHosts.handbook = {
+      locations = {
+        "/" = {
+          root = "/opt/handbook";
         };
       };
     };

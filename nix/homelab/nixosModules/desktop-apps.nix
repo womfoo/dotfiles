@@ -173,7 +173,7 @@
           cabal2nix
           cursor
           dbus
-          hpdft
+          # hpdft
           hw-ip
           iproute
           lens

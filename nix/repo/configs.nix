@@ -10,44 +10,53 @@ let
     nixfmt-rfc-style
     treefmt
     haskellPackages
+    nodePackages
     ;
-  inherit (inputs.std.data) configs;
-  inherit (inputs.std.lib.dev) mkNixago;
 in
 {
-  # FIXME: why does this not work but treefmt below works
-  # conform = (mkNixago configs.conform) { };
-  # lefthook = mkNixago (
-  #   lib.attrsets.recursiveUpdate configs.lefthook {
-  #     data.pre-commit.commands.treefmt.run =
-  #       "${lib.getExe treefmt} --fail-on-change {staged_files}";
-  #   }
-  # );
-  # prettify = (mkNixago configs.prettify) { };
-  treefmt = mkNixago (
-    lib.attrsets.recursiveUpdate configs.treefmt {
-      packages = [ ];
-      commands = [ { package = treefmt; } ];
-      data.formatter.go = {
-        command = "${go}/bin/gofmt";
-        options = [ "-w" ];
-        includes = [ "*.go" ];
-      };
-      data.formatter.haskell = {
-        command = "${haskellPackages.fourmolu}/bin/fourmolu";
-        options = [
-          "--mode"
-          "inplace"
-        ];
-        includes = [ "*.hs" ];
-      };
-      data.formatter.nix = {
-        command = lib.getExe nixfmt-rfc-style;
-      };
-      data.formatter.py = {
-        command = "${black}/bin/black";
-        includes = [ "*.py" ];
-      };
-    }
-  );
+  treefmt = {
+    output = "treefmt.toml";
+    format = "toml";
+    commands = [
+      { package = treefmt; }
+      { package = nixfmt-rfc-style; }
+      { package = nodePackages.prettier; }
+    ];
+    data.formatter.go = {
+      command = "${go}/bin/gofmt";
+      options = [ "-w" ];
+      includes = [ "*.go" ];
+    };
+    data.formatter.haskell = {
+      command = "${haskellPackages.fourmolu}/bin/fourmolu";
+      options = [
+        "--mode"
+        "inplace"
+      ];
+      includes = [ "*.hs" ];
+    };
+    data.formatter.nix = {
+      command = lib.getExe nixfmt-rfc-style;
+      includes = [ "*.nix" ];
+    };
+    data.formatter.py = {
+      command = "${black}/bin/black";
+      includes = [ "*.py" ];
+    };
+    data.formatter.prettier = {
+      command = lib.getExe nodePackages.prettier;
+      includes = [
+        "*.css"
+        "*.html"
+        "*.js"
+        "*.json"
+        "*.jsx"
+        "*.md"
+        "*.mdx"
+        "*.scss"
+        "*.ts"
+        "*.yaml"
+      ];
+    };
+  };
 }

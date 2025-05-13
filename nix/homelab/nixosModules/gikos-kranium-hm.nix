@@ -62,6 +62,11 @@ in
             contents.user.email = "github@kranium.au";
             contents.user.name = "Kranium Mendoza";
           }
+          {
+            condition = "gitdir:/home/kranium/respax/git/**";
+            contents.user.email = "kranium@respax.com";
+            contents.user.name = "Kranium Mendoza";
+          }
         ];
       };
       mpv = {
