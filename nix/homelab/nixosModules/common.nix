@@ -29,8 +29,8 @@
   nix.distributedBuilds = true;
   nix.settings.substituters = [
     "https://cache.nixos.org/"
-    "https://cache.kranium.au/k1/"
-    "https://cache.iog.io"
+    # "https://cache.kranium.au/k1/" # oci fail
+    # "https://cache.iog.io"
     # "https://thefloweringash-armv7.cachix.org"
     # "https://nixcache.reflex-frp.org"
     # "https://static-haskell-nix.cachix.org"

@@ -6,7 +6,8 @@ let
   inherit (inputs.nixpkgs) haskellPackages stdenv;
 in
 rec {
-  wizkell = haskellPackages.callCabal2nix "wizkell" ./wizkell { };
+  # wizkell = haskellPackages.callCabal2nix "wizkell" ./wizkell { }; # FIXME: revisit why IFD started to fail
+  wizkell = haskellPackages.callPackage ./wizkell { };
   wizkell-shell = haskellPackages.shellFor {
     buildInputs = with haskellPackages; [
       fourmolu

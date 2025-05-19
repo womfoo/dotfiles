@@ -41,7 +41,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:womfoo/nixpkgs/adaa24f";
+    nixpkgs.url = "github:NixOS/nixpkgs/3e3afe5";
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -139,4 +139,8 @@
             { };
         nope = inputs.bombon.lib.x86_64-linux.buildBom self.x86_64-linux.repo.shells.default { };
       };
+  nixConfig = {
+    allow-import-from-derivation = "true";
+  };
+
 }

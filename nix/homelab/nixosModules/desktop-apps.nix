@@ -66,7 +66,7 @@
       # chromium
       cifs-utils
       # cli53
-      colmena
+      # colmena
       # compton-git
       conda
       config.boot.kernelPackages.bcc
@@ -483,7 +483,7 @@
       # yate
       yt-dlp # better youtube-dl
       yq
-      zbar # parse qr codes
+      zbar # decode/parse qr codes
       # zfs
       zip
       # zoom-us

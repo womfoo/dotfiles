@@ -18,9 +18,12 @@ rsync \
   --exclude='.sbt' \
   --exclude='.stack' \
   --exclude='.vagrant.d/boxes' \
+  --exclude='.vscode' \
   --exclude='.xmonad' \
   --exclude='encfs' \
   --exclude='git' \
+  --exclude='go' \
+  --exclude='node_modules' \
   --exclude='vagrantboxen' \
   --exclude='work' \
   /home/kranium/ \

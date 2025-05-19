@@ -31,7 +31,7 @@ in
         # { package = kubectl; }
         # { package = kubernetes-helm; }
         # { package = terraform; }
-        { package = colmena; }
+        { package = inputs.colmena.packages.colmena; }
         { package = inputs.agenix.packages.default; }
         { package = stow; }
         { package = cell.packages.gen-secrets-nix; }
@@ -39,6 +39,7 @@ in
         { package = inputs.cells.desktop.packages.checkghtoken; }
         { package = oci-cli; }
         { package = opentofu; }
+        { package = haskellPackages.arbtt; }
         # { package = terraform-backend-git; }
       ];
       nixago = [

@@ -111,7 +111,7 @@ in
   #services.fprintd.enable = true;
   services.fwupd.enable = true;
   # services.fwupd.enableTestRemote = true;
-  # services.grafana.enable = true;
+  services.grafana.enable = true;
   services.hardware.bolt.enable = true;
   # services.k3s.enable = true;
   # services.k3s.extraFlags = toString [
@@ -229,7 +229,15 @@ in
   };
   virtualisation.libvirtd.enable = true;
   virtualisation.podman.enable = true;
-  virtualisation.virtualbox.host.enable = true;
+  # virtualisation.virtualbox.host.enable = true;
+  /*
+    # https://github.com/cyberus-technology/virtualbox-kvm maybe?
+
+    do not mix libvirt and virtualbox
+    Stderr: VBoxManage: error: VirtualBox can't operate in VMX root mode. Please disable the KVM kernel extension, recompile your kernel and reboot (VERR_VMX_IN_VMX_ROOT_MODE)
+    VBoxManage: error: Details: code NS_ERROR_FAILURE (0x80004005), component ConsoleWrap, interface IConsole
+  */
+
   /*
     power.ups = {
       enable = true;
@@ -268,4 +276,7 @@ in
     (inputs.self + /root_ca.crt)
   ];
 
+  programs.openvpn3.enable = true;
+  services.tmate-ssh-server.openFirewall = true;
+  services.tmate-ssh-server.enable = true;
 }
