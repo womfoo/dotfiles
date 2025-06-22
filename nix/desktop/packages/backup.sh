@@ -1,3 +1,11 @@
+NIX_SQLITE_PATH=/nix/var/nix/db/
+NIX_SQLITE_BACKUP_PATH="/armorydata/$HOSTNAME-nix-var-nix-db/"
+
+rsync \
+  -avh \
+  $NIX_SQLITE_PATH \
+  $NIX_SQLITE_BACKUP_PATH
+
 rsync \
   -avh \
   --exclude='.bundle' \
@@ -17,6 +25,7 @@ rsync \
   --exclude='.platformio' \
   --exclude='.sbt' \
   --exclude='.stack' \
+  --exclude='.thunderbird' \
   --exclude='.vagrant.d/boxes' \
   --exclude='.vscode' \
   --exclude='.xmonad' \
