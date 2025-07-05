@@ -57,7 +57,7 @@
       # bundix # mini_portile2
       calibre
       # cargo
-      carla
+      # carla # 20250705 cython-0.29.37.1 not supported for interpreter python3.13
       # certbot
       cdrkit # wodim
       # cfssl

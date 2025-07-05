@@ -31,6 +31,7 @@ in
     cell.nixosModules.builder
     cell.nixosModules.desktop-apps
     cell.nixosModules.desktop-apps-x86_64
+    cell.nixosModules.dovecot
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
@@ -60,6 +61,7 @@ in
   networking.useNetworkd = true;
   networking.firewall = {
     allowedTCPPorts = [
+      143 # FIXME temp test: insecure imap
       1935
       1936
       8581
@@ -108,6 +110,7 @@ in
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true; # needed for printing
   services.dbus.packages = [ pkgs.gcr ];
+
   #services.fprintd.enable = true;
   services.fwupd.enable = true;
   # services.fwupd.enableTestRemote = true;
@@ -201,6 +204,7 @@ in
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="0005", SYMLINK+="model100", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3496", ATTRS{idProduct}=="0006", SYMLINK+="model100", ENV{ID_MM_DEVICE_IGNORE}="1", ENV{ID_MM_CANDIDATE}="0", TAG+="uaccess", TAG+="seat"
   '';
+
   services.udisks2.enable = true; # needed for calibre
   services.usbmuxd.enable = true; # for ifuse/ios tethering
   services.upower.enable = true;
@@ -279,4 +283,13 @@ in
   programs.openvpn3.enable = true;
   services.tmate-ssh-server.openFirewall = true;
   services.tmate-ssh-server.enable = true;
+
+  security.pam.services.xscreensaver.enable = true;
+
+  # FIXME: temp test
+  users.extraUsers.test = {
+    uid = 9000;
+    isNormalUser = true;
+  };
+
 }
