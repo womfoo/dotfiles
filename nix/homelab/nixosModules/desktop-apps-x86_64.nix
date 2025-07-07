@@ -12,6 +12,6 @@
     google-chrome
     # (tor-browser-bundle-bin.override { pulseaudioSupport = true; })
     # vbetool # FTB # sudo vbetool dpms off
-    vagrant
+    # vagrant-25-05
   ];
 }

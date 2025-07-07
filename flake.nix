@@ -32,6 +32,7 @@
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-25-05.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
@@ -41,7 +42,9 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/2f29d6f";
+
+    nixpkgs.url = "github:NixOS/nixpkgs/b47d4f0";
+    # 6e98748"; # FTBS libguestfs open-webui pgvector vagrant
     nur = {
       url = "github:nix-community/NUR";
     };

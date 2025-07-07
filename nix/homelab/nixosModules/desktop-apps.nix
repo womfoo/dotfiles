@@ -77,7 +77,7 @@
       # cura # /nix/store/819gmnvr4j21zc2jpyvij4q1ch6p11nx-cura-4.13.1/bin/cura
       # damon
       darcs
-      darktable
+      darktable-25-05
       ddcutil
       # debootstrap
       d-spy # was dfeet and d-feet
@@ -129,7 +129,7 @@
       gh
       # ghidra
       ghostscript # needed by emacs doc-view
-      gimp
+      gimp-25-05
       gitAndTools.hub
       # gitFull
       glances
@@ -285,7 +285,7 @@
       # nmap-graphical
       nmon
       # node2nix
-      nomacs
+      # nomacs
       ntfs3g
       # nur.repos.mic92.rhasspy #
       nvd # nix diff
@@ -360,7 +360,7 @@
       qrencode
       # r10k
       # ranger
-      redshift
+      # redshift
       remmina # rdp
       rhash
       ripgrep # ag for now until https://github.com/syl20bnr/spacemacs/issues/16200
@@ -436,7 +436,7 @@
       unzip
       usbutils # lsusb
       v4l-utils # ir-keytable
-      # vagrant
+      vagrant-25-05
       # vault
       vbindiff
       vdpauinfo
@@ -444,8 +444,8 @@
       # victoriametrics
       vim
       # virtualbox # do not enable! virtualisation.virtualbox.host.enable = true is enough. weird erros occur.
-      virt-manager
-      virt-top
+      # virt-manager
+      # virt-top
       virt-viewer
       vlc
       # vulnix

@@ -159,6 +159,7 @@ in
     };
   };
   services.ollama.enable = true;
+  services.ollama.package = inputs.cells.vendor.packages.ollama-25-05;
   services.ollama.acceleration = "cuda";
   services.ollama.loadModels = [
     "gemma2:2b"
@@ -171,6 +172,7 @@ in
     environment = {
       WEBUI_AUTH = "False";
     };
+    package = inputs.cells.vendor.packages.open-webui-25-05;
   };
   services.paperless.enable = true;
   services.pipewire = {

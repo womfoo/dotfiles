@@ -9,6 +9,7 @@ let
       with ps;
       with inputs.nixpkgs.python3Packages;
       [
+        evdev
         pulsectl
       ]
     )
@@ -37,6 +38,8 @@ in
         { package = cell.packages.gen-secrets-nix; }
         { package = cell.packages.updatenixpkgs; }
         { package = inputs.cells.desktop.packages.checkghtoken; }
+        { package = inputs.cells.desktop.packages.scanpdf; }
+        { package = inputs.cells.iot.packages.wizkell; }
         { package = oci-cli; }
         { package = opentofu; }
         { package = haskellPackages.arbtt; }
