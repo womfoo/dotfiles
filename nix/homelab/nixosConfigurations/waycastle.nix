@@ -48,15 +48,8 @@ in
   services.mywg.hostPrivKeyFile = cell.secrets."wg-waycastle-priv-key".path config;
   services.mywg.peer = "stonedoor";
   # services.mywg.peers = [ "stonedoor" ];
-  # services.prometheus.globalConfig.scrape_interval = "10s"; # "1m"
-
-  systemd.services.prometheus.after = pkgs.lib.mkForce [
-    "network-online.target"
-    "sys-subsystem-net-devices-enp0s20f0u3u2.device"
-  ];
-  systemd.services.prometheus.requires = [
-    "network-online.target"
-    "sys-subsystem-net-devices-enp0s20f0u3u2.device"
+  services.prometheus.extraFlags = [
+    "--storage.tsdb.retention = 360d"
   ];
   services.prometheus.listenAddress = constants.devices.waycastle.interfaces.lan.ip;
   services.prometheus.scrapeConfigs = [
@@ -82,6 +75,8 @@ in
   services.router.enable = true;
   services.router.inventory = builtins.removeAttrs constants.devices [ "wizbulb3" ]; # bulb @ diff AP
   services.sshguard.enable = true;
+  services.telegraf.extraConfig.inputs.internet_speed = { };
+  services.telegraf.extraConfig.inputs.net = { };
   users.mutableUsers = pkgs.lib.mkForce true;
   system.stateVersion = "24.05";
 }

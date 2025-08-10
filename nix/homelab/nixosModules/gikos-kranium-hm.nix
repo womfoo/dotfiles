@@ -1,5 +1,27 @@
 { pkgs, ... }:
 let
+  mkTomahawkHost = host: ip: {
+    "${host}" = {
+      hostname = ip;
+      identityFile = "~/Downloads/resbook.pem";
+      user = "tomahawk";
+      port = 2200;
+      extraOptions = {
+        PubkeyAcceptedAlgorithms = "+ssh-rsa";
+        HostKeyAlgorithms = "+ssh-rsa";
+      };
+    };
+  };
+  kvPairs = {
+    "thaueastlapi01" = "10.0.1.5"; # resbook api
+    "thaueastldb01" = "10.0.0.4"; # resbook db
+    "thaueastlws01" = "10.0.1.4"; # resbook
+    "thaueastlapi01-dev" = "10.0.9.6"; # resbooktest api
+    "thaueastldb01-dev" = "10.0.9.4"; # resbooktest db
+    "thaueastlws01-dev" = "10.0.9.5"; # resbooktest
+  };
+  tomahawk_hosts = pkgs.lib.attrsets.concatMapAttrs (name: value: mkTomahawkHost name value) kvPairs;
+
   # inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
   extensions =
     if pkgs.lib.versionAtLeast (pkgs.lib.version) "25.05" then
@@ -81,6 +103,31 @@ in
         ];
       };
       ssh.enable = true;
+      ssh.serverAliveInterval = 100;
+      ssh.matchBlocks = tomahawk_hosts;
+      ssh.includes = [ "~/.ssh/config.d/*" ];
+      # {
+      # "thaueastlws01" = {
+      #   hostname = "10.0.0.4";
+      #   identityFile = "~/Downloads/resbook.pem";
+      #   user = "tomahawk";
+      #   port = 2200;
+      #   extraOptions = {
+      #     PubkeyAcceptedAlgorithms= "+ssh-rsa";
+      #     HostKeyAlgorithms = "+ssh-rsa";
+      #   };
+      # };
+      # "thaueastlws01-dev" = {
+      #   hostname = "10.0.9.5";
+      #   identityFile = "~/Downloads/resbook.pem";
+      #   user = "tomahawk";
+      #   port = 2200;
+      #   extraOptions = {
+      #     PubkeyAcceptedAlgorithms= "+ssh-rsa";
+      #     HostKeyAlgorithms = "+ssh-rsa";
+      #   };
+      # };
+      # };
       tmux = {
         enable = true;
         extraConfig = ''

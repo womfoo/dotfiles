@@ -28,6 +28,7 @@ in
   imports = [
     inputs.home.nixosModules.home-manager
     cell.nixosModules.common
+    cell.nixosModules.alloy
     cell.nixosModules.builder
     cell.nixosModules.desktop-apps
     cell.nixosModules.desktop-apps-x86_64
@@ -35,6 +36,7 @@ in
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
+    cell.nixosModules.loki
     # cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
@@ -43,21 +45,20 @@ in
 
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
-  networking.extraHosts =
-    ''
-      127.0.0.1 tahanan
-      127.0.0.1 handbook
-      127.0.0.1 localca
-    ''
-    + lib.optionalString noplay ''
-      127.0.0.1 laarc.io
-      127.0.0.1 lobste.rs
-      127.0.0.1 news.ycombinator.com
-      127.0.0.1 slashdot.org
-      127.0.0.1 www.youtube.com
-      127.0.0.1 twitter.com
-      127.0.0.1 www.reddit.com
-    '';
+  networking.extraHosts = ''
+    127.0.0.1 tahanan
+    127.0.0.1 handbook
+    127.0.0.1 localca
+  ''
+  + lib.optionalString noplay ''
+    127.0.0.1 laarc.io
+    127.0.0.1 lobste.rs
+    127.0.0.1 news.ycombinator.com
+    127.0.0.1 slashdot.org
+    127.0.0.1 www.youtube.com
+    127.0.0.1 twitter.com
+    127.0.0.1 www.reddit.com
+  '';
   networking.useNetworkd = true;
   networking.firewall = {
     allowedTCPPorts = [
@@ -79,6 +80,14 @@ in
       9977
     ];
   };
+
+  # 10.42.0.1
+  networking.firewall.interfaces.cni0 = {
+    allowedTCPPorts = [
+      55432
+    ];
+  };
+
   networking.firewall.interfaces."virbr1" = {
     allowedTCPPorts = [
       2049
@@ -116,7 +125,12 @@ in
   # services.fwupd.enableTestRemote = true;
   services.grafana.enable = true;
   services.hardware.bolt.enable = true;
-  # services.k3s.enable = true;
+  services.k3s.enable = true;
+
+  # services.k3s.extraFlags = toString [
+  #  "--web.experimental.kubernetesGateway.enabled: true"
+  # ];
+
   # services.k3s.extraFlags = toString [
   #  "--disable traefik"
   #  "--kubelet-arg=eviction-hard=imagefs.available<2%,nodefs.available<2%"
@@ -132,10 +146,20 @@ in
   services.nfs.server.exports = ''
     # virbr1 iface
     /home/kranium/vagrantboxen/debian-bookworm64 192.168.121.1/24(rw,no_root_squash,no_subtree_check)
+    /home/kranium/vagrantboxen/test-libvirt-ubuntu1404 192.168.121.1/24(rw,no_root_squash,no_subtree_check)
   '';
   services.nginx = {
     enable = true;
     defaultHTTPListenPort = 9999;
+
+    appendHttpConfig = ''
+      access_log /var/log/nginx/access.log main_ext;
+    '';
+
+    commonHttpConfig = ''
+      log_format main_ext '$remote_addr - $remote_user [$time_local] "$request" ' '$status $body_bytes_sent "$http_referer" ' '"$http_user_agent" "$http_x_forwarded_for" ' '"$host" sn="$server_name" ' 'rt=$request_time ' 'ua="$upstream_addr" us="$upstream_status" ' 'ut="$upstream_response_time" ul="$upstream_response_length" ' 'cs=$upstream_cache_status';
+    '';
+
     virtualHosts.tahanan = {
       locations = {
         "/" = {
@@ -194,6 +218,13 @@ in
   services.saned.enable = true;
   services.smartd.enable = true;
   services.telegraf.extraConfig.inputs.upsd = { };
+  services.telegraf.extraConfig.inputs.net.interfaces = [
+    "enp*"
+    "wlp*"
+    "cni0"
+    "docker0"
+    "tun0"
+  ];
   services.tlp.enable = true;
   services.touchegg.enable = true;
   services.thinkfan.enable = true;
@@ -233,7 +264,26 @@ in
       # bip = "10.9.8.7/16"; # state library doesn't like default but this is still adding the ff:
     };
   };
-  virtualisation.libvirtd.enable = true;
+  # virtualisation.libvirtd.enable = true;
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      ovmf = {
+        enable = true;
+        packages = [
+          (pkgs.OVMF.override {
+            secureBoot = true;
+            tpmSupport = true;
+          }).fd
+        ];
+      };
+    };
+  };
+
   virtualisation.podman.enable = true;
   # virtualisation.virtualbox.host.enable = true;
   /*
@@ -293,5 +343,24 @@ in
     uid = 9000;
     isNormalUser = true;
   };
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "somedblolwut" ];
+    enableTCPIP = true;
+    settings.port = 55432;
+    authentication = pkgs.lib.mkOverride 10 ''
+      #...
+      #type database DBuser origin-address auth-method
+      local all       all     trust
+      # ipv4
+      host  all      all     127.0.0.1/32   trust
+      # k3s
+      host  all      all     10.42.0.1/24   trust
+    '';
+  };
+
+  services.mysql.enable = true;
+  services.mysql.package = pkgs.mysql80;
 
 }

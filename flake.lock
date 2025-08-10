@@ -46,6 +46,22 @@
         "type": "github"
       }
     },
+    "azurevpn": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746355066,
+        "narHash": "sha256-HyX1DL0Q5mNyqs7rPVYJfvi2xAB0w71/Yb0z02VBQ0s=",
+        "owner": "Elias-Graf",
+        "repo": "nix-azure-vpn",
+        "rev": "cc10871552a60af9efaa2b9a4fa94f2986b3afd3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Elias-Graf",
+        "repo": "nix-azure-vpn",
+        "type": "github"
+      }
+    },
     "blank": {
       "locked": {
         "lastModified": 1625557891,
@@ -225,11 +241,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1752287590,
-        "narHash": "sha256-U1IqFnxlgCRrPaeT5IGCdH0j9CNLPFcI/fRAidi0aDQ=",
+        "lastModified": 1755272288,
+        "narHash": "sha256-ypTPb2eKcOBbOoyvPV0j4ZOXs4kayo73/2KI456QnE0=",
         "owner": "zhaofengli",
         "repo": "colmena",
-        "rev": "d2beb694d54db653399b8597c0f6e15e20b26405",
+        "rev": "5bf4ce6a24adba74a5184f4a9bef01d545a09473",
         "type": "github"
       },
       "original": {
@@ -827,11 +843,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749400020,
-        "narHash": "sha256-0nTmHO8AYgRYk5v6zw5oZ3x9nh+feb+Isn7WNe318M0=",
+        "lastModified": 1758375677,
+        "narHash": "sha256-BLtD+6qWz7fQjPk2wpwyXQLGI0E30Ikgf2ppn2nVadI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2835e8ba0ad99ba86d4a5e497a962ec9fa35e48f",
+        "rev": "edc7468e12be92e926847cb02418e649b02b59dd",
         "type": "github"
       },
       "original": {
@@ -1192,6 +1208,22 @@
         "type": "github"
       }
     },
+    "nixos-22-05": {
+      "locked": {
+        "lastModified": 1685573264,
+        "narHash": "sha256-Zffu01pONhs/pqH07cjlF10NnMDLok8ix5Uk4rhOnZQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "380be19fbd2d9079f677978361792cb25e8a3635",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixos-22-11": {
       "locked": {
         "lastModified": 1720535198,
@@ -1453,16 +1485,16 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1752427994,
-        "narHash": "sha256-xldK0K6bGl2wzX3wqdpQDMaFA8l8GWDieNw9+fbyoaQ=",
+        "lastModified": 1758277210,
+        "narHash": "sha256-iCGWf/LTy+aY0zFu8q12lK8KuZp7yvdhStehhyX1v8w=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "b47d4f01d4213715a1f09b999bab96bb6a5b675e",
+        "rev": "8eaee110344796db060382e15d3af0a9fc396e0e",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "b47d4f0",
+        "ref": "8eaee11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1759,6 +1791,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "azurevpn": "azurevpn",
         "bombon": "bombon",
         "claude": "claude",
         "colmena": "colmena",
@@ -1775,6 +1808,7 @@
         "nixos": [
           "nixpkgs"
         ],
+        "nixos-22-05": "nixos-22-05",
         "nixos-22-11": "nixos-22-11",
         "nixos-24-05": "nixos-24-05",
         "nixos-24-11": "nixos-24-11",

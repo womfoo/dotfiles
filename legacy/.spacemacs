@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(ansible
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -51,6 +51,7 @@ This function should only modify configuration layer settings."
      (helm :variables helm-enable-auto-resize t)
      html
      javascript
+     llm-client
      ;; lsp
      lua
      markdown
@@ -80,7 +81,7 @@ This function should only modify configuration layer settings."
                   tree-sitter-syntax-highlight-enable t
                   tree-sitter-fold-enable t
                   tree-sitter-fold-indicators-enable nil)
-     treemacs
+     ;; treemacs
      typescript
      version-control
      windows-scripts
@@ -648,40 +649,41 @@ This function is called at the very end of Spacemacs initialization."
        (emacs-lisp . t) (shell . t)))
    '(package-selected-packages
      '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent
-                          anaconda-mode arduino-mode attrap auto-compile
-                          auto-highlight-symbol blacken bmx-mode bui bundler cargo
-                          centered-cursor-mode chruby clean-aindent-mode cmm-mode
-                          code-cells column-enforce-mode company company-anaconda
-                          company-go company-lua company-web compat concurrent
-                          counsel counsel-css counsel-gtags csv-mode ctable
-                          cython-mode dap-mode deferred define-word devdocs
-                          diminish dired-quick-sort dotenv-mode drag-stuff
-                          dumb-jump editorconfig elisp-def elisp-slime-nav
-                          emmet-mode emr enh-ruby-mode envrc epc eval-sexp-fu
-                          evil-anzu evil-args evil-cleverparens evil-collection
-                          evil-easymotion evil-escape evil-evilified-state
-                          evil-exchange evil-goggles evil-iedit-state
-                          evil-indent-plus evil-lion evil-lisp-state evil-matchit
-                          evil-mc evil-nerd-commenter evil-numbers evil-org
-                          evil-surround evil-textobj-line evil-tutor
-                          evil-unimpaired evil-visual-mark-mode evil-visualstar
-                          expand-region eyebrowse fancy-battery flx-ido
-                          flycheck-elsa flycheck-golangci-lint flycheck-package
-                          flycheck-rust font-lock+ ggtags git-link git-messenger
-                          git-modes git-timemachine gitignore-templates gnuplot
-                          go-eldoc go-fill-struct go-gen-test go-guru go-impl
-                          go-mode go-rename go-tag godoctor golden-ratio
-                          google-translate grizzl haml-mode haskell-mode
-                          haskell-snippets helm-ag helm-cscope helm-css-scss
-                          helm-descbinds helm-git-grep helm-gtags helm-hoogle
-                          helm-ls-git helm-make helm-mode-manager helm-org
-                          helm-org-rifle helm-projectile helm-purpose helm-pydoc
-                          helm-swoop helm-themes helm-xref help-fns+ hide-comnt
-                          highlight-indentation highlight-numbers
+                          anaconda-mode ansible ansible-doc arduino-mode attrap
+                          auto-compile auto-highlight-symbol blacken bmx-mode bui
+                          bundler cargo centered-cursor-mode chruby
+                          clean-aindent-mode cmm-mode code-cells
+                          column-enforce-mode company company-anaconda
+                          company-ansible company-go company-lua company-web
+                          compat concurrent counsel counsel-css counsel-gtags
+                          csv-mode ctable cython-mode dap-mode deferred
+                          define-word devdocs diminish dired-quick-sort
+                          dotenv-mode drag-stuff dumb-jump editorconfig elisp-def
+                          elisp-slime-nav emmet-mode emr enh-ruby-mode envrc epc
+                          eval-sexp-fu evil-anzu evil-args evil-cleverparens
+                          evil-collection evil-easymotion evil-escape
+                          evil-evilified-state evil-exchange evil-goggles
+                          evil-iedit-state evil-indent-plus evil-lion
+                          evil-lisp-state evil-matchit evil-mc evil-nerd-commenter
+                          evil-numbers evil-org evil-surround evil-textobj-line
+                          evil-tutor evil-unimpaired evil-visual-mark-mode
+                          evil-visualstar expand-region eyebrowse fancy-battery
+                          flx-ido flycheck-elsa flycheck-golangci-lint
+                          flycheck-package flycheck-rust font-lock+ ggtags
+                          git-link git-messenger git-modes git-timemachine
+                          gitignore-templates gnuplot go-eldoc go-fill-struct
+                          go-gen-test go-guru go-impl go-mode go-rename go-tag
+                          godoctor golden-ratio google-translate grizzl haml-mode
+                          haskell-mode haskell-snippets helm-ag helm-cscope
+                          helm-css-scss helm-descbinds helm-git-grep helm-gtags
+                          helm-hoogle helm-ls-git helm-make helm-mode-manager
+                          helm-org helm-org-rifle helm-projectile helm-purpose
+                          helm-pydoc helm-swoop helm-themes helm-xref help-fns+
+                          hide-comnt highlight-indentation highlight-numbers
                           highlight-parentheses hindent hl-todo hlint-refactor
                           holy-mode htmlize hungry-delete hybrid-mode
                           impatient-mode import-js importmagic indent-guide
-                          inf-ruby info+ inspector ivy js-doc js2-mode
+                          inf-ruby info+ inspector ivy jinja2-mode js-doc js2-mode
                           js2-refactor link-hint live-py-mode livid-mode
                           load-env-vars lorem-ipsum lsp-docker lsp-mode
                           lsp-pyright lsp-python-ms lsp-treemacs lua-mode

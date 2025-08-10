@@ -66,6 +66,9 @@
   # services.openssh.settings.PermitRootLogin = "prohibit-password";
   # services.openssh.settings.PasswordAuthentication = true;
 
+  services.openssh.settings.HostKeyAlgorithms = "+ssh-rsa";
+  services.openssh.settings.PubkeyAcceptedAlgorithms = "+ssh-rsa";
+
   time.timeZone = "Australia/Sydney";
 
   system.configurationRevision = lib.mkIf (inputs.self ? rev) inputs.self.rev;

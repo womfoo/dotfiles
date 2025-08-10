@@ -20,6 +20,7 @@
     inputs.srvos.nixosModules.mixins-telegraf
     inputs.srvos.nixosModules.server
   ];
+
   # networking.firewall.interfaces.enp0s31f6.allowedUDPPorts = [ 51820 ];
   # networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
   networking.hostName = "pentos";
@@ -32,6 +33,8 @@
       jwt = { };
     };
   };
+
+  services.tmate-ssh-server.enable = true;
 
   environment.systemPackages = with pkgs; [ attic-client ];
   security.acme.acceptTerms = true;

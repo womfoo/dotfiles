@@ -3,6 +3,8 @@
   inputs = {
     agenix.url = "github:yaxitech/ragenix";
     # agenix.url = "github:ryantm/agenix";
+    azurevpn.url = "github:Elias-Graf/nix-azure-vpn";
+    azurevpn.flake = false;
     bombon.url = "github:nikstur/bombon/3e573b2c79b9db469c1d28d046bcaf884bb9954f";
     bombon.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.nixpkgs.follows = "nixpkgs";
@@ -36,15 +38,14 @@
     nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixos-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
     nixos.follows = "nixpkgs";
     nixos-hardware.url = "github:womfoo/nixos-hardware?ref=add-pi-4-sense-v1-overlay";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixpkgs.url = "github:NixOS/nixpkgs/b47d4f0";
-    # 6e98748"; # FTBS libguestfs open-webui pgvector vagrant
+    nixpkgs.url = "github:NixOS/nixpkgs/8eaee11";
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -131,6 +132,10 @@
             "repo"
             "packages"
           ]
+        ];
+        oci-images = inputs.std.harvest inputs.self [
+          "homelab"
+          "oci-images"
         ];
       }
       {

@@ -74,6 +74,10 @@
     device = "data/temp";
     fsType = "zfs";
   };
+  fileSystems."/var/lib/loki" = {
+    device = "data/loki";
+    fsType = "zfs";
+  };
   hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.graphics = {
@@ -88,7 +92,7 @@
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   # hardware.nvidia.open = true;
   hardware.nvidia.open = false;
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # hardware.nvidia.pac kage = config.boot.kernelPackages.nvidiaPackages.beta;
   hardware.sane.drivers.scanSnap.enable = true;
   hardware.sane.enable = true;
   hardware.enableAllFirmware = true;

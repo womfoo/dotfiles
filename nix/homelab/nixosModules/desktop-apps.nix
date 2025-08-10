@@ -18,6 +18,7 @@
       # aircrack-ng
       alsa-utils
       # ansible
+      ansible-22-05
       antimony
       apfs-fuse
       arandr
@@ -36,6 +37,7 @@
         ]
       ))
       audacity
+      ansible
       # augeas
       awscli
       b2sum
@@ -78,6 +80,7 @@
       # damon
       darcs
       darktable-25-05
+      dbeaver-bin
       ddcutil
       # debootstrap
       d-spy # was dfeet and d-feet
@@ -126,6 +129,7 @@
       fx
       fzf
       geoip
+      gemini-cli
       gh
       # ghidra
       ghostscript # needed by emacs doc-view
@@ -267,6 +271,7 @@
       ncdu
       # neovim
       net-snmp
+      net-tools
       # netdata
       netdiscover
       nethogs
@@ -378,10 +383,13 @@
       # rustc
       # rxvt-unicode # urxvt
       # (sbt.override { jre = jdk17; })
+      salt-22-05
+      sarif-tools
       # scala_3
       # seahorse # edit items in gnome-keyring
       screen
       scrot
+      semgrep
       shared-mime-info
       # shellcheck
       # slack # resource hog
@@ -436,7 +444,8 @@
       unzip
       usbutils # lsusb
       v4l-utils # ir-keytable
-      vagrant-25-05
+      vagrant
+      # vagrant-25-05
       # vault
       vbindiff
       vdpauinfo

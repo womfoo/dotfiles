@@ -7,6 +7,9 @@ result
 legacy/.xmonad/*
 !legacy/.xmonad/xmonad.hs
 
+.terraform.lock.hcl
+.terragrunt-cache
+
 nix/iot/packages/wizkell/dist-newstyle/
 
 #emacs
@@ -18,3 +21,4 @@ nix/iot/packages/wizkell/dist-newstyle/
 /treefmt.toml
 
 secrets.nix
+
