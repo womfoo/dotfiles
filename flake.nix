@@ -45,7 +45,8 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/8eaee11";
+    # nixpkgs.url = "github:NixOS/nixpkgs/e9f00bd893984bc8ce46c895c3bf7cac95331127";
+    nixpkgs.url = "github:NixOS/nixpkgs/e643668fd71b949c53f8626614b21ff71a07379d";
     nur = {
       url = "github:nix-community/NUR";
     };
@@ -58,6 +59,7 @@
     std.url = "github:divnix/std";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
+    sphinx.url = "git+file:///home/kranium/git/github.com/womfoo/nix-sphinx-template";
   };
   outputs =
     {

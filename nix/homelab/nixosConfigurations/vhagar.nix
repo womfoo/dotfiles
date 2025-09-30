@@ -41,6 +41,10 @@ in
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
     inputs.srvos.nixosModules.roles-nix-remote-builder
+    # inputs.sphinx.repo.nixosModules.sphinx-nginx
+    inputs.sphinx.nixosModules.default
+    {services.sphinx-nginx.enable = true;}
+    {services.sphinx-nginx.virtualHost = "your.doc.site.com";}
   ];
 
   nix.settings.cores = 10;
@@ -174,13 +178,13 @@ in
         };
       };
     };
-    virtualHosts.localhost = {
-      locations = {
-        "/" = {
-          root = faketrunkcombined;
-        };
-      };
-    };
+    # virtualHosts.localhost = {
+    #   locations = {
+    #     "/" = {
+    #       root = faketrunkcombined;
+    #     };
+    #   };
+    # };
   };
   services.ollama.enable = true;
   services.ollama.package = inputs.cells.vendor.packages.ollama-25-05;

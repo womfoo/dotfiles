@@ -100,6 +100,7 @@ module "virtualmachine" {
     storage_account_type = "Premium_LRS"
   }
   os_type                  = "Linux"
-  sku_size                 = "Standard_B1s"
+  # sku_size                 = "Standard_B1s" # 1cpu 1gb
+  sku_size                 = "Standard_B2ats_v2"
   source_image_resource_id = data.azurerm_image.image.id
 }
