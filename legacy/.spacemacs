@@ -678,10 +678,10 @@ This function is called at the very end of Spacemacs initialization."
                           helm-css-scss helm-descbinds helm-git-grep helm-gtags
                           helm-hoogle helm-ls-git helm-make helm-mode-manager
                           helm-org helm-org-rifle helm-projectile helm-purpose
-                          helm-pydoc helm-swoop helm-themes helm-xref help-fns+
+                          helm-pydoc helm-themes helm-xref help-fns+
                           hide-comnt highlight-indentation highlight-numbers
                           highlight-parentheses hindent hl-todo hlint-refactor
-                          holy-mode htmlize hungry-delete hybrid-mode
+                          holy-mode htmlize hungry-delete
                           impatient-mode import-js importmagic indent-guide
                           inf-ruby info+ inspector ivy jinja2-mode js-doc js2-mode
                           js2-refactor link-hint live-py-mode livid-mode

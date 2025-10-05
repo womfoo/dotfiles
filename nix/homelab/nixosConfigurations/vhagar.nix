@@ -43,8 +43,8 @@ in
     inputs.srvos.nixosModules.roles-nix-remote-builder
     # inputs.sphinx.repo.nixosModules.sphinx-nginx
     inputs.sphinx.nixosModules.default
-    {services.sphinx-nginx.enable = true;}
-    {services.sphinx-nginx.virtualHost = "your.doc.site.com";}
+    { services.sphinx-nginx.enable = true; }
+    { services.sphinx-nginx.virtualHost = "your.doc.site.com"; }
   ];
 
   nix.settings.cores = 10;

@@ -27,20 +27,20 @@ let
     ];
   };
   # FIXME: organise as std blockType?
-  ageConfig.secrets-nix =
-    {
-      "nix/homelab/secrets/init-root-password.age".publicKeys = [
-        admins.kranium
-        admins.kraniumarm
-      ] ++ builtins.attrValues machines;
-      "nix/homelab/secrets/attic-env.age".publicKeys = [
-        admins.kranium
-        admins.kraniumarm
-        machines.pentos
-      ];
-    }
-    // mkWireguardHostKey "stonedoor"
-    // mkWireguardHostKey "waycastle";
+  ageConfig.secrets-nix = {
+    "nix/homelab/secrets/init-root-password.age".publicKeys = [
+      admins.kranium
+      admins.kraniumarm
+    ]
+    ++ builtins.attrValues machines;
+    "nix/homelab/secrets/attic-env.age".publicKeys = [
+      admins.kranium
+      admins.kraniumarm
+      machines.pentos
+    ];
+  }
+  // mkWireguardHostKey "stonedoor"
+  // mkWireguardHostKey "waycastle";
 
 in
 ageAttrs // ageConfig

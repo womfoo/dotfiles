@@ -6,19 +6,14 @@ terraform {
   source = "../../../../modules/azure-nixos-vm"
 }
 
+dependency "base" {
+  config_path = "../base"
+}
+
 inputs = {
-  location = "australiaeast"
-  name     = "meleys"
+  name                    = "meleys"
+  resource_group_location = dependency.base.outputs.resource_group_location
+  resource_group_name     = dependency.base.outputs.resource_group_name
+  subnet_name             = "web"
+  vnet_name               = dependency.base.outputs.vnet_name
 }
-
-generate "provider" {
-  path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-provider "azurerm" {
-  features {}
-}
-provider "random" {}
-EOF
-}
-

@@ -8,9 +8,11 @@ let
     go
     lib
     nixfmt-rfc-style
+    terragrunt
     treefmt
     haskellPackages
     nodePackages
+    opentofu
     ;
 in
 {
@@ -35,6 +37,15 @@ in
       ];
       includes = [ "*.hs" ];
     };
+    data.formatter.hcl = {
+      command = "${terragrunt}/bin/terragrunt";
+      options = [
+        "hcl"
+        "format"
+        "--file"
+      ];
+      includes = [ "*.hcl" ];
+    };
     data.formatter.nix = {
       command = lib.getExe nixfmt-rfc-style;
       includes = [ "*.nix" ];
@@ -58,5 +69,11 @@ in
         "*.yaml"
       ];
     };
+    data.formatter.tf = {
+      command = "${opentofu}/bin/tofu";
+      options = [ "fmt" ];
+      includes = [ "*.tf" ];
+    };
+
   };
 }
