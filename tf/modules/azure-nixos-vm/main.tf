@@ -37,9 +37,9 @@ module "nsg" {
 }
 
 data "azurerm_subnet" "subnet" {
-  name = var.subnet_name
+  name                 = var.subnet_name
   virtual_network_name = var.vnet_name
-  resource_group_name = var.resource_group_name
+  resource_group_name  = var.resource_group_name
 }
 
 data "azurerm_image" "image" {
@@ -61,6 +61,11 @@ module "virtualmachine" {
           private_ip_subnet_resource_id = data.azurerm_subnet.subnet.id
           # create_public_ip_address      = true
           # public_ip_address_name        = module.naming.public_ip.name_unique
+          load_balancer_backend_pools = {
+            pool_ssh1 = {
+              load_balancer_backend_pool_resource_id = jsondecode(var.lb_backend_address_pool)["pool_ssh1"].id
+            }
+          }
         }
       }
       network_security_groups = {

@@ -276,15 +276,6 @@ in
       package = pkgs.qemu_kvm;
       runAsRoot = true;
       swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [
-          (pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd
-        ];
-      };
     };
   };
 
@@ -363,8 +354,5 @@ in
       host  all      all     10.42.0.1/24   trust
     '';
   };
-
-  services.mysql.enable = true;
-  services.mysql.package = pkgs.mysql80;
 
 }

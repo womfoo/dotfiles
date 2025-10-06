@@ -16,4 +16,5 @@ inputs = {
   resource_group_name     = dependency.base.outputs.resource_group_name
   subnet_name             = "web"
   vnet_name               = dependency.base.outputs.vnet_name
+  lb_backend_address_pool = dependency.base.outputs.lb_backend_address_pool
 }

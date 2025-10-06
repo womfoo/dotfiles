@@ -175,7 +175,7 @@ in
                    ]
                    ,sepChar = "%"
                    ,alignSep = "}{"
-                   ,template = "%StdinReader% }{ %multicpu% (%top%) | %cpufreq% | %coretemp% | %enp9s0u2u1u2% | %memory% (%topmem%) | %battery% | %date%       "
+                   ,template = "%StdinReader% }{ %multicpu% (%top%) | %cpufreq% | %coretemp% | %enp9s0u2u1u2% | %memory% (%topmem%) | %battery% | %date%            "
                    }
           '';
       };

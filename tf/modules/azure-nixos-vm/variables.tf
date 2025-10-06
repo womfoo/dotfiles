@@ -17,3 +17,6 @@ variable "sku_size" {
 variable "subnet_name" {}
 
 variable "vnet_name" {}
+
+variable "lb_backend_address_pool" {}
+

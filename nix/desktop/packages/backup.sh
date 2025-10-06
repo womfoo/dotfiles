@@ -10,12 +10,18 @@ rsync \
   -avh \
   --exclude='.bundle' \
   --exclude='.cache' \
-  --exclude='.conda' \
   --exclude='.compose-cache' \
+  --exclude='.conda' \
+  --exclude='.config/google-chrome/Default/Service Worker/CacheStorage' \
+  --exclude='.config/google-chrome/Default/WebStorage' \
   --exclude='.daedalus' \
   --exclude='.docker' \
   --exclude='.dropbox-dist' \
+  --exclude='.emacs.d/.cache' \
   --exclude='.emacs.d/eln-cache' \
+  --exclude='.emacs.d/elpa' \
+  --exclude='.emacs.d/quelpa' \
+  --exclude='.mozilla/firefox/kranium/storage/default' \
   --exclude='.gem' \
   --exclude='.gnupg' \
   --exclude='.gradle' \

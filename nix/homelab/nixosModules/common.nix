@@ -19,6 +19,7 @@
     direnv
     gitFull
     iperf
+    ntp # ntpdate time.nist.gov
     z-lua
   ];
 

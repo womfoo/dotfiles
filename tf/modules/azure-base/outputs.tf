@@ -13,3 +13,7 @@ output "resource_group_name" {
 output "vnet_name" {
   value = module.vnet.resource.name
 }
+
+output "lb_backend_address_pool" {
+  value = module.loadbalancer.azurerm_lb_backend_address_pool
+}

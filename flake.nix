@@ -45,8 +45,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # nixpkgs.url = "github:NixOS/nixpkgs/e9f00bd893984bc8ce46c895c3bf7cac95331127";
-    nixpkgs.url = "github:NixOS/nixpkgs/e643668fd71b949c53f8626614b21ff71a07379d";
+    nixpkgs.url = "github:NixOS/nixpkgs/544961dfcce86422ba200ed9a0b00dd4b1486ec5";
     nur = {
       url = "github:nix-community/NUR";
     };

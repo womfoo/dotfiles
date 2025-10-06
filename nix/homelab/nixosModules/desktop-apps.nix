@@ -19,7 +19,7 @@
       alsa-utils
       # ansible
       ansible-22-05
-      antimony
+      # antimony # ftbs 20251015
       apfs-fuse
       arandr
       # arc-theme
@@ -172,13 +172,13 @@
         with haskellPackages;
         with pkgs.haskell.lib;
         [
-          brick
-          brick-tabular-list
+          # brick # ftbs 20251015
+          # brick-tabular-list # ftbs 20251015
           cabal2nix
           cursor
           dbus
           # hpdft
-          hw-ip
+          # hw-ip # ftbs 20251015
           iproute
           lens
           network
