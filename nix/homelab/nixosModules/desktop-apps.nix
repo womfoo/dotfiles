@@ -24,7 +24,7 @@
       arandr
       # arc-theme
       # ardour
-      arduino
+      # arduino
       # aria2
       # arion
       # asciinema
@@ -36,7 +36,7 @@
           tl
         ]
       ))
-      audacity
+      # audacity
       ansible
       # augeas
       awscli
@@ -53,11 +53,11 @@
       bluez-tools # bt-device --list
       # bluetooth_battery
       bmon
-      brave
-      briss # crop pdf whitespace
+      # brave
+      # briss # crop pdf whitespace
       btrfs-progs
       # bundix # mini_portile2
-      calibre
+      # calibre # fixme
       # cargo
       # carla # 20250705 cython-0.29.37.1 not supported for interpreter python3.13
       # certbot
@@ -113,7 +113,7 @@
       f3
       # fcitx # virtual keyboard
       # ffmpeg
-      ffmpeg-full
+      # ffmpeg-full # fixme
       file
       # file-roller
       find-cursor
@@ -134,10 +134,9 @@
       # ghidra
       ghostscript # needed by emacs doc-view
       gimp-25-05
-      gitAndTools.hub
+      # gitAndTools.hub
       # gitFull
       glances
-      glxinfo
       # gnucash
       # gnumeric
       gnupg
@@ -216,7 +215,7 @@
       # jmeter
       jq
       jmtpfs
-      jwhois
+      # jwhois
       # k3b
       k6
       # kakoune-unwrapped
@@ -239,7 +238,7 @@
       libimobiledevice # idevice pair 00000000-0000000000000000
       libnotify # notify-send pp
       libphonenumber
-      libreoffice
+      # libreoffice # fixme
       librsvg # rsvg-convert
       # error: a 'i686-linux' with features {} is required to build '/nix/store/qaxgwyhh90dd0323sjn5qjdngvm4ai4z-nvidia-vaapi-driver-0.0.5.drv'
       #libva # vaapiVdpau should install this but I need vainfo
@@ -257,7 +256,8 @@
       mat2 # metadata anonymization
       mc
       meld
-      metals
+      mesa-demos
+      # metals # scala language server
       minicom
       # minikube
       # monero
@@ -294,7 +294,7 @@
       ntfs3g
       # nur.repos.mic92.rhasspy #
       nvd # nix diff
-      oathToolkit
+      oath-toolkit
       # obs-studio
       # okular
       # openjdk11_headless
@@ -306,7 +306,7 @@
       # packer
       pandoc
       parallel
-      parcellite
+      parcellite-25-05
       parted
       pass
       pasystray
@@ -326,14 +326,14 @@
       # pkgconfig
       # plasma5Packages.kdenlive
       playerctl
-      poppler_utils # pdf2txt
+      poppler-utils # pdf2txt
       postgresql # just for the psql command
       # postman
       powerstat
       powertop
       # ppp
       # pptp
-      procmail # lockfile
+      # procmail # lockfile
       protobuf # protoc
       psmisc # killall
       # pssh
@@ -360,7 +360,7 @@
       #     # (pkgs.callPackage ../pkgs/xiaomi_mi_scale {})
       #   ]
       # ))
-      qemu
+      # qemu
       # qpdf
       qrencode
       # r10k

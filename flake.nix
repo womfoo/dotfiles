@@ -45,7 +45,8 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/544961dfcce86422ba200ed9a0b00dd4b1486ec5";
+    # nixpkgs.url = "github:NixOS/nixpkgs/9f0c42f8bc7151b8e7e5840fb3bd454ad850d8c5";
+    nixpkgs.url = "github:/womfoo/nixpkgs?ref=fix/xzgv-build";
     nur = {
       url = "github:nix-community/NUR";
     };

@@ -46,44 +46,12 @@
     device = "/dev/disk/by-uuid/5ABC-99F8";
     fsType = "vfat";
   };
-  fileSystems."/home/kranium/.local/share/Daedalus" = {
-    device = "data/daedalus";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/docker" = {
-    device = "data/docker";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/libvirt" = {
-    device = "data/libvirt";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/postgresql" = {
-    device = "data/postgresql";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/rancher" = {
-    device = "data/rancher";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/private/ollama" = {
-    device = "data/ollama";
-    fsType = "zfs";
-  };
-  fileSystems."/zfstemp" = {
-    device = "data/temp";
-    fsType = "zfs";
-  };
-  fileSystems."/var/lib/loki" = {
-    device = "data/loki";
-    fsType = "zfs";
-  };
   hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
   hardware.graphics = {
     extraPackages = with pkgs; [
       libvdpau-va-gl
-      vaapiVdpau
+      libva-vdpau-driver
     ];
   };
   hardware.i2c.enable = true;

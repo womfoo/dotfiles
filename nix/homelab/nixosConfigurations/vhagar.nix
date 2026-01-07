@@ -187,8 +187,7 @@ in
     # };
   };
   services.ollama.enable = true;
-  services.ollama.package = inputs.cells.vendor.packages.ollama-25-05;
-  services.ollama.acceleration = "cuda";
+  services.ollama.package = pkgs.ollama-cuda; # inputs.cells.vendor.packages.ollama-25-05;
   services.ollama.loadModels = [
     "gemma2:2b"
     "llama3.1"
@@ -272,11 +271,11 @@ in
 
   virtualisation.libvirtd = {
     enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-    };
+    # qemu = {
+    #   package = pkgs.qemu_kvm;
+    #   runAsRoot = true;
+    #   swtpm.enable = true;
+    # };
   };
 
   virtualisation.podman.enable = true;

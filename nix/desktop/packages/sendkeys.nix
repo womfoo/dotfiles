@@ -10,7 +10,7 @@ writeScript {
     with pkgs;
     [
       eyaml
-      oathToolkit
+      oath-toolkit
       yq
     ]
     ++ pkgs.lib.optionals pkgs.stdenv.isLinux [ pkgs.xdotool ];

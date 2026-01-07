@@ -27,6 +27,7 @@ rec {
   salt-22-05 = pkgs-22-05.salt;
   ansible-22-05 = pkgs-22-05.ansible;
   vagrant-25-05 = pkgs-25-05.vagrant;
+  parcellite-25-05 = pkgs-25-05.parcellite;
   keepassx-22-11 =
     if pkgs-22-11.stdenv.isLinux then
       pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass) { }
