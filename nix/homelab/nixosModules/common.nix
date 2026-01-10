@@ -12,6 +12,8 @@
     cell.secrets.init-root-password.nixosModule
   ];
 
+  documentation.nixos.enable = true;
+
   users.users.root.hashedPasswordFile = cell.secrets.init-root-password.path config;
 
   environment.etc.hosts.mode = "0644";

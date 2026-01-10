@@ -6,7 +6,7 @@ let
   inherit (inputs.nixpkgs) callPackage;
   inherit (inputs.cells.vendor.packages) eyaml;
   pkgs = import inputs.nixpkgs {
-    inherit (inputs.nixpkgs) system;
+    inherit (inputs.nixpkgs.hostPlatform) system;
   };
   inherit (inputs.std.lib.ops) writeScript;
 in

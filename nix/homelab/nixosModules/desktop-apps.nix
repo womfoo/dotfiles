@@ -24,7 +24,7 @@
       arandr
       # arc-theme
       # ardour
-      # arduino
+      arduino
       # aria2
       # arion
       # asciinema
@@ -36,7 +36,7 @@
           tl
         ]
       ))
-      # audacity
+      audacity
       ansible
       # augeas
       awscli
@@ -53,7 +53,7 @@
       bluez-tools # bt-device --list
       # bluetooth_battery
       bmon
-      # brave
+      brave
       # briss # crop pdf whitespace
       btrfs-progs
       # bundix # mini_portile2
@@ -133,7 +133,7 @@
       gh
       # ghidra
       ghostscript # needed by emacs doc-view
-      gimp-25-05
+      gimp
       # gitAndTools.hub
       # gitFull
       glances
@@ -238,7 +238,7 @@
       libimobiledevice # idevice pair 00000000-0000000000000000
       libnotify # notify-send pp
       libphonenumber
-      # libreoffice # fixme
+      libreoffice
       librsvg # rsvg-convert
       # error: a 'i686-linux' with features {} is required to build '/nix/store/qaxgwyhh90dd0323sjn5qjdngvm4ai4z-nvidia-vaapi-driver-0.0.5.drv'
       #libva # vaapiVdpau should install this but I need vainfo
@@ -306,7 +306,7 @@
       # packer
       pandoc
       parallel
-      parcellite-25-05
+      parcellite-25-11
       parted
       pass
       pasystray
@@ -383,7 +383,6 @@
       # rustc
       # rxvt-unicode # urxvt
       # (sbt.override { jre = jdk17; })
-      salt-22-05
       sarif-tools
       # scala_3
       # seahorse # edit items in gnome-keyring
@@ -445,7 +444,6 @@
       usbutils # lsusb
       v4l-utils # ir-keytable
       vagrant
-      # vagrant-25-05
       # vault
       vbindiff
       vdpauinfo

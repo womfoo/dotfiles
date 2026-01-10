@@ -11,7 +11,8 @@ let
       interface = "enp0s31f6";
     };
     wired = {
-      interface = "enp0s20f0u3u2"; # usb hub w lan
+      # interface = "enp0s20f0u3u2"; # usb hub w lan
+      interface = "enp0s20f0u4u2";
       # vip            = "172.19.86.1";
       ip = "172.19.86.1";
       subnet = "172.19.86.0";
@@ -150,6 +151,8 @@ with lib;
         wirelesstools
       ];
 
+      systemd.services.kea-dhcp4-server.serviceConfig.RestartSec = 5;
+
       services.kea.dhcp4.enable = true;
       services.kea.dhcp4.settings = {
         interfaces-config = {
@@ -215,17 +218,13 @@ with lib;
         enable = true;
         radios = {
           "${finalConf.wireless.interface}" = {
-            noScan = true;
-            countryCode = "AU";
+            band = "2g";
+            channel = 11;
+            countryCode = "US";
             networks."${finalConf.wireless.interface}" = {
-              settings = {
-                # chanlist = "1 6 11";
-                wpa = "2";
-              };
               ssid = finalConf.wireless.ssid;
               authentication = {
-                mode = "none";
-                # mode = "wpa3-sae-transition";
+                mode = "wpa2-sha1";
                 wpaPskFile = finalConf.passwordFile;
               };
             };

@@ -13,7 +13,7 @@ in
 {
   bee.system = "x86_64-linux";
   bee.pkgs = import inputs.nixpkgs {
-    inherit (inputs.nixpkgs) system;
+    inherit (inputs.nixpkgs.hostPlatform) system;
     config.allowBroken = true;
     config.allowUnfree = true;
     overlays = [
@@ -187,7 +187,7 @@ in
     # };
   };
   services.ollama.enable = true;
-  services.ollama.package = pkgs.ollama-cuda; # inputs.cells.vendor.packages.ollama-25-05;
+  services.ollama.package = pkgs.ollama-cuda;
   services.ollama.loadModels = [
     "gemma2:2b"
     "llama3.1"
@@ -322,9 +322,6 @@ in
   systemd.services.systemd-networkd.stopIfChanged = false;
   # Services that are only restarted might be not able to resolve when resolved is stopped before
   systemd.services.systemd-resolved.stopIfChanged = false;
-  security.pki.certificateFiles = [
-    (inputs.self + /root_ca.crt)
-  ];
 
   programs.openvpn3.enable = true;
   services.tmate-ssh-server.openFirewall = true;

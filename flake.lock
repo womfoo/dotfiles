@@ -1472,6 +1472,22 @@
         "type": "github"
       }
     },
+    "nixos-25-11": {
+      "locked": {
+        "lastModified": 1767799921,
+        "narHash": "sha256-r4GVX+FToWVE2My8VVZH4V0pTIpnu2ZE8/Z4uxGEMBE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d351d0653aeb7877273920cd3e823994e7579b0b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixos-generators": {
       "inputs": {
         "nixlib": "nixlib",
@@ -2075,6 +2091,7 @@
         "nixos-24-05": "nixos-24-05",
         "nixos-24-11": "nixos-24-11",
         "nixos-25-05": "nixos-25-05",
+        "nixos-25-11": "nixos-25-11",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_9",

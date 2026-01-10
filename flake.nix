@@ -34,6 +34,7 @@
     nixago.inputs.nixpkgs.follows = "nixpkgs";
     nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-25-05.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";

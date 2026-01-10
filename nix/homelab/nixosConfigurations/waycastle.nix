@@ -9,12 +9,14 @@ let
 in
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos-24-05 {
-    inherit (inputs.nixpkgs) system;
-    allowUnfree = true;
+  bee.pkgs = import inputs.nixos-25-11 {
+    inherit (inputs.nixpkgs.hostPlatform) system;
+    config.allowUnfree = true;
   };
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
+  hardware.enableAllHardware = true;
+  # hardware.enableRedistributableFirmware = true;
   imports = [
     cell.hardwareProfiles.waycastle
     cell.nixosModules.common
@@ -27,8 +29,16 @@ in
     inputs.srvos.nixosModules.roles-prometheus
     inputs.srvos.nixosModules.server
   ];
-  networking.firewall.interfaces.enp0s31f6.allowedUDPPorts = [ 51820 ];
-  networking.firewall.interfaces.enp0s20f0u3u2.allowedTCPPorts = [ 9090 ];
+  networking.firewall.interfaces.enp0s31f6.allowedUDPPorts = [
+    51820
+    8581
+  ];
+  networking.firewall.interfaces.enp0s20f0u4u2.allowedTCPPorts = [
+    9090
+    8581
+  ];
+  networking.firewall.interfaces.wlp2s0.allowedTCPPorts = [ 8581 ];
+
   networking.hostName = "waycastle";
   networking.nat.forwardPorts = [
     {
@@ -48,8 +58,13 @@ in
   services.mywg.hostPrivKeyFile = cell.secrets."wg-waycastle-priv-key".path config;
   services.mywg.peer = "stonedoor";
   # services.mywg.peers = [ "stonedoor" ];
+  # FIXME: try to hook this after online
+  systemd.services.prometheus.serviceConfig = {
+    RestartSec = 5;
+    Restart = "always";
+  };
   services.prometheus.extraFlags = [
-    "--storage.tsdb.retention = 360d"
+    "--storage.tsdb.retention.time=360d"
   ];
   services.prometheus.listenAddress = constants.devices.waycastle.interfaces.lan.ip;
   services.prometheus.scrapeConfigs = [
@@ -79,4 +94,10 @@ in
   services.telegraf.extraConfig.inputs.net = { };
   users.mutableUsers = pkgs.lib.mkForce true;
   system.stateVersion = "24.05";
+
+  services.homebridge.enable = true;
+  services.homebridge.openFirewall = true;
+
+  security.sudo.execWheelOnly = pkgs.lib.mkForce false;
+
 }
