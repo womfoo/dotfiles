@@ -291,6 +291,7 @@
       nmon
       # node2nix
       # nomacs
+      normcap
       ntfs3g
       # nur.repos.mic92.rhasspy #
       nvd # nix diff

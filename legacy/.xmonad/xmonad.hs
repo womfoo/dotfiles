@@ -66,4 +66,5 @@ main = do
                                      , ((mod4Mask, xK_o), spawn "sendkeys password")
                                      , ((mod4Mask, xK_i), spawn "sendkeys totp")
                                      , ((mod4Mask .|. shiftMask, xK_t), spawn "st -f \"DejaVu Sans Mono:pixelsize=20:style=Book\"")
+                                     , ((mod4Mask .|. shiftMask, xK_n), spawn "normcap")
                                      ]

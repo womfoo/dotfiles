@@ -1701,16 +1701,16 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1767779205,
-        "narHash": "sha256-h6jimV7IJi8Vi3nAI4mmdrL/TvkFhGsDmBwsgmWzFok=",
-        "owner": "womfoo",
+        "lastModified": 1768564909,
+        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "50e40fa1a4ca6a2a06b741f276d04cd4a24b5e26",
+        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
         "type": "github"
       },
       "original": {
-        "owner": "womfoo",
-        "ref": "fix/xzgv-build",
+        "owner": "NixOS",
+        "ref": "e4bae1b",
         "repo": "nixpkgs",
         "type": "github"
       }

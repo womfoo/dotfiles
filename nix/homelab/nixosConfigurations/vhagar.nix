@@ -36,6 +36,7 @@ in
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
+    cell.nixosModules.localllm
     cell.nixosModules.loki
     # cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
@@ -185,21 +186,6 @@ in
     #     };
     #   };
     # };
-  };
-  services.ollama.enable = true;
-  services.ollama.package = pkgs.ollama-cuda;
-  services.ollama.loadModels = [
-    "gemma2:2b"
-    "llama3.1"
-    "deepseek-r1:1.5b"
-    "deepseek-r1:7b"
-  ];
-  services.open-webui = {
-    enable = true;
-    environment = {
-      WEBUI_AUTH = "False";
-    };
-    package = inputs.cells.vendor.packages.open-webui-25-05;
   };
   services.paperless.enable = true;
   services.pipewire = {

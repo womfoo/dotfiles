@@ -3,6 +3,9 @@
   config,
   ...
 }:
+let
+  userName = "noname";
+in
 {
   bee.system = "x86_64-linux";
   bee.pkgs = import inputs.nixos-24-11 {
@@ -62,6 +65,22 @@
         '';
       };
     };
+  };
+
+  users.extraUsers."${userName}" = {
+    uid = 5000;
+    isNormalUser = true;
+    openssh.authorizedKeys.keys = [
+    ];
+
+    extraGroups = [
+      "wheel"
+    ];
+  };
+
+  security.sudo = {
+    enable = true;
+    wheelNeedsPassword = false;
   };
 
 }
