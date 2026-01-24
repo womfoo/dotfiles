@@ -6,14 +6,32 @@ let
   inherit (inputs.nixpkgs)
     black
     go
+    grafana-alloy
     lib
-    nixfmt-rfc-style
+    nixfmt
     terragrunt
     treefmt
     haskellPackages
     nodePackages
     opentofu
     ;
+  alloyFormatWrapper = inputs.std.lib.ops.writeScript {
+    name = "treefmt-alloy";
+    runtimeInputs = [
+      grafana-alloy
+    ];
+    text = ''
+      for filename in "$@"; do
+          # Check if the file exists
+          if [ -f "$filename" ]; then
+              echo "Formatting file: $filename"
+              alloy format -w "$filename"
+          else
+              echo "File not found: $filename"
+          fi
+      done
+    '';
+  };
 in
 {
   treefmt = {
@@ -21,9 +39,13 @@ in
     format = "toml";
     commands = [
       { package = treefmt; }
-      { package = nixfmt-rfc-style; }
+      { package = nixfmt; }
       { package = nodePackages.prettier; }
     ];
+    data.formatter.alloy = {
+      command = "${alloyFormatWrapper}/bin/treefmt-alloy";
+      includes = [ "*.alloy" ];
+    };
     data.formatter.go = {
       command = "${go}/bin/gofmt";
       options = [ "-w" ];
@@ -47,7 +69,7 @@ in
       includes = [ "*.hcl" ];
     };
     data.formatter.nix = {
-      command = lib.getExe nixfmt-rfc-style;
+      command = lib.getExe nixfmt;
       includes = [ "*.nix" ];
     };
     data.formatter.py = {

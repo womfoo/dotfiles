@@ -28,7 +28,6 @@ in
   imports = [
     inputs.home.nixosModules.home-manager
     cell.nixosModules.common
-    cell.nixosModules.alloy
     cell.nixosModules.builder
     cell.nixosModules.desktop-apps
     cell.nixosModules.desktop-apps-x86_64
@@ -37,7 +36,8 @@ in
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
     cell.nixosModules.localllm
-    cell.nixosModules.loki
+    # cell.nixosModules.loki
+    cell.nixosModules.prom-aio
     # cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
@@ -240,7 +240,7 @@ in
   services.xserver.windowManager.xmonad.enable = true;
   services.xserver.windowManager.xmonad.enableContribAndExtras = true;
   system.stateVersion = "24.11";
-  systemd.watchdog.device = "/dev/watchdog";
+  systemd.settings.Manager.WatchdogDevice = "/dev/watchdog";
   virtualisation.docker = {
     enable = true;
     daemon.settings = {

@@ -46,12 +46,12 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/e4bae1b";
+    nixpkgs.url = "github:NixOS/nixpkgs/00c21e4";
     nur = {
       url = "github:nix-community/NUR";
     };
-    srvos.url = "github:nix-community/srvos/a48f731";
-    srvos.inputs.nixpkgs.follows = "nixos-24-11";
+    srvos.url = "github:nix-community/srvos";
+    srvos.inputs.nixpkgs.follows = "nixpkgs";
     std.inputs.devshell.follows = "devshell";
     std.inputs.nixago.follows = "nixago";
     std.inputs.nixpkgs.follows = "nixpkgs";

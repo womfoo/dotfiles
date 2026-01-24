@@ -32,6 +32,7 @@ in
         python'
         inputs.nixpkgs.trivy # cant find any
         inputs.nixpkgs.grype # grype -v sbom:./result --add-cpes-if-none
+        inputs.nixpkgs.grafana-alloy
       ];
       commands = with inputs.nixpkgs.pkgs; [
         { package = age; }

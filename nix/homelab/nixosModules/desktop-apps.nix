@@ -283,7 +283,7 @@
       nix-output-monitor
       nix-prefetch-git
       nix-top
-      nixfmt-rfc-style
+      # nixfmt
       # nixos-shell
       # nixops
       nmap
@@ -491,7 +491,7 @@
       # yate
       yt-dlp # better youtube-dl
       yq
-      zbar # decode/parse qr codes
+      zbar # decode/parse totp qr codes
       # zfs
       zip
       # zoom-us

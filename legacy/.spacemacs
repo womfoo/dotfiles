@@ -51,7 +51,7 @@ This function should only modify configuration layer settings."
      (helm :variables helm-enable-auto-resize t)
      html
      javascript
-     llm-client
+     (llm-client :variables llm-client-enable-ellama t)
      ;; lsp
      lua
      markdown
@@ -723,6 +723,7 @@ This function is called at the very end of Spacemacs initialization."
   (setq org-agenda-files
         (list "~/encfs/darcs.private/foostash/life.org"
               "~/encfs/darcs.private/foostash/nixos.org"
+              "~/encfs/darcs.private/foostash/work.org"
               ))
   )
 (load-file "~/darcs/vc-darcs/vc-darcs.el")

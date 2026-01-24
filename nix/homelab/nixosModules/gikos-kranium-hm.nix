@@ -70,12 +70,12 @@ in
       };
       git = {
         enable = true;
-        userEmail = "kranium@gikos.net";
-        userName = "Kranium Gikos Mendoza";
-        extraConfig = {
+        settings = {
           merge.conflictstyle = "diff3";
           push.autoSetupRemote = true;
           rerere.enable = true;
+          user.email = "kranium@gikos.net";
+          user.name = "Kranium Gikos Mendoza";
         };
         lfs.enable = true;
         includes = [
@@ -174,9 +174,9 @@ in
                     ,Run Battery ["-t","<left>% <timeleft>","-L","50","-H","75","-h","${green}","-n","${yellow}","-l","${red}"] 10
                    ]
                    ,sepChar = "%"
-                   ,alignSep = "}{"
                    ,template = "%StdinReader% }{ %multicpu% (%top%) | %cpufreq% | %coretemp% | %enp9s0u2u1u2% | %memory% (%topmem%) | %battery% | %date%            "
                    }
+                   ,alignSep = "}{"
           '';
       };
       z-lua.enable = true;
