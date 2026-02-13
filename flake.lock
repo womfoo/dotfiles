@@ -1249,11 +1249,11 @@
         "std": "std_3"
       },
       "locked": {
-        "lastModified": 1742086801,
-        "narHash": "sha256-hMV1q23RqUPegYedZ/t4qm59EUVwvkY/ECi1nLrhdjk=",
+        "lastModified": 1770991335,
+        "narHash": "sha256-Ifl1zGePAv0SpyotG08FRQ4aWKGbeH5KrFIvwhhoEAI=",
         "ref": "refs/heads/master",
-        "rev": "74746a0ac7b8ac80bd33569599afdbc7485515d9",
-        "revCount": 20,
+        "rev": "50c79c2a357ba366d94db8696dc4e47ad75cb78d",
+        "revCount": 22,
         "type": "git",
         "url": "file:///home/kranium/git/github.com/womfoo/lihim"
       },
@@ -1701,16 +1701,16 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1770197578,
-        "narHash": "sha256-AYqlWrX09+HvGs8zM6ebZ1pwUqjkfpnv8mewYwAo+iM=",
+        "lastModified": 1770841267,
+        "narHash": "sha256-9xejG0KoqsoKEGp2kVbXRlEYtFFcDTHjidiuX8hGO44=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "00c21e4c93d963c50d4c0c89bfa84ed6e0694df2",
+        "rev": "ec7c70d12ce2fc37cb92aff673dcdca89d187bae",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "00c21e4",
+        "ref": "ec7c70d",
         "repo": "nixpkgs",
         "type": "github"
       }

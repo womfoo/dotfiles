@@ -2,19 +2,13 @@ prometheus.exporter.self "alloy" { }
 
 prometheus.exporter.unix "node_exporter" { }
 
-prometheus.exporter.blackbox "blackbox" {
-	config  = "{ modules: { http_2xx: { prober: http, timeout: 5s } } }"
-	targets = [
-		{
-			"name" = "gikos.net", "address" = "https://gikos.net", "module" = "http_2xx",
-		},
-		{
-			"name" = "kranium.net", "address" = "https://kranium.net", "module" = "http_2xx",
-		},
-		{
-			"name" = "kranium.au", "address" = "https://kranium.au", "module" = "http_2xx",
-		},
-	]
+discovery.relabel "blackbox" {
+	targets = prometheus.exporter.blackbox.blackbox.targets
+
+	rule {
+		source_labels = ["__param_target"]
+		target_label  = "instance"
+	}
 }
 
 prometheus.scrape "alloy" {
@@ -30,36 +24,10 @@ prometheus.scrape "node_exporter" {
 }
 
 prometheus.scrape "blackbox" {
-	targets = prometheus.exporter.blackbox.blackbox.targets
+	targets = discovery.relabel.blackbox.output
 
 	forward_to = [prometheus.remote_write.metrics_service.receiver]
-	// forward_to = [prometheus.relabel.blackbox_use_url.receiver]
 }
-
-// prometheus.relabel "blackbox_use_url" {
-// 	// targets = prometheus.exporter.blackbox.blackbox.targets
-
-//   forward_to = [prometheus.remote_write.metrics_service.receiver]
-
-//   rule {
-//    action = replace
-//     source_labels = ["job"]
-//     replacement = string.trim_prefix("integrations/blackbox/", job)
-//     target_label  = "job"
-//   }
-// }
-
-// discovery.relabel "blackbox_use_url" {
-// 	targets = prometheus.exporter.blackbox.blackbox.targets
-
-//   // forward_to = [prometheus.remote_write.metrics_service.receiver]
-
-//   rule {
-//    action = replace
-//     source_labels = ["__address__"]
-//     target_label  = "job"
-//   }
-// }
 
 prometheus.remote_write "metrics_service" {
 	endpoint {

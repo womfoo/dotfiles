@@ -46,7 +46,7 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/00c21e4";
+    nixpkgs.url = "github:NixOS/nixpkgs/ec7c70d";
     nur = {
       url = "github:nix-community/NUR";
     };
