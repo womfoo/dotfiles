@@ -8,14 +8,40 @@ let
   inherit (inputs.lihim.lihim.constants) d1 d2 tbe;
   items = d1 ++ d2 ++ tbe;
   items' = [
-    "gikos.net" # nc
-    "kranium.au" # cf
-    "kranium.net" # cf
-    "muinark.com" # gd
-    "voxfront.com" # nc
-    "streakycal.com" # cf
-    "ralleta.com" # ss
+    "https://gikos.net" # nc
+    "https://kranium.au" # cf
+    "https://kranium.net" # cf
+    "https://muinark.com" # gd
+    "https://ralleta.com" # ss
   ];
+
+  blackboxConfigFile = pkgs.writers.writeYAML "blackbox.yaml" {
+
+    modules = {
+      http_2xx = {
+        prober = "http";
+        timeout = "100s";
+        http = {
+          fail_if_ssl = false;
+          fail_if_not_ssl = false;
+          valid_status_codes = [
+            200
+            301
+            302
+            404
+            525
+            526
+          ];
+          preferred_ip_protocol = "ip4";
+          ip_protocol_fallback = false;
+          follow_redirects = false;
+          tls_config.insecure_skip_verify = true;
+        };
+      };
+    };
+
+  };
+
 in
 {
 
@@ -25,10 +51,10 @@ in
   # FIXME: ugly AF, figure out alloy foreach
   environment.etc."alloy/blackbox-targets.alloy".text = ''
     prometheus.exporter.blackbox "blackbox" {
-      config  = "{ modules: { http_2xx: { prober: http, timeout: 5s } } }"
+      config_file = "${blackboxConfigFile}"
       targets = [
         ${lib.concatMapStringsSep "\n" (
-          item: "{	\"name\" = \"${item}\", \"address\" = \"${item}\", \"module\" = \"http_2xx\", },"
+          item: "{ \"name\" = \"${item}\", \"address\" = \"${item}\", \"module\" = \"http_2xx\", },"
         ) items}
       ]
     }

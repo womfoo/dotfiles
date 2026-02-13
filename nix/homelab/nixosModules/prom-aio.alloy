@@ -1,6 +1,6 @@
 prometheus.exporter.self "alloy" { }
 
-prometheus.exporter.unix "node_exporter" { }
+// prometheus.exporter.unix "node_exporter" { }
 
 discovery.relabel "blackbox" {
 	targets = prometheus.exporter.blackbox.blackbox.targets
@@ -17,14 +17,16 @@ prometheus.scrape "alloy" {
 	forward_to = [prometheus.remote_write.metrics_service.receiver]
 }
 
-prometheus.scrape "node_exporter" {
-	targets = prometheus.exporter.unix.node_exporter.targets
+// prometheus.scrape "node_exporter" {
+// 	targets = prometheus.exporter.unix.node_exporter.targets
 
-	forward_to = [prometheus.remote_write.metrics_service.receiver]
-}
+// 	forward_to = [prometheus.remote_write.metrics_service.receiver]
+// }
 
 prometheus.scrape "blackbox" {
-	targets = discovery.relabel.blackbox.output
+	scrape_interval = "600s"
+	scrape_timeout  = "15s"
+	targets         = discovery.relabel.blackbox.output
 
 	forward_to = [prometheus.remote_write.metrics_service.receiver]
 }
@@ -33,4 +35,8 @@ prometheus.remote_write "metrics_service" {
 	endpoint {
 		url = "http://localhost:9090/api/v1/write"
 	}
+}
+
+logging {
+  level  = "debug"
 }

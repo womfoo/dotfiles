@@ -33,6 +33,12 @@ in
         inputs.nixpkgs.trivy # cant find any
         inputs.nixpkgs.grype # grype -v sbom:./result --add-cpes-if-none
         inputs.nixpkgs.grafana-alloy
+        (inputs.nixpkgs.pkgs.writeShellScriptBin "nuke-prom-alloy" ''
+          systemctl stop prometheus
+          systemctl stop alloy
+          rm -rf /var/lib/prometheus2/*
+          rm -rf /var/lib/private/alloy/data-alloy/*
+        '')
       ];
       commands = with inputs.nixpkgs.pkgs; [
         { package = age; }
