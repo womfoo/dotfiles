@@ -46,6 +46,7 @@ in
     inputs.sphinx.nixosModules.default
     { services.sphinx-nginx.enable = true; }
     { services.sphinx-nginx.virtualHost = "your.doc.site.com"; }
+    inputs.lihim.lihim.nixosModules.extraUsers
   ];
 
   nix.settings.cores = 10;
@@ -77,6 +78,7 @@ in
     ];
   };
   networking.firewall.trustedInterfaces = [ "cni+" ]; # k3s
+
   networking.firewall.interfaces.enp9s0u2u1u2 = {
     allowedTCPPorts = [
       80
@@ -99,6 +101,7 @@ in
       config.services.nfs.server.statdPort
       config.services.nfs.server.mountdPort
       config.services.nfs.server.lockdPort
+      11434
     ];
     allowedUDPPorts = [
       2049
@@ -129,6 +132,7 @@ in
   services.fwupd.enable = true;
   # services.fwupd.enableTestRemote = true;
   services.grafana.enable = true;
+  services.grafana.settings.security.secret_key = "yolo";
   services.hardware.bolt.enable = true;
   services.k3s.enable = true;
 

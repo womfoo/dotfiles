@@ -13,15 +13,15 @@ let
     inherit (inputs.nixpkgs.hostPlatform) system;
     config.allowUnfree = true;
   };
-  pkgs-25-11 = import inputs.nixos-25-05 {
-    inherit (inputs.nixpkgs.hostPlatform) system;
-  };
+  # pkgs-25-11 = import inputs.nixos-25-11 {
+  #   inherit (inputs.nixpkgs.hostPlatform) system;
+  # };
   inherit (inputs.nixpkgs) callPackage;
 in
 rec {
   ansible-22-05 = pkgs-22-05.ansible;
   atc-mi-thermometer-exporter = callPackage ./atc-mi-thermometer-exporter.nix { };
-  darktable-25-05 = pkgs-25-05.darktable;
+  # darktable-25-05 = pkgs-25-05.darktable;
   eyaml = callPackage ./hiera-eyaml { };
   git-recover = callPackage ./git-recover.nix { };
   gyro2bb = callPackage ./gyro2bb.nix { };
@@ -30,8 +30,8 @@ rec {
       pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass) { }
     else
       pkgs-22-11.hello; # FIXME: dummy just to make things run
-  open-webui-25-05 = pkgs-25-05.open-webui;
-  parcellite-25-11 = pkgs-25-11.parcellite;
+  # open-webui-25-05 = pkgs-25-05.open-webui;
+  parcellite-25-05 = pkgs-25-05.parcellite;
   python-sense-hat = callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   # python-rtimu = callPackage ./python-rtimu.nix { rtimu = rtimu; };
   rtimu = callPackage ./rtimu.nix { };

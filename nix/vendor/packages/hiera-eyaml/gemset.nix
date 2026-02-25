@@ -1,6 +1,17 @@
 {
+  base64 = {
+    groups = [ "default" ];
+    platforms = [ ];
+    source = {
+      remotes = [ "https://rubygems.org" ];
+      sha256 = "0yx9yn47a8lkfcjmigk79fykxvr80r4m1i35q82sxzynpbm7lcr7";
+      type = "gem";
+    };
+    version = "0.3.0";
+  };
   hiera-eyaml = {
     dependencies = [
+      "base64"
       "highline"
       "optimist"
     ];
@@ -8,10 +19,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1czl3wbc5gg7vc6k3s48zslx69jilh736qgr935q27c6nhdyg1cj";
+      sha256 = "15c8widbdm4p7686aryy8gghrh0m7d0938s7h0lgr5w8skbc5nzg";
       type = "gem";
     };
-    version = "4.2.0";
+    version = "5.0.0";
   };
   highline = {
     dependencies = [ "reline" ];
@@ -29,10 +40,10 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "18pgvl7lfjpichdfh1g50rpz0zpaqrpr52ybn9liv1v9pjn9ysnd";
+      sha256 = "1k0lk3pwadm2myvpg893n8jshmrf2sigrd4ki15lymy7gixaxqyn";
       type = "gem";
     };
-    version = "0.8.0";
+    version = "0.8.2";
   };
   optimist = {
     groups = [ "default" ];
@@ -50,9 +61,9 @@
     platforms = [ ];
     source = {
       remotes = [ "https://rubygems.org" ];
-      sha256 = "1lirwlw59apc8m1wjk85y2xidiv0fkxjn6f7p84yqmmyvish6qjp";
+      sha256 = "0d8q5c4nh2g9pp758kizh8sfrvngynrjlm0i1zn3cnsnfd4v160i";
       type = "gem";
     };
-    version = "0.6.0";
+    version = "0.6.3";
   };
 }

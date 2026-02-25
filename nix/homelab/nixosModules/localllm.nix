@@ -8,17 +8,21 @@
   services.ollama.enable = true;
   services.ollama.package = pkgs.ollama-cuda;
   services.ollama.loadModels = [
+    "deepseek-r1:7b"
     "gemma2:2b"
     "llama3.1"
-    "deepseek-r1:1.5b"
-    "deepseek-r1:7b"
+    "qwen2.5-coder:7b"
+    "qwen3:8b"
   ];
+
+  services.ollama.host = "0.0.0.0"; # yolo
+
   services.open-webui = {
     enable = true;
     environment = {
       WEBUI_AUTH = "False";
     };
-    package = inputs.cells.vendor.packages.open-webui-25-05;
+    # package = inputs.cells.vendor.packages.open-webui-25-05;
   };
 
   nix.settings.substituters = [

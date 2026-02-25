@@ -37,7 +37,6 @@
         ]
       ))
       audacity
-      ansible
       # augeas
       awscli
       b2sum
@@ -79,7 +78,7 @@
       # cura # /nix/store/819gmnvr4j21zc2jpyvij4q1ch6p11nx-cura-4.13.1/bin/cura
       # damon
       darcs
-      darktable-25-05
+      # darktable-25-05
       dbeaver-bin
       ddcutil
       # debootstrap
@@ -238,7 +237,7 @@
       libimobiledevice # idevice pair 00000000-0000000000000000
       libnotify # notify-send pp
       libphonenumber
-      libreoffice
+      # libreoffice
       librsvg # rsvg-convert
       # error: a 'i686-linux' with features {} is required to build '/nix/store/qaxgwyhh90dd0323sjn5qjdngvm4ai4z-nvidia-vaapi-driver-0.0.5.drv'
       #libva # vaapiVdpau should install this but I need vainfo
@@ -246,6 +245,7 @@
       libxml2 # xmllint
       libxslt
       linssid
+      llmfit
       lm_sensors
       lmdb # mdb_copy for backing up monero
       lnav
@@ -307,7 +307,7 @@
       # packer
       pandoc
       parallel
-      parcellite-25-11
+      parcellite-25-05
       parted
       pass
       pasystray
@@ -384,7 +384,7 @@
       # rustc
       # rxvt-unicode # urxvt
       # (sbt.override { jre = jdk17; })
-      sarif-tools
+      # sarif-tools # ftb nixpkgs/dd9b079
       # scala_3
       # seahorse # edit items in gnome-keyring
       screen
@@ -469,24 +469,24 @@
       # wkhtmltopdf # vulnerable qtwebkit-5.212.0-alpha4
       # wxsqlite3
       # wxsqliteplus
+      xauth
       xawtv
       xcalib # calibrate colors
       xclip
       xdotool
+      xdpyinfo
+      xev
       xfontsel
-      xorg.xkill
-      xorg.xwd
+      xhost
+      xkill
+      xlsfonts # font for xosd
+      # xosd
       xmlsec
       xournalpp
-      xorg.xauth
-      xorg.xev
-      xorg.xdpyinfo
-      xorg.xhost
-      xorg.xlsfonts # font for xosd
-      xorg.xwininfo
-      # xosd
       xsane
       xscreensaver
+      xwd
+      xwininfo
       xzgv
       # yate
       yt-dlp # better youtube-dl
@@ -513,6 +513,8 @@
 
   fonts.packages = with pkgs; [
     cantarell-fonts
+    fira-code
+    fira-code-symbols
     gentium
     noto-fonts-color-emoji
     source-code-pro

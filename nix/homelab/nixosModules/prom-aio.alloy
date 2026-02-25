@@ -38,5 +38,5 @@ prometheus.remote_write "metrics_service" {
 }
 
 logging {
-  level  = "debug"
+	level = "debug"
 }

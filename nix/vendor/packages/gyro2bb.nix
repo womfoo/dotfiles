@@ -16,7 +16,6 @@ rustPlatform.buildRustPackage rec {
   };
   sourceRoot = "${src.name}/bin/gyro2bb";
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-xlMzHV+4YmjcpXJwdV5gOxemy+LzRK33n+HTiM7e9zE=";
 
 }

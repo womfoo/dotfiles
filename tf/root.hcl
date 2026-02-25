@@ -38,5 +38,8 @@ provider "azurerm" {
 }
 provider "azapi" {
 }
+provider "cloudflare" {
+}
+
 EOF
 }
