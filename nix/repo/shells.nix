@@ -30,7 +30,7 @@ in
     mkShell {
       packages = [
         python'
-        inputs.nixpkgs.trivy # cant find any
+        # inputs.nixpkgs.trivy # ftb 2026-03-20
         inputs.nixpkgs.grype # grype -v sbom:./result --add-cpes-if-none
         inputs.nixpkgs.grafana-alloy
         (inputs.nixpkgs.pkgs.writeShellScriptBin "nuke-prom-alloy" ''

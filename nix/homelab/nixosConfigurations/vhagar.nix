@@ -314,6 +314,7 @@ in
   systemd.services.systemd-resolved.stopIfChanged = false;
 
   programs.openvpn3.enable = true;
+  programs.openvpn3.package = inputs.cells.vendor.packages.openvpn3-25-11;
   services.tmate-ssh-server.openFirewall = true;
   services.tmate-ssh-server.enable = true;
 

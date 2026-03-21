@@ -8,11 +8,13 @@
   environment.systemPackages =
     with inputs.cells.vendor.packages;
     with inputs.cells.desktop.packages;
+    with inputs.cells.iot.packages;
     with pkgs;
     [
       # abiword
       acpi
       acpica-tools # was pmtools # acpidump
+      acpilight
       #2405#adwaita-icon-theme
       # adoptopenjdk-jre-bin # java
       # aircrack-ng
@@ -48,7 +50,7 @@
       bind
       binutils # ld, ar
       # bitcoin
-      blueberry
+      # blueberry
       bluez-tools # bt-device --list
       # bluetooth_battery
       bmon
@@ -231,7 +233,6 @@
       kubernetes-helm
       # languagetool # very-basic grammarly
       lefthook
-      light
       libgpiod
       libheif # make nautilus thumbnail HEIC, also requires pathToLink = share/thumbnailers
       libimobiledevice # idevice pair 00000000-0000000000000000
@@ -295,6 +296,7 @@
       ntfs3g
       # nur.repos.mic92.rhasspy #
       nvd # nix diff
+      nvme-cli
       oath-toolkit
       # obs-studio
       # okular
@@ -507,6 +509,7 @@
       mpvdash
       mvb2sum
       sendkeys
+      wizkell
     ];
 
   environment.pathsToLink = [ "share/thumbnailers" ];

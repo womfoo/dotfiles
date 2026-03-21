@@ -22,7 +22,7 @@
     environment = {
       WEBUI_AUTH = "False";
     };
-    # package = inputs.cells.vendor.packages.open-webui-25-05;
+    package = inputs.cells.vendor.packages.open-webui-25-11;
   };
 
   nix.settings.substituters = [
