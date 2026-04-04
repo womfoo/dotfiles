@@ -12,8 +12,8 @@ let
     terragrunt
     treefmt
     haskellPackages
-    nodePackages
     opentofu
+    prettier
     ;
   alloyFormatWrapper = inputs.std.lib.ops.writeScript {
     name = "treefmt-alloy";
@@ -40,7 +40,7 @@ in
     commands = [
       { package = treefmt; }
       { package = nixfmt; }
-      { package = nodePackages.prettier; }
+      { package = prettier; }
     ];
     data.formatter.alloy = {
       command = "${alloyFormatWrapper}/bin/treefmt-alloy";
@@ -77,7 +77,7 @@ in
       includes = [ "*.py" ];
     };
     data.formatter.prettier = {
-      command = lib.getExe nodePackages.prettier;
+      command = lib.getExe prettier;
       includes = [
         "*.css"
         "*.html"

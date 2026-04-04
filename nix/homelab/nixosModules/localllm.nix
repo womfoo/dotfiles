@@ -14,7 +14,7 @@
     "qwen2.5-coder:7b"
     "qwen3:8b"
   ];
-
+  services.ollama.home = "/armorydata/2tbtmp/var-lib-private-ollama";
   services.ollama.host = "0.0.0.0"; # yolo
 
   services.open-webui = {

@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(ansible
+   '(swift
+     ansible
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -619,104 +620,103 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(ignored-local-variable-values
-     '((eval setq org-roam-db-location
-             (concat
-              (shell-command-to-string
-               "git rev-parse --show-toplevel | tr -d '\12'")
-              "/.cache/org-roam.db"))
-       (eval setq org-attach-id-dir
-             (concat
-              (shell-command-to-string
-               "git rev-parse --show-toplevel | tr -d '\12'")
-              "/docs/org/attach/"))
-       (eval setq org-roam-directory
-             (concat
-              (shell-command-to-string
-               "git rev-parse --show-toplevel | tr -d '\12'")
-              "/docs/org"))))
-   '(org-babel-load-languages
-     '((awk . t) (ruby . t) (python . t) (js . t) (dot . t) (groovy . t) (java . t)
-       (emacs-lisp . t) (shell . t)))
-   '(package-selected-packages
-     '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent
-                          anaconda-mode ansible ansible-doc arduino-mode attrap
-                          auto-compile auto-highlight-symbol blacken bmx-mode bui
-                          bundler cargo centered-cursor-mode chruby
-                          clean-aindent-mode cmm-mode code-cells
-                          column-enforce-mode company company-anaconda
-                          company-ansible company-go company-lua company-web
-                          compat concurrent counsel counsel-css counsel-gtags
-                          csv-mode ctable cython-mode dap-mode deferred
-                          define-word devdocs diminish dired-quick-sort
-                          dotenv-mode drag-stuff dumb-jump editorconfig elisp-def
-                          elisp-slime-nav emmet-mode emr enh-ruby-mode envrc epc
-                          eval-sexp-fu evil-anzu evil-args evil-cleverparens
-                          evil-collection evil-easymotion evil-escape
-                          evil-evilified-state evil-exchange evil-goggles
-                          evil-iedit-state evil-indent-plus evil-lion
-                          evil-lisp-state evil-matchit evil-mc evil-nerd-commenter
-                          evil-numbers evil-org evil-surround evil-textobj-line
-                          evil-tutor evil-unimpaired evil-visual-mark-mode
-                          evil-visualstar expand-region eyebrowse fancy-battery
-                          flx-ido flycheck-elsa flycheck-golangci-lint
-                          flycheck-package flycheck-rust font-lock+ ggtags
-                          git-link git-messenger git-modes git-timemachine
-                          gitignore-templates gnuplot go-eldoc go-fill-struct
-                          go-gen-test go-guru go-impl go-mode go-rename go-tag
-                          godoctor golden-ratio google-translate grizzl haml-mode
-                          haskell-mode haskell-snippets helm-ag helm-cscope
-                          helm-css-scss helm-descbinds helm-git-grep helm-gtags
-                          helm-hoogle helm-ls-git helm-make helm-mode-manager
-                          helm-org helm-org-rifle helm-projectile helm-purpose
-                          helm-pydoc helm-themes helm-xref help-fns+
-                          hide-comnt highlight-indentation highlight-numbers
-                          highlight-parentheses hindent hl-todo hlint-refactor
-                          holy-mode htmlize hungry-delete
-                          impatient-mode import-js importmagic indent-guide
-                          inf-ruby info+ inspector ivy jinja2-mode js-doc js2-mode
-                          js2-refactor link-hint live-py-mode livid-mode
-                          load-env-vars lorem-ipsum lsp-docker lsp-mode
-                          lsp-pyright lsp-python-ms lsp-treemacs lua-mode
-                          macrostep minitest multi-line multiple-cursors nameless
-                          nginx-mode nix-mode nodejs-repl nose npm-mode
-                          open-junk-file org org-cliplink org-contrib org-dotemacs
-                          org-download org-mime org-pomodoro org-present
-                          org-projectile org-rich-yank org-superstar orgit-forge
-                          overseer paradox password-generator pcre2el
-                          pip-requirements pipenv pippel poetry popwin pos-tip
-                          powershell prettier-js pug-mode py-isort pydoc
-                          pyenv-mode pylookup pytest pythonic pyvenv quickrun
-                          racer rainbow-delimiters rake rbenv request
-                          restart-emacs rjsx-mode robe ron-mode rspec-mode rubocop
-                          rubocopfmt ruby-hash-syntax ruby-refactor ruby-test-mode
-                          ruby-tools rust-mode rvm sass-mode scss-mode
-                          seeing-is-believing simple-httpd skewer-mode slim-mode
-                          smeargle space-doc spaceline-all-the-icons
-                          spacemacs-purpose-popwin spacemacs-whitespace-cleanup
-                          sphinx-doc sql-indent sqlup-mode stickyfunc-enhance
-                          string-edit-at-point string-inflection swiper
-                          symbol-overlay symon tagedit term-cursor tern
-                          terraform-mode toc-org toml-mode treemacs-evil
-                          treemacs-icons-dired treemacs-magit treemacs-persp
-                          treemacs-projectile typescript-mode undo-tree
-                          use-package uuidgen vc-darcs vi-tilde-fringe
-                          vim-powerline volatile-highlights web-beautify
-                          web-completion-data web-mode wfnames which-key winum
-                          writeroom-mode ws-butler xcscope xref yaml-mode yapfify
-                          yasnippet)))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   )
-  )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ignored-local-variable-values
+   '((eval setq org-roam-db-location
+           (concat
+            (shell-command-to-string
+             "git rev-parse --show-toplevel | tr -d '\12'")
+            "/.cache/org-roam.db"))
+     (eval setq org-attach-id-dir
+           (concat
+            (shell-command-to-string
+             "git rev-parse --show-toplevel | tr -d '\12'")
+            "/docs/org/attach/"))
+     (eval setq org-roam-directory
+           (concat
+            (shell-command-to-string
+             "git rev-parse --show-toplevel | tr -d '\12'")
+            "/docs/org"))))
+ '(org-babel-load-languages
+   '((awk . t) (ruby . t) (python . t) (js . t) (dot . t) (groovy . t) (java . t)
+     (emacs-lisp . t) (shell . t)))
+ '(package-selected-packages
+   '(ace-jump-helm-line ace-link add-node-modules-path aggressive-indent
+                        anaconda-mode ansible ansible-doc arduino-mode attrap
+                        auto-compile auto-highlight-symbol blacken bmx-mode bui
+                        bundler cargo centered-cursor-mode chruby
+                        clean-aindent-mode cmm-mode code-cells
+                        column-enforce-mode company company-anaconda
+                        company-ansible company-go company-lua company-web
+                        compat concurrent counsel counsel-css counsel-gtags
+                        csv-mode ctable cython-mode dap-mode deferred
+                        define-word devdocs diminish dired-quick-sort
+                        dotenv-mode drag-stuff dumb-jump editorconfig elisp-def
+                        elisp-slime-nav emmet-mode emr enh-ruby-mode envrc epc
+                        eval-sexp-fu evil-anzu evil-args evil-cleverparens
+                        evil-collection evil-easymotion evil-escape
+                        evil-evilified-state evil-exchange evil-goggles
+                        evil-iedit-state evil-indent-plus evil-lion
+                        evil-lisp-state evil-matchit evil-mc evil-nerd-commenter
+                        evil-numbers evil-org evil-surround evil-textobj-line
+                        evil-tutor evil-unimpaired evil-visual-mark-mode
+                        evil-visualstar expand-region eyebrowse fancy-battery
+                        flx-ido flycheck-elsa flycheck-golangci-lint
+                        flycheck-package flycheck-rust font-lock+ ggtags
+                        git-link git-messenger git-modes git-timemachine
+                        gitignore-templates gnuplot go-eldoc go-fill-struct
+                        go-gen-test go-guru go-impl go-mode go-rename go-tag
+                        godoctor golden-ratio google-translate grizzl haml-mode
+                        haskell-mode haskell-snippets helm-ag helm-cscope
+                        helm-css-scss helm-descbinds helm-git-grep helm-gtags
+                        helm-hoogle helm-ls-git helm-make helm-mode-manager
+                        helm-org helm-org-rifle helm-projectile helm-purpose
+                        helm-pydoc helm-themes helm-xref help-fns+ hide-comnt
+                        highlight-indentation highlight-numbers
+                        highlight-parentheses hindent hl-todo hlint-refactor
+                        holy-mode htmlize hungry-delete impatient-mode import-js
+                        importmagic indent-guide inf-ruby info+ inspector ivy
+                        jinja2-mode js-doc js2-mode js2-refactor link-hint
+                        live-py-mode livid-mode load-env-vars lorem-ipsum
+                        lsp-docker lsp-mode lsp-pyright lsp-python-ms
+                        lsp-sourcekit lsp-treemacs lua-mode macrostep minitest
+                        multi-line multiple-cursors nameless nginx-mode nix-mode
+                        nodejs-repl nose npm-mode open-junk-file org
+                        org-cliplink org-contrib org-dotemacs org-download
+                        org-mime org-pomodoro org-present org-projectile
+                        org-rich-yank org-superstar orgit-forge overseer paradox
+                        password-generator pcre2el pip-requirements pipenv
+                        pippel poetry popwin pos-tip powershell prettier-js
+                        pug-mode py-isort pydoc pyenv-mode pylookup pytest
+                        pythonic pyvenv quickrun racer rainbow-delimiters rake
+                        rbenv request restart-emacs rjsx-mode robe ron-mode
+                        rspec-mode rubocop rubocopfmt ruby-hash-syntax
+                        ruby-refactor ruby-test-mode ruby-tools rust-mode rvm
+                        sass-mode scss-mode seeing-is-believing simple-httpd
+                        skewer-mode slim-mode smeargle space-doc
+                        spaceline-all-the-icons spacemacs-purpose-popwin
+                        spacemacs-whitespace-cleanup sphinx-doc sql-indent
+                        sqlup-mode stickyfunc-enhance string-edit-at-point
+                        string-inflection swift-mode swiper symbol-overlay symon
+                        tagedit term-cursor tern terraform-mode toc-org
+                        toml-mode treemacs-evil treemacs-icons-dired
+                        treemacs-magit treemacs-persp treemacs-projectile
+                        typescript-mode undo-tree use-package uuidgen vc-darcs
+                        vi-tilde-fringe vim-powerline volatile-highlights
+                        web-beautify web-completion-data web-mode wfnames
+                        which-key winum writeroom-mode ws-butler xcscope xref
+                        yaml-mode yapfify yasnippet)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
 
 
 (with-eval-after-load 'org

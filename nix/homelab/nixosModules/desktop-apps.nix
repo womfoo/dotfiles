@@ -180,9 +180,11 @@
           # hpdft
           # hw-ip # ftbs 20251015
           iproute
+          layoutz
           lens
           network
           network-info
+          tasty-hunit
           timeline
           vector
           vty

@@ -8,12 +8,15 @@ rsync \
 
 rsync \
   -avh \
+  --exclude='.bun' \
   --exclude='.bundle' \
   --exclude='.cache' \
+  --exclude='.claude' \
   --exclude='.compose-cache' \
   --exclude='.conda' \
   --exclude='.config/google-chrome/Default/Service Worker/CacheStorage' \
   --exclude='.config/google-chrome/Default/WebStorage' \
+  --exclude='.copilot' \
   --exclude='.daedalus' \
   --exclude='.docker' \
   --exclude='.dropbox-dist' \
@@ -41,5 +44,6 @@ rsync \
   --exclude='node_modules' \
   --exclude='vagrantboxen' \
   --exclude='work' \
+  --exclude='VirtualBox VMs' \
   /home/kranium/ \
   /armorydata/kranium/
