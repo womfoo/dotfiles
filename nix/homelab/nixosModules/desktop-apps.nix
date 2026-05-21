@@ -26,7 +26,7 @@
       arandr
       # arc-theme
       # ardour
-      arduino
+      # arduino
       # aria2
       # arion
       # asciinema
@@ -90,6 +90,7 @@
       # discord
       dive
       dmenu
+      dmidecode
       dnsutils # nslookup
       docker-compose
       dos2unix
@@ -109,6 +110,7 @@
       evtest
       exfat
       exfatprogs
+      exiftool
       facter
       f2fs-tools
       f3
@@ -240,7 +242,7 @@
       libimobiledevice # idevice pair 00000000-0000000000000000
       libnotify # notify-send pp
       libphonenumber
-      # libreoffice
+      libreoffice
       librsvg # rsvg-convert
       # error: a 'i686-linux' with features {} is required to build '/nix/store/qaxgwyhh90dd0323sjn5qjdngvm4ai4z-nvidia-vaapi-driver-0.0.5.drv'
       #libva # vaapiVdpau should install this but I need vainfo
@@ -254,7 +256,7 @@
       lnav
       lsof
       macchanger
-      # magic-wormhole
+      magic-wormhole
       # masterpdfeditor
       mat2 # metadata anonymization
       mc
@@ -286,6 +288,7 @@
       nix-output-monitor
       nix-prefetch-git
       nix-top
+      # nix-tree
       # nixfmt
       # nixos-shell
       # nixops
@@ -332,6 +335,7 @@
       # plasma5Packages.kdenlive
       playerctl
       poppler-utils # pdf2txt
+      postgres-language-server
       postgresql # just for the psql command
       # postman
       powerstat

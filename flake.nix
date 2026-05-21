@@ -20,7 +20,9 @@
     hive.inputs.colmena.follows = "colmena";
     hive.inputs.nixpkgs.follows = "nixpkgs";
     hive.url = "github:divnix/hive";
-    home.url = "github:nix-community/home-manager";
+    # home.url = "github:nix-community/home-manager";
+    # home.inputs.nixpkgs.follows = "nixpkgs";
+    home.url = "github:nix-community/home-manager/release-26.05";
     home.inputs.nixpkgs.follows = "nixpkgs";
     home-24-11.url = "github:nix-community/home-manager/release-24.11";
     home-24-11.inputs.nixpkgs.follows = "nixos-24-11";
@@ -46,7 +48,8 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixpkgs.url = "github:NixOS/nixpkgs/d233902339c02a9c334e7e593de68855ad26c4cb";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    # nixpkgs.url = "github:NixOS/nixpkgs/d233902339c02a9c334e7e593de68855ad26c4cb";
     nur = {
       url = "github:nix-community/NUR";
     };

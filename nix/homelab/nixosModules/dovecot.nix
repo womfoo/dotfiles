@@ -7,9 +7,6 @@
 {
   services.dovecot2 = {
     enable = true;
-    settings = {
-      protocols.imap = true;
-    };
   };
   # FIXME: implement modern equiv?
   # services.dovecot2.modules = [ pkgs.dovecot_fts_xapian ];

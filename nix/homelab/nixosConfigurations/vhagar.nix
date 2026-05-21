@@ -35,13 +35,13 @@ in
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
-    cell.nixosModules.localllm
+    # cell.nixosModules.localllm
     # cell.nixosModules.loki
     cell.nixosModules.prom-aio
     # cell.nixosModules.rtmp
     cell.hardwareProfiles.vhagar
     inputs.srvos.nixosModules.mixins-telegraf
-    inputs.srvos.nixosModules.roles-nix-remote-builder
+    # inputs.srvos.nixosModules.roles-nix-remote-builder
     # inputs.sphinx.repo.nixosModules.sphinx-nginx
     inputs.sphinx.nixosModules.default
     { services.sphinx-nginx.enable = true; }
@@ -116,9 +116,9 @@ in
   # networking.networkmanager.logLevel = "TRACE";
   networking.networkmanager.wifi.macAddress = "random";
 
-  roles.nix-remote-builder.schedulerPublicKeys = [
-    inputs.lihim.pubkeys.constants.admins.dreamfyre
-  ];
+  # roles.nix-remote-builder.schedulerPublicKeys = [
+  #   inputs.lihim.pubkeys.constants.admins.dreamfyre
+  # ];
 
   security.polkit.enable = true;
   services.acpid.enable = true;
