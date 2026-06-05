@@ -250,7 +250,7 @@
       libxml2 # xmllint
       libxslt
       linssid
-      llmfit
+      # llmfit
       lm_sensors
       lmdb # mdb_copy for backing up monero
       lnav
@@ -482,7 +482,7 @@
       xcalib # calibrate colors
       xclip
       xdotool
-      xdpyinfo
+      #2026 xdpyinfo
       xev
       xfontsel
       xhost
@@ -493,7 +493,7 @@
       xournalpp
       xsane
       xscreensaver
-      xwd
+      #2026 xwd
       xwininfo
       xzgv
       # yate

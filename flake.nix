@@ -24,9 +24,7 @@
     # home.inputs.nixpkgs.follows = "nixpkgs";
     home.url = "github:nix-community/home-manager/release-26.05";
     home.inputs.nixpkgs.follows = "nixpkgs";
-    home-24-11.url = "github:nix-community/home-manager/release-24.11";
-    home-24-11.inputs.nixpkgs.follows = "nixos-24-11";
-    jetpack-nixos.url = "github:womfoo/jetpack-nixos?ref=std-compat";
+    jetpack-nixos.url = "github:anduril/jetpack-nixos";
     kraniumau.url = "github:womfoo/kranium.au";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     # lihim.url = "github:womfoo/fake";
@@ -151,6 +149,16 @@
             self.nixosConfigurations.dreadfort.config.system.build.toplevel
             { };
         nope = inputs.bombon.lib.x86_64-linux.buildBom self.x86_64-linux.repo.shells.default { };
+      }
+      {
+        nixosConfigurations.dreamfyre = inputs.jetpack-nixos.inputs.nixpkgs.lib.nixosSystem {
+          # hostPlatform = "aarch64-linux";
+          system = "aarch64-linux";
+          modules = [
+            self.aarch64-linux.homelab.hardwareProfiles.dreamfyre
+            self.aarch64-linux.homelab.nixosModules.dreamfyre
+          ];
+        };
       };
   nixConfig = {
     allow-import-from-derivation = "true";

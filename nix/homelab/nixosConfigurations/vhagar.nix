@@ -311,7 +311,7 @@ in
   # followed by a delayed `systemctl start`.
   systemd.services.systemd-networkd.stopIfChanged = false;
   # Services that are only restarted might be not able to resolve when resolved is stopped before
-  systemd.services.systemd-resolved.stopIfChanged = false;
+  # systemd.services.systemd-resolved.stopIfChanged = false;
 
   programs.openvpn3.enable = true;
   programs.openvpn3.package = inputs.cells.vendor.packages.openvpn3-25-11;

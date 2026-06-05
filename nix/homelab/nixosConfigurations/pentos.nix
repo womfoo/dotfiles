@@ -8,7 +8,7 @@ let
 in
 {
   bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos-24-11 {
+  bee.pkgs = import inputs.nixpkgs {
     inherit (inputs.nixpkgs) system;
     allowUnfree = true;
   };

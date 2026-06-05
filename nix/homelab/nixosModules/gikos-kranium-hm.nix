@@ -2,49 +2,35 @@
 let
   mkTomahawkHost = host: ip: {
     "${host}" = {
-      hostname = ip;
-      identityFile = "~/Downloads/resbook.pem";
-      user = "tomahawk";
-      port = 2200;
-      extraOptions = {
-        PubkeyAcceptedAlgorithms = "+ssh-rsa";
-        HostKeyAlgorithms = "+ssh-rsa";
-      };
+      Hostname = ip;
+      IdentityFile = "~/Downloads/resbook.pem";
+      User = "tomahawk";
+      Port = 2200;
+      PubkeyAcceptedAlgorithms = "+ssh-rsa";
+      HostKeyAlgorithms = "+ssh-rsa";
     };
   };
-  kvPairs = {
-    "thaueastlapi01" = "10.0.1.5"; # resbook api
-    "thaueastldb01" = "10.0.0.4"; # resbook db
-    "thaueastlws01" = "10.0.1.4"; # resbook
-    "thaueastlapi01-dev" = "10.0.9.6"; # resbooktest api
-    "thaueastldb01-dev" = "10.0.9.4"; # resbooktest db
-    "thaueastlws01-dev" = "10.0.9.5"; # resbooktest
-  };
+
+  kvPairs = inputs.lihim.lihim.constants.work;
   tomahawk_hosts = pkgs.lib.attrsets.concatMapAttrs (name: value: mkTomahawkHost name value) kvPairs;
 
-  # inherit (inputs.firefox-nightly.packages) firefox-nightly-bin;
-  extensions =
-    if pkgs.lib.versionAtLeast (pkgs.lib.version) "25.05" then
-      {
-        packages = ext_vals;
-      }
-    else
-      ext_vals;
-  ext_vals = with pkgs.nur.repos.rycee.firefox-addons; [
-    foxyproxy-standard
-    privacy-badger
-    return-youtube-dislikes
-    tree-style-tab
-    ublock-origin
-    vimium
-  ];
+  extensions = {
+    packages = with pkgs.nur.repos.rycee.firefox-addons; [
+      foxyproxy-standard
+      privacy-badger
+      return-youtube-dislikes
+      tree-style-tab
+      ublock-origin
+      vimium
+    ];
+  };
 
 in
 {
   home-manager.useGlobalPkgs = true;
   home-manager.users.kranium = {
     home.packages = with pkgs; [ deskflow ];
-    home.stateVersion = "25.05";
+    home.stateVersion = "26.05";
     programs = {
       atuin.enable = true;
       atuin.flags = [ "--disable-up-arrow" ];
@@ -104,7 +90,7 @@ in
       };
       ssh.enable = true;
       ssh.serverAliveInterval = 100;
-      ssh.matchBlocks = tomahawk_hosts;
+      ssh.settings = tomahawk_hosts;
       ssh.includes = [ "~/.ssh/config.d/*" ];
       # {
       # "thaueastlws01" = {
