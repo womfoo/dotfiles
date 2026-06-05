@@ -53,6 +53,7 @@
       # blueberry
       bluez-tools # bt-device --list
       # bluetooth_battery
+      bmaptool
       bmon
       brave
       # briss # crop pdf whitespace

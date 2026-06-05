@@ -15,6 +15,8 @@
       "libvirtd"
       "lp"
       "networkmanager"
+      "systemd-network"
+      "openvpn"
       "paperless"
       "qemu-libvirtd"
       "scanner"

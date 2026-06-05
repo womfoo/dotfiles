@@ -44,5 +44,43 @@ rec {
     Error details: error invalid_client error_description: AADSTS650057: Invalid resource. The client has requested access to a resource which is not listed in the requested permissions in the client's application registration. Client app ID: c632b3df-fb67-4d84-bdcf-b95ad541b5c8(Azure VPN). Resource value from request: 41b23e61-6c1e-4545-b367-cd054e0ed4b4. Resource app ID: 41b23e61-6c1e-4545-b367-cd054e0ed4b4. List of valid resources from app registration: . Trace ID: 5d493471-885b-4af8-a409-f849da6f0500 Correlation ID: 64b39a80-215d-43ce-af9f-7968d1da80fe Timestamp: 2025-08-12 14:24:22Z
   */
 
-  azurevpn = callPackage (inputs.azurevpn + "/azurevpn.nix") { };
+  azurevpn = callPackage (inputs.azurevpn + "/azurevpn.nix") {
+    inherit (inputs.nixpkgs)
+      lib
+      stdenv
+      fetchurl
+      dpkg
+      autoPatchelfHook
+      makeWrapper
+      openssl
+      gtk3
+      libsecret
+      cairo
+      # libxcb
+      nss
+      nspr
+      libuuid
+      at-spi2-core
+      libdrm
+      mesa
+      gtk2
+      glib
+      pango
+      atk
+      curl
+      zenity
+      # writeShellScript
+      cacert # Add this
+      # cairo-xcb
+      # libX11
+      # libXcomposite
+      # libXdamage
+      # libXext
+      # libXfixes
+      # libXrandr
+      # libxkbcommon
+      # libxshmfence
+      ;
+
+  };
 }

@@ -32,6 +32,7 @@ in
     cell.nixosModules.desktop-apps
     cell.nixosModules.desktop-apps-x86_64
     cell.nixosModules.dovecot
+    cell.nixosModules.routerlite
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
@@ -48,6 +49,12 @@ in
     { services.sphinx-nginx.virtualHost = "your.doc.site.com"; }
     inputs.lihim.lihim.nixosModules.extraUsers
   ];
+
+  networking.networkmanager.dns = lib.mkForce "none";
+
+  # services.routerlite.enable = true;
+  # services.routerlite.config.wan.interface = "enp9s0u2u1u2";
+  # services.routerlite.config.wireless.interface = "wlp0s20f0u6";
 
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
@@ -115,6 +122,9 @@ in
   networking.networkmanager.enable = true;
   # networking.networkmanager.logLevel = "TRACE";
   networking.networkmanager.wifi.macAddress = "random";
+  networking.networkmanager.unmanaged = [
+    "wlp0s20f0u6"
+  ];
 
   # roles.nix-remote-builder.schedulerPublicKeys = [
   #   inputs.lihim.pubkeys.constants.admins.dreamfyre

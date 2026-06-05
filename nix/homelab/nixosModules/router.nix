@@ -20,7 +20,7 @@ let
       dhcpUpperRange = "172.19.86.99";
     };
     wireless = {
-      ssid = "tatsulok";
+      ssid = "bakawan";
       interface = "wlan0";
       ip = "172.19.87.1";
       subnet = "172.19.87.0";

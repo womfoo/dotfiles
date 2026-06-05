@@ -61,6 +61,7 @@ in
         { package = oci-cli; }
         { package = opentofu; }
         { package = haskellPackages.arbtt; }
+        { package = inputs.cells.vendor.packages.azurevpn; }
         { package = ansible; }
         # { package = terraform-backend-git; }
       ];

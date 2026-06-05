@@ -92,28 +92,6 @@ in
       ssh.serverAliveInterval = 100;
       ssh.settings = tomahawk_hosts;
       ssh.includes = [ "~/.ssh/config.d/*" ];
-      # {
-      # "thaueastlws01" = {
-      #   hostname = "10.0.0.4";
-      #   identityFile = "~/Downloads/resbook.pem";
-      #   user = "tomahawk";
-      #   port = 2200;
-      #   extraOptions = {
-      #     PubkeyAcceptedAlgorithms= "+ssh-rsa";
-      #     HostKeyAlgorithms = "+ssh-rsa";
-      #   };
-      # };
-      # "thaueastlws01-dev" = {
-      #   hostname = "10.0.9.5";
-      #   identityFile = "~/Downloads/resbook.pem";
-      #   user = "tomahawk";
-      #   port = 2200;
-      #   extraOptions = {
-      #     PubkeyAcceptedAlgorithms= "+ssh-rsa";
-      #     HostKeyAlgorithms = "+ssh-rsa";
-      #   };
-      # };
-      # };
       tmux = {
         enable = true;
         extraConfig = ''
@@ -181,6 +159,7 @@ in
     # services.gpg-agent.extraConfig = ''
     #   allow-emacs-pinentry
     # '';
+    services.ssh-agent.enable = true;
     xsession.windowManager.xmonad = {
       enable = true;
       # config = inputs.self + /legacy/.xmonad/xmonad.hs;

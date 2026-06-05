@@ -16,6 +16,7 @@ rsync \
   --exclude='.conda' \
   --exclude='.config/google-chrome/Default/Service Worker/CacheStorage' \
   --exclude='.config/google-chrome/Default/WebStorage' \
+  --exclude='.config/mozilla/firefox' \
   --exclude='.copilot' \
   --exclude='.daedalus' \
   --exclude='.docker' \
