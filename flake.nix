@@ -135,6 +135,10 @@
             "repo"
             "packages"
           ]
+          [
+            "iot"
+            "packages"
+          ]
         ];
         oci-images = inputs.std.harvest inputs.self [
           "homelab"

@@ -56,6 +56,8 @@ in
   # services.routerlite.config.wan.interface = "enp9s0u2u1u2";
   # services.routerlite.config.wireless.interface = "wlp0s20f0u6";
 
+  programs.nix-ld.enable = true;
+
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
   networking.extraHosts = ''
@@ -78,6 +80,7 @@ in
       143 # FIXME temp test: insecure imap
       1935
       1936
+      5900
       8581
       24800
       48302
