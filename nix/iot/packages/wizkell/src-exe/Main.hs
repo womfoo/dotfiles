@@ -1,13 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes #-}
-
-import Data.Aeson.QQ
 
 import Data.IP as IP
 import System.Exit
 import System.Timeout
 
-import Data.Aeson (FromJSON (..), Object (..), ToJSON (..), decode, encode)
+import Data.Aeson (Object (..), ToJSON (..), decode, encode)
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types
 import Data.ByteString.Lazy qualified as LBS
@@ -18,14 +15,17 @@ import Network.Socket hiding (recv, recvFrom, send, sendTo)
 import Network.Socket.ByteString (recv, recvFrom, send, sendTo)
 import System.Environment (getArgs)
 
-data MyData = MyData
-    { method :: String
-    , params :: [String]
-    }
-    deriving (Show, Generic)
+data Req a = Req {method :: String, params :: a}
+    deriving (Generic)
+instance (ToJSON a) => ToJSON (Req a)
 
-instance ToJSON MyData
-instance FromJSON MyData
+newtype TempParams = TempParams {temp :: Int}
+    deriving (Generic)
+instance ToJSON TempParams
+
+newtype StateParams = StateParams {state :: Bool}
+    deriving (Generic)
+instance ToJSON StateParams
 
 req :: Word32 -> Value -> IO Value
 req h a = do
@@ -90,15 +90,15 @@ main = do
 
 setTemp :: Word32 -> Int -> IO Value
 setTemp h t = do
-    req h [aesonQQ| {method: "setState", params: { temp: #{t} }} |]
+    req h $ toJSON $ Req "setState" (TempParams t)
 
 toggleState h = do
     resp <- getPilot h
     let toggledState = not $ getState resp
-    req h [aesonQQ| {method: "setState", params: { state: #{toggledState} }} |]
+    req h $ toJSON $ Req "setState" (StateParams toggledState)
 
--- getDevInfo h = req h [aesonQQ| {method: "getDevInfo", params: {}} |]
-getPilot h = req h [aesonQQ| {method: "getPilot", params: {}} |]
+-- getDevInfo h = req h $ toJSON $ Req "getDevInfo" (object [])
+getPilot h = req h $ toJSON $ Req "getPilot" (object [] :: Value)
 
 -- FIXME: lens maybe?
 getState :: Value -> Bool

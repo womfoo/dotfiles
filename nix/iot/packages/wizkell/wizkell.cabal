@@ -23,7 +23,6 @@ executable wizkell
     -- other-extensions:
     build-depends:    base
                     , aeson
-                    , aeson-qq
                     , bytestring
                     , iproute
                     , network

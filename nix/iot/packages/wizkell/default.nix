@@ -1,7 +1,6 @@
 {
   mkDerivation,
   aeson,
-  aeson-qq,
   base,
   bytestring,
   iproute,
@@ -16,7 +15,6 @@ mkDerivation {
   isExecutable = true;
   executableHaskellDepends = [
     aeson
-    aeson-qq
     base
     bytestring
     iproute
