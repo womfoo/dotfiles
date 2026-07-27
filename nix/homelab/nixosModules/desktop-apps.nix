@@ -20,7 +20,7 @@
       # aircrack-ng
       alsa-utils
       # ansible
-      ansible-22-05
+      # ansible-22-05
       # antimony # ftbs 20251015
       apfs-fuse
       arandr
@@ -65,7 +65,7 @@
       # certbot
       cdrkit # wodim
       # cfssl
-      # cheese
+      cheese
       # chromedriver
       # chromium
       cifs-utils
@@ -286,7 +286,7 @@
       ngrep
       # niv
       nix-index
-      nix-output-monitor
+      # nix-output-monitor
       nix-prefetch-git
       nix-top
       # nix-tree
@@ -350,6 +350,14 @@
       pulsemixer
       pv
       pwgen
+      (python3.withPackages (
+        ps:
+        with ps;
+        with python3Packages;
+        [
+          huggingface-hub
+        ]
+      ))
       # pypi2nix # unmaintained
       # (python3.withPackages (
       #   ps:
@@ -439,7 +447,6 @@
       # terraform_0_13
       # tesseract
       # texlive.combined.scheme-full
-
       thunderbird
       tig
       # timetrap
@@ -506,7 +513,6 @@
       # zoom-us
       # zsync
       # mobile-broadband-provider-info usb-modeswitch usb-modeswitch-data # TODO: will we need this?
-
       backup
       eyaml
       gcd

@@ -5,25 +5,30 @@
   ...
 }:
 {
-  services.ollama.enable = true;
-  services.ollama.package = pkgs.ollama-cuda;
-  services.ollama.loadModels = [
-    "deepseek-r1:7b"
-    "gemma2:2b"
-    "llama3.1"
-    "qwen2.5-coder:7b"
-    "qwen3:8b"
-  ];
-  services.ollama.home = "/armorydata/2tbtmp/var-lib-private-ollama";
-  services.ollama.host = "0.0.0.0"; # yolo
-
-  services.open-webui = {
+  services.llama-cpp = {
     enable = true;
-    environment = {
-      WEBUI_AUTH = "False";
-    };
-    package = inputs.cells.vendor.packages.open-webui-25-11;
+    package = pkgs.llama-cpp.override { cudaSupport = true; };
   };
+
+  # services.ollama.enable = true;
+  # services.ollama.package = pkgs.ollama-cuda;
+  # services.ollama.loadModels = [
+  #   "deepseek-r1:7b"
+  #   "gemma2:2b"
+  #   "llama3.1"
+  #   "qwen2.5-coder:7b"
+  #   "qwen3:8b"
+  # ];
+  # services.ollama.home = "/armorydata/2tbtmp/var-lib-private-ollama";
+  # services.ollama.host = "0.0.0.0"; # yolo
+
+  # services.open-webui = {
+  #   enable = true;
+  #   environment = {
+  #     WEBUI_AUTH = "False";
+  #   };
+  #   package = inputs.cells.vendor.packages.open-webui-25-11;
+  # };
 
   nix.settings.substituters = [
     "https://cache.nixos-cuda.org"

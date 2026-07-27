@@ -28,6 +28,7 @@ in
   imports = [
     inputs.home.nixosModules.home-manager
     cell.nixosModules.common
+    cell.nixosModules.clamav
     cell.nixosModules.builder
     cell.nixosModules.desktop-apps
     cell.nixosModules.desktop-apps-x86_64
@@ -36,7 +37,7 @@ in
     cell.nixosModules.gikos-kranium
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
-    # cell.nixosModules.localllm
+    cell.nixosModules.localllm
     # cell.nixosModules.loki
     cell.nixosModules.prom-aio
     # cell.nixosModules.rtmp
