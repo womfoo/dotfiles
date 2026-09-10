@@ -99,6 +99,11 @@ in
     ];
   };
 
+  networking.firewall.interfaces.docker0 = {
+    allowedTCPPorts = [
+      55432
+    ];
+  };
   # 10.42.0.1
   networking.firewall.interfaces.cni0 = {
     allowedTCPPorts = [
@@ -353,7 +358,11 @@ in
       host  all      all     127.0.0.1/32   trust
       # k3s
       host  all      all     10.42.0.1/24   trust
+      # docker
+      host  all      all     172.17.0.1/16  trust
     '';
+    package = pkgs.postgresql_18;
+    ensureUsers = [ { name = "kranium"; } ];
   };
 
 }

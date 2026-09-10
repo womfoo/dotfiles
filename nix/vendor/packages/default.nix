@@ -31,6 +31,7 @@ rec {
       pkgs-22-11.callPackage (inputs.nixos-22-11 + /pkgs/applications/misc/keepass) { }
     else
       pkgs-22-11.hello; # FIXME: dummy just to make things run
+  mail-mcp = callPackage ./mail-mcp.nix { };
   open-webui-25-11 = pkgs-25-11.open-webui;
   parcellite-25-05 = pkgs-25-05.parcellite;
   openvpn3-25-11 = pkgs-25-11.openvpn3;

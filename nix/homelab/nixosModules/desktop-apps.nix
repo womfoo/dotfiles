@@ -251,6 +251,7 @@
       libxml2 # xmllint
       libxslt
       linssid
+      linuxPackages.turbostat
       # llmfit
       lm_sensors
       lmdb # mdb_copy for backing up monero
@@ -300,6 +301,7 @@
       # nomacs
       normcap
       ntfs3g
+      numactl
       # nur.repos.mic92.rhasspy #
       nvd # nix diff
       nvme-cli
@@ -337,7 +339,7 @@
       playerctl
       poppler-utils # pdf2txt
       postgres-language-server
-      postgresql # just for the psql command
+      postgresql_18 # just for the psql command
       # postman
       powerstat
       powertop
@@ -350,14 +352,7 @@
       pulsemixer
       pv
       pwgen
-      (python3.withPackages (
-        ps:
-        with ps;
-        with python3Packages;
-        [
-          huggingface-hub
-        ]
-      ))
+      python313Packages.huggingface-hub
       # pypi2nix # unmaintained
       # (python3.withPackages (
       #   ps:

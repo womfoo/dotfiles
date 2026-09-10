@@ -74,6 +74,7 @@ in
             condition = "gitdir:/home/kranium/respax/git/**";
             contents.user.email = "kranium@respax.com";
             contents.user.name = "Kranium Mendoza";
+            contents.core.sshCommand = "ssh -i ~/.ssh/cobber-2026-vhagar.key -o IdentitiesOnly=yes";
           }
         ];
       };
