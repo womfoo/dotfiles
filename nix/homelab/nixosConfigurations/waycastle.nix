@@ -17,6 +17,9 @@ in
   hardware.enableAllFirmware = true;
   hardware.enableAllHardware = true;
   # hardware.enableRedistributableFirmware = true;
+  environment.systemPackages = with pkgs; [
+    usbutils # lsusb
+  ];
   imports = [
     cell.hardwareProfiles.waycastle
     cell.nixosModules.common

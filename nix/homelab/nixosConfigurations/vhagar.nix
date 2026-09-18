@@ -62,6 +62,7 @@ in
   nix.settings.cores = 10;
   nix.settings.max-jobs = lib.mkDefault 4;
   networking.extraHosts = ''
+    92.63.176.157 repology.org
     127.0.0.1 tahanan
     127.0.0.1 handbook
     127.0.0.1 localca

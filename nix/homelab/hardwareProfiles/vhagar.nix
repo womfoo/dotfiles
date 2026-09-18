@@ -6,6 +6,8 @@
   ];
   # boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback config.boot.kernelPackages.rtl8814au ];
 
+  services.gitlab.enable = true;
+
   # boot.blacklistedKernelModules = [ "rtl8xxxu" ];
   # boot.extraModulePackages = [ config.boot.kernelPackages.rtl8192eu ];
 
