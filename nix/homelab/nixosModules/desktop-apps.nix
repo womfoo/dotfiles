@@ -11,6 +11,7 @@
     with inputs.cells.iot.packages;
     with pkgs;
     [
+      cli-microsoft365
       # abiword
       acpi
       acpica-tools # was pmtools # acpidump

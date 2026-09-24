@@ -38,6 +38,7 @@ rec {
   python-sense-hat = callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   # python-rtimu = callPackage ./python-rtimu.nix { rtimu = rtimu; };
   rtimu = callPackage ./rtimu.nix { };
+  cli-microsoft365 = callPackage ./cli-microsoft365 { };
 
   /*
     Authentication failed. You can return to the application. Feel free to close this browser tab.
