@@ -10,9 +10,10 @@
   kiwix-tools = super.kiwix-tools.override { icu = super.icu75; };
   haskellPackages = super.haskellPackages.override {
     overrides = haskellSelf: haskellSuper: {
-      brick = self.haskell.lib.compose.addBuildDepend haskellSuper.random (
-        self.haskell.lib.enableCabalFlag haskellSuper.brick "demos"
-      );
+      brick = self.haskell.lib.compose.addBuildDepends [
+        haskellSuper.random
+        haskellSuper.microlens-platform
+      ] (self.haskell.lib.enableCabalFlag haskellSuper.brick "demos");
     };
   };
 })

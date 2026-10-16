@@ -16,6 +16,9 @@ in
     inherit (inputs.nixpkgs.hostPlatform) system;
     config.allowBroken = true;
     config.allowUnfree = true;
+    config.permittedInsecurePackages = [
+      "tmate-unstable-2022-08-07"
+    ];
     overlays = [
       inputs.nur.overlays.default
       cell.overlays.x86_64
@@ -38,6 +41,8 @@ in
     cell.nixosModules.gikos-kranium-hm
     cell.nixosModules.gikos-dockertest
     cell.nixosModules.localllm
+    cell.nixosModules.loopcam
+    cell.nixosModules.authserver
     # cell.nixosModules.loki
     cell.nixosModules.prom-aio
     # cell.nixosModules.rtmp
@@ -45,9 +50,9 @@ in
     inputs.srvos.nixosModules.mixins-telegraf
     # inputs.srvos.nixosModules.roles-nix-remote-builder
     # inputs.sphinx.repo.nixosModules.sphinx-nginx
-    inputs.sphinx.nixosModules.default
-    { services.sphinx-nginx.enable = true; }
-    { services.sphinx-nginx.virtualHost = "your.doc.site.com"; }
+    # inputs.sphinx.nixosModules.default
+    # { services.sphinx-nginx.enable = true; }
+    # { services.sphinx-nginx.virtualHost = "your.doc.site.com"; }
     inputs.lihim.lihim.nixosModules.extraUsers
   ];
 
@@ -84,8 +89,9 @@ in
       1936
       5900
       8581
+      9999 # temp ngix
       24800
-      48302
+      4830
       51203
     ];
   };
@@ -131,7 +137,7 @@ in
   networking.hostName = "vhagar";
   networking.networkmanager.enable = true;
   # networking.networkmanager.logLevel = "TRACE";
-  networking.networkmanager.wifi.macAddress = "random";
+  networking.networkmanager.wifi.macAddress = "stable-ssid"; # random
   networking.networkmanager.unmanaged = [
     "wlp0s20f0u6"
   ];

@@ -38,6 +38,11 @@ let
       admins.kraniumarm
       machines.pentos
     ];
+    "nix/homelab/secrets/keycloak-db-password.age".publicKeys = [
+      admins.kranium
+      admins.kraniumarm
+      machines.vhagar
+    ];
   }
   // mkWireguardHostKey "stonedoor"
   // mkWireguardHostKey "waycastle";

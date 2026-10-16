@@ -62,6 +62,7 @@ in
         { package = opentofu; }
         { package = haskellPackages.arbtt; }
         { package = inputs.cells.vendor.packages.azurevpn; }
+        { package = inputs.cells.vendor.packages.openp2s; }
         { package = ansible; }
         # { package = terraform-backend-git; }
       ];

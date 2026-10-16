@@ -18,7 +18,7 @@
       # "--no-mmap"
       # "--ui-mcp-proxy"
       "-m"
-      "/data/Qwen3.5-4B-Q4_K_M.gguf"
+      "/armorydata/llm/Qwen3.5-4B-Q4_K_M.gguf"
       "-ngl"
       "99"
       "-c"

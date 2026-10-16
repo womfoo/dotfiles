@@ -33,6 +33,8 @@ rec {
       pkgs-22-11.hello; # FIXME: dummy just to make things run
   mail-mcp = callPackage ./mail-mcp.nix { };
   open-webui-25-11 = pkgs-25-11.open-webui;
+  openp2s = callPackage ./openp2s { };
+  inherit (openp2s) openvpn-openp2s;
   parcellite-25-05 = pkgs-25-05.parcellite;
   openvpn3-25-11 = pkgs-25-11.openvpn3;
   python-sense-hat = callPackage ./python-sense-hat.nix { rtimu = rtimu; };
