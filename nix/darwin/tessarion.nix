@@ -1,0 +1,46 @@
+{ pkgs, ... }:
+{
+  # previous implicit default; bump only after reading `darwin-rebuild changelog`
+  system.stateVersion = 4;
+
+  # nix.linux-builder.enable = true;
+  # nix.linux-builder.package = pkgs.linux-builder;
+  nix.settings.trusted-users = [ "kranium" ];
+
+  nix.settings.substituters = [
+    "https://cache.iog.io"
+    "https://cache.nixos.org/"
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    # "cache.iog.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+    # "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+  ];
+
+  nix.extraOptions = ''
+    experimental-features = nix-command flakes
+  '';
+
+  #  users.users.kranium.packages = [
+  #    pkgs.jq
+  #    pkgs.ncdu
+  #  ];
+
+  environment.systemPackages = with pkgs; [
+    # chromium
+    # firefox-bin
+    # rsync
+    # slack
+    direnv
+    emacs
+    ghc
+    hledger
+    hledger-web
+    htop
+    iterm2
+    jq
+    ncdu
+    nixd # rnix-lsp was removed from nixpkgs
+    z-lua
+  ];
+}

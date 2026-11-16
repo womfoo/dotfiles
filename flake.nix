@@ -3,23 +3,20 @@
   inputs = {
     agenix.url = "github:yaxitech/ragenix";
     # agenix.url = "github:ryantm/agenix";
-    azurevpn.url = "github:Elias-Graf/nix-azure-vpn";
-    azurevpn.flake = false;
     bombon.url = "github:nikstur/bombon/3e573b2c79b9db469c1d28d046bcaf884bb9954f";
     bombon.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.nixpkgs.follows = "nixpkgs";
-    colmena.inputs.stable.follows = "std/blank";
+    colmena.inputs.stable.follows = "nixpkgs";
     colmena.url = "github:zhaofengli/colmena";
     claude.url = "github:k3d3/claude-desktop-linux-flake";
     claude.inputs.nixpkgs.follows = "nixpkgs";
-    darwin.inputs.nixpkgs.follows = "nixos";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     darwin.url = "github:LnL7/nix-darwin";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     # firefox-nightly.url = "github:nix-community/flake-firefox-nightly";
-    hive.inputs.colmena.follows = "colmena";
-    hive.inputs.nixpkgs.follows = "nixpkgs";
-    hive.url = "github:divnix/hive";
     # home.url = "github:nix-community/home-manager";
     # home.inputs.nixpkgs.follows = "nixpkgs";
     home.url = "github:nix-community/home-manager/release-26.05";
@@ -28,11 +25,6 @@
     kraniumau.url = "github:womfoo/kranium.au";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     # lihim.url = "github:womfoo/fake";
-    microvm.url = "github:astro/microvm.nix";
-    microvm.inputs.nixpkgs.follows = "nixpkgs";
-    nixago.inputs.nixago-exts.follows = "";
-    nixago.inputs.nixpkgs.follows = "nixpkgs";
-    nixago.url = "github:nix-community/nixago";
     # nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-25-05.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -47,123 +39,37 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/d233902339c02a9c334e7e593de68855ad26c4cb";
     nur = {
       url = "github:nix-community/NUR";
     };
     srvos.url = "github:nix-community/srvos";
     srvos.inputs.nixpkgs.follows = "nixpkgs";
-    std.inputs.devshell.follows = "devshell";
-    std.inputs.nixago.follows = "nixago";
-    std.inputs.nixpkgs.follows = "nixpkgs";
-    std.inputs.microvm.follows = "microvm";
-    std.url = "github:divnix/std";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     # terranix.url = "github:terranix/terranix";
     # terranix.inputs.nixpkgs.follows = "nixpkgs";
-    sphinx.url = "git+file:///home/kranium/git/github.com/womfoo/nix-sphinx-template";
   };
   outputs =
-    {
-      std,
-      hive,
-      self,
-      ...
-    }@inputs:
-    let
-      myCollect = hive.collect // {
-        renamer = _cell: target: "${target}";
-      };
-    in
-    hive.growOn
-      {
-        inherit inputs;
-        nixpkgsConfig = {
-          allowUnfree = true;
-        };
-        cellsFrom = ./nix;
-        cellBlocks =
-          with std.blockTypes;
-          with hive.blockTypes;
-          [
-            (std.blockTypes.terra "terra" inputs.lihim.x86_64-linux.lihim.constants.tfstate_repo)
-            (std.blockTypes.installables "packages" { ci.build = true; })
+    { flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
 
-            (microvms "microvms")
-
-            (functions "overlays")
-
-            (functions "secrets")
-
-            # modules implement
-            (functions "nixosModules")
-            (functions "homeModules")
-            (functions "devshellModules")
-
-            # profiles activate
-            (functions "hardwareProfiles")
-            (functions "nixosProfiles")
-            (functions "homeProfiles")
-            (functions "devshellProfiles")
-
-            # suites aggregate profiles
-            (functions "nixosSuites")
-            (functions "homeSuites")
-
-            # configurations can be deployed
-            darwinConfigurations
-            nixosConfigurations
-            colmenaConfigurations
-
-            (devshells "shells" { ci.build = true; })
-            (nixago "configs")
-          ];
-      }
-      {
-        colmenaHive = myCollect self "colmenaConfigurations";
-        nixosConfigurations = myCollect self "nixosConfigurations";
-        darwinConfigurations = myCollect self "darwinConfigurations";
-        devShells = inputs.std.harvest inputs.self [
-          "repo"
-          "shells"
-        ];
-        packages = inputs.std.harvest inputs.self [
-          [
-            "vendor"
-            "packages"
-          ]
-          [
-            "repo"
-            "packages"
-          ]
-          [
-            "iot"
-            "packages"
-          ]
-        ];
-        oci-images = inputs.std.harvest inputs.self [
-          "homelab"
-          "oci-images"
-        ];
-      }
-      {
-        packages.aarch64-linux.sd-image-dreadfort =
-          self.nixosConfigurations.dreadfort.config.system.build.sdImage;
-        packages.x86_64-linux.default =
-          inputs.bombon.lib.x86_64-linux.buildBom
-            self.nixosConfigurations.dreadfort.config.system.build.toplevel
-            { };
-        nope = inputs.bombon.lib.x86_64-linux.buildBom self.x86_64-linux.repo.shells.default { };
-      }
-      {
-        nixosConfigurations.dreamfyre = inputs.jetpack-nixos.inputs.nixpkgs.lib.nixosSystem {
-          # hostPlatform = "aarch64-linux";
-          system = "aarch64-linux";
-          modules = [
-            self.aarch64-linux.homelab.hardwareProfiles.dreamfyre
-            self.aarch64-linux.homelab.nixosModules.dreamfyre
-          ];
-        };
-      };
+      imports = [
+        ./nix/darwin
+        ./nix/devShells
+        ./nix/nixos
+        ./nix/packages
+        ./nix/terra
+        ./nix/treefmt.nix
+      ];
+    };
   nixConfig = {
     allow-import-from-derivation = "true";
   };
