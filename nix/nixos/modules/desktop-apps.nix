@@ -274,7 +274,7 @@
       # msf
       mtools
       (mtr.override { withGtk = true; })
-      # murmure
+      murmure
       # nautilus
       ncdu
       # neovim

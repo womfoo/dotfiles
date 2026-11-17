@@ -34,6 +34,7 @@ rec {
     else
       pkgs-22-11.hello; # FIXME: dummy just to make things run
   mail-mcp = callPackage ./mail-mcp.nix { };
+  murmure = callPackage ./murmure.nix { };
   open-webui-25-11 = pkgs-25-11.open-webui;
   openp2s = callPackage ./openp2s { };
   inherit (openp2s) openvpn-openp2s;
