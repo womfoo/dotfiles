@@ -5,9 +5,6 @@
   ...
 }:
 let
-  pkgs-22-05 = import inputs.nixos-22-05 {
-    inherit system;
-  };
   pkgs-22-11 = import inputs.nixos-22-11 {
     inherit system;
   };
@@ -22,7 +19,6 @@ let
   inherit (pkgs) callPackage;
 in
 rec {
-  ansible-22-05 = pkgs-22-05.ansible;
   atc-mi-thermometer-exporter = callPackage ./atc-mi-thermometer-exporter.nix { };
   # darktable-25-05 = pkgs-25-05.darktable;
   eyaml = callPackage ./hiera-eyaml { };
@@ -35,7 +31,6 @@ rec {
       pkgs-22-11.hello; # FIXME: dummy just to make things run
   mail-mcp = callPackage ./mail-mcp.nix { };
   murmure = callPackage ./murmure.nix { };
-  open-webui-25-11 = pkgs-25-11.open-webui;
   openp2s = callPackage ./openp2s { };
   inherit (openp2s) openvpn-openp2s;
   parcellite-25-05 = pkgs-25-05.parcellite;

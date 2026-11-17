@@ -8,8 +8,6 @@
     colmena.inputs.nixpkgs.follows = "nixpkgs";
     colmena.inputs.stable.follows = "nixpkgs";
     colmena.url = "github:zhaofengli/colmena";
-    claude.url = "github:k3d3/claude-desktop-linux-flake";
-    claude.inputs.nixpkgs.follows = "nixpkgs";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     darwin.url = "github:LnL7/nix-darwin";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,15 +23,10 @@
     kraniumau.url = "github:womfoo/kranium.au";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     # lihim.url = "github:womfoo/fake";
-    # nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-25-05.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixos-24-11.url = "github:NixOS/nixpkgs/nixos-24.11";
-    nixos-24-05.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixos-22-11.url = "github:NixOS/nixpkgs/nixos-23.11";
-    nixos-22-05.url = "github:NixOS/nixpkgs/nixos-22.05";
-    nixos.follows = "nixpkgs";
-    nixos-hardware.url = "github:womfoo/nixos-hardware?ref=add-pi-4-sense-v1-overlay";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
