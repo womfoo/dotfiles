@@ -18,4 +18,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "${src.name}/${pname}";
 
   nativeBuildInputs = [ cmake ];
+
+  # upstream asks for an ancient cmake_minimum_required that CMake 4 rejects
+  cmakeFlags = [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
 }

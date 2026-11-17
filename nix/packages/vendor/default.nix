@@ -40,9 +40,11 @@ rec {
   inherit (openp2s) openvpn-openp2s;
   parcellite-25-05 = pkgs-25-05.parcellite;
   openvpn3-25-11 = pkgs-25-11.openvpn3;
-  python-sense-hat = callPackage ./python-sense-hat.nix { rtimu = rtimu; };
   # python-rtimu = callPackage ./python-rtimu.nix { rtimu = rtimu; };
-  rtimu = callPackage ./rtimu.nix { };
   cli-microsoft365 = callPackage ./cli-microsoft365 { };
-
+}
+# raspberry pi sense hat, only useful on the pis
+// pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isAarch64 rec {
+  python-sense-hat = pkgs.callPackage ./python-sense-hat.nix { inherit rtimu; };
+  rtimu = pkgs.callPackage ./rtimu.nix { };
 }

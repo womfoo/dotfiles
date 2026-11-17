@@ -12,6 +12,8 @@ let
         buildPythonPackage rec {
           pname = "python-rtimu";
           inherit (rtimu) version src;
+          pyproject = true;
+          build-system = [ setuptools ];
           propagatedBuildInputs = [ rtimu ];
           sourceRoot = "${src.name}/Linux/python";
         };
@@ -21,6 +23,8 @@ in
 py.pkgs.buildPythonPackage rec {
   pname = "python-sense-hat";
   version = "2.5.1";
+  pyproject = true;
+  build-system = [ py.pkgs.setuptools ];
   propagatedBuildInputs = with py.pkgs; [
     pillow
     numpy

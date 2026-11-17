@@ -55,7 +55,6 @@ in
     ./hardware.nix
     inputs.srvos.nixosModules.mixins-telegraf
     # inputs.srvos.nixosModules.roles-nix-remote-builder
-    inputs'.lihim.cells.lihim.nixosModules.extraUsers
   ];
 
   networking.networkmanager.dns = lib.mkForce "none";
