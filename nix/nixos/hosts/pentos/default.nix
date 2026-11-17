@@ -58,10 +58,9 @@ in
           if ($http_user_agent ~* "Attic/") {
               set $whitelist 1;
           }
-          if ($whitelist = 1) {
-              return 200;
+          if ($whitelist = 0) {
+              return 403;
           }
-          return 403;
         '';
       };
     };
