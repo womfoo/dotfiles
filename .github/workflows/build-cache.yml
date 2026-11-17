@@ -25,13 +25,13 @@ jobs:
       matrix:
         include:
           - system: x86_64-linux
-            runs-on: ubuntu-latest
+            runs-on: ubuntu-24.04
           - system: aarch64-linux
             runs-on: ubuntu-24.04-arm
     name: ${{ matrix.system }}
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Free disk space
         run: |
@@ -77,15 +77,15 @@ jobs:
         include:
           - { host: dreadfort, runs-on: ubuntu-24.04-arm }
           - { host: dreamfyre, runs-on: ubuntu-24.04-arm }
-          - { host: meleys, runs-on: ubuntu-latest }
-          - { host: pentos, runs-on: ubuntu-latest }
-          - { host: stonedoor, runs-on: ubuntu-latest }
-          - { host: vhagar, runs-on: ubuntu-latest }
-          - { host: waycastle, runs-on: ubuntu-latest }
+          - { host: meleys, runs-on: ubuntu-24.04 }
+          - { host: pentos, runs-on: ubuntu-24.04 }
+          - { host: stonedoor, runs-on: ubuntu-24.04 }
+          - { host: vhagar, runs-on: ubuntu-24.04 }
+          - { host: waycastle, runs-on: ubuntu-24.04 }
     name: nixos-${{ matrix.host }}
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Free disk space
         run: |
