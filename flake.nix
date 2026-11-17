@@ -21,6 +21,8 @@
     home.inputs.nixpkgs.follows = "nixpkgs";
     jetpack-nixos.url = "github:anduril/jetpack-nixos";
     kraniumau.url = "github:womfoo/kranium.au";
+    microvm.url = "github:microvm-nix/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "nixpkgs";
     lihim.url = "git+file:///home/kranium/git/github.com/womfoo/lihim";
     # lihim.url = "github:womfoo/fake";
     nixos-25-11.url = "github:NixOS/nixpkgs/nixos-25.11";

@@ -32,6 +32,8 @@ let
   };
 
   hosts = {
+    # sandbox VM for coding agents, run with `nix run .#claudebox`
+    claudebox.system = "x86_64-linux";
     dreadfort = {
       system = "aarch64-linux";
       deployment = {
@@ -122,6 +124,12 @@ in
     nixosModules = importDir ./modules;
 
     overlays = import ./overlays;
+
+    # apps (not packages) so CI doesn't build the VM on every push
+    apps.x86_64-linux.claudebox = {
+      type = "app";
+      program = "${self.nixosConfigurations.claudebox.config.microvm.declaredRunner}/bin/microvm-run";
+    };
 
     # `secrets-nix` is the ragenix rules file, see gen-secrets-nix
     lib = { inherit secrets; };
