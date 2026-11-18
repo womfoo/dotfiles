@@ -59,6 +59,8 @@
           { package = self'.packages.gen-secrets-nix; }
           { package = self'.packages.updatenixpkgs; }
           { package = self'.packages.checkghtoken; }
+          { package = self'.packages.gitshuffle; }
+          { package = self'.packages.ccusage; }
           { package = self'.packages.scanpdf; }
           { package = self'.packages.wizkell; }
           { package = my_azure-cli; }

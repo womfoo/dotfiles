@@ -20,6 +20,7 @@ let
 in
 rec {
   atc-mi-thermometer-exporter = callPackage ./atc-mi-thermometer-exporter.nix { };
+  ccusage = callPackage ./ccusage.nix { };
   # darktable-25-05 = pkgs-25-05.darktable;
   eyaml = callPackage ./hiera-eyaml { };
   git-recover = callPackage ./git-recover.nix { };
