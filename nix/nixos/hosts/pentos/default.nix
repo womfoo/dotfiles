@@ -19,6 +19,7 @@ in
     self.nixosModules.common
     self.nixosModules.gikos-kranium
     secrets."attic-env".nixosModule
+    self.nixosModules.github-runner
     inputs.srvos.nixosModules.mixins-nginx
     inputs.srvos.nixosModules.mixins-telegraf
     inputs.srvos.nixosModules.server

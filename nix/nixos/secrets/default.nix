@@ -44,6 +44,11 @@ let
       admins.kraniumarm
       machines.pentos
     ];
+    "${dir}/github-runner-token.age".publicKeys = [
+      admins.kranium
+      admins.kraniumarm
+      machines.pentos
+    ];
     "${dir}/keycloak-db-password.age".publicKeys = [
       admins.kranium
       admins.kraniumarm
